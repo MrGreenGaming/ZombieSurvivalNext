@@ -1,0 +1,16 @@
+"zombiesurvival"
+{
+	"base"				"base"
+	"title"				"Zombie Survival"
+	"maps"				"^zs_|^zm_|^zh_|^zps_|^zr_|^ze_"
+	"menusystem"		"1"
+	"workshopid"		""
+
+	"author_name"		"Mr. Green ZS Team"
+	"author_email"		"mail@mrgreengaming.com"
+	"author_url"		"https://github.com/JarnoVgr/ZombieSurvival"
+
+	"settings"
+	{
+	}
+}
