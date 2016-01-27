@@ -11,18 +11,18 @@ end
 
 SWEP.MeleeDelay = 0
 SWEP.MeleeReach = 42
-SWEP.MeleeDamage = 8
+SWEP.MeleeDamage = 5
 SWEP.MeleeForceScale = 0.1
 SWEP.MeleeSize = 1.5
 SWEP.MeleeDamageType = DMG_SLASH
 SWEP.Primary.Delay = 0.32
 
-SWEP.PounceDamage = 1 --SWEP.PounceDamage = 10
+SWEP.PounceDamage = 10
 SWEP.PounceDamageType = DMG_IMPACT
-SWEP.PounceReach = 26
-SWEP.PounceSize = 12
+SWEP.PounceReach = 32
+SWEP.PounceSize = 16
 SWEP.PounceStartDelay = 0.5
-SWEP.PounceDelay = 1.25
+SWEP.PounceDelay = 0.5
 SWEP.PounceVelocity = 700
 
 SWEP.RoarTime = 1.6
@@ -85,29 +85,23 @@ function SWEP:Think()
 		if owner:IsOnGround() or owner:WaterLevel() >= 2 then
 			self:StopPounce()
 		else
-			local dir = owner:GetAimVector()
-			dir.z = math.Clamp(dir.z, -0.5, 0.9)
-			dir:Normalize()
-
 			owner:LagCompensation(true)
 
-			local traces = owner:PenetratingMeleeTrace(self.PounceReach, self.PounceSize, nil, owner:LocalToWorld(owner:OBBCenter()), dir)
+			local hit = false
+			local traces = owner:PenetratingMeleeTrace(self.PounceReach, self.PounceSize, nil, owner:LocalToWorld(owner:OBBCenter()))
 			local damage = self:GetDamage(self:GetTracesNumPlayers(traces), self.PounceDamage)
 
-			local hit = false
 			for _, trace in ipairs(traces) do
 				if not trace.Hit then continue end
 
+				hit = true
+
 				if trace.HitWorld then
-					if trace.HitNormal.z < 0.8 then
-						hit = true
-						self:MeleeHitWorld(trace)
-					end
+					self:MeleeHitWorld(trace)
 				else
 					local ent = trace.Entity
 					if ent and ent:IsValid() then
-						hit = true
-						self:MeleeHit(ent, trace, damage, ent:IsPlayer() and 1 or 10)
+						self:MeleeHit(ent, trace, damage, 10)
 					end
 				end
 			end
@@ -224,11 +218,12 @@ function SWEP:StartPounce()
 			owner:EmitSound("NPC_FastZombie.Scream")
 		end
 
-		local ang = owner:EyeAngles()
-		ang.pitch = math.min(-20, ang.pitch)
+		local dir = owner:GetAimVector()
+		dir.z = math.max(0.25, dir.z)
+		dir:Normalize()
 
 		owner:SetGroundEntity(NULL)
-		owner:SetVelocity((1 - 0.5 * (owner:GetLegDamage() / GAMEMODE.MaxLegDamage)) * self.PounceVelocity * ang:Forward())
+		owner:SetVelocity((1 - 0.5 * (owner:GetLegDamage() / GAMEMODE.MaxLegDamage)) * self.PounceVelocity * dir)
 		owner:SetAnimation(PLAYER_JUMP)
 	else
 		self:SetNextSecondaryFire(CurTime())
@@ -343,18 +338,18 @@ function SWEP:Move(mv)
 		local vel = Vector(0, 0, 4)
 
 		if owner:KeyDown(IN_FORWARD) then
-			vel = vel + dir * 250 --160
+			vel = vel + dir * 160
 		end
 		if owner:KeyDown(IN_BACK) then
-			vel = vel + dir * -250 ---160
+			vel = vel + dir * -160
 		end
 
 		if vel.z == 4 then
 			if owner:KeyDown(IN_MOVERIGHT) then
-				vel = vel + angs:Right() * 100 --60
+				vel = vel + angs:Right() * 60
 			end
 			if owner:KeyDown(IN_MOVELEFT) then
-				vel = vel + angs:Right() * -100 ---60
+				vel = vel + angs:Right() * -60
 			end
 		end
 
@@ -362,10 +357,8 @@ function SWEP:Move(mv)
 
 		return true
 	elseif self:GetSwinging() then
-		--[[mv:SetMaxSpeed(math.min(mv:GetMaxSpeed(), 60))
-		mv:SetMaxClientSpeed(math.min(mv:GetMaxClientSpeed(), 60))]]
-		mv:SetMaxSpeed(mv:GetMaxSpeed() * 0.9)
-		mv:SetMaxClientSpeed(mv:GetMaxClientSpeed() * 0.9)
+		mv:SetMaxSpeed(math.min(mv:GetMaxSpeed(), 60))
+		mv:SetMaxClientSpeed(math.min(mv:GetMaxClientSpeed(), 60))
 	end
 end
 

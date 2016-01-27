@@ -1,0 +1,6 @@
+{
+"title" : "MrGreen_Beta1",
+"type" : "gamemode",
+"tags" : "fun",
+"ignore" : ["*.psd", "*.vcproj", "*.svn*"]
+}

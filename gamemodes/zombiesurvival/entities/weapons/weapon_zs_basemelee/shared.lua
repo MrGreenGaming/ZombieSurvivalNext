@@ -18,10 +18,10 @@ SWEP.MeleeRange = 65
 SWEP.MeleeSize = 1.5
 SWEP.MeleeKnockBack = 0
 
-SWEP.Secondary.ClipSize = 1
-SWEP.Secondary.DefaultClip = 1
-SWEP.Secondary.Ammo = "dummy"
+SWEP.Secondary.ClipSize = -1
+SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = true
+SWEP.Secondary.Ammo = "none"
 
 SWEP.WalkSpeed = SPEED_FAST
 
@@ -154,7 +154,7 @@ function SWEP:MeleeSwing()
 
 	local tr = owner:MeleeTrace(self.MeleeRange, self.MeleeSize, filter)
 	if tr.Hit then
-		local damagemultiplier = (owner.BuffMuscular and owner:Team()==TEAM_HUMAN) and 1.2 or 1
+		local damagemultiplier = owner.BuffMuscular and 1.2 or 1
 		local damage = self.MeleeDamage * damagemultiplier
 		local hitent = tr.Entity
 		local hitflesh = tr.MatType == MAT_FLESH or tr.MatType == MAT_BLOODYFLESH or tr.MatType == MAT_ANTLION or tr.MatType == MAT_ALIENFLESH
@@ -195,6 +195,7 @@ function SWEP:MeleeSwing()
 				dmginfo:SetAttacker(owner)
 				dmginfo:SetInflictor(self)
 				dmginfo:SetDamageType(self.DamageType)
+				dmginfo:SetDamageForce(self.MeleeDamage * 20 * owner:GetAimVector())
 				if hitent:IsPlayer() then
 					hitent:MeleeViewPunch(damage)
 					if hitent:IsHeadcrab() then
@@ -205,9 +206,6 @@ function SWEP:MeleeSwing()
 
 					if self.MeleeKnockBack > 0 then
 						hitent:ThrowFromPositionSetZ(tr.HitPos, self.MeleeKnockBack, nil, true)
-					end
-					if hitent:IsPlayer() and hitent:WouldDieFrom(damage, dmginfo:GetDamagePosition()) then
-						dmginfo:SetDamageForce(math.min(self.MeleeDamage, 50) * 400 * owner:GetAimVector())
 					end
 				end
 

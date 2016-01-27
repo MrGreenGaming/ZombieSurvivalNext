@@ -31,7 +31,7 @@ local function CartDoClick(self, silent, force)
 
 	if self.On then
 		self.On = nil
-		self:SetImage("icon16/cart_add.png")
+		--self:SetImage("icon16/cart_add.png")
 		if not silent then
 			surface.PlaySound("buttons/button18.wav")
 		end
@@ -54,13 +54,10 @@ local function CartDoClick(self, silent, force)
 	pWorth.WorthLab:SetText("Worth: ".. WorthRemaining)
 	if WorthRemaining <= 0 then
 		pWorth.WorthLab:SetTextColor(COLOR_RED)
-		pWorth.WorthLab:InvalidateLayout()
 	elseif WorthRemaining <= GAMEMODE.StartingWorth * 0.25 then
 		pWorth.WorthLab:SetTextColor(COLOR_YELLOW)
-		pWorth.WorthLab:InvalidateLayout()
 	else
 		pWorth.WorthLab:SetTextColor(COLOR_LIMEGREEN)
-		pWorth.WorthLab:InvalidateLayout()
 	end
 	pWorth.WorthLab:SizeToContents()
 end
@@ -77,6 +74,8 @@ local function Checkout(tobuy)
 	else
 		surface.PlaySound("buttons/combine_button_locked.wav")
 	end
+	
+	
 end
 
 local function CheckoutDoClick(self)
@@ -86,6 +85,7 @@ local function CheckoutDoClick(self)
 			table.insert(tobuy, btn.ID)
 		end
 	end
+
 
 	Checkout(tobuy)
 end
@@ -193,35 +193,42 @@ function MakepWorth()
 		pWorth = nil
 	end
 
+	
 	local maxworth = GAMEMODE.StartingWorth
 	WorthRemaining = maxworth
 
-	local wid, hei = math.min(ScrW(), 720), ScrH() * 0.7
+	
+	local SCREEN_W = 1280;
+	local SCREEN_H = 720;
+	local X_MULTIPLIER = ScrW( ) / SCREEN_W;
+	local Y_MULTIPLIER = ScrH( ) / SCREEN_H;
 
+	local wid, hei = 250 * X_MULTIPLIER, 800 * Y_MULTIPLIER
+	local wid2, hei2 = math.min(ScrW(), 240), math.min(ScrH())
+	
 	local frame = vgui.Create("DFrame")
 	pWorth = frame
+
+	frame:SetPos(wid2, hei2)
 	frame:SetSize(wid, hei)
+	
 	frame:SetDeleteOnClose(true)
 	frame:SetKeyboardInputEnabled(false)
-	frame:SetTitle(" ")
+	frame:SetDraggable( false ) 
+	frame:ShowCloseButton( false ) 
+	frame:SetTitle("")
+	frame.Paint = function()
+	end
 
 	local propertysheet = vgui.Create("DPropertySheet", frame)
 	propertysheet:StretchToParent(4, 24, 4, 50)
-	propertysheet.Paint = function() end
-
-	local list = vgui.Create("DPanelList", propertysheet)
-	propertysheet:AddSheet("Favorites", list, "icon16/heart.png", false, false)
-	list:EnableVerticalScrollbar(true)
-	list:SetWide(propertysheet:GetWide() - 16)
-	list:SetSpacing(2)
-	list:SetPadding(2)
-
-	local savebutton = EasyButton(nil, "Save the current cart", 0, 10)
-	savebutton.DoClick = SaveDoClick
-	list:AddItem(savebutton)
+	propertysheet.Paint = function()
+	end
 
 	local panfont = "ZSHUDFontSmall"
 	local panhei = 40
+	
+
 
 	local defaultcart = cvarDefaultCart:GetString()
 
@@ -234,120 +241,68 @@ function MakepWorth()
 
 		local x = 8
 
-		if defaultcart == cartname then
-			local defimage = vgui.Create("DImage", cartpan)
-			defimage:SetImage("icon16/heart.png")
-			defimage:SizeToContents()
-			defimage:SetMouseInputEnabled(true)
-			defimage:SetTooltip("This is your default cart.\nIf you join the game late then you'll spawn with this cart.")
-			defimage:SetPos(x, cartpan:GetTall() * 0.5 - defimage:GetTall() * 0.5)
-			x = x + defimage:GetWide() + 4
-		end
-
-		local cartnamelabel = EasyLabel(cartpan, cartname, panfont)
-		cartnamelabel:SetPos(x, cartpan:GetTall() * 0.5 - cartnamelabel:GetTall() * 0.5)
-
-		x = cartpan:GetWide() - 20
-
-		local checkbutton = vgui.Create("DImageButton", cartpan)
-		checkbutton:SetImage("icon16/accept.png")
-		checkbutton:SizeToContents()
-		checkbutton:SetTooltip("Purchase this saved cart.")
-		x = x - checkbutton:GetWide() - 8
-		checkbutton:SetPos(x, cartpan:GetTall() * 0.5 - checkbutton:GetTall() * 0.5)
-		checkbutton.ID = i
-		checkbutton.DoClick = QuickCheckDoClick
-
-		local loadbutton = vgui.Create("DImageButton", cartpan)
-		loadbutton:SetImage("icon16/folder_go.png")
-		loadbutton:SizeToContents()
-		loadbutton:SetTooltip("Load this saved cart.")
-		x = x - loadbutton:GetWide() - 8
-		loadbutton:SetPos(x, cartpan:GetTall() * 0.5 - loadbutton:GetTall() * 0.5)
-		loadbutton.ID = i
-		loadbutton.DoClick = LoadDoClick
-
-		local defaultbutton = vgui.Create("DImageButton", cartpan)
-		defaultbutton:SetImage("icon16/heart.png")
-		defaultbutton:SizeToContents()
-		if cartname == defaultcart then
-			defaultbutton:SetTooltip("Remove this cart as your default.")
-		else
-			defaultbutton:SetTooltip("Make this cart your default.")
-		end
-		x = x - defaultbutton:GetWide() - 8
-		defaultbutton:SetPos(x, cartpan:GetTall() * 0.5 - defaultbutton:GetTall() * 0.5)
-		defaultbutton.Name = cartname
-		defaultbutton.DoClick = DefaultDoClick
-
-		local deletebutton = vgui.Create("DImageButton", cartpan)
-		deletebutton:SetImage("icon16/bin.png")
-		deletebutton:SizeToContents()
-		deletebutton:SetTooltip("Delete this saved cart.")
-		x = x - deletebutton:GetWide() - 8
-		deletebutton:SetPos(x, cartpan:GetTall() * 0.5 - loadbutton:GetTall() * 0.5)
-		deletebutton.ID = i
-		deletebutton.DoClick = DeleteDoClick
-
 		list:AddItem(cartpan)
 	end
+	
+	for catid, catname in ipairs(GAMEMODE.ItemCategoryIcons2) do
 
-	for catid, catname in ipairs(GAMEMODE.ItemCategories) do
 		local list = vgui.Create("DPanelList", propertysheet)
+		
 		list:SetPaintBackground(false)
 		propertysheet:AddSheet(catname, list, GAMEMODE.ItemCategoryIcons[catid], false, false)
-		list:EnableVerticalScrollbar(true)
-		list:SetWide(propertysheet:GetWide() - 16)
-		list:SetSpacing(2)
-		list:SetPadding(2)
+		list:EnableVerticalScrollbar(false)
+		list:SetSpacing(50)
+		list:SetPadding(1)
+		list:SizeToContents()
+		list.Paint = function( self, w, h ) 
+			draw.RoundedBox( 0, 0, 0, w, h, Color( 1, 0, 0, 1 ) )
+		end
+
+
 
 		for i, tab in ipairs(GAMEMODE.Items) do
 			if tab.Category == catid and tab.WorthShop then
 				local button = vgui.Create("ZSWorthButton")
 				button:SetWorthID(i)
 				list:AddItem(button)
+				
+				button.OnCursorEntered = function()
+					surface.PlaySound( "mrgreen/ui/menu_accept.wav" )
+				end
+
+				
 				WorthButtons[i] = button
 			end
 		end
 	end
 
-	local worthlab = EasyLabel(frame, "Worth: "..tostring(WorthRemaining), "ZSHUDFontSmall", COLOR_LIMEGREEN)
-	worthlab:SetPos(8, frame:GetTall() - worthlab:GetTall() - 8)
-	frame.WorthLab = worthlab
-
-	local checkout = vgui.Create("DButton", frame)
-	checkout:SetFont("ZSHUDFontSmall")
-	checkout:SetText("Checkout")
-	checkout:SizeToContents()
-	checkout:SetSize(130, 30)
-	checkout:AlignBottom(8)
-	checkout:CenterHorizontal()
-	checkout.DoClick = CheckoutDoClick
-
-	local randombutton = vgui.Create("DButton", frame)
-	randombutton:SetText("Random")
-	randombutton:SetSize(64, 16)
-	randombutton:AlignBottom(8)
-	randombutton:AlignRight(8)
-	randombutton.DoClick = RandDoClick
-
-	local clearbutton = vgui.Create("DButton", frame)
-	clearbutton:SetText("Clear")
-	clearbutton:SetSize(64, 16)
-	clearbutton:AlignRight(8)
-	clearbutton:MoveAbove(randombutton, 8)
-	clearbutton.DoClick = ClearCartDoClick
-
-	if #GAMEMODE.SavedCarts == 0 then
-		propertysheet:SetActiveTab(propertysheet.Items[math.min(2, #propertysheet.Items)].Tab)
-	end
 
 	frame:Center()
-	frame:SetAlpha(0)
-	frame:AlphaTo(255, 0.5, 0)
+	frame:AlphaTo(225, 0.5, 0)
 	frame:MakePopup()
-
-	return frame
+	frame:SizeToContents()
+	
+	
+	local checkout = vgui.Create("DButton",frame)
+	checkout:SetFont("ZSHUDFont2")
+	checkout:SetText("SPAWN")
+	checkout:SetSize(130, 30)
+	checkout:SetPos(80 * X_MULTIPLIER, 370 * Y_MULTIPLIER)
+	checkout.DoClick = function()
+		CheckoutDoClick()
+	end
+		--surface.PlaySound(Sound("mrgreen/music/intermission1.mp3")) --Move this else where....
+		
+		
+	if CHRISTMAS then
+		timer.Simple(2, function()
+			surface.PlaySound( "mrgreen/music/gamestart_new_christmas_1.wav" )
+		end)
+	else
+		surface.PlaySound(Sound("mrgreen/music/gamestart_new"..math.random(1,2)..".mp3")) --Move this else where....
+	end
+	return frame 
+	
 end
 
 local PANEL = {}
@@ -385,30 +340,16 @@ vgui.Register("ItemAmountCounter", PANEL, "DLabel")
 PANEL = {}
 
 function PANEL:Init()
+
 	self:SetText("")
 
 	self:DockPadding(4, 4, 4, 4)
 	self:SetTall(48)
 
-	local mdlframe = vgui.Create("DEXRoundedPanel", self)
-	mdlframe:SetWide(self:GetTall() - 8)
-	mdlframe:Dock(LEFT)
-	mdlframe:DockMargin(0, 0, 20, 0)
-
-	self.ModelPanel = vgui.Create("DModelPanel", mdlframe)
-	self.ModelPanel:Dock(FILL)
-	self.ModelPanel:DockPadding(0, 0, 0, 0)
-	self.ModelPanel:DockMargin(0, 0, 0, 0)
-
 	self.NameLabel = EasyLabel(self, "", "ZSHUDFontSmall")
 	self.NameLabel:SetContentAlignment(4)
 	self.NameLabel:Dock(FILL)
 
-	self.PriceLabel = EasyLabel(self, "", "ZSHUDFontTiny")
-	self.PriceLabel:SetWide(80)
-	self.PriceLabel:SetContentAlignment(6)
-	self.PriceLabel:Dock(RIGHT)
-	self.PriceLabel:DockMargin(8, 0, 4, 0)
 
 	self.ItemCounter = vgui.Create("ItemAmountCounter", self)
 
@@ -421,35 +362,20 @@ function PANEL:SetWorthID(id)
 	local tab = FindStartingItem(id)
 
 	if not tab then
-		self.ModelPanel:SetVisible(false)
 		self.ItemCounter:SetVisible(false)
 		self.NameLabel:SetText("")
 		return
 	end
 
 	local mdl = tab.Model or (weapons.GetStored(tab.SWEP) or tab).WorldModel
-	if mdl then
-		self.ModelPanel:SetModel(mdl)
-		local mins, maxs = self.ModelPanel.Entity:GetRenderBounds()
-		self.ModelPanel:SetCamPos(mins:Distance(maxs) * Vector(0.75, 0.75, 0.5))
-		self.ModelPanel:SetLookAt((mins + maxs) / 2)
-		self.ModelPanel:SetVisible(true)
-	else
-		self.ModelPanel:SetVisible(false)
-	end
 
 	if tab.SWEP or tab.Countables then
 		self.ItemCounter:SetItemID(id)
-		self.ItemCounter:SetVisible(true)
+		self.ItemCounter:SetVisible(false)
 	else
 		self.ItemCounter:SetVisible(false)
 	end
 
-	if tab.Worth then
-		self.PriceLabel:SetText(tostring(tab.Worth).." Worth")
-	else
-		self.PriceLabel:SetText("")
-	end
 
 	self:SetTooltip(tab.Description)
 
@@ -463,15 +389,15 @@ function PANEL:SetWorthID(id)
 end
 
 function PANEL:Paint(w, h)
-	local outline
+	local outline	
+	
 	if self.Hovered then
-		outline = self.On and COLOR_GREEN or COLOR_GRAY
+		outline = self.On and COLOR_GREEN or Color(100, 0, 0, 255)
 	else
-		outline = self.On and COLOR_DARKGREEN or COLOR_DARKGRAY
+		outline = self.On and COLOR_DARKGREEN or Color(100, 0, 0, 255)
 	end
 
-	draw.RoundedBox(8, 0, 0, w, h, outline)
-	draw.RoundedBox(4, 4, 4, w - 8, h - 8, color_black)
+	draw.RoundedBox(10, 0, 0, w, h, outline)
 end
 
 function PANEL:DoClick(silent, force)
@@ -482,33 +408,21 @@ function PANEL:DoClick(silent, force)
 	if self.On then
 		self.On = nil
 		if not silent then
-			surface.PlaySound("buttons/button18.wav")
+			surface.PlaySound("mrgreen/ui/menu_click01.wav")
 		end
 		WorthRemaining = WorthRemaining + tab.Worth
 	else
 		if WorthRemaining < tab.Worth and not force then
-			surface.PlaySound("buttons/button8.wav")
+			surface.PlaySound("mrgreen/ui/menu_click01.wav")
 			return
 		end
 		self.On = true
 		if not silent then
-			surface.PlaySound("buttons/button17.wav")
+			surface.PlaySound("mrgreen/ui/menu_click01.wav")
 		end
 		WorthRemaining = WorthRemaining - tab.Worth
 	end
 
-	pWorth.WorthLab:SetText("Worth: ".. WorthRemaining)
-	if WorthRemaining <= 0 then
-		pWorth.WorthLab:SetTextColor(COLOR_RED)
-		pWorth.WorthLab:InvalidateLayout()
-	elseif WorthRemaining <= GAMEMODE.StartingWorth * 0.25 then
-		pWorth.WorthLab:SetTextColor(COLOR_YELLOW)
-		pWorth.WorthLab:InvalidateLayout()
-	else
-		pWorth.WorthLab:SetTextColor(COLOR_LIMEGREEN)
-		pWorth.WorthLab:InvalidateLayout()
-	end
-	pWorth.WorthLab:SizeToContents()
 end
 
 vgui.Register("ZSWorthButton", PANEL, "DButton")

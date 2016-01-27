@@ -14,7 +14,7 @@ CLASS.Revives = true
 
 CLASS.CanTaunt = true
 
-CLASS.Points = 5
+CLASS.Points = 6
 
 CLASS.SWEP = "weapon_zs_zombie"
 
@@ -235,5 +235,5 @@ if SERVER then
 end
 
 if CLIENT then
-	CLASS.Icon = "zombiesurvival/killicons/zombie"
+	CLASS.Icon = "zombiesurvival/classmenu/zombie"
 end

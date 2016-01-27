@@ -3,7 +3,6 @@
 GM.ProfilerNodes = {}
 GM.ProfilerFolder = "zsprofiler"
 GM.ProfilerFolderPreMade = "profiler_premade"
-GM.ProfilerVersion = 0
 GM.MaxProfilerNodes = 128
 
 hook.Add("Initialize", "ZSProfiler", function()
@@ -40,7 +39,7 @@ end
 function GM:SaveProfiler()
 	if not self:ProfilerEnabled() or self.ProfilerIsPreMade then return end
 
-	file.Write(self:GetProfilerFile(), Serialize({Nodes = self.ProfilerNodes, Version = self.ProfilerVersion}))
+	file.Write(self:GetProfilerFile(), Serialize(self.ProfilerNodes))
 end
 
 function GM:LoadProfiler()
@@ -48,12 +47,7 @@ function GM:LoadProfiler()
 
 	local filename = self:GetProfilerFile()
 	if file.Exists(filename, "DATA") then
-		local data = Deserialize(file.Read(filename, "DATA"))
-		if not data.Version and self.ProfilerVersion == 0 then -- old, versionless format
-			self.ProfilerNodes = data
-		elseif data.Nodes and data.Version >= self.ProfilerVersion then
-			self.ProfilerNodes = data.Nodes
-		end
+		self.ProfilerNodes = Deserialize(file.Read(filename, "DATA"))
 	end
 end
 
@@ -127,19 +121,17 @@ function GM:ProfilerPlayerValid(pl)
 
 	-- Are they inside something?
 	local pos = plpos + Vector(0, 0, 1)
-	if util.TraceHull({start = pos, endpos = pos + playerheight, mins = playermins, maxs = playermaxs, mask = MASK_SOLID, filter = team.GetPlayers(TEAM_HUMAN)}).Hit then
+	if util.TraceHull({start = pos, endpos = pos + playerheight, mins = playermins, maxs = playermaxs, mask = MASK_SOLID, filter = team.GetPlayers(pl:Team())}).Hit then
 		--print('inside')
 		return false
 	end
 
 	-- Are they near a trigger hurt?
 	for _, ent in pairs(ents.FindInSphere(plcenter, 256)) do
-		if ent and ent:IsValid() then
-			local entclass = ent:GetClass()
-			if entclass == "trigger_hurt" then
-				--print('trigger hurt')
-				return false
-			end
+		local entclass = ent:GetClass()
+		if entclass == "trigger_hurt" then
+			--print('trigger hurt')
+			return false
 		end
 	end
 

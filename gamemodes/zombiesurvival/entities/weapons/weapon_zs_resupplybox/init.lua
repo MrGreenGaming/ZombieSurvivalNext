@@ -57,11 +57,11 @@ function SWEP:PrimaryAttack()
 
 		ent:SetObjectOwner(owner)
 
-		ent:EmitSound("npc/dog/dog_servo12.wav")
+		ent:EmitSound(Sound("npc/roller/blade_cut.wav"))
 
 		ent:GhostAllPlayersInMe(5)
 
-		self:TakePrimaryAmmo(1)
+		self:TakePrimaryAmmo(2)
 
 		local stored = owner:PopPackedItem(ent:GetClass())
 		if stored then

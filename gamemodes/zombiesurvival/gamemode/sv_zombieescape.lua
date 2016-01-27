@@ -7,8 +7,6 @@ if not GM.ZombieEscape then return end
 
 table.insert(GM.CleanupFilter, "func_brush")
 table.insert(GM.CleanupFilter, "env_global")
-table.insert(GM.CleanupFilter, "info_player_terrorist")
-table.insert(GM.CleanupFilter, "info_player_counterterrorist")
 
 -- We need to fix these important entities.
 hook.Add("EntityKeyValue", "zombieescape", function(ent, key, value)
@@ -39,7 +37,7 @@ hook.Add("InitPostEntityMap", "zombieescape", function(fromze)
 	end
 
 	for _, ent in pairs(ents.GetAll()) do
-		if ent and ent.ZEDelete and ent:IsValid() then
+		if ent.ZEDelete then
 			ent:Remove()
 		end
 	end
@@ -62,7 +60,7 @@ hook.Add("PlayerSpawn", "zombieescape", function(pl)
 	timer.Simple(0, function()
 		if not pl:IsValid() then return end
 
-		if GAMEMODE:GetWave() == 0 and not GAMEMODE:GetWaveActive() and (pl:Team() == TEAM_UNDEAD or pl:Team() == TEAM_HUMAN and CurTime() < GAMEMODE:GetWaveStart() - GAMEMODE.ZE_FreezeTime) then
+		if GAMEMODE:GetWave() == 0 and not GAMEMODE:GetWaveActive() and (pl:Team() == TEAM_UNDEAD or CurTime() < GAMEMODE:GetWaveStart() - GAMEMODE.ZE_FreezeTime) then
 			pl.ZEFreeze = true
 			pl:Freeze(true)
 			pl:GodEnable()

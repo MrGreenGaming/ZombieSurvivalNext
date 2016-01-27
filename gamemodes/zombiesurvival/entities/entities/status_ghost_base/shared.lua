@@ -11,7 +11,8 @@ ENT.GhostRotateFunction = "Up"
 
 function ENT:Initialize()
 	self:DrawShadow(false)
-	self:SetMaterial("models/wireframe") --self:SetMaterial("models/debug/debugwhite")
+	--self:SetMaterial("models/wireframe")
+	self:SetMaterial("models/debug/debugwhite")
 	self:SetModel(self.GhostModel)
 
 	self:RecalculateValidity()
@@ -19,7 +20,7 @@ end
 
 function ENT:IsInsideProp()
 	for _, ent in pairs(ents.FindInBox(self:WorldSpaceAABB())) do
-		if ent and ent ~= self and ent:IsValid() and ent:GetMoveType() == MOVETYPE_VPHYSICS and ent:GetSolid() > 0 then return true end
+		if ent ~= self and ent:IsValid() and ent:GetMoveType() == MOVETYPE_VPHYSICS and ent:GetSolid() > 0 then return true end
 	end
 
 	return false
@@ -56,7 +57,7 @@ function ENT:RecalculateValidity()
 			valid = false
 		elseif self.GhostDistance then
 			for _, ent in pairs(ents.FindInSphere(tr.HitPos, self.GhostDistance)) do
-				if ent and ent:IsValid() and ent:GetClass() == self.GhostEntity then
+				if ent:IsValid() and ent:GetClass() == self.GhostEntity then
 					valid = false
 					break
 				end
@@ -65,6 +66,7 @@ function ENT:RecalculateValidity()
 
 		if valid and self.GhostFlatGround and math.abs(tr.HitNormal.z) < 0.75 then
 			local start = tr.HitPos + tr.HitNormal
+			--if not util.TraceLine({start = start, endpos = start + Vector(0, 0, -128), mask = MASK_SOLID_BRUSHONLY}).Hit then
 			if not util.TraceLine({start = start, endpos = start + Vector(0, 0, -128), mask = MASK_SOLID_BRUSHONLY}).Hit then
 				valid = false
 			end

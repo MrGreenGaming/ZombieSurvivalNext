@@ -47,7 +47,6 @@ include("sh_options.lua")
 include("sh_zombieclasses.lua")
 include("sh_animations.lua")
 include("sh_sigils.lua")
-include("sh_channel.lua")
 
 include("noxapi/noxapi.lua")
 
@@ -61,11 +60,14 @@ include("workshopfix.lua")
 ----------------------
 
 GM.EndRound = false
-GM.StartingWorth = 100
+GM.StartingWorth = 110
 GM.ZombieVolunteers = {}
 
-team.SetUp(TEAM_ZOMBIE, "The Undead", Color(0, 255, 0, 255))
-team.SetUp(TEAM_SURVIVORS, "Survivors", Color(0, 160, 255, 255))
+--team.SetUp(TEAM_ZOMBIE, "The Undead", Color(0, 255, 0, 255))
+--team.SetUp(TEAM_SURVIVORS, "Survivors", Color(0, 160, 255, 255))
+
+team.SetUp(TEAM_ZOMBIE, "The Undead", Color(900, 0, 0, 255))
+team.SetUp(TEAM_SURVIVORS, "Survivors", Color(105, 98, 98, 255))
 
 local validmodels = player_manager.AllValidModels()
 validmodels["tf01"] = nil
@@ -77,7 +79,8 @@ vector_tiny = Vector(0.001, 0.001, 0.001)
 GM.SoundDuration = {
 	["zombiesurvival/music_win.ogg"] = 33.149,
 	["zombiesurvival/music_lose.ogg"] = 45.714,
-	["zombiesurvival/lasthuman.ogg"] = 120.503,
+	--["zombiesurvival/lasthuman.ogg"] = 120.503,
+	["mrgreen/music/lasthuman.mp3"] = 120.503,
 
 	["zombiesurvival/beats/defaulthuman/1.ogg"] = 7.111,
 	["zombiesurvival/beats/defaulthuman/2.ogg"] = 7.111,
@@ -109,8 +112,6 @@ function GM:AddCustomAmmo()
 	game.AddAmmoType({name = "manhack"})
 	game.AddAmmoType({name = "manhack_saw"})
 	game.AddAmmoType({name = "drone"})
-
-	game.AddAmmoType({name = "dummy"})
 end
 
 function GM:CanRemoveOthersNail(pl, nailowner, ent)
@@ -368,22 +369,9 @@ function GM:Move(pl, move)
 		if pl:GetBarricadeGhosting() then
 			move:SetMaxSpeed(36)
 			move:SetMaxClientSpeed(36)
-		elseif move:GetForwardSpeed() < 0 then
-			move:SetMaxSpeed(move:GetMaxSpeed() * 0.5)
-			move:SetMaxClientSpeed(move:GetMaxClientSpeed() * 0.5)
-		elseif move:GetForwardSpeed() == 0 then
-			move:SetMaxSpeed(move:GetMaxSpeed() * 0.85)
-			move:SetMaxClientSpeed(move:GetMaxClientSpeed() * 0.85)
 		end
 	elseif pl:CallZombieFunction("Move", move) then
 		return
-	end
-
-	local legdamage = pl:GetLegDamage()
-	if legdamage > 0 then
-		local scale = 1 - math.min(1, legdamage * 0.33)
-		move:SetMaxSpeed(move:GetMaxSpeed() * scale)
-		move:SetMaxClientSpeed(move:GetMaxClientSpeed() * scale)
 	end
 end
 
@@ -394,24 +382,24 @@ function GM:OnPlayerHitGround(pl, inwater, hitfloater, speed)
 
 	if isundead then
 		if pl:GetZombieClassTable().NoFallDamage then return true end
-	elseif SERVER then
+	else
 		pl:PreventSkyCade()
 	end
 
-	if isundead then
-		speed = math.max(0, speed - 200)
+	if not isundead or not pl:GetZombieClassTable().NoFallSlowdown then
+		pl:RawCapLegDamage(CurTime() + math.min(2, speed * 0.0035))
 	end
 
-	local damage = (0.1 * (speed - 525)) ^ 1.45
-	if hitfloater then damage = damage / 2 end
-
-	if math.floor(damage) > 0 then
-		if damage >= 5 and (not isundead or not pl:GetZombieClassTable().NoFallSlowdown) then
-			pl:RawCapLegDamage(CurTime() + math.min(2, damage * 0.038))
+	if SERVER then
+		if isundead then
+			speed = math.max(0, speed - 200)
 		end
 
-		if SERVER then
-			if damage >= 30 and damage < pl:Health() then
+		local damage = (0.1 * (speed - 525)) ^ 1.45
+		if hitfloater then damage = damage / 2 end
+
+		if math.floor(damage) > 0 then
+			if 20 <= damage and damage < pl:Health() then
 				pl:KnockDown(damage * 0.05)
 			end
 			pl:TakeSpecialDamage(damage, DMG_FALL, game.GetWorld(), game.GetWorld(), pl:GetPos())
@@ -430,9 +418,8 @@ function GM:PlayerCanPurchase(pl)
 	return pl:Team() == TEAM_HUMAN and self:GetWave() > 0 and pl:Alive() and pl:NearArsenalCrate()
 end
 
-local TEAM_SPECTATOR = TEAM_SPECTATOR
 function GM:PlayerCanHearPlayersVoice(listener, talker)
-	return listener:IsValid() and talker:IsValid() and listener:Team() == talker:Team() or listener:Team() == TEAM_SPECTATOR
+	return listener:Team() == talker:Team()
 	--[[if self:GetEndRound() then return true, false end
 
 	if listener:Team() == talker:Team() then
@@ -460,13 +447,13 @@ function GM:ScalePlayerDamage(pl, hitgroup, dmginfo)
 		end
 	end
 
-	if SERVER and (hitgroup == HITGROUP_LEFTLEG or hitgroup == HITGROUP_RIGHTLEG) and self:PlayerShouldTakeDamage(pl, dmginfo:GetAttacker()) then
+	if (hitgroup == HITGROUP_LEFTLEG or hitgroup == HITGROUP_RIGHTLEG) and self:PlayerShouldTakeDamage(pl, dmginfo:GetAttacker()) then
 		pl:AddLegDamage(dmginfo:GetDamage())
 	end
 end
 
 function GM:CanDamageNail(ent, attacker, inflictor, damage, dmginfo)
-	return not attacker:IsPlayer() or attacker:Team() == TEAM_UNDEAD
+	return not attacker:IsPlayer() or attacker:Team() ~= TEAM_HUMAN
 end
 
 function GM:CanPlaceNail(pl, tr)
@@ -474,11 +461,7 @@ function GM:CanPlaceNail(pl, tr)
 end
 
 function GM:CanRemoveNail(pl, nail)
-	if nail.m_NailUnremovable then 
-		return false 
-	else
-		return true
-	end
+	return true
 end
 
 function GM:GetDamageResistance(fearpower)
@@ -675,10 +658,13 @@ function GM:IsSpecialPerson(pl, image)
 	if pl:SteamID() == "STEAM_0:1:3307510" then
 		img = "VGUI/steam/games/icon_sourcesdk"
 		tooltip = "JetBoom\nCreator of Zombie Survival!"
+	elseif pl:SteamID() == "STEAM_0:0:59565612"then
+		img = "VGUI/steam/games/icon_sourcesdk"
+		tooltip = "Duby\n Coder of Mr.Green Zombie Survival!"
 	elseif pl:IsAdmin() then
 		img = "VGUI/servers/icon_robotron"
 		tooltip = "Admin"
-	elseif pl:IsNoxSupporter() then
+	elseif pl:IsNoxSupporter() then --Out of respect for JetBoom I won't remove this..
 		img = "noxiousnet/noxicon.png"
 		tooltip = "Nox Supporter"
 	end
@@ -752,7 +738,4 @@ function SoundDuration(snd)
 
 	return OldSoundDuration(snd)
 end
-end
-
-function GM:VehicleMove()
 end

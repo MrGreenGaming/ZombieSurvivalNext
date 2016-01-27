@@ -27,6 +27,7 @@ CLASS.HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)}
 CLASS.ViewOffset = Vector(0, 0, 50)
 CLASS.ViewOffsetDucked = Vector(0, 0, 24)
 
+
 CLASS.PainSounds = {"npc/zombie/zombie_pain1.wav", "npc/zombie/zombie_pain2.wav", "npc/zombie/zombie_pain3.wav", "npc/zombie/zombie_pain4.wav", "npc/zombie/zombie_pain5.wav", "npc/zombie/zombie_pain6.wav"}
 CLASS.DeathSounds = {"npc/zombie/zombie_die1.wav", "npc/zombie/zombie_die2.wav", "npc/zombie/zombie_die3.wav"}
 
@@ -108,4 +109,4 @@ end
 
 if not CLIENT then return end
 
---CLASS.Icon = "zombiesurvival/killicons/bonemesh"
+CLASS.Icon = "zombiesurvival/classmenu/bonemesh"

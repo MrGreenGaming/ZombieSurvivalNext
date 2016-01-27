@@ -38,3 +38,10 @@ SWEP.ConeMin = 0.019
 SWEP.WalkSpeed = SPEED_SLOW
 
 SWEP.IronSightsPos = Vector(-3, 3, 2)
+
+if CHRISTMAS then
+	SWEP.VElements = {
+		["xms_lights+"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "v_weapon.elite_right", rel = "", pos = Vector(0, -4.803, -3.602), angle = Angle(90, 90, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+		["xms_lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "v_weapon.elite_left", rel = "", pos = Vector(0, -5.04, -3.01), angle = Angle(90, 90, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+end

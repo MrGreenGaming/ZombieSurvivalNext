@@ -34,6 +34,9 @@ SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "357"
 SWEP.Primary.DefaultClip = 24
 
+SWEP.AutoSwitchTo		= false
+SWEP.AutoSwitchFrom		= false
+
 SWEP.ConeMax = 0.1
 SWEP.ConeMin = 0.015
 

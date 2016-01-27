@@ -1,4 +1,4 @@
 "VertexLitGeneric"
 {
-	"$basetexture" "models/weapons/v_hand/armtexture"
+	"$basetexture" "models/Weapons/V_hand/armtexture"
 }

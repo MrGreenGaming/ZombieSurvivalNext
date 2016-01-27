@@ -14,11 +14,13 @@ hook.Add("PlayerDisconnected", "ResupplyBox.PlayerDisconnected", RefreshCrateOwn
 hook.Add("OnPlayerChangedTeam", "ResupplyBox.OnPlayerChangedTeam", RefreshCrateOwners)
 
 function ENT:Initialize()
-	self:SetModel("models/Items/ammocrate_ar2.mdl")
+	self:SetModel("models/items/item_item_crate.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetUseType(SIMPLE_USE)
 	self:SetPlaybackRate(1)
 
+	self:EmitSound("items/ammo_pickup.wav")
+	
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
 		phys:EnableMotion(false)
@@ -102,7 +104,6 @@ function ENT:Think()
 	elseif self.Close and CurTime() >= self.Close then
 		self.Close = nil
 		self:ResetSequence("open")
-		self:EmitSound("items/ammocrate_close.wav")
 	end
 end
 
@@ -119,20 +120,39 @@ function ENT:Use(activator, caller)
 	local myuid = activator:UniqueID()
 
 	if CurTime() < (NextUse[myuid] or 0) then
-		activator:CenterNotify(COLOR_RED, translate.ClientGet(activator, "no_ammo_here"))
+		--activator:CenterNotify(COLOR_RED, translate.ClientGet(activator, "no_ammo_here"))
 		return
 	end
 
 	local ammotype
+	local ammotype2
+	local ammotype3
+	local ammotype4
+	local ammotype5
+	local ammotype6
+	local ammotype7
+	
 	local wep = activator:GetActiveWeapon()
 	if not wep:IsValid() then
 		ammotype = "smg1"
+		ammotype2 = "ar2"
+		ammotype3 = "alyxgun"
+		ammotype4 = "pistol"
+		ammotype5 = "357"
+		ammotype6 = "xbowbolt"
+		ammotype7 = "buckshot"
 	end
 
 	if not ammotype then
 		ammotype = wep:GetPrimaryAmmoTypeString()
 		if not GAMEMODE.AmmoResupply[ammotype] then
-			ammotype = "smg1"
+		ammotype = "smg1"
+		ammotype2 = "ar2"
+		ammotype3 = "alyxgun"
+		ammotype4 = "pistol"
+		ammotype5 = "357"
+		ammotype6 = "xbowbolt"
+		ammotype7 = "buckshot"
 		end
 	end
 
@@ -143,6 +163,12 @@ function ENT:Use(activator, caller)
 	net.Send(activator)
 
 	activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype], ammotype)
+	activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype2], ammotype2)
+	activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype3], ammotype3)
+	activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype4], ammotype4)
+	activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype5], ammotype5)
+	activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype6], ammotype6)
+	activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype7], ammotype7)
 	if activator ~= owner and owner:IsValid() and owner:IsPlayer() and owner:Team() == TEAM_HUMAN then
 		owner.ResupplyBoxUsedByOthers = owner.ResupplyBoxUsedByOthers + 1
 
@@ -159,7 +185,7 @@ function ENT:Use(activator, caller)
 
 	if not self.Close then
 		self:ResetSequence("close")
-		self:EmitSound("items/ammocrate_open.wav")
+		self:EmitSound("mrgreen/supplycrates/mobile_use.mp3")
 	end
 	self.Close = CurTime() + 3
 end

@@ -4,11 +4,11 @@
 	"title"				"Zombie Survival"
 	"maps"				"^zs_|^zm_|^zh_|^zps_|^zr_|^ze_"
 	"menusystem"		"1"
-	"workshopid"		""
+	"workshopid"		"105462463"
 
-	"author_name"		"Mr. Green ZS Team"
-	"author_email"		"mail@mrgreengaming.com"
-	"author_url"		"https://github.com/JarnoVgr/ZombieSurvival"
+	"author_name"		"William 'JetBoom' Moodhe"
+	"author_email"		"williammoodhe@gmail.com"
+	"author_url"		"http://www.noxiousnet.com/"
 
 	"settings"
 	{

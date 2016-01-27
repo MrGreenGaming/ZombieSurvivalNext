@@ -11,6 +11,12 @@ if CLIENT then
 	--SWEP.IconLetter = "k"
 	
 	SWEP.ViewModelFlip = false
+	
+	SWEP.HUD3DBone = "v_weapon.xm1014_Bolt"
+	SWEP.HUD3DPos = Vector(-1, 0, 0)
+	SWEP.HUD3DAng = Angle(0, 0, 0)
+	SWEP.HUD3DScale = 0.02
+	
 	SWEP.ViewModelBoneMods = {
 		["v_weapon.M3_TRIGGER"] = { scale = Vector(0.899, 0.899, 0.899), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 		["v_weapon.M3_PARENT"] = { scale = Vector(0.899, 0.899, 0.899), pos = Vector(-1, 0.05, 0.4), angle = Angle(0, 0, 0) },
@@ -67,8 +73,8 @@ SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "buckshot"
 
 SWEP.MaxAmmo			    = 70
-SWEP.IsShotgun = true
- 
+
+SWEP.Primary.Gesture = ACT_HL2MP_GESTURE_RANGE_ATTACK_CROSSBOW
 
 SWEP.WalkSpeed = SPEED_NORMAL
 
@@ -77,8 +83,11 @@ SWEP.ReloadDelay = 0.47
 SWEP.reloadtimer = 0
 SWEP.nextreloadfinish = 0
 
-SWEP.ConeMax = 0.14
-SWEP.ConeMin = 0.105
+SWEP.ConeMax = 0.12
+SWEP.ConeMin = 0.005
+
+SWEP.IronSightsPos = Vector(-7.3, 9, 2.3) --Vector(-7.3, 9, 2.3)
+SWEP.IronSightsAng = Vector(0, -1, 0)
 
 
 function SWEP:Reload()
@@ -90,7 +99,7 @@ function SWEP:Reload()
 		self.reloading = true
 		self.reloadtimer = CurTime() + self.ReloadDelay
 		self:SendWeaponAnim(ACT_SHOTGUN_RELOAD_START)
-		self.Owner:RestartGesture(ACT_HL2MP_GESTURE_RELOAD_SHOTGUN)
+		--self.Owner:RestartGesture(ACT_HL2MP_GESTURE_RELOAD_SHOTGUN)
 	end
 
 	self:SetIronsights(false)
@@ -121,31 +130,10 @@ function SWEP:Think()
 	if self:GetIronsights() and not self.Owner:KeyDown(IN_ATTACK2) then
 		self:SetIronsights(false)
 	end
+	
 end
 
-function SWEP:CanPrimaryAttack()
 
-	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return end
-
-	if self:Clip1() <= 0 then
-		self:EmitSound("Weapon_Shotgun.Empty")
-		self:SetNextPrimaryFire(CurTime() + 0.25)
-		return false
-	end
-
-	if self.reloading then
-		if 0 < self:Clip1() then
-			self:SendWeaponAnim(ACT_SHOTGUN_RELOAD_FINISH)
-		else
-			self:SendWeaponAnim(ACT_VM_IDLE)
-		end
-		self.reloading = false
-		self:SetNextPrimaryFire(CurTime() + 0.25)
-		return false
-	end
-
-	return true
-end
 
 function SWEP:SecondaryAttack()
 end

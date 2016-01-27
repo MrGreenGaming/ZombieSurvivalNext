@@ -149,7 +149,7 @@ end
 				ent:SetPos(damagepos + heading)
 				ent:SetOwner(pl)
 				ent:Spawn()
-
+				ent:SetTeamID(TEAM_UNDEAD)
 				local phys = ent:GetPhysicsObject()
 				if phys:IsValid() then
 					phys:Wake()
@@ -196,4 +196,4 @@ end
 
 if not CLIENT then return end
 
-CLASS.Icon = "zombiesurvival/killicons/ghoul"
+CLASS.Icon = "zombiesurvival/classmenu/torso"

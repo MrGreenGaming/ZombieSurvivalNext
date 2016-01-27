@@ -1,7 +1,7 @@
 AddCSLuaFile()
 
 if CLIENT then
-	SWEP.PrintName = "'Owens' Handgun"
+	SWEP.PrintName = "Classic Pistol"
 	SWEP.Slot = 1
 	SWEP.SlotPos = 0
 	
@@ -39,3 +39,12 @@ SWEP.ConeMin = 0.04
 
 SWEP.IronSightsPos = Vector(-5.95, 3, 2.75)
 SWEP.IronSightsAng = Vector(-0.15, -1, 2)
+
+if CHRISTMAS then
+	SWEP.VElements = {
+		["xms_lights"] = { type = "Model", model = "models/player/items/sniper/xms_sniperrifle.mdl", bone = "v_weapon.awm_parent", rel = "", pos = Vector(0, -3.925, 4.525), angle = Angle(-90, 90, 0), size = Vector(0.614, 0.614, 1.062), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+	SWEP.WElements = {
+		["xms_lights"] = { type = "Model", model = "models/player/items/sniper/xms_sniperrifle.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(12.326, 0.935, -6.782), angle = Angle(-10.212, 0, 0), size = Vector(0.595, 0.595, 0.89), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+end

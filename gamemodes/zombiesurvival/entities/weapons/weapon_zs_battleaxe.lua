@@ -1,7 +1,7 @@
 AddCSLuaFile()
 
 if CLIENT then
-	SWEP.PrintName = "'Battleaxe' Handgun"
+	SWEP.PrintName = "USP"
 	SWEP.Slot = 1
 	SWEP.SlotPos = 0
 
@@ -11,6 +11,7 @@ if CLIENT then
 	SWEP.HUD3DPos = Vector(-0.95, 0, 1)
 	SWEP.HUD3DAng = Angle(0, 0, 0)
 	SWEP.HUD3DBone = "v_weapon.USP_Slide"
+	killicon.AddFont( "weapon_zs_usp", "CSKillIcons", "a", Color(255, 255, 255, 255 ) )
 end
 
 SWEP.Base = "weapon_zs_base"

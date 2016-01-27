@@ -1,5 +1,5 @@
 SWEP.ViewModel = "models/weapons/v_pistol.mdl"
-SWEP.WorldModel = Model("models/Items/ammocrate_ar2.mdl")
+SWEP.WorldModel = Model("models/items/item_item_crate.mdl")
 
 SWEP.AmmoIfHas = true
 
@@ -9,10 +9,10 @@ SWEP.Primary.Ammo = "helicoptergun"
 SWEP.Primary.Delay = 1
 SWEP.Primary.Automatic = true
 
-SWEP.Secondary.ClipSize = 1
-SWEP.Secondary.DefaultClip = 1
+SWEP.Secondary.ClipSize = -1
+SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
-SWEP.Secondary.Ammo = "dummy"
+SWEP.Secondary.Ammo = "none"
 
 SWEP.WalkSpeed = SPEED_NORMAL
 SWEP.FullWalkSpeed = SPEED_SLOWEST

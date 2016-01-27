@@ -64,6 +64,7 @@ if SERVER then
 				if phys:IsValid() then
 					phys:Wake()
 					phys:SetVelocityInstantaneous(owner:GetAimVector() * 1400)
+					--phys:SetVelocityInstantaneous(owner:GetAimVector() * 1500)
 				end
 			end
 		end

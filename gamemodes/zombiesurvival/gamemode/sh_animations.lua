@@ -1,8 +1,10 @@
 local TEAM_UNDEAD = TEAM_UNDEAD
 local ACT_MP_STAND_IDLE = ACT_MP_STAND_IDLE
 
+CUSTOM_PRIMARY, CUSTOM_SECONDARY = 100,200
+
 function GM:PlayerShouldTaunt(pl, actid)
-	return (pl:Team() == TEAM_HUMAN or pl:Team() == TEAM_UNDEAD and pl:GetZombieClassTable().CanTaunt) and not IsValid(pl.Revive) and not IsValid(pl.FeignDeath)
+	return (pl:Team() == TEAM_HUMAN or pl:GetZombieClassTable().CanTaunt) and not IsValid(pl.Revive) and not IsValid(pl.FeignDeath)
 end
 
 function GM:CalcMainActivity(pl, velocity)

@@ -8,7 +8,7 @@ include('shared.lua')
 ActualMines = {}
 
 function ENT:Initialize()
-	self.Entity:SetModel("models/weapons/w_c4.mdl") 
+	self.Entity:SetModel("models/Weapons/w_package.mdl") 
 	self.Entity:PhysicsInit(SOLID_VPHYSICS)
 	self.Entity:SetSolid (SOLID_NONE)
 	self.Entity:DrawShadow(false)
@@ -66,7 +66,7 @@ function ENT:Explode()
 	Ent.Team = function() -- Correctly applies the whole 'no team damage' thing
 		return TEAM_HUMAN
 	end
-	Ent.Inflictor = "weapon_zs_proxmines"
+	Ent.Inflictor = "weapon_zs_mine"
 	Ent:SetOwner( self:GetOwner() )
 	Ent:Activate()
 	Ent:SetKeyValue( "iMagnitude", 300 ) --180 -- math.Clamp ( math.Round ( 250 * GetInfliction() ), 100, 350 )

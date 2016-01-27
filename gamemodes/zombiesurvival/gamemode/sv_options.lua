@@ -277,3 +277,15 @@ end
 GM.HonorableMentions[HM_NESTMASTER].GetPlayer = function(self)
 	return GetMostKey("NestSpawns")
 end
+
+function GM:OnPlayerHowlered ( pl, iIntensity )
+	if iIntensity == nil then
+		return
+	end
+	
+	-- Disorient the player
+	pl:SendLua( "StalkerFuck("..( iIntensity )..")" )
+	
+	-- Play a help sound/scream
+--	pl:EmitSound ( table.Random ( VoiceSets[ pl.VoiceSet or 1 ].Frightened ) )
+end

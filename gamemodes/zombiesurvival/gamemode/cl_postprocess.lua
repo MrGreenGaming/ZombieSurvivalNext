@@ -138,7 +138,7 @@ function GM:_RenderScreenspaceEffects()
 		DrawSharpen(1, math_min(6, self.HurtEffect * 3))
 	end
 
-	--[[if MySelf:Team() == TEAM_UNDEAD and self.m_ZombieVision and not matTankGlass:IsError() then
+	if MySelf:Team() == TEAM_UNDEAD and self.m_ZombieVision and not matTankGlass:IsError() then
 		render_UpdateScreenEffectTexture()
 		matTankGlass:SetFloat("$envmap", 0)
 		matTankGlass:SetFloat("$envmaptint", 0)
@@ -146,7 +146,7 @@ function GM:_RenderScreenspaceEffects()
 		matTankGlass:SetInt("$ignorez", 1)
 		render_SetMaterial(matTankGlass)
 		render_DrawScreenQuad()
-	end]]
+	end
 
 	if self.ColorModEnabled then
 		if not MySelf:Alive() and MySelf:GetObserverMode() ~= OBS_MODE_CHASE then
@@ -214,7 +214,7 @@ function GM:_PostDrawOpaqueRenderables()
 				end
 			end
 		end
-	elseif MySelf:Team() == TEAM_HUMAN then
+	else
 		self:DrawCraftingEntity()
 
 		local holding = MySelf.status_human_holding
@@ -243,11 +243,42 @@ function GM:ToggleZombieVision(onoff)
 		if not self.m_ZombieVision then
 			self.m_ZombieVision = true
 			MySelf:EmitSound("npc/stalker/breathing3.wav", 0, 230)
-			MySelf:SetDSP(30)
+			MySelf:SetDSP(5)
 		end
 	elseif self.m_ZombieVision then
 		self.m_ZombieVision = nil
 		MySelf:EmitSound("npc/zombie/zombie_pain6.wav", 0, 110)
 		MySelf:SetDSP(0)
+	end
+end
+
+
+local FuckedTime = 0
+local FuckedLength = 0
+local FuckColTab = {
+	[ "$pp_colour_addr" ] 		= 0,
+	[ "$pp_colour_addg" ] 		= 0,
+	[ "$pp_colour_addb" ] 		= 0,
+	[ "$pp_colour_brightness" ] = 0,
+	[ "$pp_colour_contrast" ] 	= 1,
+	[ "$pp_colour_colour" ] 	= 0,
+	[ "$pp_colour_mulr" ] 		= 0,
+	[ "$pp_colour_mulg" ] 		= 0,
+	[ "$pp_colour_mulb" ] 		= 0
+}
+
+local function DrawStalkerFuck()
+	DrawColorModify( FuckColTab )
+	DrawMotionBlur( 0.2, math.Clamp(FuckedTime-CurTime(),0,1), 0)
+	FuckColTab[ "$pp_colour_colour" ] = math.Approach( FuckColTab[ "$pp_colour_colour" ], 1, FuckedLength*FrameTime())
+	local sev = math.Clamp(FuckedTime-CurTime(),0,5)/35
+	FuckColTab[ "$pp_colour_brightness" ] = math.Rand(-sev*2,sev*2)
+	
+	local MySelf = LocalPlayer()
+	MySelf:SetEyeAngles((MySelf:GetAimVector()+Vector(math.Rand(-sev,sev),math.Rand(-sev,sev),math.Rand(-sev,sev))):Angle())
+	
+	if FuckedTime < CurTime() then
+		FuckColTab[ "$pp_colour_brightness" ] = 0
+		hook.Remove("RenderScreenspaceEffects", "DrawStalkerFuck")
 	end
 end

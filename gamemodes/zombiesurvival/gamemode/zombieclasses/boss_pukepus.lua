@@ -135,7 +135,7 @@ end
 
 if not CLIENT then return end
 
-CLASS.Icon = "zombiesurvival/killicons/pukepus"
+CLASS.Icon = "zombiesurvival/classmenu/chemzombie"
 
 local matSkin = Material("Models/Barnacle/barnacle_sheet")
 function CLASS:PrePlayerDraw(pl)

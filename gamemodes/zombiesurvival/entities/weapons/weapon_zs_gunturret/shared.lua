@@ -14,6 +14,9 @@ SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
 
+SWEP.AutoSwitchTo		= false
+SWEP.AutoSwitchFrom		= false
+
 SWEP.WalkSpeed = SPEED_NORMAL
 SWEP.FullWalkSpeed = SPEED_SLOWEST
 

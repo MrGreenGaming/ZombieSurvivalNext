@@ -1,13 +1,7 @@
 local PANEL = {}
 
-function PANEL:Init()
-	self.m_HumanCount = vgui.Create("DTeamCounter", self)
-	self.m_HumanCount:SetTeam(TEAM_HUMAN)
-	self.m_HumanCount:SetImage("zombiesurvival/humanhead")
 
-	self.m_ZombieCount = vgui.Create("DTeamCounter", self)
-	self.m_ZombieCount:SetTeam(TEAM_UNDEAD)
-	self.m_ZombieCount:SetImage("zombiesurvival/zombiehead")
+function PANEL:Init()
 
 	self.m_Text1 = vgui.Create("DLabel", self)
 	self.m_Text2 = vgui.Create("DLabel", self)
@@ -17,6 +11,7 @@ function PANEL:Init()
 	self.m_Text1.Paint = self.Text1Paint
 	self.m_Text2.Paint = self.Text2Paint
 	self.m_Text3.Paint = self.Text3Paint
+
 
 	self:InvalidateLayout()
 end
@@ -34,24 +29,22 @@ end
 
 function PANEL:PerformLayout()
 	local hs = self:GetTall() * 0.5
-	self.m_HumanCount:SetSize(hs, hs)
-	self.m_ZombieCount:SetSize(hs, hs)
-	self.m_ZombieCount:AlignTop(hs)
 
 	self.m_Text1:SetWide(self:GetWide())
 	self.m_Text1:SizeToContentsY()
-	self.m_Text1:MoveRightOf(self.m_HumanCount, 12)
-	self.m_Text1:AlignTop(4)
+	--self.m_Text1:AlignTop(30)
+	self.m_Text1:AlignBottom()
+	
 	self.m_Text2:SetWide(self:GetWide())
 	self.m_Text2:SizeToContentsY()
-	self.m_Text2:MoveRightOf(self.m_HumanCount, 12)
 	self.m_Text2:CenterVertical()
+	
 	self.m_Text3:SetWide(self:GetWide())
 	self.m_Text3:SizeToContentsY()
-	self.m_Text3:MoveRightOf(self.m_HumanCount, 12)
-	self.m_Text3:AlignBottom(4)
-end
+	self.m_Text3:AlignBottom()
 
+end
+ 
 function PANEL:Text1Paint()
 	local text
 	local override = MySelf:IsValid() and GetGlobalString("hudoverride"..MySelf:Team(), "")
@@ -71,22 +64,36 @@ function PANEL:Text1Paint()
 			if maxwaves ~= -1 then
 				text = translate.Format("wave_x_of_y", wave, maxwaves)
 				if not GAMEMODE:GetWaveActive() then
-					text = translate.Get("intermission").." - "..text
+					text = translate.Get("intermission")
 				end
 			elseif not GAMEMODE:GetWaveActive() then
 				text = translate.Get("intermission")
 			end
 		end
 	end
-
+	
+	local myteam = MySelf:Team()
+	
+if myteam == TEAM_UNDEAD then
 	if text then
-		draw.SimpleText(text, self.Font, 0, 0, COLOR_GRAY)
+		draw.SimpleText(text, self.Font, 130, 0, COLOR_GRAY)
 	end
+end
+
+if myteam == TEAM_HUMAN then
+	if text then
+		draw.SimpleText(text, self.Font, 130, 0, COLOR_GRAY)
+	end
+end	
 
 	return true
 end
 
 function PANEL:Text2Paint()
+
+local myteam = MySelf:Team()
+
+if myteam == TEAM_UNDEAD then
 	if GAMEMODE:GetWave() <= 0 then
 		local col
 		local timeleft = math.max(0, GAMEMODE:GetWaveStart() - CurTime())
@@ -96,41 +103,76 @@ function PANEL:Text2Paint()
 		else
 			col = COLOR_GRAY
 		end
-
-		draw.SimpleText(translate.Format("zombie_invasion_in_x", util.ToMinutesSeconds(timeleft)), self.Font, 0, 0, col)
+		
+		draw.SimpleText("Invasion In " .. util.ToMinutesSeconds(timeleft) .. "", "ZSHUDFontSmallZombie", 130, 0, col)
 	elseif GAMEMODE:GetWaveActive() then
 		local waveend = GAMEMODE:GetWaveEnd()
 		if waveend ~= -1 then
 			local timeleft = math.max(0, waveend - CurTime())
-			draw.SimpleText(translate.Format("wave_ends_in_x", util.ToMinutesSeconds(timeleft)), self.Font, 0, 0, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
-		end
+			draw.SimpleText(translate.Format("wave_ends_in_x", util.ToMinutesSeconds(timeleft)), "ZSHUDFontSmallZombie", 130, 0, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
+		end	
 	else
 		local wavestart = GAMEMODE:GetWaveStart()
 		if wavestart ~= -1 then
 			local timeleft = math.max(0, wavestart - CurTime())
-			draw.SimpleText(translate.Format("next_wave_in_x", util.ToMinutesSeconds(timeleft)), self.Font, 0, 0, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
+			draw.SimpleText(translate.Format("next_wave_in_x", util.ToMinutesSeconds(timeleft)), "ZSHUDFontSmallZombie", 130, 0, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
 		end
 	end
 
 	return true
+
+
+end
+
+if myteam == TEAM_HUMAN then
+	if GAMEMODE:GetWave() <= 0 then
+		local col
+		local timeleft = math.max(0, GAMEMODE:GetWaveStart() - CurTime())
+		if timeleft < 10 then
+			local glow = math.sin(RealTime() * 8) * 200 + 255
+			col = Color(255, glow, glow)
+		else
+			col = COLOR_GRAY
+		end
+		
+		draw.SimpleText("Invasion In " .. util.ToMinutesSeconds(timeleft) .. "", self.Font, 130, 0, col)
+	elseif GAMEMODE:GetWaveActive() then
+		local waveend = GAMEMODE:GetWaveEnd()
+		if waveend ~= -1 then
+			local timeleft = math.max(0, waveend - CurTime())
+			draw.SimpleText(translate.Format("wave_ends_in_x", util.ToMinutesSeconds(timeleft)), self.Font, 130, 0, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
+		end	
+	else
+		local wavestart = GAMEMODE:GetWaveStart()
+		if wavestart ~= -1 then
+			local timeleft = math.max(0, wavestart - CurTime())
+			draw.SimpleText(translate.Format("next_wave_in_x", util.ToMinutesSeconds(timeleft)), self.Font, 130, 0, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
+		end
+	end
+
+	return true
+
+
+end
+
+	
 end
 
 function PANEL:Text3Paint()
-	if MySelf:IsValid() then
+	--[[if MySelf:IsValid() then
 		if MySelf:Team() == TEAM_UNDEAD then
 			local toredeem = GAMEMODE:GetRedeemBrains()
 			if toredeem > 0 then
-				draw.SimpleText(translate.Format("brains_eaten_x", MySelf:Frags().." / "..toredeem), self.Font, 0, 0, COLOR_DARKRED)
+				draw.SimpleText(translate.Format("brains_eaten_x", MySelf:Frags().." / "..toredeem), self.Font, 130, 0, COLOR_DARKRED)
 			else
-				draw.SimpleText(translate.Format("brains_eaten_x", MySelf:Frags()), self.Font, 0, 0, COLOR_DARKRED)
+				draw.SimpleText(translate.Format("brains_eaten_x", MySelf:Frags()), self.Font, 130, 0, COLOR_DARKRED)
 			end
-		else
-			draw.SimpleText(translate.Format("points_x", MySelf:GetPoints().." / "..MySelf:Frags()), self.Font, 0, 0, COLOR_DARKRED)
 		end
-	end
+	end]]--
 
 	return true
 end
+
 
 function PANEL:Paint()
 	return true

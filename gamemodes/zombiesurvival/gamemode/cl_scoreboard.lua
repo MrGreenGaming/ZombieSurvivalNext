@@ -7,11 +7,11 @@ function GM:ScoreboardShow()
 		ScoreBoard = vgui.Create("ZSScoreBoard")
 	end
 
-	ScoreBoard:SetSize(math.min(ScrW(), ScrH()) * 0.8, ScrH() * 0.85)
+	ScoreBoard:SetSize(math.min(ScrW(), ScrH()) * 0.7, ScrH() * 0.85)
 	ScoreBoard:AlignTop(ScrH() * 0.05)
 	ScoreBoard:CenterHorizontal()
 	ScoreBoard:SetAlpha(0)
-	ScoreBoard:AlphaTo(255, 0.5, 0)
+	ScoreBoard:AlphaTo(250, 0.5, 0)
 	ScoreBoard:SetVisible(true)
 end
 
@@ -31,8 +31,7 @@ PANEL.NextRefresh = 0
 PANEL.m_MaximumScroll = 0
 
 local function BlurPaint(self)
-	draw.SimpleTextBlur(self:GetValue(), self.Font, 0, 0, self:GetTextColor())
-
+		draw.SimpleText(self:GetValue(), self.Font, 0, 0, self:GetTextColor())
 	return true
 end
 local function emptypaint(self)
@@ -45,29 +44,10 @@ function PANEL:Init()
 	self.m_TitleLabel = vgui.Create("DLabel", self)
 	self.m_TitleLabel.Font = "ZSScoreBoardTitle"
 	self.m_TitleLabel:SetFont(self.m_TitleLabel.Font)
-	self.m_TitleLabel:SetText(GAMEMODE.Name)
+	self.m_TitleLabel:SetText("www.mrgreengaming.com Zombie Survival")
 	self.m_TitleLabel:SetTextColor(COLOR_GRAY)
 	self.m_TitleLabel:SizeToContents()
 	self.m_TitleLabel:NoClipping(true)
-	self.m_TitleLabel.Paint = BlurPaint
-
-	self.m_ServerNameLabel = vgui.Create("DLabel", self)
-	self.m_ServerNameLabel.Font = "ZSScoreBoardSubTitle"
-	self.m_ServerNameLabel:SetFont(self.m_ServerNameLabel.Font)
-	self.m_ServerNameLabel:SetText(GetHostName())
-	self.m_ServerNameLabel:SetTextColor(COLOR_GRAY)
-	self.m_ServerNameLabel:SizeToContents()
-	self.m_ServerNameLabel:NoClipping(true)
-	self.m_ServerNameLabel.Paint = BlurPaint
-
-	self.m_AuthorLabel = EasyLabel(self, "by "..GAMEMODE.Author.." ("..GAMEMODE.Email..")", "DefaultFontSmall", COLOR_GRAY)
-	self.m_ContactLabel = EasyLabel(self, GAMEMODE.Website, "DefaultFontSmall", COLOR_GRAY)
-
-	self.m_HumanHeading = vgui.Create("DTeamHeading", self)
-	self.m_HumanHeading:SetTeam(TEAM_HUMAN)
-
-	self.m_ZombieHeading = vgui.Create("DTeamHeading", self)
-	self.m_ZombieHeading:SetTeam(TEAM_UNDEAD)
 
 	self.ZombieList = vgui.Create("DScrollPanel", self)
 	self.ZombieList.Team = TEAM_UNDEAD
@@ -79,17 +59,6 @@ function PANEL:Init()
 end
 
 function PANEL:PerformLayout()
-	self.m_AuthorLabel:MoveBelow(self.m_TitleLabel)
-	self.m_ContactLabel:MoveBelow(self.m_AuthorLabel)
-
-	self.m_ServerNameLabel:SetPos(math.min(self:GetWide() - self.m_ServerNameLabel:GetWide(), self:GetWide() * 0.75 - self.m_ServerNameLabel:GetWide() * 0.5), 32 - self.m_ServerNameLabel:GetTall() / 2)
-
-	self.m_HumanHeading:SetSize(self:GetWide() / 2 - 32, 28)
-	self.m_HumanHeading:SetPos(self:GetWide() * 0.25 - self.m_HumanHeading:GetWide() * 0.5, 110 - self.m_HumanHeading:GetTall())
-
-	self.m_ZombieHeading:SetSize(self:GetWide() / 2 - 32, 28)
-	self.m_ZombieHeading:SetPos(self:GetWide() * 0.75 - self.m_ZombieHeading:GetWide() * 0.5, 110 - self.m_ZombieHeading:GetTall())
-
 	self.HumanList:SetSize(self:GetWide() / 2 - 24, self:GetTall() - 150)
 	self.HumanList:AlignBottom(16)
 	self.HumanList:AlignLeft(8)
@@ -97,6 +66,7 @@ function PANEL:PerformLayout()
 	self.ZombieList:SetSize(self:GetWide() / 2 - 24, self:GetTall() - 150)
 	self.ZombieList:AlignBottom(16)
 	self.ZombieList:AlignRight(8)
+	
 end
 
 function PANEL:Think()
@@ -113,24 +83,7 @@ function PANEL:Paint()
 	local wid, hei = self:GetSize()
 	local barw = 64
 
-	surface.SetDrawColor(5, 5, 5, 180)
-	surface.DrawRect(0, 64, wid, hei - 64)
-	surface.SetDrawColor(90, 90, 90, 180)
-	surface.DrawOutlinedRect(0, 64, wid, hei - 64)
 
-	surface.SetDrawColor(5, 5, 5, 220)
-	PaintGenericFrame(self, 0, 0, wid, 64, 32)
-
-	surface.SetDrawColor(5, 5, 5, 160)
-	surface.DrawRect(wid * 0.5 - 16, 64, 32, hei - 128)
-	surface.SetTexture(texRightEdge)
-	surface.DrawTexturedRect(wid * 0.5 + 16, 64, barw, hei - 128)
-	surface.DrawTexturedRectRotated(wid * 0.5 - 16 - barw / 2, 64 + (hei - 128) / 2, barw, hei - 128, 180)
-	surface.SetTexture(texCorner)
-	surface.DrawTexturedRectRotated(wid * 0.5 - 16 - barw / 2, hei - 32, barw, 64, 90)
-	surface.DrawTexturedRectRotated(wid * 0.5 + 16 + barw / 2, hei - 32, barw, 64, 180)
-	surface.SetTexture(texDownEdge)
-	surface.DrawTexturedRect(wid * 0.5 - 16, hei - 64, 32, 64)
 end
 
 function PANEL:GetPlayerPanel(pl)
@@ -145,8 +98,6 @@ function PANEL:CreatePlayerPanel(pl)
 	local curpan = self:GetPlayerPanel(pl)
 	if curpan and curpan:Valid() then return curpan end
 
-	if pl:Team() == TEAM_SPECTATOR then return end
-
 	local panel = vgui.Create("ZSPlayerPanel", pl:Team() == TEAM_UNDEAD and self.ZombieList or self.HumanList)
 	panel:SetPlayer(pl)
 	panel:Dock(TOP)
@@ -158,19 +109,16 @@ function PANEL:CreatePlayerPanel(pl)
 end
 
 function PANEL:Refresh()
-	self.m_ServerNameLabel:SetText(GetHostName())
-	self.m_ServerNameLabel:SizeToContents()
-	self.m_ServerNameLabel:SetPos(math.min(self:GetWide() - self.m_ServerNameLabel:GetWide(), self:GetWide() * 0.75 - self.m_ServerNameLabel:GetWide() * 0.5), 32 - self.m_ServerNameLabel:GetTall() / 2)
 
 	if self.PlayerPanels == nil then self.PlayerPanels = {} end
 
-	for pl, panel in pairs(self.PlayerPanels) do
-		if not panel:Valid() or pl:IsValid() and pl:IsSpectator() then
+	for _, panel in pairs(self.PlayerPanels) do
+		if not panel:Valid() then
 			self:RemovePlayerPanel(panel)
 		end
 	end
 
-	for _, pl in pairs(player.GetAllActive()) do
+	for _, pl in pairs(player.GetAll()) do
 		self:CreatePlayerPanel(pl)
 	end
 end
@@ -209,18 +157,18 @@ end
 local function empty() end
 
 function PANEL:Init()
-	self:SetTall(32)
+	self:SetTall(45)
 
 	self.m_AvatarButton = self:Add("DButton", self)
 	self.m_AvatarButton:SetText(" ")
-	self.m_AvatarButton:SetSize(32, 32)
+	self.m_AvatarButton:SetSize(37, 37)
 	self.m_AvatarButton:Center()
 	self.m_AvatarButton.DoClick = AvatarDoClick
 	self.m_AvatarButton.Paint = empty
 	self.m_AvatarButton.PlayerPanel = self
 
 	self.m_Avatar = vgui.Create("AvatarImage", self.m_AvatarButton)
-	self.m_Avatar:SetSize(32, 32)
+	self.m_Avatar:SetSize(37, 37)
 	self.m_Avatar:SetVisible(false)
 	self.m_Avatar:SetMouseInputEnabled(false)
 
@@ -228,17 +176,19 @@ function PANEL:Init()
 	self.m_SpecialImage:SetSize(16, 16)
 	self.m_SpecialImage:SetMouseInputEnabled(true)
 	self.m_SpecialImage:SetVisible(false)
-
+	
 	self.m_ClassImage = vgui.Create("DImage", self)
 	self.m_ClassImage:SetSize(22, 22)
 	self.m_ClassImage:SetMouseInputEnabled(false)
 	self.m_ClassImage:SetVisible(false)
 
-	self.m_PlayerLabel = EasyLabel(self, " ", "ZSScoreBoardPlayer", COLOR_WHITE)
-	self.m_ScoreLabel = EasyLabel(self, " ", "ZSScoreBoardPlayerSmall", COLOR_WHITE)
+	self.m_PlayerLabel = EasyLabel(self, " ", "ZSScoreBoardPlayer", COLOR_GREY)
+	self.m_ScoreLabel = EasyLabel(self, " ", "ZSScoreBoardPlayerSmall", COLOR_GREY)
 
 	self.m_PingMeter = vgui.Create("DPingMeter", self)
+	self.m_PingMeter:SetSize(20, 20)
 	self.m_PingMeter.PingBars = 5
+	
 
 	self.m_Mute = vgui.Create("DImageButton", self)
 	self.m_Mute.DoClick = MuteDoClick
@@ -252,7 +202,9 @@ function PANEL:Paint()
 	if pl:IsValid() then
 		col = team.GetColor(pl:Team())
 
-		if self.m_Flash then
+		if pl:SteamID() == "STEAM_0:1:3307510" then
+			mul = 0.6 + math.abs(math.sin(RealTime() * 6)) * 0.4
+		elseif 	pl:SteamID() == "STEAM_0:0:59565612" then
 			mul = 0.6 + math.abs(math.sin(RealTime() * 6)) * 0.4
 		elseif pl == MySelf then
 			mul = 0.8
@@ -266,7 +218,7 @@ function PANEL:Paint()
 	colTemp.r = col.r * mul
 	colTemp.g = col.g * mul
 	colTemp.b = col.b * mul
-	draw.RoundedBox(8, 0, 0, self:GetWide(), self:GetTall(), colTemp)
+	draw.RoundedBox(1, 0, 0, self:GetWide(), self:GetTall(), colTemp)
 
 	return true
 end
@@ -279,11 +231,11 @@ function PANEL:DoClick()
 end
 
 function PANEL:PerformLayout()
-	self.m_AvatarButton:AlignLeft(16)
+	self.m_AvatarButton:AlignLeft(30)
 	self.m_AvatarButton:CenterVertical()
 
 	self.m_PlayerLabel:SizeToContents()
-	self.m_PlayerLabel:MoveRightOf(self.m_AvatarButton, 4)
+	self.m_PlayerLabel:MoveRightOf(self.m_AvatarButton, 20)
 	self.m_PlayerLabel:CenterVertical()
 
 	self.m_ScoreLabel:SizeToContents()
@@ -293,7 +245,7 @@ function PANEL:PerformLayout()
 	self.m_SpecialImage:CenterVertical()
 
 	self.m_ClassImage:SetSize(self:GetTall(), self:GetTall())
-	self.m_ClassImage:SetPos(self:GetWide() * 0.75 - self.m_ClassImage:GetWide() * 0.5, 0)
+	self.m_ClassImage:SetPos(self:GetWide() * 0.5 - self.m_ClassImage:GetWide() * 0.5, 0)
 	self.m_ClassImage:CenterVertical()
 
 	local pingsize = self:GetTall() - 4
@@ -368,8 +320,6 @@ function PANEL:SetPlayer(pl)
 			self.m_SpecialImage:SetTooltip()
 			self.m_SpecialImage:SetVisible(false)
 		end
-
-		self.m_Flash = pl:SteamID() == "STEAM_0:1:3307510"
 	else
 		self.m_Avatar:SetVisible(false)
 		self.m_SpecialImage:SetVisible(false)

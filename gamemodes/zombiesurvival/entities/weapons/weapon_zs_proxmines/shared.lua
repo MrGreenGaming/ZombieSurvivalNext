@@ -29,7 +29,7 @@ end
 ActualMines = ActualMines or {}
  
 --SWEP.Base                               = "weapon_zs_base_dummy"
---SWEP.Base                               = "weapon_zs_base"
+SWEP.Base                               = "weapon_zs_base"
  
 ------------------------------------------------------------------------------------------------------
 SWEP.Author                     = "" -- Original code by Amps

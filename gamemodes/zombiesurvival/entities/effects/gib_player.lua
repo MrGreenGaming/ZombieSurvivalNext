@@ -63,6 +63,21 @@ function EFFECT:Init(data)
 				particle:SetLighting(true)
 				particle:SetColor(255, 0, 0)
 			end
+			
+			for i=1, 5 do
+				local particle2 = emitter:Add("noxctf/sprite_bloodspray"..math.random(8), pos)
+				particle2:SetVelocity(math.Rand(0.5, 4) * (VectorRand():GetNormalized() + dir))
+				particle2:SetDieTime(math.Rand(0.25, 2))
+				particle2:SetStartAlpha(230)
+				particle2:SetEndAlpha(0)
+				particle2:SetStartSize(math.Rand(4, 5))
+				particle2:SetEndSize(4)
+				particle2:SetRoll(math.Rand(0, 360))
+				particle2:SetRollDelta(math.Rand(-1, 1))
+				particle2:SetLighting(true)
+				particle2:SetColor(255, 0, 0)
+			end
+			
 		end
 	end
 

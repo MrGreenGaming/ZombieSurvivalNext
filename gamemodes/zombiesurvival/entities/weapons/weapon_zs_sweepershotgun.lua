@@ -1,7 +1,7 @@
 AddCSLuaFile()
 
 if CLIENT then
-	SWEP.PrintName = "'Sweeper' Shotgun"
+	SWEP.PrintName = "M3Shotgun"
 	SWEP.Slot = 3
 	SWEP.SlotPos = 0
 
@@ -36,6 +36,10 @@ GAMEMODE:SetupDefaultClip(SWEP.Primary)
 SWEP.ConeMax = 0.14
 SWEP.ConeMin = 0.105
 
+
+SWEP.IronSightsPos = Vector(-7.3, 9, 2.3) --Vector(-7.3, 9, 2.3)
+SWEP.IronSightsAng = Vector(0, -1, 0)
+
 SWEP.WalkSpeed = SPEED_SLOWER
 
 SWEP.reloadtimer = 0
@@ -49,7 +53,7 @@ function SWEP:Reload()
 		self.reloading = true
 		self.reloadtimer = CurTime() + self.ReloadDelay
 		self:SendWeaponAnim(ACT_SHOTGUN_RELOAD_START)
-		self.Owner:RestartGesture(ACT_HL2MP_GESTURE_RELOAD_SHOTGUN)
+		--self.Owner:RestartGesture(ACT_HL2MP_GESTURE_RELOAD_SHOTGUN)
 	end
 
 	self:SetIronsights(false)

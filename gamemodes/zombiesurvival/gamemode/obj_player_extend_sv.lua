@@ -85,8 +85,7 @@ function meta:ChangeTeam(teamid)
 	if oldteam ~= teamid then
 		gamemode.Call("OnPlayerChangedTeam", self, oldteam, teamid)
 	end
-	self:DoNoodleArmBones()
-	self:DoMuscularBones()
+
 	self:CollisionRulesChanged()
 end
 
@@ -234,14 +233,22 @@ function meta:ChangeToCrow()
 	self.DeathClass = curclass
 end
 
-function meta:SelectRandomPlayerModel()
-	self:SetModel(player_manager.TranslatePlayerModel(GAMEMODE.RandomPlayerModels[math.random(#GAMEMODE.RandomPlayerModels)]))
+function meta:SelectRandomPlayerModel()  --Classes This function will be changed!
+	--self:SetModel(player_manager.TranslatePlayerModel(GAMEMODE.RandomPlayerModels[math.random(#GAMEMODE.RandomPlayerModels)]))
 end
 
+
 function meta:GiveEmptyWeapon(weptype)
+
+	
+	if weptype == "weapon_zs_miniturret" then
+		self:SpawnMiniTurret()
+		return
+	end
+	
 	if not self:HasWeapon(weptype) then
 		local wep = self:Give(weptype)
-		if wep and wep:IsValid() and wep:IsWeapon() then
+		if wep:IsValid() and wep:IsWeapon() then
 			wep:EmptyAll()
 		end
 
@@ -249,23 +256,34 @@ function meta:GiveEmptyWeapon(weptype)
 	end
 end
 
-local OldGive = meta.Give
-function meta:Give(weptype)
-	if self:Team() ~= TEAM_HUMAN then
-		return OldGive(self, weptype)
+-- Here for when garry makes weapons use 357 ammo like he does every other update.
+--[[local oldgive = meta.Give
+function meta:Give(...)
+	local wep = oldgive(self, ...)
+	if wep:IsValid() then
+		if wep.Primary and wep.Primary.Ammo and wep.Primary.Ammo ~= "none" then
+			self:RemoveAmmo(wep.Primary.DefaultClip - wep.Primary.ClipSize, "357")
+			wep:SetClip1(0)
+
+			if wep.Primary.DefaultClip > wep.Primary.ClipSize then
+				self:GiveAmmo(wep.Primary.DefaultClip, wep.Primary.Ammo, true)
+			end
+			wep:SetClip1(wep.Primary.ClipSize)
+			self:RemoveAmmo(wep.Primary.ClipSize, wep.Primary.Ammo)
+		end
+		if wep.Secondary and wep.Secondary.Ammo and wep.Secondary.Ammo ~= "none" then
+			self:RemoveAmmo(wep.Secondary.DefaultClip - wep.Secondary.ClipSize, "357")
+			wep:SetClip2(0)
+
+			if wep.Secondary.DefaultClip > wep.Secondary.ClipSize then
+				self:GiveAmmo(wep.Secondary.DefaultClip, wep.Secondary.Ammo, true)
+			end
+			wep:SetClip2(wep.Secondary.ClipSize)
+			self:RemoveAmmo(wep.Secondary.ClipSize, wep.Secondary.Ammo)
+		end
 	end
-
-	local weps = self:GetWeapons()
-	local autoswitch = #weps == 1 and weps[1]:IsValid() and weps[1].AutoSwitchFrom
-
-	local ret = OldGive(self, weptype)
-
-	if autoswitch then
-		self:SelectWeapon(weptype)
-	end
-
-	return ret
-end
+	return wep
+end]]
 
 function meta:StartFeignDeath(force)
 	local feigndeath = self.FeignDeath
@@ -754,14 +772,8 @@ function meta:AddBrains(amount)
 	self:CheckRedeem()
 end
 
-meta.GetBrains = meta.Frags
-
 function meta:CheckRedeem(instant)
-	if not self:IsValid() or self:Team() ~= TEAM_UNDEAD
-	or GAMEMODE:GetRedeemBrains() <= 0 or self:GetBrains() < GAMEMODE:GetRedeemBrains()
-	or GAMEMODE.NoRedeeming or self.NoRedeeming or self:GetZombieClassTable().Boss then return end
-
-	if GAMEMODE:GetWave() ~= GAMEMODE:GetNumberOfWaves() or not GAMEMODE.ObjectiveMap and GAMEMODE:GetNumberOfWaves() == 1 and CurTime() < GAMEMODE:GetWaveEnd() - 300 then
+	if self:IsValid() and self:Team() == TEAM_UNDEAD and GAMEMODE:GetRedeemBrains() > 0 and GAMEMODE:GetRedeemBrains() <= self:Frags() and GAMEMODE:GetWave() ~= GAMEMODE:GetNumberOfWaves() and not self.NoRedeeming and not self:GetZombieClassTable().Boss then
 		if instant then
 			self:Redeem()
 		else
@@ -877,10 +889,10 @@ end
 
 function meta:GetLastAttacker()
 	local ent = self.LastAttacker
-	if ent and ent:IsValid() and CurTime() <= self.LastAttacked + 10 then
+	if ent and ent:IsValid() and ent:Team() ~= self:Team() and CurTime() <= self.LastAttacked + 10 then
 		return ent
 	end
-	--self:SetLastAttacker()
+	self:SetLastAttacker()
 end
 
 function meta:SetLastAttacker(ent)
@@ -899,5 +911,21 @@ meta.OldUnSpectate = meta.UnSpectate
 function meta:UnSpectate()
 	if self:GetObserverMode() ~= OBS_MODE_NONE then
 		self:OldUnSpectate(obsm)
+	end
+end
+
+
+function meta:SpawnMiniTurret()
+	if IsValid(self.MiniTurret) then
+		return
+	end
+	
+	local ent = ents.Create("zs_miniturret")
+	if ent then
+		ent:SetPos(self:GetPos()+vector_up*40)
+		ent:SetOwner(self)
+		ent:Spawn()
+		ent:Activate()	
+		self.MiniTurret = ent
 	end
 end

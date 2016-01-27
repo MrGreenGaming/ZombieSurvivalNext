@@ -3,13 +3,9 @@ if not meta then return end
 
 function meta:GetDefaultBarricadeHealth()
 	local mass = 2
-	if self._OriginalMass then
-		mass = self._OriginalMass
-	else
-		local phys = self:GetPhysicsObject()
-		if phys:IsValid() then
-			mass = phys:GetMass()
-		end
+	local phys = self:GetPhysicsObject()
+	if phys:IsValid() then
+		mass = phys:GetMass()
 	end
 
 	return math.Clamp(mass * GAMEMODE.BarricadeHealthMassFactor + self:GetVolume() * GAMEMODE.BarricadeHealthVolumeFactor, GAMEMODE.BarricadeHealthMin, GAMEMODE.BarricadeHealthMax)
@@ -87,14 +83,14 @@ function meta:FireOutput(outpt, activator, caller, args)
 	local intab = self[outpt]
 	if intab then
 		for key, tab in pairs(intab) do
-			local param = ((tab.args == "") and args) or tab.args
 			for __, subent in pairs(self:FindByNameHammer(tab.entityname, activator, caller)) do
 				local delay = tonumber(tab.delay)
 				if delay == nil or delay <= 0 then
-					subent:Input(tab.input, activator, caller, param)
+					subent:Input(tab.input, activator, caller, tab.args)
 				else
 					local inp = tab.input
-					timer.Simple(delay, function() if subent:IsValid() then subent:Input(inp, activator, caller, param) end end)
+					local args = tab.args
+					timer.Simple(delay, function() if subent:IsValid() then subent:Input(inp, activator, caller, args) end end)
 				end
 			end
 		end
@@ -250,7 +246,7 @@ end
 
 meta.OldSetPhysicsAttacker = meta.SetPhysicsAttacker
 function meta:SetPhysicsAttacker(ent)
-	if string.sub(self:GetClass(), 1, 12) == "func_physbox" and ent:IsValid() then
+	if self:GetClass() == "func_physbox" and ent:IsValid() then
 		self.PBAttacker = ent
 		self.NPBAttacker = CurTime() + 1
 	end
@@ -367,7 +363,7 @@ end
 
 local function GetNailOwner(nail, filter)
 	for _, ent in pairs(ents.GetAll()) do
-		if ent and ent ~= filter and ent.Nails and ent:IsValid() then
+		if ent ~= filter and ent.Nails then
 			for __, n in pairs(ent.Nails) do
 				if n == nail then
 					return ent
@@ -391,7 +387,7 @@ function meta:RemoveNail(nail, dontremoveentity, removedby)
 	local cons = nail:GetNailConstraint()
 	local othernails = 0
 	for _, othernail in pairs(ents.FindByClass("prop_nail")) do
-		if othernail ~= nail and not nail.m_IsRemoving and othernail:GetNailConstraint():IsValid() and othernail:GetNailConstraint() == cons then
+		if othernail ~= nail and othernail:GetNailConstraint():IsValid() and othernail:GetNailConstraint() == cons then
 			othernails = othernails + 1
 		end
 	end

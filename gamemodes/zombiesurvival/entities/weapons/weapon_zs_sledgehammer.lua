@@ -14,10 +14,10 @@ SWEP.DamageType = DMG_CLUB
 SWEP.ViewModel = "models/weapons/v_sledgehammer/v_sledgehammer.mdl"
 SWEP.WorldModel = "models/weapons/w_sledgehammer.mdl"
 
-SWEP.MeleeDamage = 75
+SWEP.MeleeDamage = 95
 SWEP.MeleeRange = 64
 SWEP.MeleeSize = 1.75
-SWEP.MeleeKnockBack = 70
+SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.75
 
 SWEP.Primary.Delay = 1.3
 

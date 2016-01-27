@@ -1,6 +1,6 @@
 CreateClientConVar("zs_bossclass", "", true, true)
 
-local Window
+local Window --[[
 local HoveredClassWindow
 
 local function CreateHoveredClassWindow(classtable)
@@ -14,7 +14,7 @@ local function CreateHoveredClassWindow(classtable)
 	HoveredClassWindow:MoveBelow(Window, 32)
 	HoveredClassWindow:SetClassTable(classtable)
 end
-
+]]--
 function GM:OpenClassSelect(bossmode)
 	if Window and Window:Valid() then Window:Remove() end
 
@@ -49,12 +49,14 @@ function PANEL:Init()
 		end
 	end
 
-	local button = EasyButton(self, "Select desired boss class...", 8, 4)
+	local button = EasyButton(self, "BOSS SELECTION", 8, 4)
 	self.ClassTypeButton = button
 	button.DoClick = BossTypeDoClick
 
 	self:InvalidateLayout()
 end
+
+
 
 function PANEL:PerformLayout()
 	local spacing = self:GetWide() / math.max(1, #self.ClassButtons)
@@ -73,11 +75,13 @@ end
 local texUpEdge = surface.GetTextureID("gui/gradient_up")
 local texDownEdge = surface.GetTextureID("gui/gradient_down")
 function PANEL:Paint()
+
+
 	local wid, hei = self:GetSize()
 	local edgesize = 32
 
 	DisableClipping(true)
-	surface.SetDrawColor(color_black_alpha220)
+	surface.SetDrawColor(80,0,0,255)
 	surface.DrawRect(0, 0, wid, hei)
 	surface.SetTexture(texUpEdge)
 	surface.DrawTexturedRect(0, -edgesize, wid, edgesize)
@@ -86,6 +90,21 @@ function PANEL:Paint()
 	DisableClipping(false)
 
 	return true
+end
+
+local HoveredClassWindow
+
+local function CreateHoveredClassWindow(classtable)
+	if HoveredClassWindow and HoveredClassWindow:Valid() then
+		HoveredClassWindow:Remove()
+	end
+	
+	HoveredClassWindow = vgui.Create("ClassInfo")
+	HoveredClassWindow:SetSize(ScrW() * 0.5, 128)
+	HoveredClassWindow:CenterHorizontal()
+	HoveredClassWindow:MoveBelow(Window, 32)
+	HoveredClassWindow:SetClassTable(classtable)
+	surface.PlaySound("mrgreen/ui/menu_click01.wav")
 end
 
 vgui.Register("ClassSelect", PANEL, "Panel")
@@ -109,7 +128,7 @@ function PANEL:Init()
 		end
 	end
 
-	local button = EasyButton(self, "Back to normal class menu...", 8, 4)
+	local button = EasyButton(self, "ZOMBIE SPECIES", 8, 4)
 	self.ClassTypeButton = button
 	button.DoClick = ClassTypeDoClick
 
@@ -270,9 +289,9 @@ function PANEL:CreateDescLabels()
 	if not classtable or not classtable.Description then return end
 
 	local lines = string.Explode("\n", translate.Get(classtable.Description))
-	if classtable.Wave and classtable.Wave > 0 then
-		table.insert(lines, 1, "("..translate.Format("unlocked_on_wave_x", classtable.Wave)..")")
-	end
+	--if classtable.Wave and classtable.Wave > 0 then
+	--	table.insert(lines, 1, "("..translate.Format("unlocked_on_wave_x", classtable.Wave)..")")
+	--end
 
 	if classtable.Help then
 		table.insert(lines, " ")

@@ -41,11 +41,18 @@ function SWEP:Think()
 		self.IdleAnimation = nil
 		self:SendWeaponAnim(ACT_VM_IDLE)
 	end
+
 end
 
 function SWEP:PrimaryAttack()
 	if not self:CanPrimaryAttack() then return end
 
+	if self:GetPrimaryAmmoCount() <= 0 then
+		self:EmitSound("Weapon_Shotgun.Empty")
+		self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
+		return false
+	end
+	
 	local owner = self.Owner
 
 	local status = owner.status_ghost_barricadekit
@@ -76,5 +83,8 @@ function SWEP:PrimaryAttack()
 		end
 
 		self:TakePrimaryAmmo(1)
+		
+		
+		
 	end
 end

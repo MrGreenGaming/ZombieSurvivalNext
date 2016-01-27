@@ -13,23 +13,18 @@ function meta:GetVolume()
 	return (maxs.x - mins.x) + (maxs.y - mins.y) + (maxs.z - mins.z)
 end
 
-function meta:TakeSpecialDamage(damage, damagetype, attacker, inflictor, hitpos, damageforce)
+function meta:TakeSpecialDamage(damage, damagetype, attacker, inflictor, hitpos)
 	attacker = attacker or self
 	if not attacker:IsValid() then attacker = self end
 	inflictor = inflictor or attacker
 	if not inflictor:IsValid() then inflictor = attacker end
 
-	local nearest = self:NearestPoint(inflictor:NearestPoint(self:LocalToWorld(self:OBBCenter())))
-
 	local dmginfo = DamageInfo()
 	dmginfo:SetDamage(damage)
 	dmginfo:SetAttacker(attacker)
 	dmginfo:SetInflictor(inflictor)
-	dmginfo:SetDamagePosition(hitpos or nearest)
+	dmginfo:SetDamagePosition(hitpos or self:NearestPoint(inflictor:NearestPoint(self:LocalToWorld(self:OBBCenter()))))
 	dmginfo:SetDamageType(damagetype)
-	if damageforce then
-		dmginfo:SetDamageForce(damageforce)
-	end
 	self:TakeDamageInfo(dmginfo)
 
 	return dmginfo
@@ -73,6 +68,14 @@ function meta:ResetBones(onlyscale)
 			self:ManipulateBonePosition(i, vector_origin)
 		end
 	end
+end
+
+function meta:SetTeamID(teamid)
+	self.TeamID = teamid
+end
+
+function meta:GetTeamID()
+	return self.Team and self:Team() or self.TeamID or 0
 end
 
 function meta:SetBarricadeHealth(m)
@@ -145,7 +148,7 @@ end
 local function barricadetimer(self, timername)
 	if self:IsValid() then
 		for _, e in pairs(ents.FindInBox(self:WorldSpaceAABB())) do
-			if e and e:IsValid() and e:IsPlayer() and e:Alive() then
+			if e:IsPlayer() and e:Alive() then
 				return
 			end
 		end
@@ -161,7 +164,7 @@ function meta:TemporaryBarricadeObject()
 	if self.IsBarricadeObject then return end
 
 	for _, e in pairs(ents.FindInBox(self:WorldSpaceAABB())) do
-		if e and e:IsValid() and e:IsPlayer() and e:Alive() then
+		if e:IsPlayer() and e:Alive() then
 			self.IsBarricadeObject = true
 			self:CollisionRulesChanged()
 
@@ -208,7 +211,7 @@ function meta:ThrowFromPosition(pos, force, noknockdown)
 		self:SetGroundEntity(NULL)
 		if SERVER and not noknockdown and self:IsPlayer() then
 			local absforce = math.abs(force)
-			if absforce >= 512 or self.Clumsy and self:Team() == TEAM_HUMAN and absforce >= 32 then
+			if absforce >= 512 or self.Clumsy and self:Team() ~= TEAM_UNDEAD and absforce >= 32 then
 				self:KnockDown()
 			end
 		end
@@ -240,7 +243,7 @@ function meta:ThrowFromPositionSetZ(pos, force, zmul, noknockdown)
 		self:SetGroundEntity(NULL)
 		if SERVER and not noknockdown and self:IsPlayer() then
 			local absforce = math.max(math.abs(force) * math.abs(zmul), math.abs(force))
-			if absforce >= 512 or self.Clumsy and self:Team() == TEAM_HUMAN and absforce >= 32 then
+			if absforce >= 512 or self.Clumsy and self:Team() ~= TEAM_UNDEAD and absforce >= 32 then
 				self:KnockDown()
 			end
 		end
@@ -264,7 +267,7 @@ function meta:PoisonDamage(damage, attacker, inflictor, hitpos, noreduction)
 	local dmginfo = DamageInfo()
 
 	if self:IsPlayer() then
-		if self:Team() ~= TEAM_HUMAN then return end
+		if self:Team() == TEAM_UNDEAD then return end
 
 		if self.BuffResistant then
 			damage = damage / 2
@@ -325,9 +328,4 @@ if CLIENT then
 	if not meta.SetPhysicsAttacker then
 		meta.SetPhysicsAttacker = function() end
 	end
-end
-
-local OldSequenceDuration = meta.SequenceDuration
-function meta:SequenceDuration(seqid)
-	return OldSequenceDuration(self, seqid) or 0
 end

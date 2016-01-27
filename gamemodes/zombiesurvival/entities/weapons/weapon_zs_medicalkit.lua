@@ -11,6 +11,8 @@ if CLIENT then
 
 	SWEP.BobScale = 2
 	SWEP.SwayScale = 1.5
+
+	
 end
 
 SWEP.Base = "weapon_zs_base"
@@ -29,9 +31,9 @@ SWEP.Primary.Ammo = "Battery"
 SWEP.Secondary.Delay = 20
 SWEP.Secondary.Heal = 10
 
-SWEP.Secondary.ClipSize = 1
-SWEP.Secondary.DefaultClip = 1
-SWEP.Secondary.Ammo = "dummy"
+SWEP.Secondary.ClipSize = -1
+SWEP.Secondary.DefaultClip = -1
+SWEP.Secondary.Ammo = "none"
 
 SWEP.WalkSpeed = SPEED_NORMAL
 
@@ -108,6 +110,12 @@ function SWEP:SecondaryAttack()
 	end
 end
 
+--[[function SWEP:Initialize()
+	if CLIENT and self:GetOwner() == LocalPlayer() and LocalPlayer():GetActiveWeapon() == self then
+		hook.Add("PostPlayerDraw", "PostPlayerDrawMedical", GAMEMODE.PostPlayerDrawMedical)
+	end
+end]]
+
 function SWEP:Deploy()
 	gamemode.Call("WeaponDeployed", self.Owner, self)
 
@@ -115,7 +123,6 @@ function SWEP:Deploy()
 
 	if CLIENT then
 		hook.Add("PostPlayerDraw", "PostPlayerDrawMedical", GAMEMODE.PostPlayerDrawMedical)
-		GAMEMODE.MedicalAura = true
 	end
 
 	return true
@@ -124,17 +131,9 @@ end
 function SWEP:Holster()
 	if CLIENT then
 		hook.Remove("PostPlayerDraw", "PostPlayerDrawMedical")
-		GAMEMODE.MedicalAura = false
 	end
 
 	return true
-end
-
-function SWEP:OnRemove()
-	if CLIENT and self.Owner == LocalPlayer() then
-		hook.Remove("PostPlayerDraw", "PostPlayerDrawMedical")
-		GAMEMODE.MedicalAura = false
-	end
 end
 
 function SWEP:Reload()
@@ -169,36 +168,73 @@ function SWEP:DrawWeaponSelection(...)
 	return self:BaseDrawWeaponSelection(...)
 end
 
+
+function SWEP:SetNextCharge(tim)
+	self:SetDTFloat(0, tim)
+end
+
+function SWEP:GetNextCharge()
+	return self:GetDTFloat(0)
+end
+
 local texGradDown = surface.GetTextureID("VGUI/gradient_down")
 function SWEP:DrawHUD()
 	local screenscale = BetterScreenScale()
-	local wid, hei = 256, 16
-	local x, y = ScrW() - wid - 32, ScrH() - hei - 72
-	local texty = y - 4 - draw.GetFontHeight("ZSHUDFontSmall")
+	local wid, hei = 256, 0
+	local x, y = ScrW() - wid - 32, ScrH() - hei - 30
+	local texty = y - 4 - draw.GetFontHeight("ZSHUDFont")
 
-	local timeleft = self:GetNextCharge() - CurTime()
-	if 0 < timeleft then
+	
+	local hudsplat3 = Material("hud/hud_bottom_right.png") --Items for the HUD.
+	
+	local Hud_Image_3 = {
+		color 		= Color( 225, 225, 225, 400 ); -- Color overlay of image; white = original color of image
+		material 	= Material("hud/hud_bottom_right.png"); -- Material to be used
+		x 			= 1600; -- x coordinate for the material to be rendered ( mat is drawn from top left to bottom right )
+		y 			= 980; -- y coordinate for the material to be rendered ( mat is drawn from top left to bottom right )
+		w 			= 320; -- width of the material to span
+		h 			= 100; -- height of the material to span
+	};
+	
+	surface.SetMaterial(hudsplat3)
+	surface.SetDrawColor(225, 225, 225, 200 )
+	surface.DrawTexturedRect(Hud_Image_3.x, Hud_Image_3.y, Hud_Image_3.w, Hud_Image_3.h)
+	
+
 		surface.SetDrawColor(5, 5, 5, 180)
 		surface.DrawRect(x, y, wid, hei)
 
-		surface.SetDrawColor(255, 0, 0, 180)
-		surface.SetTexture(texGradDown)
-		surface.DrawTexturedRect(x, y, math.min(1, timeleft / math.max(self.Primary.Delay, self.Secondary.Delay)) * wid, hei)
+	draw.SimpleText("MedKit", "ZSHUDFont2", x, texty, COLOR_GREY, TEXT_ALIGN_LEFT)
 
-		surface.SetDrawColor(255, 0, 0, 180)
-		surface.DrawOutlinedRect(x, y, wid, hei)
-	end
+	
+	local SCREEN_W = 1920; --For the screen resolution scale. This means that it can be fit exactly on the screen without any issues.
+	local SCREEN_H = 1080;
+	local X_MULTIPLIER = ScrW( )  / 60 ;
+	local Y_MULTIPLIER = ScrH( ) / 80 ;
 
-	draw.SimpleText("Medical Kit", "ZSHUDFontSmall", x, texty, COLOR_GREEN, TEXT_ALIGN_LEFT)
+--[[
 
-	local charges = self:GetPrimaryAmmoCount()
-	if charges > 0 then
-		draw.SimpleText(charges, "ZSHUDFontSmall", x + wid, texty, COLOR_GREEN, TEXT_ALIGN_RIGHT)
-	else
-		draw.SimpleText(charges, "ZSHUDFontSmall", x + wid, texty, COLOR_DARKRED, TEXT_ALIGN_RIGHT)
-	end
+	local cW, cH = ScrW() * 0.5, ScrH() * 0.5
+	
+	surface.SetDrawColor( Color ( 188,183,153,30 ) )
+	surface.DrawLine(cW - X_MULTIPLIER, cH - 2, cW + X_MULTIPLIER, cH - 2)
+	
+	surface.SetDrawColor( Color ( 188,183,153,160 ) )
+	surface.DrawLine(cW - X_MULTIPLIER, cH - 1, cW + X_MULTIPLIER, cH - 1)
+	
+	surface.SetDrawColor( Color ( 188,183,153,160 ) )
+	surface.DrawLine(cW - X_MULTIPLIER, cH - 0, cW + X_MULTIPLIER, cH - 0)
+	
+	surface.SetDrawColor( Color ( 188,183,153,30 ) )
+	surface.DrawLine(cW - X_MULTIPLIER, cH + 1, cW + X_MULTIPLIER, cH + 1)
 
-	if GetConVarNumber("crosshair") == 1 then
-		self:DrawCrosshairDot()
-	end
+	
+	surface.SetDrawColor( Color ( 188,183,153,50 ) )
+	surface.DrawLine(cW - 1, cH - Y_MULTIPLIER, cW - 1, cH + Y_MULTIPLIER)
+	
+	surface.SetDrawColor( Color ( 188,183,153,130 ) )
+	surface.DrawLine(cW - 0, cH - Y_MULTIPLIER, cW - 0, cH + Y_MULTIPLIER)
+	
+	surface.SetDrawColor( Color ( 188,183,153,50 ) )
+	surface.DrawLine(cW + 1, cH - Y_MULTIPLIER, cW + 1, cH + Y_MULTIPLIER)]]--
 end
