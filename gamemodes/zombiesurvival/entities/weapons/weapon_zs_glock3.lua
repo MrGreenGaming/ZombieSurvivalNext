@@ -35,3 +35,13 @@ SWEP.ConeMax = 0.14
 SWEP.ConeMin = 0.07
 
 SWEP.IronSightsPos = Vector(-5.75, 10, 2.7)
+
+if CHRISTMAS then
+	SWEP.VElements = {
+		["xms_lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "v_weapon.Glock_Parent", rel = "", pos = Vector(4.848, 2.098, -0.426), angle = Angle(176.225, -20.577, -103.295), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+	SWEP.WElements = {
+		["lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(-0.482, 0.46, -0.691), angle = Angle(0, 0, 180), size = Vector(0.474, 0.474, 0.474), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} }
+	}
+end
+

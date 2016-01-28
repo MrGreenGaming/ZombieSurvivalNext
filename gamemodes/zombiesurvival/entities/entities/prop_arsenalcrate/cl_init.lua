@@ -2,7 +2,11 @@ include("shared.lua")
 
 function ENT:Initialize()
 	self:SetRenderBounds(Vector(-72, -72, -72), Vector(72, 72, 128))
+
+	
 end
+
+
 
 function ENT:SetObjectHealth(health)
 	self:SetDTFloat(0, health)
@@ -10,28 +14,50 @@ end
 
 local colFlash = Color(30, 255, 30)
 function ENT:Draw()
-	self:DrawModel()
+	
 
 	if not MySelf:IsValid() then return end
 
-	local owner = self:GetObjectOwner()
+	
 
-	local w, h = 600, 420
+	    self:DrawModel()
 
-	cam.Start3D2D(self:LocalToWorld(Vector(1, 0, self:OBBMaxs().z)), self:GetAngles(), 0.05)
+	    if not IsValid(MySelf) or MySelf:Team() ~= TEAM_HUMAN then
+	        return
+	    end
 
-		draw.RoundedBox(64, w * -0.5, h * -0.5, w, h, color_black_alpha120)
+		if MySelf.MobileSupplyTimerActive == false then
+	    	--self.LineColor = Color(0, math.abs(200 * math.sin(CurTime() * 3)), 0, 100)
+	    elseif self.LineColor ~= Color(210, 0, 0, 100) then
+	    	--self.LineColor = Color(210, 0, 0, 100)
+	    end
 
-		draw.SimpleText(translate.Get("arsenal_crate"), "ZS3D2DFont2", 0, 0, COLOR_GRAY, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	    --Draw some stuff
+	    local pos = self:GetPos() + Vector(0,0,45)
 
-		if MySelf:Team() == TEAM_HUMAN and GAMEMODE:PlayerCanPurchase(MySelf) then
-			colFlash.a = math.abs(math.sin(CurTime() * 5)) * 255
-			draw.SimpleText(translate.Get("purchase_now"), "ZS3D2DFont2Small", 0, -64, colFlash, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
+	    --Check for distance with local player
+	    if pos:Distance(MySelf:GetPos()) > 400 then
+	        return
+	    end
+	          
+	    local angle = (MySelf:GetPos() - pos):Angle()
+	    angle.p = 0
+	    angle.y = angle.y + 90
+	    angle.r = angle.r + 90
+
+	    cam.Start3D2D(pos,angle,0.26)
+
+		local owner = self:GetObjectOwner()
+		local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
+	
+		if validOwner then
+			draw.SimpleTextOutlined( owner:Name() .."'s Weapons and Supplies", "ZSHUDFontSmall", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+		else
+			draw.SimpleTextOutlined( "Weapons and Supplies", "ZSHUDFontSmall", -20, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 		end
+	
+	    cam.End3D2D()
 
-		if owner:IsValid() and owner:IsPlayer() then
-			draw.SimpleText("("..owner:ClippedName()..")", "ZS3D2DFont2Small", 0, 64, owner == MySelf and COLOR_BLUE or COLOR_GRAY, TEXT_ALIGN_CENTER)
-		end
-
-	cam.End3D2D()
+		self:DrawModel()
 end
+

@@ -4,22 +4,25 @@ SWEP.Primary.KnockbackScale = 1
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 0.15
 
-SWEP.ConeMax = 0.03
+SWEP.ConeMax = 0.02
 SWEP.ConeMin = 0.01
 SWEP.ConeRamp = 2
 
 SWEP.CSMuzzleFlashes = true
-
+SWEP.DrawCrosshair = false
 SWEP.Primary.ClipSize = 8
 SWEP.Primary.DefaultClip = 0
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "pistol"
 SWEP.RequiredClip = 1
 
-SWEP.Secondary.ClipSize = 1
-SWEP.Secondary.DefaultClip = 1
+SWEP.AutoSwitchTo		= false
+SWEP.AutoSwitchFrom		= false
+
+SWEP.Secondary.ClipSize = -1
+SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
-SWEP.Secondary.Ammo = "dummy"
+SWEP.Secondary.Ammo = "none"
 
 SWEP.WalkSpeed = SPEED_NORMAL
 
@@ -34,7 +37,7 @@ function SWEP:Initialize()
 	if not self:IsValid() then return end --???
 
 	self:SetWeaponHoldType(self.HoldType)
-	self:SetDeploySpeed(1.1)
+	self:SetDeploySpeed(1)
 
 	-- Maybe we didn't want to convert the weapon to the new system...
 	if self.Cone then
@@ -175,7 +178,13 @@ function SWEP:CanPrimaryAttack()
 	if self:Clip1() < self.RequiredClip then
 		self:EmitSound("Weapon_Pistol.Empty")
 		self:SetNextPrimaryFire(CurTime() + math.max(0.25, self.Primary.Delay))
+		
+		
+		--Auto-reloading
+		self:Reload()
+		
 		return false
+		
 	end
 
 	return self:GetNextPrimaryFire() <= CurTime()
@@ -266,7 +275,7 @@ function SWEP:SetWeaponHoldType( t )
 	local index = ActIndex[ t ]
 	
 	if ( index == nil ) then
-		Msg( "SWEP:SetWeaponHoldType - ActIndex[ \""..t.."\" ] isn't set! (defaulting to normal) (from "..self:GetClass()..")\n" )
+		Msg( "SWEP:SetWeaponHoldType - ActIndex[ \""..t.."\" ] isn't set! (defaulting to normal)\n" )
 		t = "normal"
 		index = ActIndex[ t ]
 	end

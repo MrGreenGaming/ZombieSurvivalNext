@@ -9,7 +9,7 @@ CLASS.SWEP = "weapon_zs_wraith"
 CLASS.Model = Model("models/wraith_zsv1.mdl")
 CLASS.Speed = 190
 
-CLASS.Points = 4
+CLASS.Points = 5
 
 CLASS.VoicePitch = 0.65
 
@@ -109,7 +109,7 @@ end
 
 if not CLIENT then return end
 
-CLASS.Icon = "zombiesurvival/killicons/wraithv2"
+CLASS.Icon = "zombiesurvival/classmenu/wraith"
 
 function CLASS:PrePlayerDraw(pl)
 	pl:RemoveAllDecals()

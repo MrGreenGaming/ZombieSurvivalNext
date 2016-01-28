@@ -6,6 +6,7 @@ TEAM_SURVIVORS = TEAM_SURVIVOR
 TEAM_HUMAN = TEAM_SURVIVOR
 TEAM_HUMANS = TEAM_SURVIVOR
 
+
 DISMEMBER_HEAD = 1
 DISMEMBER_LEFTARM = 2
 DISMEMBER_RIGHTARM = 4
@@ -46,10 +47,21 @@ DIR_LEFT = 3
 
 DEFAULT_VIEW_OFFSET = Vector(0, 0, 64)
 DEFAULT_VIEW_OFFSET_DUCKED = Vector(0, 0, 28)
-DEFAULT_JUMP_POWER = 185
+DEFAULT_JUMP_POWER = 190
 DEFAULT_STEP_SIZE = 18
 DEFAULT_MASS = 80
 DEFAULT_MODELSCALE = 1
+
+--Duby: Classes global variables for redeeming 
+CLASS_1 = false
+CLASS_2 = false
+CLASS_3 = false
+CLASS_4 = false
+CLASS_5 = false
+CLASS_6 = false
+
+CHRISTMAS = false
+HALLOWEEEN = false
 
 -- Humans can not carry OR drag anything heavier than this (in kg.)
 CARRY_MAXIMUM_MASS = 300
@@ -64,7 +76,7 @@ CARRY_SPEEDLOSS_PERKG = 1.3
 -- but can never be slower than this.
 CARRY_SPEEDLOSS_MINSPEED = 88
 
-GM.MaxLegDamage = 3
+GM.MaxLegDamage = 5
 
 GM.UtilityKey = IN_SPEED
 GM.MenuKey = IN_WALK -- I would use the spawn menu but it has no IN_ key assignment.
@@ -74,7 +86,7 @@ GM.ArsenalCrateMultiplier = 0.8
 GM.ArsenalCrateDiscount = 1 - GM.ArsenalCrateMultiplier
 GM.ArsenalCrateDiscountPercentage = GM.ArsenalCrateDiscount * 100
 
-SPEED_NORMAL = 225
+SPEED_NORMAL = 200
 SPEED_SLOWEST = SPEED_NORMAL - 20
 SPEED_SLOWER = SPEED_NORMAL - 14
 SPEED_SLOW = SPEED_NORMAL - 7
@@ -82,11 +94,11 @@ SPEED_FAST = SPEED_NORMAL + 7
 SPEED_FASTER = SPEED_NORMAL + 14
 SPEED_FASTEST = SPEED_NORMAL + 20
 
-SPEED_ZOMBIEESCAPE_SLOWEST = 220
-SPEED_ZOMBIEESCAPE_SLOWER = 230
-SPEED_ZOMBIEESCAPE_SLOW = 240
-SPEED_ZOMBIEESCAPE_NORMAL = 250
-SPEED_ZOMBIEESCAPE_ZOMBIE = 280
+SPEED_ZOMBIEESCAPE_SLOWEST = 190
+SPEED_ZOMBIEESCAPE_SLOWER = 200
+SPEED_ZOMBIEESCAPE_SLOW = 210
+SPEED_ZOMBIEESCAPE_NORMAL = 220
+SPEED_ZOMBIEESCAPE_ZOMBIE = 250
 
 ZE_KNOCKBACKSCALE = 0.1
 
@@ -179,7 +191,7 @@ GM.ValidBeaconMessages = {
 	"message_beacon_5",
 	"message_beacon_6",
 	"message_beacon_7",
-	--"message_beacon_8",
+	"message_beacon_8",
 	"message_beacon_9",
 	"message_beacon_10",
 	"message_beacon_11",

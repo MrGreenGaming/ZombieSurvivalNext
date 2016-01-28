@@ -17,9 +17,6 @@ end)
 
 function ENT:Initialize()
 	self:SetModel("models/crossbow_bolt.mdl")
-	self.m_NailUnremovable = self.m_NailUnremovable or false
-	self.HealthOveride = self.HealthOveride or -1
-	self.HealthMultiplier = self.HealthMultiplier or 1
 end
 
 function ENT:OnDamaged(damage, attacker, inflictor, dmginfo)
@@ -51,8 +48,6 @@ function ENT:AttachTo(baseent, attachent, physbone, physbone2)
 
 	if baseent:GetBarricadeHealth() == 0 then
 		local health = baseent:GetDefaultBarricadeHealth()
-		if self.HealthOveride and self.HealthOveride > 0 then health = self.HealthOveride end
-		health = health * (self.HealthMultiplier or 1)
 		baseent:SetMaxBarricadeHealth(health)
 		baseent:SetBarricadeHealth(health)
 		baseent:SetBarricadeRepairs(baseent:GetMaxBarricadeRepairs())
@@ -89,11 +84,6 @@ function ENT:SetDeployer(pl)
 	end
 end
 
-function ENT:SetNewHealth(health)
-	baseent = self:GetBaseEntity()
-	baseent:SetBarricadeHealth(health)
-end
-
 function ENT:AcceptInput(name, activator, caller, args)
 	name = string.lower(name)
 	if name == "attachto" then
@@ -116,16 +106,12 @@ function ENT:AcceptInput(name, activator, caller, args)
 		self:SetDeployer(args)
 
 		return true
-	elseif name == "sethealth" then
-		self:SetNewHealth(args)
-		
-		return true
 	elseif name == "setunremoveable" or name == "setunremovable" then
 		self.m_NailUnremovable = tonumber(args) == 1
 
 		return true
 	elseif name == "toggleunremoveable" or name == "toggleunremovable" then
-		self.m_NailUnremovable = not self.m_NailUnremovable
+		self.m_NailUnremovable = not self.m_NailRemovable
 
 		return true
 	end
@@ -147,10 +133,6 @@ end
 function ENT:KeyValue(key, value)
 	key = string.lower(key)
 	if key == "unremoveable" or key == "unremovable" then
-		self.m_NailUnremovable = tonumber(value) == 1
-	elseif key == "healthoverride" then
-		self.HealthOveride = tonumber(value)
-	elseif key == "healthmultiplier" then
-		self.HealthMultiplier = tonumber(value)
+		self.m_NailUnremoveable = tonumber(value) == 1
 	end
 end

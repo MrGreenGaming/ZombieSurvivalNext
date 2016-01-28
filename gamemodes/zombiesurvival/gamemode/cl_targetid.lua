@@ -11,7 +11,7 @@ function GM:DrawTargetID(ent, fade)
 	util.ColorCopy(COLOR_FRIENDLY, colTemp)
 
 	local name = ent:Name()
-	draw.SimpleTextBlur(name, "ZSHUDFontSmaller", x, y, colTemp, TEXT_ALIGN_CENTER)
+	draw.SimpleText(name, "ZSHUDFontSmaller", x, y, colTemp, TEXT_ALIGN_CENTER)
 	y = y + draw.GetFontHeight("ZSHUDFontSmaller") + 4
 
 	local healthfraction = math.max(ent:Health() / (ent:Team() == TEAM_UNDEAD and ent:GetMaxZombieHealth() or ent:GetMaxHealth()), 0)
@@ -19,7 +19,7 @@ function GM:DrawTargetID(ent, fade)
 		util.ColorCopy(0.75 <= healthfraction and COLOR_HEALTHY or 0.5 <= healthfraction and COLOR_SCRATCHED or 0.25 <= healthfraction and COLOR_HURT or COLOR_CRITICAL, colTemp)
 
 		local healthdisplay = math.ceil(healthfraction * 100).."%"
-		draw.SimpleTextBlur(healthdisplay, "ZSHUDFont", x, y, colTemp, TEXT_ALIGN_CENTER)
+		draw.SimpleText(healthdisplay, "ZSHUDFont", x, y, colTemp, TEXT_ALIGN_CENTER)
 		y = y + draw.GetFontHeight("ZSHUDFont") + 4
 	end
 
@@ -29,18 +29,18 @@ function GM:DrawTargetID(ent, fade)
 		local classtab = ent:GetZombieClassTable()
 		local classname = classtab.TranslationName and translate.Get(classtab.TranslationName) or classtab.Name
 		if classname then
-			draw.SimpleTextBlur(classname, "ZSHUDFontTiny", x, y, colTemp, TEXT_ALIGN_CENTER)
+			draw.SimpleText(classname, "ZSHUDFontTiny", x, y, colTemp, TEXT_ALIGN_CENTER)
 		end
 	else
 		local holding = ent:GetHolding()
 		if holding:IsValid() then
 			local mdl = holding:GetModel()
 			local name = string.match(mdl, ".*/(.+)%.mdl") or "object"
-			draw.SimpleTextBlur("Carrying ["..name.."]", "ZSHUDFontTiny", x, y, colTemp, TEXT_ALIGN_CENTER)
+			draw.SimpleText("Carrying ["..name.."]", "ZSHUDFontTiny", x, y, colTemp, TEXT_ALIGN_CENTER)
 		else
 			local wep = ent:GetActiveWeapon()
 			if wep:IsValid() then
-				draw.SimpleTextBlur(wep:GetPrintName(), "ZSHUDFontTiny", x, y, colTemp, TEXT_ALIGN_CENTER)
+				draw.SimpleText(wep:GetPrintName(), "ZSHUDFontTiny", x, y, colTemp, TEXT_ALIGN_CENTER)
 			end
 		end
 	end
@@ -53,15 +53,13 @@ function GM:HUDDrawTargetID(teamid)
 	trace.filter[1] = MySelf
 	trace.filter[2] = MySelf:GetObserverTarget()
 
-	local isspectator = MySelf:IsSpectator()
-
 	local entity = util.TraceHull(trace).Entity
-	if entity:IsValid() and entity:IsPlayer() and (entity:Team() == teamid or isspectator) then
+	if entity:IsValid() and entity:IsPlayer() and entity:Team() == teamid then
 		entitylist[entity] = CurTime()
 	end
 
 	for ent, time in pairs(entitylist) do
-		if ent:IsValid() and ent:IsPlayer() and (ent:Team() == teamid or isspectator) and CurTime() < time + 2 then
+		if ent:IsValid() and not (ent:IsPlayer() and ent:Team() ~= teamid) and CurTime() < time + 2 then
 			self:DrawTargetID(ent, 1 - math.Clamp((CurTime() - time) / 2, 0, 1))
 		else
 			entitylist[ent] = nil

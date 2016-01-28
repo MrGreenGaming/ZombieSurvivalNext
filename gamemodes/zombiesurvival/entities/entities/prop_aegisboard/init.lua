@@ -4,7 +4,7 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 function ENT:Initialize()
-	self:SetModel("models/props_debris/wood_board05a.mdl")
+	self:SetModel("models/props_debris/wood_board01a.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 
 	local phys = self:GetPhysicsObject()
@@ -13,7 +13,7 @@ function ENT:Initialize()
 		phys:Wake()
 	end
 
-	self:SetMaxObjectHealth(450)
+	self:SetMaxObjectHealth(300)
 	self:SetObjectHealth(self:GetMaxObjectHealth())
 end
 

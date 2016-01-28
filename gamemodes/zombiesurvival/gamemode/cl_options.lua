@@ -2,12 +2,12 @@ GM.BeatSetHumanDefault = "defaulthuman"
 GM.BeatSetZombieDefault = "defaultzombiev2"
 
 GM.ItemCategoryIcons = {
-	[ITEMCAT_GUNS] = "icon16/gun.png",
-	[ITEMCAT_AMMO] = "icon16/box.png",
-	[ITEMCAT_MELEE] = "icon16/cog.png",
-	[ITEMCAT_TOOLS] = "icon16/wrench.png",
-	[ITEMCAT_OTHER] = "icon16/world.png",
-	[ITEMCAT_RETURNS] = "icon16/user_delete.png"
+
+}
+
+
+GM.ItemCategoryIcons2 = {
+	[ITEMCAT_CLASS] = "",
 }
 
 GM.LifeStatsLifeTime = 5
@@ -27,13 +27,11 @@ cvars.AddChangeCallback("zs_crosshair_colb2", function(cvar, oldvalue, newvalue)
 GM.FilmMode = CreateClientConVar("zs_filmmode", "0", true, false):GetBool()
 cvars.AddChangeCallback("zs_filmmode", function(cvar, oldvalue, newvalue)
 	GAMEMODE.FilmMode = tonumber(newvalue) == 1
-
 	GAMEMODE:EvaluateFilmMode()
 end)
 
 CreateClientConVar("zs_noredeem", "0", true, true)
 CreateClientConVar("zs_alwaysvolunteer", "0", true, true)
-CreateClientConVar("zs_nobosspick", "0", true, true)
 
 GM.SuicideOnChangeClass = CreateClientConVar("zs_suicideonchange", "1", true, false):GetBool()
 cvars.AddChangeCallback("zs_suicideonchange", function(cvar, oldvalue, newvalue)

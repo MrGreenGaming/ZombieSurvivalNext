@@ -1,11 +1,12 @@
 ENT.Type = "anim"
 ENT.Base = "status__base"
 
-ENT.Model = Model("models/props_debris/wood_board05a.mdl")
+ENT.Model = Model("models/props_debris/wood_board01a.mdl")
 
 function ENT:Initialize()
 	self:DrawShadow(false)
-	self:SetMaterial("models/wireframe")
+	--self:SetMaterial("models/wireframe")
+	self:SetMaterial("models/debug/debugwhite")
 	self:SetModel(self.Model)
 
 	self:RecalculateValidity()

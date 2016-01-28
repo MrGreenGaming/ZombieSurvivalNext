@@ -33,6 +33,7 @@ end]]
 
 function SWEP:Initialize()
 	self:HideWorldModel()
+	self.Owner:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(15,15,15,50))
 end
 
 function SWEP:Precache()
@@ -53,15 +54,30 @@ function SWEP:StartMoaningSound()
 end
 
 function SWEP:PlayHitSound()
+local pl = self.Owner
 	self.Owner:EmitSound("ambient/machines/slicer"..math.random(4)..".wav", 90, 80)
+	self.Owner:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(15,15,15,50))
+timer.Simple(1, function() 
+	self.Owner:SetRenderMode(RENDERMODE_NONE) pl:SetColor(Color(15,15,15,50))
+	end)
 end
 
 function SWEP:PlayMissSound()
+local pl = self.Owner
 	self.Owner:EmitSound("npc/zombie/claw_miss"..math.random(1, 2)..".wav", 90, 80)
+		self.Owner:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(15,15,15,15))
+timer.Simple(1, function() 
+	self.Owner:SetRenderMode(RENDERMODE_NONE) pl:SetColor(Color(15,15,15,50))
+	end)
 end
 
 function SWEP:PlayAttackSound()
+local pl = self.Owner
 	self.Owner:EmitSound("npc/antlion/distract1.wav")
+		self.Owner:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(15,15,15,15))
+timer.Simple(1, function() 
+	self.Owner:SetRenderMode(RENDERMODE_NONE) pl:SetColor(Color(15,15,15,50))
+	end)
 end
 
 function SWEP:Swung()
@@ -93,7 +109,7 @@ function SWEP:DoAlert()
 	local mouthpos = owner:EyePos() + owner:GetUp() * -3
 	local screampos = mouthpos + owner:GetAimVector() * 16
 	for _, ent in pairs(ents.FindInSphere(screampos, 92)) do
-		if ent and ent:IsValid() and ent:IsPlayer() and ent:Team() == TEAM_HUMAN then
+		if ent:IsPlayer() and ent:Team() ~= owner:Team() then
 			local entearpos = ent:EyePos()
 			local dist = screampos:Distance(entearpos)
 			if dist <= 92 and TrueVisible(entearpos, screampos) then

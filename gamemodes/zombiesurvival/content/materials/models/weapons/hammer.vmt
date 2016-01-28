@@ -1,4 +1,5 @@
 VertexLitGeneric
 {
-	"$basetexture"	"models/weapons/hammer"
+	"$basetexture"	"models\weapons\hammer"
+
 }

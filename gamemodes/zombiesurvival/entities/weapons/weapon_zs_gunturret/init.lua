@@ -51,13 +51,6 @@ function SWEP:PrimaryAttack()
 
 	self:SetNextPrimaryAttack(CurTime() + self.Primary.Delay)
 
-	local channel = GAMEMODE:GetFreeChannel("prop_gunturret")
-	if channel == -1 then
-		owner:SendLua("surface.PlaySound(\"buttons/button8.wav\")")
-		owner:CenterNotify(COLOR_RED, translate.ClientGet(owner, "no_free_channel"))
-		return
-	end
-
 	local ent = ents.Create("prop_gunturret")
 	if ent:IsValid() then
 		ent:SetPos(pos)
@@ -65,7 +58,6 @@ function SWEP:PrimaryAttack()
 		ent:Spawn()
 
 		ent:SetObjectOwner(owner)
-		ent:SetChannel(channel)
 
 		ent:EmitSound("npc/dog/dog_servo12.wav")
 
@@ -76,11 +68,8 @@ function SWEP:PrimaryAttack()
 		local stored = owner:PopPackedItem(ent:GetClass())
 		if stored then
 			ent:SetObjectHealth(stored[1])
+			ent:SetAmmo(stored[2])
 		end
-
-		local ammo = math.min(owner:GetAmmoCount("smg1"), 250)
-		ent:SetAmmo(ammo)
-		owner:RemoveAmmo(ammo, "smg1")
 
 		if not owner:HasWeapon("weapon_zs_gunturretcontrol") then
 			owner:Give("weapon_zs_gunturretcontrol")

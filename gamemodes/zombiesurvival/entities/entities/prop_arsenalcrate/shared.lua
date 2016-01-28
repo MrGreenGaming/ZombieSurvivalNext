@@ -1,12 +1,13 @@
 ENT.Type = "anim"
 
+
 ENT.m_NoNailUnfreeze = true
 ENT.NoNails = true
 
 ENT.CanPackUp = true
 
 ENT.IsBarricadeObject = true
-ENT.AlwaysGhostable = true
+ENT.AlwaysGhostable = false
 
 function ENT:SetObjectHealth(health)
 	self:SetDTFloat(0, health)

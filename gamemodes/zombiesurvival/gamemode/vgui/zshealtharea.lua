@@ -1,16 +1,18 @@
 local PANEL = {}
 
-local colHealth = Color(0, 0, 0, 240)
+local colHealth = Color(255, 255, 255, 240)
 local function ContentsPaint(self)
 	local lp = LocalPlayer()
 	if lp:IsValid() then
 		local health = math.max(lp:Health(), 0)
 		local healthperc = math.Clamp(health / lp:GetMaxHealthEx(), 0, 1)
 
-		colHealth.r = (1 - healthperc) * 180
-		colHealth.g = healthperc * 180
-
-		draw.SimpleTextBlurry(health, "ZSHUDFont", 8, self:GetTall() - 8, colHealth, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+		--colHealth.r = (1 - healthperc) * 180
+		--colHealth.g = healthperc * 180
+	
+		draw.SimpleText(health, "ZSHUDFontBig", 1, self:GetTall() , COLOR_GRAY, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+		
+		
 	end
 end
 
@@ -18,8 +20,8 @@ function PANEL:Init()
 	self:DockMargin(0, 0, 0, 0)
 	self:DockPadding(0, 0, 0, 0)
 
-	self.HealthModel = vgui.Create("ZSHealthModelPanel", self)
-	self.HealthModel:Dock(LEFT)
+	--self.HealthModel = vgui.Create("ZSHealthModelPanel", self)
+	--self.HealthModel:Dock(LEFT)
 
 	local contents = vgui.Create("Panel", self)
 	contents:Dock(FILL)
@@ -85,11 +87,14 @@ function PANEL:PerformLayout()
 
 	self:SetSize(screenscale * 350, screenscale * 128)
 
-	self.HealthModel:SetWide(self:GetTall())
+	--self.HealthModel:SetWide(self:GetTall())
 
 	self:AlignLeft(screenscale * 24)
 	self:AlignBottom(screenscale * 24)
 end
+
+
+
 
 function PANEL:Paint()
 end
@@ -269,6 +274,8 @@ function PANEL:Paint()
 	render.SuppressEngineLighting(false)
 	render.SetColorModulation(1, 1, 1)
 	cam.IgnoreZ(false)
+	
+	
 end
 
 function PANEL:LayoutEntity(ent)
@@ -328,6 +335,8 @@ function PANEL:Paint()
 	draw.SimpleText(t1, "ZSHUDFontTinyNS", w - 4, h / 2, color_white, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
 	draw.SimpleText(self.MemberName, "ZSHUDFontTinyNS", 5, h / 2 + 1, color_black, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 	draw.SimpleText(self.MemberName, "ZSHUDFontTinyNS", 4, h / 2, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+
+	
 end
 
 vgui.Register("ZSHealthStatus", PANEL, "Panel")

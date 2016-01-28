@@ -1,6 +1,8 @@
 local meta = FindMetaTable("Player")
 if not meta then return end
 
+meta.GetTeamID = meta.Team
+
 function meta:GetMaxHealthEx()
 	if self:Team() == TEAM_UNDEAD then
 		return self:GetMaxZombieHealth()
@@ -28,11 +30,6 @@ function meta:HasWon()
 	end
 
 	return false
-end
-
-local TEAM_SPECTATOR = TEAM_SPECTATOR
-function meta:IsSpectator()
-	return self:Team() == TEAM_SPECTATOR
 end
 
 function meta:GetBossZombieIndex()
@@ -146,6 +143,10 @@ function meta:SetZombieClassName(classname)
 	end
 end
 
+function meta:AddLegDamage(damage)
+	self:SetLegDamage(self:GetLegDamage() + damage)
+end
+
 function meta:SetPoints(points)
 	self:SetDTInt(1, points)
 end
@@ -184,10 +185,6 @@ function meta:GetUnlucky()
 	return self.m_Unlucky
 end
 
-function meta:AddLegDamage(damage)
-	self:SetLegDamage(self:GetLegDamage() + damage)
-end
-
 function meta:SetLegDamage(damage)
 	self.LegDamage = CurTime() + math.min(GAMEMODE.MaxLegDamage, damage * 0.125)
 	if SERVER then
@@ -207,11 +204,8 @@ function meta:RawCapLegDamage(time)
 end
 
 function meta:GetLegDamage()
-	return math.max(0, (self.LegDamage or 0) - CurTime())
-end
-
-function meta:WouldDieFrom(damage, hitpos)
-	return self:Health() <= damage * GAMEMODE:GetZombieDamageScale(hitpos, self)
+	local base = self.LegDamage or 0
+	return math.max(0, base - CurTime())
 end
 
 function meta:ProcessDamage(dmginfo)
@@ -231,7 +225,7 @@ function meta:ProcessDamage(dmginfo)
 		local damage = dmginfo:GetDamage()
 
 		local scale = inflictor.SlowDownScale or 1
-		if damage >= 40 or scale > 1 then
+		--[[if damage >= 40 or scale > 1 then
 			local dolegdamage = true
 			if inflictor.SlowDownImmunityTime then
 				if CurTime() < (self.SlowDownImmunityTime or 0) then
@@ -240,10 +234,10 @@ function meta:ProcessDamage(dmginfo)
 					self.SlowDownImmunityTime = CurTime() + inflictor.SlowDownImmunityTime
 				end
 			end
-			if dolegdamage then
-				self:RawCapLegDamage(self:GetLegDamage() + CurTime() + damage * 0.04 * (inflictor.SlowDownScale or 1))
-			end
-		end
+			--if dolegdamage then
+				--self:RawCapLegDamage(self:GetLegDamage() + CurTime() + damage * 0.04 * (inflictor.SlowDownScale or 1))
+			--end
+		end]]--
 
 		if self:GetHemophilia() and damage >= 5 then
 			local dmgtype = dmginfo:GetDamageType()
@@ -266,7 +260,7 @@ function meta:ProcessDamage(dmginfo)
 end
 
 function meta:KnockDown(time)
-	if self:Team() == TEAM_HUMAN then
+	if self:Team() ~= TEAM_UNDEAD then
 		self:GiveStatus("knockdown", time or 3)
 	end
 end
@@ -329,6 +323,7 @@ function meta:SetHumanSpeed(speed)
 	if self:Team() == TEAM_HUMAN then self:SetSpeed(speed) end
 end
 
+
 function meta:ResetSpeed(noset, health)
 	if not self:IsValid() then return end
 
@@ -360,19 +355,19 @@ function meta:ResetSpeed(noset, health)
 		end
 	end]]
 
-	if 32 < speed and not GAMEMODE.ZombieEscape then
+	--[[if 32 < speed and not GAMEMODE.ZombieEscape then
 		if not health then health = self:Health() end
 		if health < 60 then
 			speed = math.max(88, speed - speed * 0.4 * (1 - health / 60))
 		end
-	end
+	end]]--
 
 	if not noset then
 		self:SetSpeed(speed)
 	end
 
 	return speed
-end
+end 
 
 function meta:ResetJumpPower(noset)
 	local power = DEFAULT_JUMP_POWER
@@ -386,7 +381,7 @@ function meta:ResetJumpPower(noset)
 		end
 	else
 		if self:GetBarricadeGhosting() then
-			power = power * 0.25
+			power = power * 0.3
 			if not noset then
 				self:SetJumpPower(power)
 			end
@@ -395,10 +390,10 @@ function meta:ResetJumpPower(noset)
 		end
 	end
 
-	local wep = self:GetActiveWeapon()
-	if wep and wep.ResetJumpPower then
-		power = wep:ResetJumpPower(power) or power
-	end
+	--local wep = self:GetActiveWeapon()
+	--if wep and wep.ResetJumpPower then
+		--power = wep:ResetJumpPower(power) or power
+	--end
 
 	if not noset then
 		self:SetJumpPower(power)
@@ -426,14 +421,8 @@ function meta:ShouldBarricadeGhostWith(ent)
 end
 
 function meta:BarricadeGhostingThink()
-	if self:KeyDown(IN_ZOOM) or self:ActiveBarricadeGhosting() then 
-		if self.FirstGhostThink then 
-			self:SetLocalVelocity( Vector( 0, 0, 0 ) ) 
-			self.FirstGhostThink = false 
-		end
-		return 
-	end
-	self.FirstGhostThink = true
+	if self:KeyDown(IN_ZOOM) or self:ActiveBarricadeGhosting() then return end
+
 	self:SetBarricadeGhosting(false)
 end
 
@@ -452,7 +441,7 @@ end
 local function nocollidetimer(self, timername)
 	if self:IsValid() then
 		for _, e in pairs(ents.FindInBox(self:WorldSpaceAABB())) do
-			if e and e:IsValid() and e:IsPlayer() and e ~= self and GAMEMODE:ShouldCollide(self, e) then
+			if e:IsPlayer() and e ~= self and GAMEMODE:ShouldCollide(self, e) then
 				return
 			end
 		end
@@ -467,7 +456,7 @@ function meta:TemporaryNoCollide(force)
 	if self:GetCollisionGroup() ~= COLLISION_GROUP_PLAYER and not force then return end
 
 	for _, e in pairs(ents.FindInBox(self:WorldSpaceAABB())) do
-		if e and e:IsValid() and e:IsPlayer() and e ~= self and GAMEMODE:ShouldCollide(self, e) then
+		if e:IsPlayer() and e ~= self and GAMEMODE:ShouldCollide(self, e) then
 			self:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER)
 
 			local timername = "TemporaryNoCollide"..self:UniqueID()
@@ -513,12 +502,11 @@ function meta:MeleeTrace(distance, size, filter, start)
 	return self:TraceHull(distance, MASK_SOLID, size, filter, start)
 end
 
-function meta:PenetratingMeleeTrace(distance, size, prehit, start, dir)
+function meta:PenetratingMeleeTrace(distance, size, prehit, start)
 	start = start or self:GetShootPos()
-	dir = dir or self:GetAimVector()
 
 	local t = {}
-	local trace = {start = start, endpos = start + dir * distance, filter = self:GetMeleeFilter(), mask = MASK_SOLID, mins = Vector(-size, -size, -size), maxs = Vector(size, size, size)}
+	local trace = {start = start, endpos = start + self:GetAimVector() * distance, filter = self:GetMeleeFilter(), mask = MASK_SOLID, mins = Vector(-size, -size, -size), maxs = Vector(size, size, size)}
 	local onlyhitworld
 	for i=1, 50 do
 		local tr = util.TraceHull(trace)
@@ -555,7 +543,7 @@ function meta:ActiveBarricadeGhosting(override)
 	if self:Team() ~= TEAM_HUMAN and not override or not self:GetBarricadeGhosting() then return false end
 
 	for _, ent in pairs(ents.FindInBox(self:WorldSpaceAABB())) do
-		if ent and ent:IsValid() and self:ShouldBarricadeGhostWith(ent) then return true end
+		if self:ShouldBarricadeGhostWith(ent) then return true end
 	end
 
 	return false
@@ -880,4 +868,20 @@ end
 
 function meta:GetRight()
 	return self:SyncAngles():Right()
+end
+
+
+
+--[=[--------------------------------------
+       See if player is a human
+---------------------------------------]=]
+function meta:IsHuman()
+	return self:Team() == TEAM_HUMAN
+end
+
+--[=[---------------------------------------
+       See if player is a zombie
+----------------------------------------]=]
+function meta:IsZombie()
+	return self:Team() == TEAM_UNDEAD
 end

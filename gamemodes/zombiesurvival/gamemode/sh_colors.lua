@@ -1,5 +1,5 @@
 COLOR_GRAY = Color(190, 190, 190)
-COLOR_RED = Color(255, 0, 0)
+COLOR_RED = Color(120, 0, 0)
 COLOR_BLUE = Color(0, 0, 255)
 COLOR_GREEN = Color(0, 255, 0)
 COLOR_LIMEGREEN = Color(50, 255, 50)

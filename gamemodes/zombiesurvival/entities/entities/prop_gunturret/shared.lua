@@ -3,7 +3,7 @@ ENT.RenderGroup = RENDERGROUP_BOTH
 
 ENT.SearchDistance = 768
 ENT.MinimumAimDot = 0.5
-ENT.DefaultAmmo = 0 --250
+ENT.DefaultAmmo = 250
 ENT.MaxAmmo = 1000
 
 ENT.NoReviveFromKills = true
@@ -18,9 +18,6 @@ ENT.CanPackUp = true
 
 ENT.IsBarricadeObject = true
 ENT.AlwaysGhostable = true
-
-local NextCache = 0
-local CachedFilter = {}
 
 function ENT:GetLocalAnglesToTarget(target)
 	return self:WorldToLocalAngles(self:GetAnglesToTarget(target))
@@ -82,13 +79,14 @@ function ENT:GetScanFilter()
 end
 
 -- Getting all of some team is straining every frame when there's 5 or so turrets. I could probably use CONTENTS_TEAM* if I knew what they did.
+ENT.NextCache = 0
 function ENT:GetCachedScanFilter()
-	if CurTime() < NextCache and CachedFilter then return CachedFilter end
+	if CurTime() < self.NextCache and self.CachedFilter then return self.CachedFilter end
 
-	CachedFilter = self:GetScanFilter()
-	NextCache = CurTime() + 1
+	self.CachedFilter = self:GetScanFilter()
+	self.NextCache = CurTime() + 1
 
-	return CachedFilter
+	return self.CachedFilter
 end
 
 local tabSearch = {mask = MASK_SHOT}
@@ -187,14 +185,6 @@ function ENT:GetMaxObjectHealth()
 	return self:GetDTInt(1)
 end
 
-function ENT:GetChannel()
-	return self:GetDTInt(2)
-end
-
-function ENT:SetChannel(channel)
-	self:SetDTInt(2, channel)
-end
-
 function ENT:GetTarget()
 	return self:GetDTEntity(0)
 end
@@ -265,7 +255,8 @@ function ENT:CanBePackedBy(pl)
 end
 
 util.PrecacheSound("npc/turret_floor/die.wav")
-util.PrecacheSound("npc/turret_floor/active.wav")
+--util.PrecacheSound("npc/turret_floor/ping.wav")
+util.PrecacheSound("NPC_FloorTurret.Ping")
 util.PrecacheSound("npc/turret_floor/deploy.wav")
 util.PrecacheSound("npc/turret_floor/shoot1.wav")
 util.PrecacheSound("npc/turret_floor/shoot2.wav")

@@ -1,27 +1,3 @@
-function player.GetAllActive()
-	local t = {}
-
-	for _, pl in pairs(player.GetAll()) do
-		if not pl:IsSpectator() then
-			t[#t + 1] = pl
-		end
-	end
-
-	return t
-end
-
-function player.GetAllSpectators()
-	local t = {}
-
-	for _, pl in pairs(player.GetAll()) do
-		if pl:IsSpectator() then
-			t[#t + 1] = pl
-		end
-	end
-
-	return t
-end
-
 function FindStartingItem(id)
 	if not id then return end
 
@@ -84,19 +60,6 @@ function TrueVisibleFilters(posa, posb, ...)
 	return not util.TraceLine({start = posa, endpos = posb, filter = filt, mask = MASK_SHOT}).Hit
 end
 
-MASK_SHOT_OPAQUE = bit.bor(MASK_SHOT, CONTENTS_OPAQUE)
--- Literally if photon particles can reach point b from point a.
-function LightVisible(posa, posb, ...)
-	local filter = {}
-	if ... ~= nil then
-		for k, v in pairs({...}) do
-			filter[#filter + 1] = v
-		end
-	end
-
-	return not util.TraceLine({start = posa, endpos = posb, mask = MASK_SHOT_OPAQUE, filter = filter}).Hit
-end
-
 function WorldVisible(posa, posb)
 	return not util.TraceLine({start = posa, endpos = posb, mask = MASK_SOLID_BRUSHONLY}).Hit
 end
@@ -142,11 +105,9 @@ end
 function util.BlastDamageEx(inflictor, attacker, epicenter, radius, damage, damagetype)
 	local filter = inflictor
 	for _, ent in pairs(ents.FindInSphere(epicenter, radius)) do
-		if ent and ent:IsValid() then
-			local nearest = ent:NearestPoint(epicenter)
-			if TrueVisibleFilters(epicenter, nearest, inflictor, ent) then
-				ent:TakeSpecialDamage(((radius - nearest:Distance(epicenter)) / radius) * damage, damagetype, attacker, inflictor, nearest)
-			end
+		local nearest = ent:NearestPoint(epicenter)
+		if TrueVisibleFilters(epicenter, nearest, inflictor, ent) then
+			ent:TakeSpecialDamage(((radius - nearest:Distance(epicenter)) / radius) * damage, damagetype, attacker, inflictor, nearest)
 		end
 	end
 end
@@ -155,26 +116,12 @@ function util.BlastDamage2(inflictor, attacker, epicenter, radius, damage)
 	util.BlastDamageEx(inflictor, attacker, epicenter, radius, damage, DMG_BLAST)
 end
 
-function util.FindValidInSphere(pos, radius)
-	local ret = {}
-	
-	for _, ent in pairs(util.FindInSphere(pos, radius)) do
-		if ent and ent:IsValid() then
-			ret[#ret + 1] = ent
-		end
-	end
-
-	return ret
-end
-
 function util.PoisonBlastDamage(inflictor, attacker, epicenter, radius, damage, noreduce)
 	local filter = inflictor
 	for _, ent in pairs(ents.FindInSphere(epicenter, radius)) do
-		if ent and ent:IsValid() then
-			local nearest = ent:NearestPoint(epicenter)
-			if TrueVisibleFilters(epicenter, nearest, inflictor, ent) then
-				ent:PoisonDamage(((radius - nearest:Distance(epicenter)) / radius) * damage, attacker, inflictor, nil, noreduce)
-			end
+		local nearest = ent:NearestPoint(epicenter)
+		if TrueVisibleFilters(epicenter, nearest, inflictor, ent) then
+			ent:PoisonDamage(((radius - nearest:Distance(epicenter)) / radius) * damage, attacker, inflictor, nil, noreduce)
 		end
 	end
 end
@@ -292,4 +239,94 @@ function tonumbersafe(a)
 	end
 
 	return nil
+end
+
+function ents.FindHumansInSphere ( vPos, fRadius )
+	if not vPos or not fRadius then return end
+	
+	-- Get ents in that radius
+	local tbEnts = team.GetPlayers(TEAM_HUMAN)-- ents.FindInSphere ( vPos, fRadius )
+	local tbHumans = {} 
+	
+	-- Leave only humans
+	for k,v in pairs ( tbEnts ) do
+		if v:IsPlayer() and v:GetPos():Distance(vPos) <= fRadius then
+			table.insert ( tbHumans, v )
+		end
+	end
+	
+	return tbHumans	
+end
+
+function GetHowlers( vPos, iRadius )
+	if vPos == nil or iRadius == nil then return end
+	
+	-- Our howler table
+	local tbHowlers = {}
+	
+	for k,v in pairs ( team.GetPlayers(TEAM_UNDEAD) ) do-- ents.FindInSphere ( vPos, iRadius )
+		if v:IsPlayer() and v:Alive() and v:Team() == TEAM_UNDEAD  and vPos:Distance(v:GetPos()) <= iRadius then
+			if v:IsHowler() then
+				table.insert ( tbHowlers, v )
+			end
+		end
+	end
+	
+	return tbHowlers 
+end
+
+--[==[------------------------------------------------------------------------------
+                Returns if an entity is visible by another entity
+------------------------------------------------------------------------------]==]
+function IsEntityVisible ( mTarget, vSource, mFilter, iMask )
+	if vSource == nil or mTarget == nil then return end
+	
+	-- Mask
+	if not iMask then iMask = MASK_SHOT end
+	
+	-- Bool
+	local bIsVisible = false
+	
+	-- Use center
+	local vEnd = mTarget:GetPos() + mTarget:OBBCenter() + Vector( 0,0,6 )
+	
+	-- Trace 
+	local tr = util.TraceLine ( { start = vSource, endpos = vEnd, filter = mFilter, mask = iMask } )
+	if tr.Entity == mTarget then bIsVisible = true end
+	
+	return bIsVisible
+end
+
+--[==[-----------------------------------------------------------------------
+	    Returns if a world vector is visible to humans
+-------------------------------------------------------------------------]==]
+function VisibleToHumans ( vPos, mFilter )
+	if vPos == nil or mFilter:Team() == TEAM_HUMAN then return end
+	
+	-- No humans
+	if #team.GetPlayers ( TEAM_HUMAN ) <= 0 then return end
+	
+	-- Visiblity bool
+	local bCanSeeMe = false
+	
+	-- Get closest human first
+	local mClosest = GetClosestEntity ( vPos, team.GetPlayers ( TEAM_HUMAN ) )
+	if IsEntityVisible ( mClosest, vPos + Vector ( 0,0,55 ), mFilter ) then return true end
+	
+	-- Cache cheked humans
+	local tbChecked = {}
+	
+	for i = 1, 3 do
+		if bCanSeeMe then break end
+	
+		-- Get closest humans
+		local tbFound = ents.FindInSphere ( vPos, i * 150 )
+		
+		-- Parse through the found humans in sphere
+		for k,v in pairs ( tbFound ) do
+			if not table.HasValue ( tbChecked, v ) then if v:IsPlayer() and v:IsHuman() then table.insert ( tbChecked, v ) if IsEntityVisible ( v, vPos + Vector ( 0,0,55 ), mFilter ) then bCanSeeMe = true break end end end
+		end
+	end
+	
+	return bCanSeeMe
 end

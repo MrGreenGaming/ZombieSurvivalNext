@@ -76,6 +76,26 @@ function EFFECT:Init(data)
 		particle:SetColor(255, 0, 0)
 		particle:SetCollideCallback(CollideCallback)
 	end
+	
+		for i=1, data:GetMagnitude() do
+		local heading = (VectorRand():GetNormalized() * 3 + dir) / 4
+		local particle2 = emitter:Add("noxctf/sprite_bloodspray"..math.random(8), pos + heading)
+		particle2:SetVelocity(force * math.Rand(0.9, 1) * heading)
+		particle2:SetDieTime(math.Rand(3, 6))
+		particle2:SetStartAlpha(200)
+		particle2:SetEndAlpha(200)
+		particle2:SetStartSize(math.Rand(3, 5))
+		particle2:SetEndSize(4)
+		particle2:SetRoll(math.Rand(0, 370))
+		particle2:SetRollDelta(math.Rand(-20, 20))
+		particle2:SetAirResistance(6)
+		particle2:SetGravity(Vector(0, 0, -600))
+		particle2:SetCollide(true)
+		particle2:SetLighting(true)
+		particle2:SetColor(120, 125, 42)
+		particle2:SetCollideCallback(CollideCallback)
+	end
+	
 	emitter:Finish()
 end
 

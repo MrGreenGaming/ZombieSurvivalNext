@@ -1,7 +1,7 @@
 AddCSLuaFile()
 
 if CLIENT then
-	SWEP.PrintName = "'Stalker' M4"
+	SWEP.PrintName = "M4"
 	SWEP.Description = "Using this gun will severely reduce the distance in which zombies can see your aura."
 	SWEP.Slot = 2
 	SWEP.SlotPos = 0

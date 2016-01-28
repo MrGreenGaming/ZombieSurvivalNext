@@ -3,6 +3,8 @@ GM.NotifyFadeTime = 8
 local DefaultFont = "ZSHUDFontSmallest"
 local DefaultFontEntity = "ZSHUDFontSmallest"
 
+local DefaultFont2 = "ZSHUDFont2"
+
 local PANEL  = {}
 
 function PANEL:Init()
@@ -12,7 +14,7 @@ end
 local matGrad = Material("VGUI/gradient-r")
 function PANEL:Paint()
 	surface.SetMaterial(matGrad)
-	surface.SetDrawColor(0, 0, 0, 180)
+	surface.SetDrawColor(213, 23, 23, 10)
 
 	local align = self:GetParent():GetAlign()
 	if align == RIGHT then
@@ -28,7 +30,7 @@ end
 function PANEL:AddLabel(text, col, font, extramargin)
 	local label = vgui.Create("DLabel", self)
 	label:SetText(text)
-	label:SetFont(font or DefaultFont)
+	label:SetFont(font or DefaultFont2)
 	label:SetTextColor(col or color_white)
 	label:SizeToContents()
 	if extramargin then
@@ -160,23 +162,12 @@ function PANEL:AddNotification(...)
 	
 	notif:Dock(TOP)
 
-	local args = {...}
-	
-	local FadeTime = GAMEMODE.NotifyFadeTime
-	
-	for k, v in pairs(args) do
-		if type(v) == "table" and v.CustomTime and type(v.CustomTime == "number") then 
-			FadeTime = v.CustomTime 
-			break 
-		end
-	end
-	
 	notif:SetAlpha(1)
 	notif:AlphaTo(255, 0.5)
-	notif:AlphaTo(1, 1, FadeTime - 1)
-	
-	notif.DieTime = CurTime() + FadeTime 
-	
+	notif:AlphaTo(1, 1, GAMEMODE.NotifyFadeTime - 1)
+
+	notif.DieTime = CurTime() + GAMEMODE.NotifyFadeTime
+
 	return notif
 end
 

@@ -26,7 +26,7 @@ local function DoFleshThrow(pl, wep)
 				ent:SetPos(startpos + heading * 8)
 				ent:SetOwner(pl)
 				ent:Spawn()
-
+				ent:SetTeamID(TEAM_UNDEAD)
 				local phys = ent:GetPhysicsObject()
 				if phys:IsValid() then
 					phys:SetVelocityInstantaneous(heading * math.Rand(340, 550))
@@ -51,12 +51,12 @@ end
 
 function SWEP:SecondaryAttack()
 	if CurTime() < self:GetNextPrimaryFire() or CurTime() < self:GetNextSecondaryFire() then return end
-
 	local owner = self.Owner
+	if owner:Team() ~= TEAM_UNDEAD then owner:Kill() return end
 
-	owner:DoAnimationEvent(ACT_RANGE_ATTACK2)
-	owner:EmitSound("NPC_PoisonZombie.Throw")
-	owner:SetSpeed(1)
+	self.Owner:DoAnimationEvent(ACT_RANGE_ATTACK2)
+	self.Owner:EmitSound("NPC_PoisonZombie.Throw")
+	self.Owner:SetSpeed(1)
 	self:SetNextSecondaryFire(CurTime() + 4)
 	self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
 

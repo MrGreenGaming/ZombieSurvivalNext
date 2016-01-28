@@ -21,7 +21,7 @@ local function DoFleshThrow(pl, wep)
 			ent:SetAngles(AngleRand())
 			ent:SetOwner(pl)
 			ent:Spawn()
-
+			ent:SetTeamID(TEAM_UNDEAD)
 			local phys = ent:GetPhysicsObject()
 			if phys:IsValid() then
 				phys:SetVelocityInstantaneous(heading * 800)
@@ -48,6 +48,7 @@ function SWEP:SecondaryAttack()
 	if CurTime() < self:GetNextPrimaryFire() or CurTime() < self:GetNextSecondaryFire() then return end
 
 	local owner = self.Owner
+	if owner:Team() ~= TEAM_UNDEAD then owner:Kill() return end
 
 	self:SetSwingAnimTime(CurTime() + 1)
 	self.Owner:DoAnimationEvent(ACT_RANGE_ATTACK2)

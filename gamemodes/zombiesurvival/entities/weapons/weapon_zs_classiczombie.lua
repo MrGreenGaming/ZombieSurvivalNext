@@ -3,6 +3,7 @@ AddCSLuaFile()
 SWEP.Base = "weapon_zs_zombie"
 
 SWEP.MeleeDamage = 20
+SWEP.MeleeDelay = 1.9
 
 function SWEP:Reload()
 	self.BaseClass.SecondaryAttack(self)

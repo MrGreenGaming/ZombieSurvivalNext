@@ -13,7 +13,7 @@ CLASS.SWEP = "weapon_zs_poisonzombie"
 
 CLASS.Mass = DEFAULT_MASS * 1.5
 
-CLASS.Points = 7
+CLASS.Points = 8
 
 CLASS.PainSounds = {"NPC_PoisonZombie.Pain"}
 CLASS.DeathSounds = {"NPC_PoisonZombie.Die"}
@@ -69,4 +69,4 @@ end
 
 if not CLIENT then return end
 
-CLASS.Icon = "zombiesurvival/killicons/poisonzombie"
+CLASS.Icon = "zombiesurvival/classmenu/poisonzombie"

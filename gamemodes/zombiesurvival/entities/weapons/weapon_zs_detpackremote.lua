@@ -45,7 +45,7 @@ function SWEP:Think()
 		end
 	end
 
-	self.Owner:StripWeapon(self:GetClass())
+	--self.Owner:StripWeapon(self:GetClass())
 end
 end
 

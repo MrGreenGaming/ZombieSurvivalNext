@@ -114,7 +114,7 @@ function ENT:FireTurret(src, dir)
 
 			self:StartBulletKnockback()
 			self:FireBullets({Num = 1, Src = src, Dir = dir, Spread = Vector(0.05, 0.05, 0), Tracer = 1, Force = 1, Damage = 12, Callback = BulletCallback})
-			self:DoBulletKnockback(0.04)
+			self:DoBulletKnockback(0.05)
 			self:EndBulletKnockback()
 		else
 			self:SetNextFire(CurTime() + 2)
@@ -152,7 +152,8 @@ function ENT:Think()
 					self:FireTurret(shootpos, (self:GetTargetPos(target) - shootpos):GetNormalized())
 				else
 					self:ClearTarget()
-					self:EmitSound("npc/turret_floor/deploy.wav")
+					--self:EmitSound("npc/turret_floor/deploy.wav")
+					self:EmitSound("NPC_FloorTurret.Ping")
 				end
 			else
 				local target = self:SearchForTarget()
@@ -160,6 +161,7 @@ function ENT:Think()
 					self:SetTarget(target)
 					self:SetTargetReceived(CurTime())
 					self:EmitSound("npc/turret_floor/active.wav")
+					--self:EmitSound("NPC_FloorTurret.Ping")
 				end
 			end
 		end
@@ -183,7 +185,7 @@ function ENT:Use(activator, caller)
 				activator:RemoveAmmo(togive, "smg1")
 				activator:RestartGesture(ACT_GMOD_GESTURE_ITEM_GIVE)
 				self:EmitSound("npc/turret_floor/click1.wav")
-				--gamemode.Call("PlayerRepairedObject", activator, self, togive * 1.5, self)
+				gamemode.Call("PlayerRepairedObject", activator, self, togive * 1.5, self)
 			end
 		else
 			self:SetObjectOwner(activator)
@@ -202,8 +204,7 @@ function ENT:OnPackedUp(pl)
 	pl:GiveEmptyWeapon("weapon_zs_gunturret")
 	pl:GiveAmmo(1, "thumper")
 
-	pl:PushPackedItem(self:GetClass(), self:GetObjectHealth())
-	pl:GiveAmmo(self:GetAmmo(), "smg1")
+	pl:PushPackedItem(self:GetClass(), self:GetObjectHealth(), self:GetAmmo())
 
 	self:Remove()
 end

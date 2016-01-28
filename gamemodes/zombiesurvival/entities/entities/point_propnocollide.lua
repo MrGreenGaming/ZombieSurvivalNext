@@ -17,13 +17,13 @@ function ENT:SetProp(ent)
 	if not IsValid(ent) then return end
 
 	for _, e in pairs(ents.FindByClass(self:GetClass())) do
-		if e ~= self and e and e:IsValid() and e:GetProp() == ent then return end
+		if e ~= self and e:GetProp() == ent then return end
 	end
 
 	local teamid = self:GetTeam()
 	local inrad = false
 	for _, pl in pairs(ents.FindInSphere(ent:LocalToWorld(ent:OBBCenter()), ent:BoundingRadius() / 2 + self:GetExtraRadius())) do
-		if pl and pl:IsValid() and pl:IsPlayer() and pl:Alive() and (teamid == 0 or pl:Team() == teamid) then
+		if pl:IsValid() and pl:IsPlayer() and pl:Alive() and (teamid == 0 or pl:Team() == teamid) then
 			inrad = true
 			break
 		end
@@ -65,7 +65,7 @@ function ENT:Think()
 	local center = ent:LocalToWorld(ent:OBBCenter())
 
 	for _, pl in pairs(ents.FindInSphere(center, ent:BoundingRadius() / 2 + self:GetExtraRadius())) do
-		if pl and pl:IsValid() and pl:IsPlayer() and pl:Alive() and (teamid == 0 or pl:Team() == teamid) then
+		if pl:IsValid() and pl:IsPlayer() and pl:Alive() and (teamid == 0 or pl:Team() == teamid) then
 			pushout = true
 
 			if timeout then

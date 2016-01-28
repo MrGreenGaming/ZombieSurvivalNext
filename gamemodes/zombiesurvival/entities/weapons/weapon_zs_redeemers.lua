@@ -1,7 +1,7 @@
 AddCSLuaFile()
 
 if CLIENT then
-	SWEP.PrintName = "'Redeemers' Dual Handguns"
+	SWEP.PrintName = "Duel Elites"
 	SWEP.Slot = 1
 	SWEP.SlotPos = 0
 
@@ -22,9 +22,11 @@ SWEP.WorldModel = "models/weapons/w_pist_elite.mdl"
 SWEP.UseHands = true
 
 SWEP.Primary.Sound = Sound("Weapon_ELITE.Single")
-SWEP.Primary.Damage = 22
+SWEP.Primary.Damage = 7
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 0.15
+
+SWEP.WalkSpeed = SPEED_SLOW
 
 SWEP.Primary.ClipSize = 30
 SWEP.Primary.Automatic = true

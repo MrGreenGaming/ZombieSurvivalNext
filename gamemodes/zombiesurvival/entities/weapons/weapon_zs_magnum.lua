@@ -1,7 +1,7 @@
 AddCSLuaFile()
 
 if CLIENT then
-	SWEP.PrintName = "'Ricochete' Magnum"
+	SWEP.PrintName = "Magnum"
 	SWEP.Description = "This gun's bullets will bounce off of walls which will then deal extra damage."
 	SWEP.Slot = 1
 	SWEP.SlotPos = 0
@@ -26,7 +26,7 @@ SWEP.CSMuzzleFlashes = false
 
 SWEP.Primary.Sound = Sound("Weapon_357.Single")
 SWEP.Primary.Delay = 0.7
-SWEP.Primary.Damage = 59
+SWEP.Primary.Damage = 70
 SWEP.Primary.NumShots = 1
 
 SWEP.Primary.ClipSize = 6

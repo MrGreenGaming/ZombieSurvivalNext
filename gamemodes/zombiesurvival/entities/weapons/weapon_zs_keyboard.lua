@@ -14,11 +14,11 @@ if CLIENT then
 		["ValveBiped.Bip01_R_Finger01"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -49.524, 0) }
 	}
 	SWEP.VElements = {
-		["base"] = { type = "Model", model = "models/props_c17/computer01_keyboard.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(4.091, 4.4, -7.728), angle = Angle(180, -82.842, 80.794), size = Vector(0.75, 0.75, 0.75), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+		["keyboard"] = { type = "Model", model = "models/props/cs_office/computer_keyboard.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(7.147, 1.246, -6.666), angle = Angle(0, -180, -90), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
-	SWEP.WElements = {
-		["base"] = { type = "Model", model = "models/props_c17/computer01_keyboard.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(5, 4.091, -8.636), angle = Angle(180, -60.341, 90), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-	}
+	--SWEP.WElements = {
+	--	["base"] = { type = "Model", model = "models/props/cs_office/computer_keyboard.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(5, 4.091, -8.636), angle = Angle(180, -60.341, 90), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	--}
 end
 
 SWEP.Base = "weapon_zs_basemelee"
@@ -28,7 +28,7 @@ SWEP.HoldType = "melee"
 SWEP.DamageType = DMG_CLUB
 
 SWEP.ViewModel = "models/weapons/c_stunstick.mdl"
-SWEP.WorldModel = "models/props_c17/computer01_keyboard.mdl"
+SWEP.WorldModel = "models/weapons/w_keyboard.mdl"
 SWEP.UseHands = true
 
 SWEP.MeleeDamage = 35
