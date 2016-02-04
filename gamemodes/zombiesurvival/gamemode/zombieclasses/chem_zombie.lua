@@ -1,14 +1,14 @@
-CLASS.Hidden = true
-CLASS.Disabled = true
-CLASS.Unlocked = true
+CLASS.Hidden = false
+CLASS.Disabled = false
+CLASS.Unlocked = false
 
 CLASS.Name = "Chem Zombie"
 CLASS.TranslationName = "class_chem_zombie"
 CLASS.Description = "description_chem_zombie"
 CLASS.Help = "controls_chem_zombie"
 
-CLASS.Wave = 1
-CLASS.Health = 100
+CLASS.Wave = 4
+CLASS.Health = 120
 CLASS.SWEP = "weapon_zs_chemzombie"
 CLASS.Model = Model("models/Zombie/Poison.mdl")
 CLASS.Speed = 160
@@ -109,4 +109,4 @@ end
 
 if not CLIENT then return end
 
-CLASS.Icon = "zombiesurvival/killicons/chemzombie"
+CLASS.Icon = "zombiesurvival/classmenu/chemzombie"

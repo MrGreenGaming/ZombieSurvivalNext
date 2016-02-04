@@ -32,7 +32,7 @@ bananas + microwave = gelbanana
 metal barrel + something = body armor
 --]]
 
-resource.AddWorkshop("609849317")
+resource.AddWorkshop("615992520")
 
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("shared.lua")
@@ -47,6 +47,7 @@ AddCSLuaFile("sh_options.lua")
 AddCSLuaFile("sh_zombieclasses.lua")
 AddCSLuaFile("sh_animations.lua")
 AddCSLuaFile("sh_sigils.lua")
+AddCSLuaFile("sh_gamemode.lua")
 
 AddCSLuaFile("cl_draw.lua")
 AddCSLuaFile("cl_util.lua")
@@ -63,6 +64,10 @@ AddCSLuaFile("cl_chatsounds.lua")
 AddCSLuaFile("cl_splitmessage.lua")
 
 AddCSLuaFile("commands.lua")
+
+AddCSLuaFile("boneanimlib_v2/sh_boneanimlib.lua")
+AddCSLuaFile("boneanimlib_v2/cl_boneanimlib.lua")
+AddCSLuaFile("boneanimlib_v2/boneanimlib.lua")
 
 
 AddCSLuaFile("obj_vector_extend.lua")
@@ -2033,7 +2038,7 @@ concommand.Add("zs_pointsshopbuy", function(sender, command, arguments)
 
 	sender:TakePoints(cost)
 	sender:PrintTranslatedMessage(HUD_PRINTTALK, "purchased_x_for_y_points", itemtab.Name, cost)
-	sender:SendLua("surface.PlaySound(\"ambient/levels/labs/coinslot1.wav\")")
+	sender:SendLua("surface.PlaySound(\"items/ammo_pickup.wav\")")
 
 	local nearest = sender:NearestArsenalCrateOwnedByOther()
 	if nearest then

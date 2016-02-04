@@ -259,6 +259,56 @@ function meta:DrawCrosshairDot()
 	surface.DrawOutlinedRect(x - 2, y - 2, 4, 4)
 end
 
+-- Textures we need to draw the crosshair 
+local matCore, matOuter = surface.GetTextureID ( "zombiesurvival/crosshair/undead_crosshair_core" ), surface.GetTextureID ( "zombiesurvival/crosshair/undead_crosshair_outer" )
+
+function meta:DrawZombieCrosshair ( m_Owner, iDistance )
+	--if not IsEntityValid ( MySelf ) then return end
+	--if ENDROUND or IsClassesMenuOpen() then return end
+	
+	local x = ScrW() 
+	local y = ScrH()
+	
+	if ENDROUND then return end
+	local m_Owner = self.Owner
+	-- SQL ready
+--	if not MySelf.ReadySQL then return end
+	if util.tobool(GetConVarNumber("_zs_hidecrosshair")) then return end
+		
+	-- Vars
+	local bDrawOutline, colOuter = false, Color ( 255,255,255,240 )
+		
+	-- Headcrab have different view position
+	local vStart = m_Owner:GetShootPos()
+	--if m_Owner:IsHeadcrab() or m_Owner:IsPoisonCrab() then vStart = m_Owner:GetPos() + Vector ( 0,0,32 ) end
+	
+	-- Trace the line	
+	local trLine = util.TraceLine ( { start = vStart, endpos = vStart + ( m_Owner:GetAimVector() * 10000 ), filter = m_Owner } )
+		
+	-- Draw outer crosshair if hits entity
+	local m_Ent = trLine.Entity
+	if IsValid ( m_Ent ) then 
+		if m_Ent:IsPlayer() and m_Ent:IsHuman() then
+			local fDistance = m_Owner:GetPos():Distance ( m_Ent:GetPos() )
+			bDrawOutline = true
+			if fDistance <= 65 then colOuter = Color ( 10, 240, 10, 160 ) else colOuter = Color ( 240, 10, 10, 160 ) end
+		end
+	end
+		
+	-- Draw the inner crosshair
+	surface.SetDrawColor ( 190,190,190,170 )
+	surface.SetTexture ( matCore )
+	surface.DrawTexturedRectRotated ( w * 0.5, h * 0.5, x / 15 , y / 15 , 0 )
+		
+	-- Draw outer crosshair
+	if bDrawOutline then
+		surface.SetDrawColor ( colOuter )
+		surface.SetTexture ( matOuter )
+		surface.DrawTexturedRectRotated ( w * 0.5, h * 0.5, x / 15 , y / 15 , 0 )
+	end
+end
+
+
 function meta:BaseDrawWeaponSelection(x, y, wide, tall, alpha)
 	--if killicon.Get(self:GetClass()) then
 		killicon.Draw(x + wide * 0.5, y + tall * 0.5, self:GetClass(), 255)

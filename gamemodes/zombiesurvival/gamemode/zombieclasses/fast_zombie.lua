@@ -199,7 +199,7 @@ end
 
 if SERVER then return end
 
---CLASS.Icon = "zombiesurvival/killicons/fastzombie"
+
 CLASS.Icon = "zombiesurvival/classmenu/fastzombie"
 
 function CLASS:CreateMove(pl, cmd)
@@ -219,11 +219,6 @@ function CLASS:CreateMove(pl, cmd)
 			wep.m_ViewAngles = viewangles
 
 			cmd:SetViewAngles(viewangles)
-		--[[elseif wep:IsClimbing() then
-			local buttons = cmd:GetButtons()
-			if bit.band(buttons, IN_DUCK) ~= 0 then
-				cmd:SetButtons(buttons - IN_DUCK)
-			end]]
 		end
 	end
 end

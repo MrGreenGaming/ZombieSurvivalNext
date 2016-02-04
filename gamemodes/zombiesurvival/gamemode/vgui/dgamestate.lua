@@ -76,7 +76,7 @@ function PANEL:Text1Paint()
 	
 if myteam == TEAM_UNDEAD then
 	if text then
-		draw.SimpleText(text, self.Font, 130, 0, COLOR_GRAY)
+		draw.SimpleText(text, "ZSHUDFontSmallZombie", 130, 0, COLOR_GRAY)
 	end
 end
 

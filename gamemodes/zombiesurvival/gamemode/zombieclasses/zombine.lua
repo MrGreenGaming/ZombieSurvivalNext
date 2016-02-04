@@ -1,3 +1,6 @@
+CLASS.Hidden = true
+CLASS.Disabled = true
+
 CLASS.Name = "Zombine"
 CLASS.TranslationName = ""
 CLASS.Description = ""

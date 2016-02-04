@@ -7,7 +7,9 @@ CLASS.Help = "controls_howler"
 
 CLASS.Model = Model("models/mrgreen/howler.mdl")
 
+CLASS.Infliction = 0.4
 CLASS.Wave = 1 / 3 
+--CLASS.Wave = 0
 CLASS.Health = 140
 CLASS.Speed = 150
 CLASS.SWEP = "weapon_zs_howler"
@@ -73,28 +75,37 @@ function CLASS:Move(pl, mv)
 end
 
 function CLASS:CalcMainActivity(pl, velocity)
-	local wep = pl:GetActiveWeapon()
-	if wep:IsValid() and wep.IsInAttackAnim then
-		if wep:IsInAttackAnim() then
-			pl.CalcSeqOverride = 14
-			return true
-		elseif wep:GetHoldingRightClick() then
-			pl.CalcSeqOverride = 21
-			return true
+	local feign = pl.FeignDeath
+	if feign and feign:IsValid() then
+		if feign:GetDirection() == DIR_BACK then
+			pl.CalcSeqOverride = pl:LookupSequence("zombie_slump_rise_02_fast")
+		else
+			pl.CalcIdeal = ACT_HL2MP_ZOMBIE_SLUMP_RISE
 		end
+
+		return true
 	end
 
-	if velocity:Length2D() > 0.5 then
-		if pl:Crouching() and pl:OnGround() then
-			pl.CalcSeqOverride = 17
+	if pl:WaterLevel() >= 3 then
+		pl.CalcIdeal = ACT_HL2MP_SWIM_PISTOL
+	elseif pl:Crouching() then
+		if velocity:Length2D() <= 0.5 then
+			pl.CalcIdeal = ACT_IDLE_ON_FIRE
+			--pl.CalcIdeal = ACT_IDLE_ON_FIRE
 		else
-			pl.CalcSeqOverride = 4
+		--	pl.CalcIdeal = ACT_HL2MP_WALK_CROUCH_ZOMBIE_02 - 1 + math.ceil((CurTime() / 4 + pl:EntIndex()) % 3)
+			pl.CalcIdeal = ACT_WALK_ON_FIRE
 		end
-	elseif pl:Crouching() and pl:OnGround() then
-		pl.CalcSeqOverride = 40
-	else
-		pl.CalcSeqOverride = 0
-	end
+			elseif velocity:Length2D() <= 0.5 then
+				--pl.CalcIdeal = ACT_WALK_ON_FIRE
+			pl.CalcIdeal = ACT_IDLE_ON_FIRE
+			else
+		--	pl.CalcIdeal = ACT_HL2MP_WALK_CROUCH_ZOMBIE_02 - 1 + math.ceil((CurTime() / 4 + pl:EntIndex()) % 3)
+				pl.CalcIdeal = ACT_WALK_ON_FIRE
+			end
+				--pl.CalcIdeal = ACT_WALK_ON_FIRE
+
+
 
 	return true
 end

@@ -6,8 +6,8 @@ CLASS.Help = "controls_hate"
 CLASS.Wave = 0
 CLASS.Threshold = 0
 CLASS.Unlocked = true
-CLASS.Hidden = true
-CLASS.Boss = true
+CLASS.Hidden = false
+CLASS.Boss = false
 
 CLASS.FearPerInstance = 1
 
@@ -83,15 +83,15 @@ function CLASS:CalcMainActivity(pl, velocity)
 
 	if velocity:Length2D() <= 0.5 then
 		if pl:Crouching() then
-			pl.CalcIdeal = ACT_HL2MP_IDLE_CROUCH_ZOMBIE
+			pl.CalcIdeal = ACT_WALK_ON_FIRE
 		else
-			pl.CalcIdeal = ACT_HL2MP_IDLE_ZOMBIE
+			pl.CalcIdeal = ACT_IDLE_ON_FIRE
 		end
 		
 	elseif pl:Crouching() then
-		pl.CalcIdeal = ACT_HL2MP_WALK_CROUCH_ZOMBIE_01 - 1 + math.ceil((CurTime() / 4 + pl:EntIndex()) % 3)
+		pl.CalcIdeal = ACT_WALK_ON_FIRE 
 	else
-		pl.CalcIdeal = ACT_HL2MP_WALK_ZOMBIE_01 - 1 + math.ceil((CurTime() / 4 + pl:EntIndex()) % 3)
+		pl.CalcIdeal = ACT_WALK_ON_FIRE 
 	end
 
 	return true
@@ -122,29 +122,26 @@ function CLASS:BuildBonePositions(pl)
 			status:SetModel("models/Zombie/Poison.mdl")
 		end
 
-	--local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
-	--if Bone then
-	--	pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-	--end
-	
-	--local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
-	--if Bone then
-	--	pl:ManipulateBoneAngles( Bone, Angle(-120,90,90)  )
-	--end
 
-	--local Bone = pl:LookupBone("ValveBiped.Bip01_R_UpperArm")
-	--if Bone then
-	--	pl:ManipulateBoneAngles( Bone, Angle(120,90,90)  )
-	--end
-
-	--[[
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Pelvis")
-	if Bone then
-	 	pl:ManipulateBoneAngles( Bone, Angle(0,10,10)  )
-	end]]--
+	local bonemods ={
+		["ValveBiped.Bip01_Head1"] = { scale = Vector(1.236, 1.236, 1.236), pos = Vector(-3.175, 6.052, -1.283), angle = Angle(-19.167, -64.113, 175.925) },
+		["ValveBiped.Bip01_L_Clavicle"] = { scale = Vector(1.381, 1.381, 1.381), pos = Vector(1.141, 5.885, 0), angle = Angle(17.159, 0, 0) },
+		["ValveBiped.Bip01_R_UpperArm"] = { scale = Vector(0.663, 0.663, 0.663), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+		["ValveBiped.Bip01_L_Hand"] = { scale = Vector(1.855, 1.855, 1.855), pos = Vector(1.363, 5.541, 4.993), angle = Angle(-33.896, 23.006, 0) },
+		["ValveBiped.Bip01_R_Hand"] = { scale = Vector(0.519, 0.519, 0.519), pos = Vector(-6.999, 0, 0), angle = Angle(42.909, 24.655, 0) },
+		["ValveBiped.Bip01_R_Forearm"] = { scale = Vector(0.625, 0.625, 0.625), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+		["ValveBiped.Bip01_R_Clavicle"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(-33.003, -33.201, 32.219) },
+		["ValveBiped.Bip01_L_Forearm"] = { scale = Vector(1.48, 1.48, 1.48), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) }
+	}
 
 	
+		for k, v in pairs( bonemods ) do
+			local bone = pl:LookupBone(k)
+			if (not bone) then continue end
+			pl:ManipulateBoneScale( bone, v.scale  )
+			pl:ManipulateBoneAngles( bone, v.angle  )
+			pl:ManipulateBonePosition( bone, v.pos  )
+		end
 	
 end
 
@@ -156,7 +153,7 @@ function CLASS:OnSpawned(pl)
 			status:SetModel("models/Zombie/Poison.mdl")
 		end
 
-		pl:CreateAmbience("bonemeshambience")
+		pl:CreateAmbience("hateambience")
 	end
 end
 

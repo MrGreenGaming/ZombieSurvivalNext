@@ -18,6 +18,7 @@ include("cl_legs.lua")
 include("cl_chatsounds.lua")
 include("cl_splitmessage.lua")
 
+include("boneanimlib_v2/cl_boneanimlib.lua")
 
 include("vgui/dgamestate.lua")
 include("vgui/dteamcounter.lua")
@@ -1819,9 +1820,6 @@ net.Receive("zs_wavestart", function(length)
 	end
 
 	local pl = LocalPlayer()
-	--RunConsoleCommand("stopsound") 
-	--pl:ConCommand( "stopsound" )
-	
 	
 	surface_PlaySound("npc/zombie_poison/pz_call1.wav")
 	
@@ -1882,13 +1880,10 @@ net.Receive("zs_boss_spawned", function(length)
 	local classindex = net.ReadUInt(8)
 
 	if ent == MySelf and ent:IsValid() then
-		--GAMEMODE:CenterNotify( " ", COLOR_RED, translate.Format("you_are_x", translate.Get(GAMEMODE.ZombieClasses[classindex].TranslationName)))
 		GAMEMODE:Add3DMessage(100, translate.Format("you_are_x", translate.Get(GAMEMODE.ZombieClasses[classindex].TranslationName)), nil, "ZSHUDFont2")
 	elseif ent:IsValid() then
-		--GAMEMODE:CenterNotify( " ", COLOR_RED, (translate.Format("x_has_risen_as_y", ent:Name(), translate.Get(GAMEMODE.ZombieClasses[classindex].TranslationName))))
 		GAMEMODE:Add3DMessage(100, translate.Format("you_are_x", translate.Format("x_has_risen_as_y", ent:Name(), translate.Get(GAMEMODE.ZombieClasses[classindex].TranslationName))), nil, "ZSHUDFont2")
 	else
-		--GAMEMODE:CenterNotify( " ", COLOR_RED, translate.Format("x_has_risen", translate.Get(GAMEMODE.ZombieClasses[classindex].TranslationName)))
 		GAMEMODE:Add3DMessage(100, translate.Format("x_has_risen", translate.Get(GAMEMODE.ZombieClasses[classindex].TranslationName)), nil, "ZSHUDFont2")
 	end
 

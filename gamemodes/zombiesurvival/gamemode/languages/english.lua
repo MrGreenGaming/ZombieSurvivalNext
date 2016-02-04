@@ -204,7 +204,9 @@ LANGUAGE.class_flesh_creeper						= "Flesh Creeper"
 LANGUAGE.class_gore_child							= "Gore Child"
 LANGUAGE.class_giga_gore_child						= "Giga Gore Child"
 LANGUAGE.class_howler_zombie						= "Howler"
-LANGUAGE.class_hate						= "Hate"
+LANGUAGE.class_hate									= "Hate"
+LANGUAGE.class_behemoth								= "Behemoth"
+LANGUAGE.class_nerf									= "Nerf"
 
 -- Class descriptions
 LANGUAGE.description_zombie							= "The basic zombie is very durable and has powerful claws.\nIt's hard to keep down, especially if not shot in the head."
@@ -232,7 +234,9 @@ LANGUAGE.description_flesh_creeper					= "Flesh Creepers possess the ability to 
 LANGUAGE.description_gore_child						= "Once zombified, an unborn child becomes infected as well.\nPossessing no special abilities, their strength comes from their numbers."
 LANGUAGE.description_giga_gore_child				= "The result of a Gore Child which has been left unchecked for too long.\nA horror to behold, their massive body is the result of zombified stem cells.\nThey also become a host for Gore Children which can always be found in tow with it."
 LANGUAGE.description_howler_zombie					= "A hellish school girl who limps across the land striking terror into the hearts of her victims"
-LANGUAGE.description_hate					= "A monstrosity which slaughtered its way out of a lab and has been roaming the land ever since feeding on innocent souls.."
+LANGUAGE.description_hate							= "A monstrosity which slaughtered its way out of a lab and has been roaming the land ever since feeding on innocent souls.."
+LANGUAGE.description_behemoth						= "A huge beast weilding a Crowbar which crushes any mortal in its path!"
+LANGUAGE.description_nerf							= "A small and twisted beast who's claws can shred through any barricade!"
 
 -- Class control schemes
 LANGUAGE.controls_zombie							= "> PRIMARY: Claws\n> SECONDARY: Scream\n> RELOAD: Moan"
@@ -254,8 +258,10 @@ LANGUAGE.controls_butcher							= "> PRIMARY: Chop"
 LANGUAGE.controls_flesh_creeper						= "> PRIMARY: Head Smash\n> SECONDARY: Nest"
 LANGUAGE.controls_gore_child						= "> PRIMARY: Claws"
 LANGUAGE.controls_giga_gore_child					= "> PRIMARY: Smash\n> SECONDARY: Throw Gore Child"
-LANGUAGE.controls_howler					= "> PRIMARY: Howl Push\n> SECONDARY: Howl Pull"
-LANGUAGE.controls_hate					= "> PRIMARY: Chainsaw \n> SECONDARY: Horde War Cry"
+LANGUAGE.controls_howler							= "> PRIMARY: Howl Push\n> SECONDARY: Howl Pull"
+LANGUAGE.controls_hate								= "> PRIMARY: Chainsaw \n> SECONDARY: Horde War Cry"
+LANGUAGE.controls_behemoth							= "> PRIMARY: Gorebar \n> SECONDARY: War Cry"
+LANGUAGE.controls_nerf								= "> PRIMARY: Shredder Claws \n> SECONDARY: Leap of Demise"
 
 -- The help file... Quite big! I wouldn't blame you if you didn't translate this part.
 LANGUAGE.help_cat_introduction						= "Introduction"

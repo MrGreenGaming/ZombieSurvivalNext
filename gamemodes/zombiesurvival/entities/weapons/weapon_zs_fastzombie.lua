@@ -176,7 +176,7 @@ function SWEP:SecondaryAttack()
 		if CurTime() < self:GetNextPrimaryFire() or CurTime() < self:GetNextSecondaryFire() or CurTime() < self.NextAllowPounce then return end
 
 		self:SetNextPrimaryFire(math.huge)
-		self:SetPounceTime(CurTime() + self.PounceStartDelay)
+		self:SetPounceTime(CurTime() + 0.2)
 
 		self.Owner:ResetJumpPower()
 		if SERVER then
@@ -241,7 +241,8 @@ function SWEP:StopPounce()
 	self:SetPouncing(false)
 	self:SetNextSecondaryFire(CurTime())
 	self.m_ViewAngles = nil
-	self.NextAllowJump = CurTime() + 0.25
+--	self.NextAllowJump = CurTime() + 0.25
+	self.NextAllowJump = CurTime() 
 	self.NextAllowPounce = CurTime() + self.PounceDelay
 	self:SetNextPrimaryFire(CurTime() + 0.1)
 	self.Owner:ResetJumpPower()

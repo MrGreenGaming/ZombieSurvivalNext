@@ -13,7 +13,8 @@ SWEP.DrawWorldModelTranslucent = SWEP.DrawWorldModel
 
 function SWEP:DrawHUD()
 	if GetConVarNumber("crosshair") ~= 1 then return end
-	self:DrawCrosshairDot()
+	--self:DrawCrosshairDot()
+	self:DrawZombieCrosshair()
 end
 
 function SWEP:DrawWeaponSelection(...)

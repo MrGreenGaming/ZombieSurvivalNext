@@ -57,7 +57,7 @@ function SWEP:PrimaryAttack()
 
 		ent:SetObjectOwner(owner)
 
-		ent:EmitSound("npc/dog/dog_servo12.wav")
+		ent:EmitSound("npc/roller/blade_cut.wav")
 
 		ent:GhostAllPlayersInMe(5)
 

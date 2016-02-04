@@ -1,6 +1,9 @@
 -- This is a special class which is essentially just Fresh Dead made to be a bit stronger so people can put it in their maps.
 -- It also has a climbing function although not as good as the Fast Zombie. Only so you don't have people exploiting high places.
 
+CLASS.Hidden = true
+CLASS.Disabled = true
+
 CLASS.Name = "Classic Zombie"
 CLASS.TranslationName = "class_classic_zombie"
 CLASS.Base = "freshdead"

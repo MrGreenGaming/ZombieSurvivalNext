@@ -8,6 +8,7 @@ local function pointslabelThink(self)
 	end
 end
 
+
 hook.Add("Think", "PointsShopThink", function()
 	local pan = GAMEMODE.m_PointsShop
 	if pan and pan:Valid() and pan:IsVisible() then
@@ -153,24 +154,31 @@ function GM:OpenPointsShop()
 		draw.RoundedBox( 0, 0, 0, w, h, Color( 1, 0, 0, 150 ) ) 
 	end
 	
---	draw_SimpleText(translate.Format("x_discount_for_buying_between_waves", self.ArsenalCrateDiscountPercentage), "ZSHUDFontSmall", w * 0.5, 9 + th, COLOR_GRAY, TEXT_ALIGN_CENTER)
-
 	local _, y = subtitle2:GetPos()
 	topspace:SetTall(y + subtitle2:GetTall() + 4)
 	topspace:AlignTop(8)
 	topspace:CenterHorizontal()
 
 	local bottomspace = vgui.Create("DPanel", frame)
-	bottomspace:SetWide(1200)
+	bottomspace:SetWide(topspace:GetWide())
 	bottomspace.Paint = function( self, w, h )
-		draw.RoundedBox( 0, 0, 0, w, h, Color( 1, 0, 0, 0 ) ) 
+		draw.RoundedBox( 0, 0, 0, w, h * 1.2, Color( 1, 0, 0, 300 ) ) 
 	end
 
 
-	local pointslabel = EasyLabel(bottomspace, "SP:0", "ZSHUDFont2", COLOR_GRAY)
+	local pointslabel = EasyLabel(bottomspace, "SP:0", "ZSHUDFontSmall", COLOR_WHITE)
 	pointslabel:AlignTop(4)
-	pointslabel:AlignRight(8)
+	pointslabel:AlignLeft(8)
 	pointslabel.Think = pointslabelThink
+	
+	local pl = LocalPlayer()
+	
+	local killslabel = EasyLabel(bottomspace, "HINT: Some weapons work better with certain classes! ", "ZSHUDFontSmallest", COLOR_WHITE)
+	killslabel:AlignTop(4)
+	killslabel:AlignLeft(160)
+	--killslabel.Think = killslabelThink
+	
+	
 
 	local lab = EasyLabel(bottomspace, " ", "ZSHUDFontTiny")
 	lab:AlignTop(4)

@@ -1,7 +1,7 @@
 include("shared.lua")
 
 SWEP.PrintName = "Wraith"
-SWEP.ViewModelFOV = 47
+SWEP.ViewModelFOV = 90
 
 --[[function SWEP:Holster()
 	if self.Owner:IsValid() and self.Owner == MySelf then

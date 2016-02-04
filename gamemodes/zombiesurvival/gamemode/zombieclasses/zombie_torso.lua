@@ -11,7 +11,7 @@ CLASS.Threshold = 0
 CLASS.Unlocked = true
 CLASS.Hidden = true
 
-CLASS.Health = 100
+CLASS.Health = 90
 CLASS.Speed = 130
 CLASS.JumpPower = 120
 
@@ -74,5 +74,5 @@ if SERVER then
 end
 
 if CLIENT then
-	CLASS.Icon = "zombiesurvival/killicons/torso"
+	CLASS.Icon = "zombiesurvival/classmenu/torso"
 end

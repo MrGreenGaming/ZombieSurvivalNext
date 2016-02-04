@@ -40,6 +40,21 @@ function EFFECT:Init(data)
 		particle:SetCollideCallback(CollideCallback)
 		particle:SetLighting(true)
 	end
+	for i=1, math.random(4, 7) do
+		local particle2 = emitter:Add("decals/Yblood"..math.random(6), pos)
+		particle2:SetVelocity(VectorRand():GetNormalized() * math.Rand(16, 64))
+		particle2:SetDieTime(math.Rand(2.5, 4.0))
+		particle2:SetStartAlpha(255)
+		particle2:SetEndAlpha(50)
+		particle2:SetStartSize(math.Rand(2, 4))
+		particle2:SetEndSize(0)
+		particle2:SetRoll(math.Rand(0, 360))
+		particle2:SetRollDelta(math.Rand(-1, 1))
+		particle2:SetCollide(true)
+		particle2:SetGravity(grav)
+		particle2:SetCollideCallback(CollideCallback)
+		particle2:SetLighting(true)
+	end
 	emitter:Finish()
 
 	util.Decal("YellowBlood", pos + normal, pos - normal)

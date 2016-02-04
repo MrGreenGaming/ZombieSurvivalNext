@@ -10,28 +10,12 @@ SWEP.AlertDelay = 6
 
 SWEP.Primary.Delay = 2
 
-SWEP.ViewModel = Model("models/weapons/v_pza.mdl")
+SWEP.ViewModel = Model("models/weapons/v_wraith.mdl")
 SWEP.WorldModel = "models/weapons/w_crowbar.mdl"
 
---[[function SWEP:BarricadeGhostingThink()
-	local pl = self.Owner
-	if not pl:IsValid() then return end
-
-	if pl:KeyDown(IN_SPEED) and pl:OnGround() then
-		if not pl:GetBarricadeGhosting() then
-			pl:SetBarricadeGhosting(true)
-			pl:ResetJumpPower()
-		end
-	elseif not pl:ActiveBarricadeGhosting(true) then
-		pl:SetBarricadeGhosting(false)
-		pl:ResetJumpPower()
-	end
-
-	self:NextThink(CurTime())
-	return true
-end]]
 
 function SWEP:Initialize()
+local pl = self.Owner
 	self:HideWorldModel()
 	self.Owner:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(15,15,15,50))
 end

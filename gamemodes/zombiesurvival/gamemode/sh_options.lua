@@ -1,3 +1,8 @@
+
+if SERVER and tobool(string.find(tostring(game.GetMap()),"zs_arena")) then
+	GM:SetGameMode(GAMEMODE_ARENA)
+end
+
 GM.ZombieEscapeWeapons = {
 	"weapon_zs_zedeagle",
 	"weapon_zs_zeakbar",
@@ -173,14 +178,10 @@ function(pl) pl:SetModel( table.Random( {
 
 CLASS_3 = true
 
-engweapon = {"weapon_zs_barricadekit","weapon_zs_pulsesmg"}
+engweapon = {"weapon_zs_barricadekit","weapon_zs_gunturret"}
 
-pl:Give("weapon_zs_peashooter")
+pl:Give("weapon_zs_pulsesmg")
 pl:Give("weapon_zs_fryingpan")
-pl:Give("weapon_zs_gunturret")
---pl:Give("weapon_zs_miniturret")
---pl:Give("weapon_zs_mine")
---pl:Give("weapon_zs_proxmines")
 pl:Give(table.Random(engweapon))
 
 PrintMessage(3, "You're an Engineer, Blow shit up!")
@@ -244,9 +245,9 @@ GM:AddPointShopItem("fiveseven", "Five Seven", nil, ITEMCAT_GUNS2, 30, "weapon_z
 GM:AddPointShopItem("Classic Pistol", "Classic Pistol", nil, ITEMCAT_GUNS2, 30, "weapon_zs_owens")
 GM:AddPointShopItem("glock", "Glock", nil, ITEMCAT_GUNS2, 40, "weapon_zs_glock3")
 GM:AddPointShopItem("magnum", "Magnum", nil, ITEMCAT_GUNS2, 65, "weapon_zs_magnum")
-GM:AddPointShopItem("Dual Berreta's 92fs", "Duel_Berreta", nil, ITEMCAT_GUNS2, 65, "weapon_zs_berreta")
+GM:AddPointShopItem("Dual Berreta's 92fs", "Duel Berreta's 92fs", nil, ITEMCAT_GUNS2, 65, "weapon_zs_berreta")
 GM:AddPointShopItem("deagle", "Desert Eagle", nil, ITEMCAT_GUNS2, 70, "weapon_zs_deagle")
-
+GM:AddPointShopItem("python", "Python", nil, ITEMCAT_GUNS2, 110, "weapon_zs_python")
 
 
 GM:AddPointShopItem("crklr", "Famas", nil, ITEMCAT_GUNS, 50, "weapon_zs_crackler")
@@ -257,9 +258,6 @@ GM:AddPointShopItem("shredder", "MP5", nil, ITEMCAT_GUNS, 70, "weapon_zs_smg")
 GM:AddPointShopItem("bulletstorm", "P90", nil, ITEMCAT_GUNS, 70, "weapon_zs_bulletstorm")
 GM:AddPointShopItem("silencer", "TMP", nil, ITEMCAT_GUNS, 70, "weapon_zs_silencer")
 GM:AddPointShopItem("hunter", "AWP", nil, ITEMCAT_GUNS, 70, "weapon_zs_hunter")
---GM:AddPointShopItem("PusleSMG", "Pulse SMG", nil, ITEMCAT_GUNS, 90, "weapon_zs_pulsesmg")
-
-
 
 
 GM:AddPointShopItem("ender", "Galil", nil, ITEMCAT_GUNS, 75, "weapon_zs_ender") --Testing
@@ -272,12 +270,11 @@ GM:AddPointShopItem("stalker", "M4A1", nil, ITEMCAT_GUNS, 125, "weapon_zs_m4")
 GM:AddPointShopItem("inferno", "AUG", nil, ITEMCAT_GUNS, 125, "weapon_zs_inferno")
 GM:AddPointShopItem("crossbow", "Crossbow", nil, ITEMCAT_GUNS, 175, "weapon_zs_crossbow")
 GM:AddPointShopItem("m3", "M3 Shotgun", nil, ITEMCAT_GUNS3, 200, "weapon_zs_sweepershotgun")
-GM:AddPointShopItem("M1014Shotgun", "M1014 Shotgun", nil, ITEMCAT_GUNS3, 200, "weapon_zs_slugrifle") --Make this into the auto shotty
+GM:AddPointShopItem("M1014Shotgun", "M1014 Shotgun", nil, ITEMCAT_GUNS3, 200, "weapon_zs_slugrifle")
 GM:AddPointShopItem("SG550", "SG 550", nil, ITEMCAT_GUNS, 210, "weapon_zs_sg550")
 GM:AddPointShopItem("pulserifle", "Pulse Rifle", nil, ITEMCAT_GUNS, 225, "weapon_zs_pulserifle")
---GM:AddPointShopItem("pulserifle", "Pulse Rifle", nil, ITEMCAT_GUNS, 0, "weapon_zs_pulserifle")
 GM:AddPointShopItem("m249", "M249 'SAW'", nil, ITEMCAT_GUNS, 400, "weapon_zs_m249")
-GM:AddPointShopItem("boomerstick", "Boomer Stick", nil, ITEMCAT_GUNS3, 300, "weapon_zs_boomerstick") --Duby: We have the Green one! ^^
+GM:AddPointShopItem("boomstick", "Boom Stick", nil, ITEMCAT_GUNS3, 300, "weapon_zs_boomerstick") --Duby: We have the Green one! ^^
 
 
 GM:AddPointShopItem("knife", "Knife", nil, ITEMCAT_MELEE, 5, "weapon_zs_swissarmyknife")
@@ -289,27 +286,10 @@ GM:AddPointShopItem("zpcpot", "Pot", nil, ITEMCAT_MELEE, 45, "weapon_zs_pot")
 GM:AddPointShopItem("pipe", "Lead Pipe", nil, ITEMCAT_MELEE, 45, "weapon_zs_pipe")
 GM:AddPointShopItem("axe", "Axe", nil, ITEMCAT_MELEE, 55, "weapon_zs_axe")
 GM:AddPointShopItem("crowbar", "Crowbar", nil, ITEMCAT_MELEE, 60, "weapon_zs_crowbar")
-GM:AddPointShopItem("shovel", "Shovel", nil, ITEMCAT_MELEE, 70, "weapon_zs_shovel") --
-GM:AddPointShopItem("sledgehammer", "Sledge Hammer", nil, ITEMCAT_MELEE, 80, "weapon_zs_sledgehammer") --
+GM:AddPointShopItem("shovel", "Shovel", nil, ITEMCAT_MELEE, 70, "weapon_zs_shovel") 
+GM:AddPointShopItem("sledgehammer", "Sledge Hammer", nil, ITEMCAT_MELEE, 80, "weapon_zs_sledgehammer") 
 GM:AddPointShopItem("katana", "Katana", nil, ITEMCAT_MELEE, 150, "weapon_zs_katana")
 
-
---Test Kill icons
---[[
-GM:AddPointShopItem("knife", "Knife", nil, ITEMCAT_MELEE, 0, "weapon_zs_swissarmyknife")
-GM:AddPointShopItem("axe", "Axe", nil, ITEMCAT_MELEE, 0, "weapon_zs_axe")
-GM:AddPointShopItem("zpfryp", "Frying Pan", nil, ITEMCAT_MELEE, 0, "weapon_zs_fryingpan")
-GM:AddPointShopItem("zpcpot", "Pot", nil, ITEMCAT_MELEE, 0, "weapon_zs_pot")
-GM:AddPointShopItem("plank", "Plank", nil, ITEMCAT_MELEE, 0, "weapon_zs_plank")
-GM:AddPointShopItem("hook", "Meat Hook", nil, ITEMCAT_MELEE, 0, "weapon_zs_hook")
-GM:AddPointShopItem("pipe", "Lead Pipe", nil, ITEMCAT_MELEE, 5, "weapon_zs_pipe")
-GM:AddPointShopItem("crowbar", "Crowbar", nil, ITEMCAT_MELEE, 0, "weapon_zs_crowbar")
-GM:AddPointShopItem("shovel", "Shovel", nil, ITEMCAT_MELEE, 0, "weapon_zs_shovel") --
-GM:AddPointShopItem("sledgehammer", "Sledge Hammer", nil, ITEMCAT_MELEE, 0, "weapon_zs_sledgehammer") --
-GM:AddPointShopItem("katana", "Katana", nil, ITEMCAT_MELEE, 0, "weapon_zs_katana")
-
-
-]]--
 
 
 --[AMMO]--
@@ -341,10 +321,11 @@ GM:AddPointShopItem("nail2", "Pack of Nail's", "It's just nails x5.", ITEMCAT_OT
 GM:AddPointShopItem("50mkit", "50 Medical Kit power", "50 extra power for the Medical Kit.", ITEMCAT_OTHER, 30, nil, function(pl) pl:GiveAmmo(50, "Battery", true) end, "models/healthvial.mdl")
 GM:AddPointShopItem("spotlamp", "Spot Lamp", nil, ITEMCAT_OTHER, 25, "weapon_zs_lamp")
 GM:AddPointShopItem("aegisboard", "Aegis Board", "Aegis Board", ITEMCAT_OTHER, 20, nil, function(pl) pl:GiveAmmo(1, "SniperRound", true) end, "models/healthvial.mdl")
-GM:AddPointShopItem("vodka", "bottle'ol Vodka", nil, ITEMCAT_OTHER, 40, "weapon_zs_vodka")
-GM:AddPointShopItem("Stoned Potato", "Stoned Potato S:P", nil, ITEMCAT_OTHER, 2000, "")
+GM:AddPointShopItem("vodka", "Bottle'ol Vodka", nil, ITEMCAT_OTHER, 40, "weapon_zs_vodka")
+GM:AddPointShopItem("Stoned Potato", "Stoned Potato +[SP]+", nil, ITEMCAT_OTHER, 2000, "")
 
-GM:AddPointShopItem("grenade", "Grenade", nil, ITEMCAT_TOOLS, 30, "weapon_zs_grenade")
+GM:AddPointShopItem("grenade", "Grenade", nil, ITEMCAT_TOOLS, 20, "weapon_zs_grenade")
+GM:AddPointShopItem("torch", "Blow Torch", nil, ITEMCAT_TOOLS, 35, "weapon_zs_torch")
 GM:AddPointShopItem("junkpack", "Junk Pack", nil, ITEMCAT_TOOLS, 40, "weapon_zs_boardpack")
 GM:AddPointShopItem("electrohammer", "Electro Hammer", nil, ITEMCAT_TOOLS, 40, "weapon_zs_electrohammer")
 GM:AddPointShopItem("supplycrate", "Supply Crate", nil, ITEMCAT_TOOLS, 50, "weapon_zs_arsenalcrate")
@@ -483,7 +464,7 @@ GM.EndGameTime = 60
 GM.SurvivalClips = 3
 
 -- Put your unoriginal, 5MB Rob Zombie and Metallica music here.
-GM.LastHumanSound = Sound("mrgreen/music/lasthuman.mp3")
+GM.LastHumanSound = Sound("mrgreen/music/lasthuman_remastered.wav")
 
 GM.IntermissionSound = Sound("mrgreen/music/intermission"..math.random(2)..".mp3")
 

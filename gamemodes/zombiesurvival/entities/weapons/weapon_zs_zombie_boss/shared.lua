@@ -13,6 +13,7 @@ SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "none"
 SWEP.Primary.Delay = 1
 
+
 SWEP.MeleeDamage = 30
 SWEP.MeleeRange = 65
 SWEP.MeleeSize = 1.5
@@ -113,6 +114,7 @@ end
 
 function SWEP:PrimaryAttack()
 	if not self:CanPrimaryAttack() then return end
+
 	self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
 
 	if self.SwingTime == 0 then
@@ -120,6 +122,7 @@ function SWEP:PrimaryAttack()
 	else
 		self:StartSwinging()
 	end
+	
 end
 
 function SWEP:Holster()
@@ -135,14 +138,14 @@ function SWEP:Holster()
 end
 
 function SWEP:StartSwinging()
-timer.Simple(3, function()
+
 	if self.StartSwingAnimation then
 		self:SendWeaponAnim(self.StartSwingAnimation)
 		self.IdleAnimation = CurTime() + self:SequenceDuration()
 	end
 	self:PlayStartSwingSound()
-	self:SetSwingEnd(CurTime() + self.SwingTime)
-end)	
+	self:SetSwingEnd(CurTime() + self.SwingTime + 0.2)
+	
 end
 
 function SWEP:MeleeSwing()

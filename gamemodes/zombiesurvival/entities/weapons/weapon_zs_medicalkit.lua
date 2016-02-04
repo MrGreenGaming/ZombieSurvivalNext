@@ -75,6 +75,7 @@ function SWEP:PrimaryAttack()
 
 			ent:SetHealth(health + toheal)
 			self:EmitSound("items/medshot4.wav")
+			self:EmitSound("items/smallmedkit1.wav")
 
 			self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 
@@ -101,6 +102,7 @@ function SWEP:SecondaryAttack()
 		self:TakeCombinedPrimaryAmmo(totake)
 
 		owner:SetHealth(health + toheal)
+		self:EmitSound("items/smallmedkit1.wav")
 		self:EmitSound("items/smallmedkit1.wav")
 
 		self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
@@ -203,8 +205,12 @@ function SWEP:DrawHUD()
 
 		surface.SetDrawColor(5, 5, 5, 180)
 		surface.DrawRect(x, y, wid, hei)
+		
+	local ammo = self:GetPrimaryAmmoCount()	
 
 	draw.SimpleText("MedKit", "ZSHUDFont2", x, texty, COLOR_GREY, TEXT_ALIGN_LEFT)
+	
+	draw.SimpleText(ammo, "ZSHUDFont2", x + 210, texty, COLOR_GREY, TEXT_ALIGN_LEFT)
 
 	
 	local SCREEN_W = 1920; --For the screen resolution scale. This means that it can be fit exactly on the screen without any issues.

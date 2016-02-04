@@ -1,3 +1,6 @@
+CLASS.Hidden = true
+CLASS.Disabled = true
+
 CLASS.Name = "Super Zombie"
 CLASS.TranslationName = "class_super_zombie"
 CLASS.Base = "freshdead"

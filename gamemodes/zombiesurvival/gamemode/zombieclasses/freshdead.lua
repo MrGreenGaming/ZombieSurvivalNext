@@ -4,15 +4,15 @@ CLASS.Description = ""
 CLASS.Help = ""
 
 CLASS.Wave = 0
-CLASS.Unlocked = true
-CLASS.Hidden = true
+CLASS.Unlocked = false
+CLASS.Hidden = false
 
-CLASS.Health = 125
-CLASS.Speed = 200
+CLASS.Health = 115
+CLASS.Speed = 185
 
 CLASS.Points = 3
 
-CLASS.CanTaunt = true
+CLASS.CanTaunt = false
 
 CLASS.UsePreviousModel = true
 
@@ -137,7 +137,7 @@ end
 
 if not CLIENT then return end
 
-CLASS.Icon = "zombiesurvival/killicons/zombie"
+CLASS.Icon = "zombiesurvival/classmenu/zombine2"
 
 function CLASS:PrePlayerDraw(pl)
 	render.SetColorModulation(0.5, 0.9, 0.5)
