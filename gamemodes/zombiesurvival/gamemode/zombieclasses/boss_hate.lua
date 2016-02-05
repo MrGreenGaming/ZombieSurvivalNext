@@ -6,8 +6,8 @@ CLASS.Help = "controls_hate"
 CLASS.Wave = 0
 CLASS.Threshold = 0
 CLASS.Unlocked = true
-CLASS.Hidden = false
-CLASS.Boss = false
+CLASS.Hidden = true
+CLASS.Boss = true
 
 CLASS.FearPerInstance = 1
 
