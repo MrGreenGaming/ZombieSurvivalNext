@@ -62,7 +62,7 @@ SWEP.Primary.ClipSize           = 6
 SWEP.Primary.Delay                      = 0.5
 SWEP.Primary.DefaultClip        = 28
 SWEP.Primary.Automatic          = false
-SWEP.Primary.Ammo                       = "357"
+SWEP.Primary.Ammo                       = "pistol"
 SWEP.MaxBulletDistance          = 2000
      
 SWEP.ConeMax = 0.075

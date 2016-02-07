@@ -284,7 +284,7 @@ function GM:OnPlayerHowlered ( pl, iIntensity )
 	end
 	
 	-- Disorient the player
-	pl:SendLua( "StalkerFuck("..( iIntensity )..")" )
+	--pl:SendLua( "StalkerFuck("..( iIntensity )..")" )
 	
 	-- Play a help sound/scream
 --	pl:EmitSound ( table.Random ( VoiceSets[ pl.VoiceSet or 1 ].Frightened ) )

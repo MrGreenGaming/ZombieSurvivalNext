@@ -124,6 +124,14 @@ function ENT:Use(activator, caller)
 		return
 	end
 
+		
+	if activator:Health() < 100 then
+		local healthDifference = math.Clamp(100 - activator:Health(), 0, 12)
+		local actualHealAmount = math.random(10, healthDifference)
+			actualHealAmount = math.min(activator:Health() + actualHealAmount, 100)
+			activator:SetHealth(actualHealAmount)
+	end
+
 	local ammotype
 	local ammotype2
 	local ammotype3
@@ -163,12 +171,14 @@ function ENT:Use(activator, caller)
 	net.Send(activator)
 
 	activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype], ammotype)
-	activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype2], ammotype2)
-	activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype3], ammotype3)
-	activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype4], ammotype4)
-	activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype5], ammotype5)
-	activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype6], ammotype6)
-	activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype7], ammotype7)
+	--activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype2], ammotype2)
+	--activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype3], ammotype3)
+	--activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype4], ammotype4)
+	--activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype5], ammotype5)
+	--activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype6], ammotype6)
+	--activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype7], ammotype7)
+--
+	
 	if activator ~= owner and owner:IsValid() and owner:IsPlayer() and owner:Team() == TEAM_HUMAN then
 		owner.ResupplyBoxUsedByOthers = owner.ResupplyBoxUsedByOthers + 1
 
@@ -187,5 +197,6 @@ function ENT:Use(activator, caller)
 		self:ResetSequence("close")
 		self:EmitSound("mrgreen/supplycrates/mobile_use.mp3")
 	end
+	
 	self.Close = CurTime() + 3
 end

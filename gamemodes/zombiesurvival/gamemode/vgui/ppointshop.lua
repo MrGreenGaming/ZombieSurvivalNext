@@ -84,7 +84,7 @@ local function ItemPanelThink(self)
 			else
 				self:AlphaTo(90, 0.75, 0)
 				self.m_NameLabel:SetTextColor(COLOR_WHITE)
-				self.m_BuyButton:SetText("SELL!")
+				self.m_BuyButton:SetText("BUY!")
 			end
 
 			self.m_BuyButton:SizeToContents()

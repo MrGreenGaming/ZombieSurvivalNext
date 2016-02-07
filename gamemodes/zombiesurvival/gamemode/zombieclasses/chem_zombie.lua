@@ -11,7 +11,7 @@ CLASS.Wave = 4
 CLASS.Health = 120
 CLASS.SWEP = "weapon_zs_chemzombie"
 CLASS.Model = Model("models/Zombie/Poison.mdl")
-CLASS.Speed = 160
+CLASS.Speed = 170
 
 CLASS.Points = 3
 

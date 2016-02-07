@@ -238,9 +238,7 @@ function meta:SelectRandomPlayerModel()  --Classes This function will be changed
 end
 
 
-function meta:GiveEmptyWeapon(weptype)
-
-	
+function meta:GiveEmptyWeapon(weptype)	
 	if weptype == "weapon_zs_miniturret" then
 		self:SpawnMiniTurret()
 		return

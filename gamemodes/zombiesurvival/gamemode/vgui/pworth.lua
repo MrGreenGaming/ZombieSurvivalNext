@@ -100,12 +100,12 @@ local function RandDoClick(self)
 	end
 end
 
-GM.SavedCarts = {}
-hook.Add("Initialize", "LoadCarts", function()
-	if file.Exists(GAMEMODE.CartFile, "DATA") then
-		GAMEMODE.SavedCarts = Deserialize(file.Read(GAMEMODE.CartFile)) or {}
-	end
-end)
+--GM.SavedCarts = {}
+--hook.Add("Initialize", "LoadCarts", function()
+	--if file.Exists(GAMEMODE.CartFile, "DATA") then
+		--GAMEMODE.SavedCarts = Deserialize(file.Read(GAMEMODE.CartFile)) or {}
+	--end
+--end)
 
 local function ClearCartDoClick()
 	for _, btn in ipairs(WorthButtons) do
@@ -117,8 +117,8 @@ local function ClearCartDoClick()
 	surface.PlaySound("buttons/button11.wav")
 end
 
-local function LoadCart(cartid, silent)
-	if GAMEMODE.SavedCarts[cartid] then
+--local function LoadCart(cartid, silent)
+	--[[if GAMEMODE.SavedCarts[cartid] then
 		MakepWorth()
 		for _, id in pairs(GAMEMODE.SavedCarts[cartid][2]) do
 			for __, btn in pairs(WorthButtons) do
@@ -130,8 +130,8 @@ local function LoadCart(cartid, silent)
 		if not silent then
 			surface.PlaySound("buttons/combine_button1.wav")
 		end
-	end
-end
+	end]]--
+--end
 
 local function LoadDoClick(self)
 	LoadCart(self.ID)
@@ -144,7 +144,7 @@ local function SaveCurrentCart(name)
 			table.insert(tobuy, btn.ID)
 		end
 	end
-	for i, cart in ipairs(GAMEMODE.SavedCarts) do
+	--[[for i, cart in ipairs(GAMEMODE.SavedCarts) do
 		if string.lower(cart[1]) == string.lower(name) then
 			cart[1] = name
 			cart[2] = tobuy
@@ -155,14 +155,14 @@ local function SaveCurrentCart(name)
 			LoadCart(i, true)
 			return
 		end
-	end
+	end]]--
 
-	GAMEMODE.SavedCarts[#GAMEMODE.SavedCarts + 1] = {name, tobuy}
+	--GAMEMODE.SavedCarts[#GAMEMODE.SavedCarts + 1] = {name, tobuy}
 
-	file.Write(GAMEMODE.CartFile, Serialize(GAMEMODE.SavedCarts))
-	print("Saved cart "..tostring(name))
+	--file.Write(GAMEMODE.CartFile, Serialize(GAMEMODE.SavedCarts))
+	--print("Saved cart "..tostring(name))
 
-	LoadCart(#GAMEMODE.SavedCarts, true)
+	--LoadCart(#GAMEMODE.SavedCarts, true)
 end
 
 local function SaveDoClick(self)
@@ -173,18 +173,18 @@ local function SaveDoClick(self)
 end
 
 local function DeleteDoClick(self)
-	if GAMEMODE.SavedCarts[self.ID] then
+	--[[if GAMEMODE.SavedCarts[self.ID] then
 		table.remove(GAMEMODE.SavedCarts, self.ID)
 		file.Write(GAMEMODE.CartFile, Serialize(GAMEMODE.SavedCarts))
 		surface.PlaySound("buttons/button19.wav")
 		MakepWorth()
-	end
+	end]]--
 end
 
 local function QuickCheckDoClick(self)
-	if GAMEMODE.SavedCarts[self.ID] then
+	--[[if GAMEMODE.SavedCarts[self.ID] then
 		Checkout(GAMEMODE.SavedCarts[self.ID][2])
-	end
+	end]]--
 end
 
 function MakepWorth()
@@ -227,12 +227,10 @@ function MakepWorth()
 
 	local panfont = "ZSHUDFontSmall"
 	local panhei = 40
-	
-
 
 	local defaultcart = cvarDefaultCart:GetString()
 
-	for i, savetab in ipairs(GAMEMODE.SavedCarts) do
+	--[[--for i, savetab in ipairs(GAMEMODE.SavedCarts) do
 		local cartpan = vgui.Create("DEXRoundedPanel")
 		cartpan:SetCursor("pointer")
 		cartpan:SetSize(list:GetWide(), panhei)
@@ -242,7 +240,7 @@ function MakepWorth()
 		local x = 8
 
 		list:AddItem(cartpan)
-	end
+	end]]--
 	
 	for catid, catname in ipairs(GAMEMODE.ItemCategoryIcons2) do
 
@@ -291,8 +289,6 @@ function MakepWorth()
 	checkout.DoClick = function()
 		CheckoutDoClick()
 	end
-		--surface.PlaySound(Sound("mrgreen/music/intermission1.mp3")) --Move this else where....
-		
 		
 	if CHRISTMAS then
 		timer.Simple(2, function()

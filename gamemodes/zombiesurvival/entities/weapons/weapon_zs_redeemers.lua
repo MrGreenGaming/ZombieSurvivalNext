@@ -22,14 +22,14 @@ SWEP.WorldModel = "models/weapons/w_pist_elite.mdl"
 SWEP.UseHands = true
 
 SWEP.Primary.Sound = Sound("Weapon_ELITE.Single")
-SWEP.Primary.Damage = 7
+SWEP.Primary.Damage = 12
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 0.15
 
 SWEP.WalkSpeed = SPEED_SLOW
 
 SWEP.Primary.ClipSize = 30
-SWEP.Primary.Automatic = true
+SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "pistol"
 SWEP.Primary.DefaultClip = 150
 

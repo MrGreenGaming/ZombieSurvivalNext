@@ -25,7 +25,7 @@ CLASS.DeathSounds = {"npc/zombie_poison/pz_die1.wav","npc/zombie_poison/pz_die2.
 --CLASS.VoicePitch = 0.5
 
 CLASS.ModelScale = 1.4
-CLASS.Mass = 500
+CLASS.Mass = 200
 --CLASS.ViewOffset = Vector(0, 0, 75)
 --CLASS.ViewOffsetDucked = Vector(0, 0, 48)
 

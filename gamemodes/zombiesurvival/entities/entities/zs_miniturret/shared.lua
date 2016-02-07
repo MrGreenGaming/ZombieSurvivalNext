@@ -9,11 +9,11 @@ ENT.RenderGroup = RENDERGROUP_BOTH
 
 ENT.AutomaticFrameAdvance = true
 
-ENT.MaxHealth = 60
+ENT.MaxHealth = 100
 ENT.MaxBullets = 150
-ENT.RechargeDelay = 0.5
+ENT.RechargeDelay = 0.3
 ENT.SpotDistance = 190
-ENT.Damage = 4
+ENT.Damage = 6
 
 local model = Model("models/Combine_Scanner.mdl")
 

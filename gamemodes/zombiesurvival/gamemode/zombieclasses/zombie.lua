@@ -9,7 +9,7 @@ CLASS.IsDefault = true
 CLASS.Order = 0
 
 CLASS.Health = 200
-CLASS.Speed = 140
+CLASS.Speed = 155
 CLASS.Revives = true
 
 CLASS.CanTaunt = true

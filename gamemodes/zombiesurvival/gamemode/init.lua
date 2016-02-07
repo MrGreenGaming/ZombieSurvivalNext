@@ -368,6 +368,8 @@ function GM:AddResources()
 	resource.AddFile("sound/"..tostring(self.AllLoseSound))
 	resource.AddFile("sound/"..tostring(self.HumanWinSound))
 	resource.AddFile("sound/"..tostring(self.DeathSound))
+	
+	resource.AddWorkshop("618418410")
 end
 
 function GM:Initialize()
@@ -1955,9 +1957,11 @@ function GM:GiveRandomEquipment(pl)
 		end
 	end
 	--Duby: Default loadout if a class isn't selected	
-	pl:Give("weapon_zs_redeemers")
-	pl:Give("weapon_zs_swissarmyknife")
-	pl:Give("weapon_zs_grenade")
+supweapon = {"weapon_zs_resupplybox","weapon_zs_arsenalcrate"}
+
+pl:Give("weapon_zs_hammer")
+pl:Give("weapon_zs_battleaxe")
+pl:Give(table.Random(supweapon))
 end
 
 function GM:PlayerCanCheckout(pl)

@@ -141,7 +141,7 @@ CLASS_1 = true
 pl:Give("weapon_zs_fiveseven")
 pl:Give("weapon_zs_medicalkit")
 pl:Give("weapon_zs_plank")
-PrintMessage(3, "You're a Medic! Heal Your Teammates!")
+--PrintMessage(3, "You're a Medic! Heal Your Teammates!")
 
 end, "models/healthvial.mdl")
 
@@ -160,9 +160,8 @@ CLASS_2 = true
 pl:Give("weapon_zs_redeemers")
 pl:Give("weapon_zs_swissarmyknife")
 pl:Give("weapon_zs_grenade")
-pl:Give("weapon_zs_grenade")
-pl:Give("weapon_zs_grenade")
-PrintMessage(3, "You're a Commando, kill and destroy!")
+
+--PrintMessage(3, "You're a Commando, kill and destroy!")
 
 end, "models/healthvial.mdl")
 
@@ -183,8 +182,10 @@ engweapon = {"weapon_zs_barricadekit","weapon_zs_gunturret"}
 pl:Give("weapon_zs_pulsesmg")
 pl:Give("weapon_zs_fryingpan")
 pl:Give(table.Random(engweapon))
+pl:Give("weapon_zs_peashooter")
+pl:SpawnMiniTurret()
 
-PrintMessage(3, "You're an Engineer, Blow shit up!")
+--PrintMessage(3, "You're an Engineer, Blow shit up!")
 
 end, "models/healthvial.mdl")
 
@@ -205,8 +206,10 @@ berserkerweapon = {"weapon_zs_axe","weapon_zs_pot"}
 pl:Give("weapon_zs_peashooter")
 pl:Give(table.Random(berserkerweapon))
 pl:Give("weapon_zs_vodka")  
+pl:Give("weapon_zs_resupplybox")  
+pl:AddPoints(20)
 
-PrintMessage(3, "You're a Beserker, hitting shit is your life!")
+--PrintMessage(3, "You're a Beserker, hitting shit is your life!")
 
 end, "models/healthvial.mdl")
 
@@ -222,12 +225,12 @@ function(pl) pl:SetModel( table.Random( {
 
 CLASS_5 = true
 
-supweapon = {"weapon_zs_resupplybox","weapon_zs_arsenalcrate"}
+supweapon = {"weapon_zs_arsenalcrate"}
 
 pl:Give("weapon_zs_hammer")
 pl:Give("weapon_zs_battleaxe")
 pl:Give(table.Random(supweapon))
-PrintMessage(3, "You're a Support, Make barricades!")
+--PrintMessage(3, "You're a Support, Make barricades!")
 
 end, "models/healthvial.mdl")
 
@@ -251,13 +254,13 @@ GM:AddPointShopItem("python", "Python", nil, ITEMCAT_GUNS2, 110, "weapon_zs_pyth
 
 
 GM:AddPointShopItem("crklr", "Famas", nil, ITEMCAT_GUNS, 50, "weapon_zs_crackler")
-GM:AddPointShopItem("tossr", "Classic SMG", nil, ITEMCAT_GUNS, 50, "weapon_zs_tosser") --Renaming up to here done
+GM:AddPointShopItem("tossr", "Classic SMG", nil, ITEMCAT_GUNS, 50, "weapon_zs_tosser") 
 GM:AddPointShopItem("stbbr", "Scout Sniper", nil, ITEMCAT_GUNS, 55, "weapon_zs_stubber")
 GM:AddPointShopItem("uzi", "Uzi 9mm", nil, ITEMCAT_GUNS, 70, "weapon_zs_uzi")
 GM:AddPointShopItem("shredder", "MP5", nil, ITEMCAT_GUNS, 70, "weapon_zs_smg")
 GM:AddPointShopItem("bulletstorm", "P90", nil, ITEMCAT_GUNS, 70, "weapon_zs_bulletstorm")
 GM:AddPointShopItem("silencer", "TMP", nil, ITEMCAT_GUNS, 70, "weapon_zs_silencer")
-GM:AddPointShopItem("hunter", "AWP", nil, ITEMCAT_GUNS, 70, "weapon_zs_hunter")
+GM:AddPointShopItem("hunter", "AWP", nil, ITEMCAT_GUNS, 200, "weapon_zs_hunter")
 
 
 GM:AddPointShopItem("ender", "Galil", nil, ITEMCAT_GUNS, 75, "weapon_zs_ender") --Testing
@@ -290,17 +293,16 @@ GM:AddPointShopItem("shovel", "Shovel", nil, ITEMCAT_MELEE, 70, "weapon_zs_shove
 GM:AddPointShopItem("sledgehammer", "Sledge Hammer", nil, ITEMCAT_MELEE, 80, "weapon_zs_sledgehammer") 
 GM:AddPointShopItem("katana", "Katana", nil, ITEMCAT_MELEE, 150, "weapon_zs_katana")
 
-
-
 --[AMMO]--
-GM:AddPointShopItem("crossbowammo", "crossbow bolt", nil, ITEMCAT_AMMO, 5, nil, function(pl) pl:GiveAmmo(1, "XBowBolt", true) end, "models/Items/CrossbowRounds.mdl")
-GM:AddPointShopItem("pistolammo", "pistol ammo box", nil, ITEMCAT_AMMO, 6, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["pistol"] or 12, "pistol", true) end, "models/Items/BoxSRounds.mdl")
-GM:AddPointShopItem("shotgunammo", "shotgun ammo box", nil, ITEMCAT_AMMO, 7, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["buckshot"] or 8, "buckshot", true) end, "models/Items/BoxBuckshot.mdl")
-GM:AddPointShopItem("smgammo", "SMG ammo box", nil, ITEMCAT_AMMO, 7, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["smg1"] or 30, "smg1", true) end, "models/Items/BoxMRounds.mdl")
-GM:AddPointShopItem("assaultrifleammo", "assault rifle ammo box", nil, ITEMCAT_AMMO, 7, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["ar2"] or 30, "ar2", true) end, "models/Items/357ammobox.mdl")
-GM:AddPointShopItem("rifleammo", "rifle ammo box", nil, ITEMCAT_AMMO, 7, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["357"] or 6, "357", true) end, "models/Items/BoxSniperRounds.mdl")
-GM:AddPointShopItem("pulseammo", "pulse ammo box", nil, ITEMCAT_AMMO, 7, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["pulse"] or 30, "pulse", true) end, "models/Items/combine_rifle_ammo01.mdl")
+GM:AddPointShopItem("crossbowammo", "Crossbow bolt", nil, ITEMCAT_AMMO, 5, nil, function(pl) pl:GiveAmmo(1, "XBowBolt", true) end, "models/Items/CrossbowRounds.mdl")
+GM:AddPointShopItem("pistolammo", "Pistol ammo", nil, ITEMCAT_AMMO, 6, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["pistol"] or 12, "pistol", true) end, "models/Items/BoxSRounds.mdl")
+GM:AddPointShopItem("shotgunammo", "Shotgun ammo", nil, ITEMCAT_AMMO, 7, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["buckshot"] or 8, "buckshot", true) end, "models/Items/BoxBuckshot.mdl")
+GM:AddPointShopItem("smgammo", "SMG ammo", nil, ITEMCAT_AMMO, 7, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["smg1"] or 30, "smg1", true) end, "models/Items/BoxMRounds.mdl")
+GM:AddPointShopItem("assaultrifleammo", "Assault rifle ammo", nil, ITEMCAT_AMMO, 7, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["ar2"] or 30, "ar2", true) end, "models/Items/357ammobox.mdl")
+GM:AddPointShopItem("rifleammo", "Rifle ammo ", nil, ITEMCAT_AMMO, 7, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["357"] or 6, "357", true) end, "models/Items/BoxSniperRounds.mdl")
+GM:AddPointShopItem("pulseammo", "Pulse ammo", nil, ITEMCAT_AMMO, 7, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["pulse"] or 30, "pulse", true) end, "models/Items/combine_rifle_ammo01.mdl")
 
+--[[
 GM:AddPointShopItem("2pcp", "3 pistol ammo boxes", nil, ITEMCAT_AMMO, 15, nil, function(pl) pl:GiveAmmo((GAMEMODE.AmmoCache["pistol"] or 12) * 3, "pistol", true) end, "models/Items/BoxSRounds.mdl")
 GM:AddPointShopItem("2sgcp", "3 shotgun ammo boxes", nil, ITEMCAT_AMMO, 15, nil, function(pl) pl:GiveAmmo((GAMEMODE.AmmoCache["buckshot"] or 8) * 3, "buckshot", true) end, "models/Items/BoxBuckshot.mdl")
 GM:AddPointShopItem("2smgcp", "3 SMG ammo boxes", nil, ITEMCAT_AMMO, 15, nil, function(pl) pl:GiveAmmo((GAMEMODE.AmmoCache["smg1"] or 30) * 3, "smg1", true) end, "models/Items/BoxMRounds.mdl")
@@ -313,12 +315,12 @@ GM:AddPointShopItem("3smgcp", "5 SMG ammo boxes", nil, ITEMCAT_AMMO, 20, nil, fu
 GM:AddPointShopItem("3arcp", "5 assault rifle ammo boxes", nil, ITEMCAT_AMMO, 20, nil, function(pl) pl:GiveAmmo((GAMEMODE.AmmoCache["ar2"] or 30) * 5, "ar2", true) end, "models/Items/357ammobox.mdl")
 GM:AddPointShopItem("3rcp", "5 rifle ammo boxes", nil, ITEMCAT_AMMO, 20, nil, function(pl) pl:GiveAmmo((GAMEMODE.AmmoCache["357"] or 6) * 5, "357", true) end, "models/Items/BoxSniperRounds.mdl")
 GM:AddPointShopItem("3pls", "5 pulse ammo boxes", nil, ITEMCAT_AMMO, 20, nil, function(pl) pl:GiveAmmo((GAMEMODE.AmmoCache["pulse"] or 30) * 5, "pulse", true) end, "models/Items/combine_rifle_ammo01.mdl")
-
+]]--
 --[Other]
 
 GM:AddPointShopItem("nail", "Nail", "It's just one nail.", ITEMCAT_OTHER, 5, nil, function(pl) pl:GiveAmmo(1, "GaussEnergy", true) end, "models/crossbow_bolt.mdl").NoClassicMode = true
 GM:AddPointShopItem("nail2", "Pack of Nail's", "It's just nails x5.", ITEMCAT_OTHER, 25, nil, function(pl) pl:GiveAmmo(5, "GaussEnergy", true) end, "models/crossbow_bolt.mdl").NoClassicMode = true
-GM:AddPointShopItem("50mkit", "50 Medical Kit power", "50 extra power for the Medical Kit.", ITEMCAT_OTHER, 30, nil, function(pl) pl:GiveAmmo(50, "Battery", true) end, "models/healthvial.mdl")
+GM:AddPointShopItem("50mkit", "50 Medical Kit power", "50 extra power for the Medical Kit.", ITEMCAT_OTHER, 20, nil, function(pl) pl:GiveAmmo(50, "Battery", true) end, "models/healthvial.mdl")
 GM:AddPointShopItem("spotlamp", "Spot Lamp", nil, ITEMCAT_OTHER, 25, "weapon_zs_lamp")
 GM:AddPointShopItem("aegisboard", "Aegis Board", "Aegis Board", ITEMCAT_OTHER, 20, nil, function(pl) pl:GiveAmmo(1, "SniperRound", true) end, "models/healthvial.mdl")
 GM:AddPointShopItem("vodka", "Bottle'ol Vodka", nil, ITEMCAT_OTHER, 40, "weapon_zs_vodka")
@@ -327,7 +329,7 @@ GM:AddPointShopItem("Stoned Potato", "Stoned Potato +[SP]+", nil, ITEMCAT_OTHER,
 GM:AddPointShopItem("grenade", "Grenade", nil, ITEMCAT_TOOLS, 20, "weapon_zs_grenade")
 GM:AddPointShopItem("torch", "Blow Torch", nil, ITEMCAT_TOOLS, 35, "weapon_zs_torch")
 GM:AddPointShopItem("junkpack", "Junk Pack", nil, ITEMCAT_TOOLS, 40, "weapon_zs_boardpack")
-GM:AddPointShopItem("electrohammer", "Electro Hammer", nil, ITEMCAT_TOOLS, 40, "weapon_zs_electrohammer")
+GM:AddPointShopItem("miniturret", "Mini Turret", nil, ITEMCAT_TOOLS, 50, nil, function(pl) pl:SpawnMiniTurret() end)
 GM:AddPointShopItem("supplycrate", "Supply Crate", nil, ITEMCAT_TOOLS, 50, "weapon_zs_arsenalcrate")
 
 --GM:AddPointShopItem("detpck", "Detonation Pack", nil, ITEMCAT_OTHER, 70, "weapon_zs_detpack")

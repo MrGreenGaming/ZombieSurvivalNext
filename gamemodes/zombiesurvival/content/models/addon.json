@@ -1,0 +1,6 @@
+{
+"title" : "MrGreen_Beta_Models",
+"type" : "servercontent",
+"tags" : "fun",
+"ignore" : ["*.psd", "*.vcproj", "*.svn*"]
+}

@@ -19,7 +19,7 @@ CLASS.CanTaunt = false
 CLASS.FearPerInstance = 1
 
 CLASS.ModelScale = 1.1
-CLASS.Mass = 300
+CLASS.Mass = 200
 
 CLASS.Points = 200
 

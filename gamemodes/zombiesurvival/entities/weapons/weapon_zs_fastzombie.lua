@@ -15,7 +15,7 @@ SWEP.MeleeDamage = 5
 SWEP.MeleeForceScale = 0.1
 SWEP.MeleeSize = 1.5
 SWEP.MeleeDamageType = DMG_SLASH
-SWEP.Primary.Delay = 0.32
+SWEP.Primary.Delay = 0.4
 
 SWEP.PounceDamage = 10
 SWEP.PounceDamageType = DMG_IMPACT

@@ -7,11 +7,9 @@ CLASS.Help = "controls_howler"
 
 CLASS.Model = Model("models/mrgreen/howler.mdl")
 
-CLASS.Infliction = 0.4
 CLASS.Wave = 1 / 3 
---CLASS.Wave = 0
 CLASS.Health = 140
-CLASS.Speed = 150
+CLASS.Speed = 160
 CLASS.SWEP = "weapon_zs_howler"
 
 CLASS.CanTaunt = false
