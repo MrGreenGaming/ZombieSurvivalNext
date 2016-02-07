@@ -169,10 +169,10 @@ function SWEP:SecondaryAttack()
 
 	self.Weapon:SetNextSecondaryFire(CurTime() + 5)
 
-	self.Owner:SetMoveType(MOVETYPE_NONE)	
-		timer.Simple(2.5, function()
-			self.Owner:SetMoveType(MOVETYPE_WALK)
-		end)
+	--self.Owner:SetMoveType(MOVETYPE_NONE)	
+	--	timer.Simple(2.5, function()
+		--	self.Owner:SetMoveType(MOVETYPE_WALK)
+		--end)
 
 	self.Owner:SetLocalVelocity(Vector(0, 0, 0))
 
