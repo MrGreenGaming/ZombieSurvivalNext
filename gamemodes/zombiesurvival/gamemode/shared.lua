@@ -57,6 +57,9 @@ include("obj_weapon_extend.lua")
 
 include("workshopfix.lua")
 
+--Clavus' Ravebreak
+include("ravebreak/sh_ravebreak.lua")
+
 ----------------------
 
 GM.EndRound = false

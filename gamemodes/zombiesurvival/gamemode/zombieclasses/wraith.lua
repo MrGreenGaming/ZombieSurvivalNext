@@ -36,13 +36,6 @@ function CLASS:Move(pl, move)
 	end
 end
 
---[[function CLASS:GetJumpPower(pl)
-	return pl:IsBarricadeGhosting() and 0 or DEFAULT_JUMP_POWER
-end
-
-function CLASS:SwitchedAway(pl)
-	pl:SetBarricadeGhosting(false)
-end]]
 
 function CLASS:CalcMainActivity(pl, velocity)
 	local wep = pl:GetActiveWeapon()
@@ -111,9 +104,8 @@ function CLASS:OnKilled(pl, attacker, inflictor, suicide, headshot, dmginfo, ass
 	return true
 end
 
-if not CLIENT then return end
+--if not CLIENT then return end
 
-CLASS.Icon = "zombiesurvival/classmenu/wraith"
 
 function CLASS:PrePlayerDraw(pl)
 	pl:RemoveAllDecals()
@@ -134,3 +126,5 @@ function CLASS:PostPlayerDraw(pl)
 	render.SetColorModulation(1, 1, 1)
 	render.SetBlend(1)
 end
+CLASS.Icon = "zombiesurvival/classmenu/wraith"
+

@@ -75,10 +75,10 @@ function SWEP:PrimaryAttack()
 	end
 
 
-	--self.Owner:SetMoveType(MOVETYPE_NONE)	--Removed until a better solution is found. 
-		--timer.Simple(2.5, function()
-		--	self.Owner:SetMoveType(MOVETYPE_WALK)
-		--end)
+--	self.Owner:SetMoveType(MOVETYPE_NONE)	
+	--	timer.Simple(2.5, function()
+	--		self.Owner:SetMoveType(MOVETYPE_WALK)
+	--	end)
 		
 	self.Weapon:SetNextPrimaryFire(CurTime() + 2)
 	
@@ -170,7 +170,7 @@ function SWEP:SecondaryAttack()
 	self.Weapon:SetNextSecondaryFire(CurTime() + 5)
 
 	--self.Owner:SetMoveType(MOVETYPE_NONE)	
-	--	timer.Simple(2.5, function()
+		--timer.Simple(2.5, function()
 		--	self.Owner:SetMoveType(MOVETYPE_WALK)
 		--end)
 

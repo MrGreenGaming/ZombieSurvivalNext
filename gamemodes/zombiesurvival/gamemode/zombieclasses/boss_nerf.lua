@@ -31,7 +31,8 @@ CLASS.ViewOffsetDucked = Vector( 0, 0, 24 )
 CLASS.Hull = { Vector(-16, -16, 0), Vector(16, 16, 58) }
 CLASS.HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)}
 
-CLASS.PainSounds = {"npc/antlion_guard/growl_high.wav"}
+--CLASS.PainSounds = {"npc/antlion_guard/growl_high.wav"}
+CLASS.PainSounds = {"npc/antlion/pain1.wav", "npc/antlion/pain2.wav"}
 CLASS.DeathSounds = {"npc/antlion_guard/antlion_guard_die1.wav"},{"npc/antlion_guard/antlion_guard_die2.wav"}
 
 local STEPSOUNDTIME_NORMAL = STEPSOUNDTIME_NORMAL

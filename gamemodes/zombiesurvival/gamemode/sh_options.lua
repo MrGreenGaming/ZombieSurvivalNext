@@ -476,3 +476,6 @@ GM.HumanWinSound = Sound("music/HL1_song17.mp3")
 
 -- Sound played to a person when they die as a human.
 GM.DeathSound = Sound("music/stingers/HL1_stinger_song28.mp3")
+
+-- Rave sound; people will hate me for making this :')
+RAVESOUND = "mrgreen/ravebreak_fix.mp3"

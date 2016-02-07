@@ -53,6 +53,7 @@ SWEP.Base				= "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
+--SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_shot_xm1014.mdl" )
 SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_shot_m3super90.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_shot_m3super90.mdl" )

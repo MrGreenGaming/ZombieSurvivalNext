@@ -71,6 +71,9 @@ AddCSLuaFile("boneanimlib_v2/cl_boneanimlib.lua")
 AddCSLuaFile("boneanimlib_v2/boneanimlib.lua")
 
 
+AddCSLuaFile("ravebreak/sh_ravebreak.lua")
+
+
 AddCSLuaFile("obj_vector_extend.lua")
 AddCSLuaFile("obj_player_extend.lua")
 AddCSLuaFile("obj_player_extend_cl.lua")
@@ -100,6 +103,8 @@ AddCSLuaFile("vgui/pendboard.lua")
 AddCSLuaFile("vgui/pworth.lua")
 AddCSLuaFile("vgui/ppointshop.lua")
 AddCSLuaFile("vgui/zshealtharea.lua")
+
+
 
 include("shared.lua")
 include("sv_options.lua")
@@ -463,6 +468,29 @@ function GM:ShowTeam(pl)
 		--pl:SendLua(self:GetWave() > 0 and "GAMEMODE:OpenPointsShop()" or "MakepWorth()")
 		--pl:SendLua(self:GetWave() > 0 and "GAMEMODE:OpenPointsShop()")
 	--end
+end
+
+
+-- People will hate me for this
+-- Ywa: Nope. They still love you.
+-- Duby: Removed it for a while as some admins are retarded and use it every game. 
+function RaveBreak()
+	umsg.Start("RaveBreak")
+	umsg.End()
+
+	Raving = true
+	
+	-- 1 second buildup
+	timer.Simple(1,function()
+		hook.Add("Think","RaveThink",RaveThink)
+	end)
+	
+	timer.Simple(24,function()
+		hook.Remove("Think","RaveThink")
+		umsg.Start("RaveEnd")
+		umsg.End()
+		Raving = false
+	end)
 end
 
 local function DropWeapon()

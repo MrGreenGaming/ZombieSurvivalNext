@@ -58,8 +58,8 @@ function SWEP:CheckIdleAnimation()
 	if self.IdleAnimation and self.IdleAnimation <= CurTime() then
 		self.IdleAnimation = nil
 		self:SendWeaponAnim(ACT_VM_IDLE)
-		local pl = self.Owner
-	self.Owner:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(255,255,255,255)) --Temp Checker
+		--local pl = self.Owner
+	--self.Owner:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(255,255,255,255)) --Temp Checker
 	end
 end
 

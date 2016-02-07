@@ -56,15 +56,15 @@ function SWEP:StartMoaningSound()
 end
 
 function SWEP:PlayHitSound()
-	self.Owner:EmitSound("npc/zombie/claw_strike"..math.random(3)..".wav", 75, 80)
+	self.Owner:EmitSound("npc/antlion_guard/shove1.wav", 75, 80)
 end
 
 function SWEP:PlayMissSound()
-	self.Owner:EmitSound("npc/antlion/attack_double1.wav", 75, 80)
+	self.Owner:EmitSound("npc/antlion_guard/shove1.wav", 75, 80)
 end
 
 function SWEP:PlayAttackSound()
-	self.Owner:EmitSound("npc/antlion/attack_double1.wav")
+	self.Owner:EmitSound("npc/antlion_guard/shove1.wav")
 end
 
 function SWEP:PlayAlertSound()
