@@ -32,7 +32,8 @@ bananas + microwave = gelbanana
 metal barrel + something = body armor
 --]]
 
-resource.AddWorkshop("615992520")
+--resource.AddWorkshop("615992520")
+resource.AddWorkshop("618418410")
 
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("shared.lua")
