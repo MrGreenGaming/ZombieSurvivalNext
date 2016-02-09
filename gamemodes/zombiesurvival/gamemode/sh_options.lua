@@ -182,7 +182,6 @@ engweapon = {"weapon_zs_barricadekit","weapon_zs_gunturret"}
 pl:Give("weapon_zs_pulsesmg")
 pl:Give("weapon_zs_fryingpan")
 pl:Give(table.Random(engweapon))
-pl:Give("weapon_zs_peashooter")
 pl:SpawnMiniTurret()
 
 --PrintMessage(3, "You're an Engineer, Blow shit up!")
