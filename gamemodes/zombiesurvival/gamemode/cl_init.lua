@@ -1202,7 +1202,6 @@ end
 
 
 local matFilmGrain = Material("zombiesurvival/filmgrain/filmgrain")
---local color_black = color_black
 function GM:_HUDPaintBackground()
 	
 
@@ -1397,6 +1396,7 @@ function GM:_CreateMove(cmd)
 
 					local ang = cmd:GetViewAngles()
 					local rate = ft * ((threshold - health) / threshold) * 7
+
 					ang.pitch = math.NormalizeAngle(ang.pitch + staggerdir.z * rate)
 					ang.yaw = math.NormalizeAngle(ang.yaw + staggerdir.x * rate)
 					cmd:SetViewAngles(ang)
@@ -1687,25 +1687,25 @@ function GM:SuppressArsenalUpgrades(suppresstime)
 	self.SuppressArsenalTime = math.max(CurTime() + suppresstime, self.SuppressArsenalTime)
 end
 
-function GM:Rewarded(class, amount) --Duby: We don't want this anymore... We shall Port the Mr.Green ones!
+function GM:Rewarded(class, amount)
 	if CurTime() < self.SuppressArsenalTime then return end
 
-	--class = class or "0"
+	class = class or "0"
 
-	--local toptext = translate.Get("arsenal_upgraded")
+	local toptext = translate.Get("arsenal_upgraded")
 
-	--local wep = weapons.GetStored(class)
-	--if wep and wep.PrintName then
-		--if killicon.Get(class) == killicon.Get("default") then
-			--self:CenterNotify(COLOR_PURPLE, toptext..": ", color_white, wep.PrintName)
-		--else
-			--self:CenterNotify({killicon = class}, " ", COLOR_PURPLE, toptext..": ", color_white, wep.PrintName)
-		--end
+	local wep = weapons.GetStored(class)
+	if wep and wep.PrintName then
+		if killicon.Get(class) == killicon.Get("default") then
+			self:CenterNotify(COLOR_RED, toptext..": ", color_white, wep.PrintName)
+		else
+			self:CenterNotify({killicon = class}, " ", COLOR_RED, toptext..": ", color_white, wep.PrintName)
+		end
 	--elseif amount then
 		--self:CenterNotify(COLOR_PURPLE, toptext..": ", color_white, amount.." "..class)
 	--else
 		--self:CenterNotify(COLOR_PURPLE, toptext)
-	--end
+	end
 end
 
 function PlayMenuOpenSound()
@@ -1827,10 +1827,10 @@ end)
 
 net.Receive("zs_classunlock", function(length)
 	
-	timer.Simple(6, function()
+	--timer.Simple(6, function()
 		--GAMEMODE:Add3DMessage(140, net.ReadString())
 		GAMEMODE:CenterNotify(COLOR_GREEN, net.ReadString())
-	end)
+	--end)
 end)
 
 net.Receive("zs_waveend", function(length)
