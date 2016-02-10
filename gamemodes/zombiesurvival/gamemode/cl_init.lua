@@ -1696,11 +1696,11 @@ function GM:Rewarded(class, amount)
 
 	local wep = weapons.GetStored(class)
 	if wep and wep.PrintName then
-		--if killicon.Get(class) == killicon.Get("default") then
-		--	self:CenterNotify(COLOR_RED, toptext..": ", color_white, wep.PrintName)
-		--else
+		if killicon.Get(class) == killicon.Get("default") then
 			self:CenterNotify(COLOR_RED, toptext..": ", color_white, wep.PrintName)
-		--end
+		else
+			self:CenterNotify({killicon = class}, " ", COLOR_RED, toptext..": ", color_white, wep.PrintName)
+		end
 	--elseif amount then
 		--self:CenterNotify(COLOR_PURPLE, toptext..": ", color_white, amount.." "..class)
 	--else
