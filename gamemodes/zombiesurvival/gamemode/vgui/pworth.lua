@@ -283,7 +283,7 @@ function MakepWorth()
 	
 	local checkout = vgui.Create("DButton",frame)
 	checkout:SetFont("ZSHUDFont2")
-	checkout:SetText(translate.Get("spawn"))
+	checkout:SetText("SPAWN")
 	checkout:SetSize(130, 30)
 	checkout:SetPos(80 * X_MULTIPLIER, 370 * Y_MULTIPLIER)
 	checkout.DoClick = function()
