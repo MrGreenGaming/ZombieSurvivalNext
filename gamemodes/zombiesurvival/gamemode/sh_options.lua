@@ -128,7 +128,7 @@ GM.AmmoResupply["pulse"] = GM.AmmoCache["pulse"]
 
 --MEDIC
 
-GM:CLASS("medic", "MEDIC", "Heals and keeps your team alive!", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("medic", translation.Get("medic"), translation.Get("description_medic"), ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/group03/male_02.mdl",
@@ -148,7 +148,7 @@ end, "models/healthvial.mdl")
 
 --COMMANDO
 
-GM:CLASS("commando", "COMMANDO", "Slaughter zombies efficiently with the toughest firearms!", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("commando", translation.Get("commando"), translation.Get("description_commando"), ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/combine_soldier.mdl",
@@ -168,7 +168,7 @@ end, "models/healthvial.mdl")
 
 --ENGINEER
 
-GM:CLASS("engineer", "ENGINEER", "Technology is your best friend, use it to fuck shit up!", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("engineer", translation.Get("engineer"), translation.Get("description_engineer"), ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/mossman.mdl",
@@ -191,7 +191,7 @@ end, "models/healthvial.mdl")
 
 --BERSERKER
 
-GM:CLASS("berserker", "BERSERKER", "Hit smash and destroy!", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("berserker", translation.Get("berserker"), translation.Get("description_berserker"), ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/gasmask.mdl",
@@ -215,7 +215,7 @@ end, "models/healthvial.mdl")
 
 --SUPPORT
 
-GM:CLASS("support", "SUPPORT", "Create barricades and support your team mates!", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("support", translation.Get("support"), translation.Get("description_SUPPORT"), ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/gasmask.mdl",

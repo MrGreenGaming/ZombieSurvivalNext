@@ -104,7 +104,7 @@ if myteam == TEAM_UNDEAD then
 			col = COLOR_GRAY
 		end
 		
-		draw.SimpleText("Invasion In " .. util.ToMinutesSeconds(timeleft) .. "", "ZSHUDFontSmallZombie", 130, 0, col)
+		draw.SimpleText(translate.Get("zombie_invasion_in").. " " .. util.ToMinutesSeconds(timeleft) .. "", "ZSHUDFontSmallZombie", 130, 0, col)
 	elseif GAMEMODE:GetWaveActive() then
 		local waveend = GAMEMODE:GetWaveEnd()
 		if waveend ~= -1 then
@@ -135,7 +135,7 @@ if myteam == TEAM_HUMAN then
 			col = COLOR_GRAY
 		end
 		
-		draw.SimpleText("Invasion In " .. util.ToMinutesSeconds(timeleft) .. "", self.Font, 130, 0, col)
+		draw.SimpleText(translate.Get("zombie_invasion_in").. " " .. util.ToMinutesSeconds(timeleft) .. "", self.Font, 130, 0, col)
 	elseif GAMEMODE:GetWaveActive() then
 		local waveend = GAMEMODE:GetWaveEnd()
 		if waveend ~= -1 then
