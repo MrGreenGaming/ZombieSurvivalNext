@@ -90,7 +90,6 @@ killicon.Add("weapon_zs_special_wow", "sprites/glow04_noz", color_white)
 
 killicon.Add("weapon_zs_howler", "killicon/zs_zombie", color_white)
 killicon.Add("weapon_zs_zombine", "killicon/zs_zombie", color_white)
-killicon.AddFont("weapon_zs_pulsesmg", "zsdeathnotice", "/", color_white)
 
 killicon.Add("weapon_zs_seeker", "killicon/zs_zombie", color_white)
 killicon.Add("weapon_zs_pukepus", "killicon/zs_zombie", color_white)
@@ -144,6 +143,10 @@ killicon.AddFont("weapon_zs_zeakbar", "zsdeathnoticecs", "b", color_white)
 killicon.AddFont("weapon_zs_ender", "zsdeathnoticecs", "v", color_white)
 killicon.AddFont("weapon_zs_redeemers", "zsdeathnoticecs", "s", color_white)
 killicon.AddFont("weapon_zs_berreta", "zsdeathnoticecs", "s", color_red)
+killicon.AddFont("weapon_zs_pulsesmg", "zsdeathnotice", "/", color_white)
+killicon.AddFont("weapon_zs_sg552", "zsdeathnoticecs", "w", Color(255, 255, 255, 255 ))
+killicon.AddFont("weapon_zs_sg550", "zsdeathnoticecs", "k", Color(255, 255, 255, 255 ))
+
 --Melee
 killicon.AddFont("weapon_zs_melee_axe", "zsdeathnotice2", "a", Color(255, 255, 255, 255))
 --killicon.Add("weapon_zs_sawhack", "zsdeathnotice2", "e", color_white)
@@ -151,21 +154,16 @@ killicon.AddFont("weapon_zs_keyboard", "zsdeathnotice2", "d", color_white)
 killicon.AddFont("weapon_zs_sledgehammer","killicon/fists", color_white)
 killicon.AddFont("weapon_zs_megamasher","killicon/fists", color_white)
 killicon.AddFont("weapon_zs_fryingpan", "zsdeathnotice2", "b", color_white)
-
 killicon.AddFont("weapon_zs_pot", "zsdeathnotice2", "f", Color(255, 255, 255, 255 ))
 killicon.AddFont("weapon_zs_plank", "zsdeathnotice2", "e", Color(255, 255, 255, 255 ) )
-
 killicon.AddFont("weapon_zs_katana", "zsdeathnotice2", "h", Color(255, 255, 255, 255 ) )
 killicon.AddFont("weapon_zs_pipe", "zsdeathnotice2", "x", Color(255, 255, 255, 255 ) )
-
 killicon.AddFont("weapon_zs_hammer", "zsdeathnotice2", "c", color_white)
 killicon.AddFont("weapon_zs_electrohammer", "zsdeathnotice2", "c", color_white)
 killicon.AddFont("weapon_zs_shovel", "killicon/fists", color_white)
 killicon.AddFont("weapon_zs_crowbar", "HL2MPTypeDeath", "6", color_white)
 killicon.AddFont("weapon_zs_stunbaton", "zsdeathnotice2", "e", color_white)
 
-killicon.AddFont("weapon_zs_sg552", "zsdeathnoticecs", "w", Color(255, 255, 255, 255 ))
-killicon.AddFont("weapon_zs_sg550", "zsdeathnoticecs", "k", Color(255, 255, 255, 255 ))
 
 
 
