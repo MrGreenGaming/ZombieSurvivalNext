@@ -38,7 +38,7 @@ if not killicon.GetFont then
 end
 
 killicon.AddFont("default", "zsdeathnoticecs", "C", color_white)
-killicon.AddFont("suicide", "zsdeathnoticecs", "C", color_white)
+killicon.Add("suicide","killicon/zs_zombie", color_white)
 killicon.AddFont("player", "zsdeathnoticecs", "C", color_white)
 killicon.AddFont("worldspawn", "zsdeathnoticecs", "C", color_white)
 killicon.AddFont("func_move_linear", "zsdeathnoticecs", "C", color_white)
@@ -98,6 +98,7 @@ killicon.Add("weapon_zs_bonemesh", "killicon/zs_zombie", color_white)
 killicon.Add("weapon_zs_hate", "killicon/zs_zombie", color_white)
 killicon.Add("weapon_zs_shade", "killicon/zs_zombie", color_white)
 
+killicon.Add("weapon_zs_miniturret", "zombiesurvival/killicons/prop_gunturret", color_white)
 killicon.Add("prop_gunturret", "zombiesurvival/killicons/prop_gunturret", color_white)
 killicon.Add("weapon_zs_gunturret", "zombiesurvival/killicons/prop_gunturret", color_white)
 killicon.Add("weapon_zs_gunturretremove", "zombiesurvival/killicons/prop_gunturret", color_white)
@@ -149,7 +150,7 @@ killicon.AddFont("weapon_zs_sg550", "zsdeathnoticecs", "k", Color(255, 255, 255,
 
 --Melee
 killicon.AddFont("weapon_zs_melee_axe", "zsdeathnotice2", "a", Color(255, 255, 255, 255))
---killicon.Add("weapon_zs_sawhack", "zsdeathnotice2", "e", color_white)
+killicon.Add("weapon_zs_sawhack", "zsdeathnotice2", "e", color_white)
 killicon.AddFont("weapon_zs_keyboard", "zsdeathnotice2", "d", color_white)
 killicon.AddFont("weapon_zs_sledgehammer","killicon/fists", color_white)
 killicon.AddFont("weapon_zs_megamasher","killicon/fists", color_white)

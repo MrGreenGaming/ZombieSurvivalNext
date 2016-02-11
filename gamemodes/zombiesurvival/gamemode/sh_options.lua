@@ -430,6 +430,8 @@ end)
 
 -- Static values that don't need convars...
 
+GM.RTD_TIME = 3
+
 -- Initial length for wave 1.
 GM.WaveOneLength = 220
 
