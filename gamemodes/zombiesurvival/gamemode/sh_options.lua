@@ -3,6 +3,24 @@ if SERVER and tobool(string.find(tostring(game.GetMap()),"zs_arena")) then
 	GM:SetGameMode(GAMEMODE_ARENA)
 end
 
+GM.ArenaModeWeapons = {
+	"weapon_zs_python",
+	"weapon_zs_boomerstick",
+	"weapon_zs_slugrifle",
+	"weapon_zs_ender",
+	"weapon_zs_sg552",
+	"weapon_zs_bulletstorm",
+	"weapon_zs_sg550",
+	"weapon_zs_crackler",
+	"weapon_zs_uzi",
+	"weapon_zs_deagle",
+	"weapon_zs_m249",
+	"eapon_zs_python", --Add a few doubles to lessen the amounts of M249 spawners! 
+	"weapon_zs_crackler",
+	"weapon_zs_uzi",
+	"weapon_zs_deagle"
+}
+
 GM.ZombieEscapeWeapons = {
 	"weapon_zs_zedeagle",
 	"weapon_zs_zeakbar",
@@ -11,6 +29,8 @@ GM.ZombieEscapeWeapons = {
 	"weapon_zs_zestubber",
 	"weapon_zs_zebulletstorm"
 }
+
+
 
 -- Change this if you plan to alter the cost of items or you severely change how Worth works.
 -- Having separate cart files allows people to have separate loadouts for different servers.
@@ -180,7 +200,7 @@ engweapon = {"weapon_zs_barricadekit","weapon_zs_gunturret"}
 pl:Give("weapon_zs_pulsepistol")
 pl:Give("weapon_zs_fryingpan")
 pl:Give(table.Random(engweapon))
-
+pl:AddPoints(20)
 --PrintMessage(3, "You're an Engineer, Blow shit up!")
 
 end, "models/healthvial.mdl")
@@ -272,7 +292,7 @@ GM:AddPointShopItem("SG552", "SG 552", nil, ITEMCAT_GUNS, 110, "weapon_zs_sg552"
 GM:AddPointShopItem("stalker", "M4A1", nil, ITEMCAT_GUNS, 125, "weapon_zs_m4")
 GM:AddPointShopItem("inferno", "AUG", nil, ITEMCAT_GUNS, 125, "weapon_zs_inferno")
 GM:AddPointShopItem("crossbow", "Crossbow", nil, ITEMCAT_GUNS, 175, "weapon_zs_crossbow")
-GM:AddPointShopItem("m3", "M3 Shotgun", nil, ITEMCAT_GUNS3, 200, "weapon_zs_sweepershotgun")
+GM:AddPointShopItem("m3", "M3 Shotgun", nil, ITEMCAT_GUNS3, 180, "weapon_zs_sweepershotgun")
 GM:AddPointShopItem("M1014Shotgun", "M1014 Shotgun", nil, ITEMCAT_GUNS3, 200, "weapon_zs_slugrifle")
 GM:AddPointShopItem("hunter", "AWP", nil, ITEMCAT_GUNS, 200, "weapon_zs_hunter")
 GM:AddPointShopItem("SG550", "SG 550", nil, ITEMCAT_GUNS, 210, "weapon_zs_sg550")
@@ -292,7 +312,7 @@ GM:AddPointShopItem("axe", "Axe", nil, ITEMCAT_MELEE, 55, "weapon_zs_axe")
 GM:AddPointShopItem("crowbar", "Crowbar", nil, ITEMCAT_MELEE, 60, "weapon_zs_crowbar")
 GM:AddPointShopItem("shovel", "Shovel", nil, ITEMCAT_MELEE, 70, "weapon_zs_shovel") 
 GM:AddPointShopItem("sledgehammer", "Sledge Hammer", nil, ITEMCAT_MELEE, 80, "weapon_zs_sledgehammer") 
-GM:AddPointShopItem("katana", "Katana", nil, ITEMCAT_MELEE, 150, "weapon_zs_katana")
+GM:AddPointShopItem("katana", "Katana", nil, ITEMCAT_MELEE, 120, "weapon_zs_katana")
 
 --[AMMO]--
 GM:AddPointShopItem("crossbowammo", "Crossbow bolt", nil, ITEMCAT_AMMO, 5, nil, function(pl) pl:GiveAmmo(1, "XBowBolt", true) end, "models/Items/CrossbowRounds.mdl")
@@ -314,7 +334,7 @@ GM:AddPointShopItem("aegisboard", "Aegis Board", "Aegis Board", ITEMCAT_OTHER, 2
 GM:AddPointShopItem("vodka", "Bottle'ol Vodka", nil, ITEMCAT_OTHER, 40, "weapon_zs_vodka")
 GM:AddPointShopItem("Stoned Potato", "Stoned Potato +[SP]+", nil, ITEMCAT_OTHER, 2000, "")
 
-GM:AddPointShopItem("grenade", "Grenade", nil, ITEMCAT_TOOLS, 20, "weapon_zs_grenade")
+GM:AddPointShopItem("grenade", "Grenade", nil, ITEMCAT_TOOLS, 22, "weapon_zs_grenade")
 GM:AddPointShopItem("torch", "Blow Torch", nil, ITEMCAT_TOOLS, 35, "weapon_zs_torch")
 GM:AddPointShopItem("turret", "Turret", nil, ITEMCAT_TOOLS, 30, "weapon_zs_boardpack")
 GM:AddPointShopItem("junkpack", "Junk Pack", nil, ITEMCAT_TOOLS, 45, "weapon_zs_gunturret")
