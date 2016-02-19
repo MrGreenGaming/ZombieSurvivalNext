@@ -3585,7 +3585,7 @@ function GM:PlayerSpawn(pl)
 			pl:Give(table.Random(self.ZombieEscapeWeapons))
 		elseif self.StartingLoadout then
 			self:GiveStartingLoadout(pl)
-		elseif pl.m_PreRedeem then
+		elseif pl.m_PreRedeem then --Find out what this does??
 			if self.RedeemLoadout then
 				for _, class in pairs(self.RedeemLoadout) do
 					pl:Give(class)
@@ -3595,7 +3595,7 @@ function GM:PlayerSpawn(pl)
 				--[[	CLASSES REDEMPTION SYSTEM	]]--
 				
 				--Duby: May need to re-work this...
-					
+				--[[		
 				if CLASS_1 == true then
 					pl:Give("weapon_zs_fiveseven")
 					pl:Give("weapon_zs_medicalkit")
@@ -3616,7 +3616,14 @@ function GM:PlayerSpawn(pl)
 					pl:Give("weapon_zs_hammer")
 					pl:Give("weapon_zs_battleaxe")
 					pl:Give("weapon_zs_resupplybox")
-				end
+				end]]--
+					
+
+					--Duby: For now we will use this..
+					pl:SpawnMiniTurret()
+					pl:Give("weapon_zs_python") 
+					pl:Give("weapon_zs_pot")
+					pl:AddPoints(120) --Lets give them a boost so they can get a good gun, ammo etc... 
 			end
 		end
 
