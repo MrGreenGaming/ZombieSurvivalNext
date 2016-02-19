@@ -224,6 +224,7 @@ CLASS_5 = true
 supweapon = {"weapon_zs_arsenalcrate"}
 
 pl:Give("weapon_zs_hammer")
+pl:Give("weapon_zs_torch") --Debug the item, may contain issues. 
 pl:Give("weapon_zs_battleaxe")
 pl:Give(table.Random(supweapon))
 --PrintMessage(3, "You're a Support, Make barricades!")

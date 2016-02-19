@@ -49,6 +49,8 @@ SWEP.Primary.Ammo = "GaussEnergy"
 SWEP.Primary.Delay = 0.04
 SWEP.Primary.DefaultClip = -1
 
+SWEP.HoldType = "slam"
+
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
@@ -56,10 +58,8 @@ SWEP.MeleeDamage = 35
 
 SWEP.NoPropThrowing = true
 
---SWEP.HitGesture = ACT_INVALID
-SWEP.HitGesture = false
-SWEP.MissGesture = false
---SWEP.MissGesture = SWEP.HitGesture
+SWEP.HitGesture = ACT_INVALID
+SWEP.MissGesture = SWEP.HitGesture
 
 
 SWEP.HealStrength = 0.06

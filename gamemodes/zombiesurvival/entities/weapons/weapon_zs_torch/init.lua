@@ -1,17 +1,30 @@
+--Duby: Note, in order to balance this tool I will need to port some code from the Pulse SMG to add a ammo regen system, this tool is currently far too OP 
+
 AddCSLuaFile("shared.lua")
 AddCSLuaFile("cl_init.lua")
 
 include("shared.lua")
 
-function SWEP:Deploy()	
-	--self.Owner:StopAllLuaAnimations()
-	--local owner = self.Owner
-	--owner:StopAllLuaAnimations()
-end	
+function SWEP:Deploy()
+    if self.IdleAnimation and self.IdleAnimation <= CurTime() then --Test this checker for Deploy animations removal..
+        self.IdleAnimation = nil
+        self:SendWeaponAnim(ACT_VM_IDLE)
+    end
+end
+
+function SWEP:Think()  --Test this function as it should stop the world attack animation.
+    if self.IdleAnimation and self.IdleAnimation <= CurTime() then
+        self.IdleAnimation = nil
+        self:SendWeaponAnim(ACT_VM_IDLE)
+    end
+end
 
 function SWEP:Reload()
 	
 	if CurTime() < self:GetNextPrimaryFire() then return end
+
+   -- self.IdleAnimation = nil --Test these here if the 'think' function doesnt work.
+  --  self:SendWeaponAnim(ACT_VM_IDLE)
 
 	local owner = self.Owner
 	if owner:GetBarricadeGhosting() then return end
@@ -32,9 +45,6 @@ function SWEP:Reload()
 			end
 		end
 	end
-	
---	owner:StopAllLuaAnimations()
-
 
 	if not ent or not gamemode.Call("CanRemoveNail", owner, ent) then return end
 
@@ -45,10 +55,8 @@ function SWEP:Reload()
 
 	ent.m_PryingOut = true -- Prevents infinite loops
 
-	--self:SendWeaponAnim(self.Alternate and ACT_INVALID or ACT_INVALID)
-	--self.Alternate = not self.Alternate
 
-	--owner:DoAnimationEvent(ACT_INVALID)
+	--self.Owner:SetAnimation(ACT_INVALID)
 
 	owner:EmitSound("ambient/energy/spark"..math.random(1,6)..".wav",math.random(86,110),math.random(86,110))
 
@@ -98,12 +106,6 @@ function SWEP:OnMeleeHit(hitent, hitflesh, tr)
 			self:PlayRepairSound(hitent)
 			gamemode.Call("PlayerRepairedObject", self.Owner, hitent, healed, self)
 
-			--local effectdata = EffectData()
-			--	effectdata:SetOrigin(tr.HitPos)
-			--	effectdata:SetNormal(tr.HitNormal)
-			--	effectdata:SetMagnitude(1)
-			--util.Effect("nailrepaired", effectdata, true, true)
-			
 			local eff = EffectData()
 					eff:SetOrigin(tr.HitPos)
 					eff:SetNormal(tr.HitNormal)
