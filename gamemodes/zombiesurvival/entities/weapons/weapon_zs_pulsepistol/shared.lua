@@ -7,6 +7,7 @@ if CLIENT then
 	SWEP.Author	= "Pufulet"	
 	SWEP.Slot = 1
 	SWEP.SlotPos = 2
+	SWEP.ViewModelFlip = false
 	SWEP.ViewModelFOV = 60
 	SWEP.WElements = {
 	["battery"] = { type = "Model", model = "models/items/battery.mdl", bone = "ValveBiped.Anim_Attachment_RH", rel = "", pos = Vector(-0.201, -3.201, 1.557), angle = Angle(0, 90, -176.495), size = Vector(0.449, 0.4, 0.6), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
