@@ -19,7 +19,7 @@ notice.bAddNext, notice.Size, notice.MaxSize, notice.Alpha, notice.TextPos, noti
 --[==[-----------------------------------------------------------------------------------
 	                    Add the message to a table (cache) 
 ------------------------------------------------------------------------------------]==]
-function notice.Message( sText, tbColor, iType, iDuration )
+function notice.Message( tbColor, sText, iType, iDuration )
 	if not IsValid( MySelf ) then
 		return 
 	end
@@ -28,7 +28,7 @@ function notice.Message( sText, tbColor, iType, iDuration )
 		return
 	end
 	
-	if util.tobool(GetConVarNumber("_zs_hidenotify")) then return end
+	--if util.tobool(GetConVarNumber("_zs_hidenotify")) then return end
 
 	if not notice.Timer then 
 		notice.Timer = 0 
@@ -328,7 +328,7 @@ local function DrawHintMessage()
 end
 
 function GM:HintMessage(y, arg)
-	if not GetConVar("_zs_enablehints"):GetBool() then return end
+	--if not GetConVar("_zs_enablehints"):GetBool() then return end
 	local Cached2 = true
 
 	for i=1,#arg do

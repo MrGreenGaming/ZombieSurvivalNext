@@ -59,7 +59,7 @@ SWEP.MeleeDamage = 35
 SWEP.NoPropThrowing = true
 
 SWEP.HitGesture = ACT_INVALID
-SWEP.MissGesture = SWEP.HitGesture
+SWEP.MissGesture = ACT_INVALID
 
 
 SWEP.HealStrength = 0.06

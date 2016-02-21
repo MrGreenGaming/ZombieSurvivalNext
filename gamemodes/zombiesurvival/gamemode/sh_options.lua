@@ -161,7 +161,9 @@ CLASS_1 = true
 pl:Give("weapon_zs_fiveseven")
 pl:Give("weapon_zs_medicalkit")
 pl:Give("weapon_zs_plank")
---PrintMessage(3, "You're a Medic! Heal Your Teammates!")
+
+PrintMessage( HUD_PRINTTALK, "You're a Medic! Heal Your Teammates!" )
+
 
 end, "models/healthvial.mdl")
 
@@ -178,8 +180,7 @@ CLASS_2 = true
 pl:Give("weapon_zs_redeemers")
 pl:Give("weapon_zs_swissarmyknife")
 pl:Give("weapon_zs_grenade")
-
---PrintMessage(3, "You're a Commando, kill and destroy!")
+PrintMessage( HUD_PRINTTALK, "You're a Commando, kill and destroy!" )
 
 end, "models/healthvial.mdl")
 
@@ -201,7 +202,7 @@ pl:Give("weapon_zs_pulsepistol")
 pl:Give("weapon_zs_fryingpan")
 pl:Give(table.Random(engweapon))
 pl:AddPoints(20)
---PrintMessage(3, "You're an Engineer, Blow shit up!")
+PrintMessage( HUD_PRINTTALK, "You're an Engineer, Blow shit up!" )
 
 end, "models/healthvial.mdl")
 
@@ -214,7 +215,7 @@ function(pl) pl:SetModel( table.Random( {
 	"models/player/gasmask.mdl",
 	"models/player/riot.mdl",
 } ) )
-
+	
 CLASS_4 = true
 
 berserkerweapon = {"weapon_zs_axe","weapon_zs_pot"}
@@ -223,9 +224,8 @@ pl:Give("weapon_zs_peashooter")
 pl:Give(table.Random(berserkerweapon))
 pl:Give("weapon_zs_vodka")  
 pl:Give("weapon_zs_resupplybox")  
-pl:AddPoints(20)
-
---PrintMessage(3, "You're a Beserker, hitting shit is your life!")
+pl:AddPoints(20)	
+PrintMessage( HUD_PRINTTALK, "You're a Berserker, fucking smack some shit!" )
 
 end, "models/healthvial.mdl")
 
@@ -244,10 +244,9 @@ CLASS_5 = true
 supweapon = {"weapon_zs_arsenalcrate"}
 
 pl:Give("weapon_zs_hammer")
-pl:Give("weapon_zs_torch") --Debug the item, may contain issues. 
 pl:Give("weapon_zs_battleaxe")
 pl:Give(table.Random(supweapon))
---PrintMessage(3, "You're a Support, Make barricades!")
+PrintMessage( HUD_PRINTTALK, "You're a Support, Make barricades or fuck off!" )
 
 end, "models/healthvial.mdl")
 
@@ -285,8 +284,8 @@ GM:AddPointShopItem("silencer", "TMP", nil, ITEMCAT_GUNS, 70, "weapon_zs_silence
 GM:AddPointShopItem("ender", "Galil", nil, ITEMCAT_GUNS, 75, "weapon_zs_ender") --Testing
 GM:AddPointShopItem("reaper", "UMP", nil, ITEMCAT_GUNS, 80, "weapon_zs_reaper")
 GM:AddPointShopItem("akbar", "AK47", nil, ITEMCAT_GUNS, 80, "weapon_zs_akbar")
-GM:AddPointShopItem("annabelle", "Annabelle Rifle", nil, ITEMCAT_GUNS, 100, "weapon_zs_annabelle")
 GM:AddPointShopItem("chipper", "Chipper Shotgun", nil, ITEMCAT_GUNS3, 40, "weapon_zs_chipper")
+GM:AddPointShopItem("annabelle", "Annabelle Shotgun", nil, ITEMCAT_GUNS3, 100, "weapon_zs_annabelle")
 GM:AddPointShopItem("pulsesmg", "Pulse SMG", nil, ITEMCAT_GUNS, 105, "weapon_zs_pulsesmg")
 GM:AddPointShopItem("SG552", "SG 552", nil, ITEMCAT_GUNS, 110, "weapon_zs_sg552")
 GM:AddPointShopItem("stalker", "M4A1", nil, ITEMCAT_GUNS, 125, "weapon_zs_m4")
@@ -440,8 +439,6 @@ end)
 
 -- Static values that don't need convars...
 
-GM.RTD_TIME = 3
-
 -- Initial length for wave 1.
 GM.WaveOneLength = 220
 
@@ -462,7 +459,6 @@ GM.NoSuicideWave = 1
 
 -- How long 'wave 0' should last in seconds. This is the time you should give for new players to join and get ready.
 GM.WaveZeroLength = 120
---GM.WaveZeroLength = 45
 
 -- Time humans have between waves to do stuff without NEW zombies spawning. Any dead zombies will be in spectator (crow) view and any living ones will still be living.
 GM.WaveIntermissionLength = 90

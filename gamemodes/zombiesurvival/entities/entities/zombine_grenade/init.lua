@@ -52,11 +52,11 @@ function ENT:Think()
 	if not IsValid ( self ) then return end
 	
 	-- No valid owner
-	if not IsValid ( self.ZombieOwner ) then return end
+	---if not IsValid ( self.ZombieOwner ) then return end
 	
 
 	-- Owner redeemed
-	if self.ZombieOwner:IsHuman() then self:Remove() return end
+	--if self.ZombieOwner:IsHuman() then self:Remove() return end
 	
 	-- Owner died before nade xploded
 	if not self.OwnerDied and (not self.ZombieOwner:Alive() or self.ZombieOwner:GetZombieClass() ~= 8) then

@@ -5,12 +5,6 @@ AddCSLuaFile("cl_init.lua")
 
 include("shared.lua")
 
-function SWEP:Deploy()
-    if self.IdleAnimation and self.IdleAnimation <= CurTime() then --Test this checker for Deploy animations removal..
-        self.IdleAnimation = nil
-        self:SendWeaponAnim(ACT_VM_IDLE)
-    end
-end
 
 function SWEP:Think()  --Test this function as it should stop the world attack animation.
     if self.IdleAnimation and self.IdleAnimation <= CurTime() then
@@ -20,11 +14,11 @@ function SWEP:Think()  --Test this function as it should stop the world attack a
 end
 
 function SWEP:Reload()
-	
+	self:SendWeaponAnim(ACT_VM_IDLE)
 	if CurTime() < self:GetNextPrimaryFire() then return end
 
-   -- self.IdleAnimation = nil --Test these here if the 'think' function doesnt work.
-  --  self:SendWeaponAnim(ACT_VM_IDLE)
+    self.IdleAnimation = nil --Test these here if the 'think' function doesnt work.
+    self:SendWeaponAnim(ACT_VM_IDLE)
 
 	local owner = self.Owner
 	if owner:GetBarricadeGhosting() then return end
@@ -56,7 +50,8 @@ function SWEP:Reload()
 	ent.m_PryingOut = true -- Prevents infinite loops
 
 
-	--self.Owner:SetAnimation(ACT_INVALID)
+	self.Owner:SetAnimation(ACT_INVALID)
+	self:SendWeaponAnim(ACT_VM_IDLE)
 
 	owner:EmitSound("ambient/energy/spark"..math.random(1,6)..".wav",math.random(86,110),math.random(86,110))
 
@@ -86,6 +81,7 @@ local function ApproachAngle(ang,to,time)
 end
 
 function SWEP:OnMeleeHit(hitent, hitflesh, tr)
+	self:SendWeaponAnim(ACT_VM_IDLE)
 	if hitent:IsValid() then
 		if hitent.HitByHammer and hitent:HitByHammer(self, self.Owner, tr) then
 			return
@@ -95,7 +91,9 @@ function SWEP:OnMeleeHit(hitent, hitflesh, tr)
 			if CLIENT then
 				ApproachAngle(self.ViewModelBoneMods["ValveBiped.Bip01_R_Clavicle"].angle,self.AppTo,FrameTime()*33)
 			end	
-		
+			
+			self:SendWeaponAnim(ACT_VM_IDLE)
+			
 			local healstrength = GAMEMODE.NailHealthPerRepair * (self.Owner.HumanRepairMultiplier or 1) * self.HealStrength
 			local oldhealth = hitent:GetBarricadeHealth()
 			if oldhealth <= 0 or oldhealth >= hitent:GetMaxBarricadeHealth() or hitent:GetBarricadeRepairs() <= 0 then return end

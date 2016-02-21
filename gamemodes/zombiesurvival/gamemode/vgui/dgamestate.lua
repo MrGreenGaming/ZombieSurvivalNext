@@ -5,18 +5,19 @@ function PANEL:Init()
 
 	self.m_Text1 = vgui.Create("DLabel", self)
 	self.m_Text2 = vgui.Create("DLabel", self)
-	self.m_Text3 = vgui.Create("DLabel", self)
+	self.m_Text3 = vgui.Create("DLabel", self)	
+
 	self:SetTextFont("ZSHUDFontTiny")
 
 	self.m_Text1.Paint = self.Text1Paint
 	self.m_Text2.Paint = self.Text2Paint
 	self.m_Text3.Paint = self.Text3Paint
 
-
 	self:InvalidateLayout()
 end
 
 function PANEL:SetTextFont(font)
+
 	self.m_Text1.Font = font
 	self.m_Text1:SetFont(font)
 	self.m_Text2.Font = font
@@ -29,10 +30,10 @@ end
 
 function PANEL:PerformLayout()
 	local hs = self:GetTall() * 0.5
+	
 
 	self.m_Text1:SetWide(self:GetWide())
 	self.m_Text1:SizeToContentsY()
-	--self.m_Text1:AlignTop(30)
 	self.m_Text1:AlignBottom()
 	
 	self.m_Text2:SetWide(self:GetWide())
@@ -43,12 +44,19 @@ function PANEL:PerformLayout()
 	self.m_Text3:SizeToContentsY()
 	self.m_Text3:AlignBottom()
 
+
 end
  
 function PANEL:Text1Paint()
 	local text
 	local override = MySelf:IsValid() and GetGlobalString("hudoverride"..MySelf:Team(), "")
+	
+	local SCREEN_W = 1920; --For the screen resolution scale. This means that it can be fit exactly on the screen without any issues.
+	local SCREEN_H = 1080;
+	local X_MULTIPLIER = ScrW( ) / SCREEN_W;
+	local Y_MULTIPLIER = ScrH( ) / SCREEN_H;
 
+	
 	if override and #override > 0 then
 		text = override
 	else
@@ -76,13 +84,13 @@ function PANEL:Text1Paint()
 	
 if myteam == TEAM_UNDEAD then
 	if text then
-		draw.SimpleText(text, "ZSHUDFontSmallZombie", 130, 0, COLOR_GRAY)
+		draw.SimpleText(text, "ZSHUDFontSmallZombie", 130 * X_MULTIPLIER, Y_MULTIPLIER, COLOR_GRAY)
 	end
 end
 
 if myteam == TEAM_HUMAN then
 	if text then
-		draw.SimpleText(text, self.Font, 130, 0, COLOR_GRAY)
+		draw.SimpleText(text, self.Font, 130 * X_MULTIPLIER, Y_MULTIPLIER, COLOR_GRAY)
 	end
 end	
 
@@ -93,7 +101,15 @@ function PANEL:Text2Paint()
 
 local myteam = MySelf:Team()
 
-if myteam == TEAM_UNDEAD then
+local w, h = ScrW(), ScrH()
+
+local SCREEN_W = 1920; --For the screen resolution scale. This means that it can be fit exactly on the screen without any issues.
+local SCREEN_H = 1080;
+local X_MULTIPLIER = ScrW( ) / SCREEN_W;
+local Y_MULTIPLIER = ScrH( ) / SCREEN_H;
+
+
+if myteam == TEAM_UNDEAD then --Zombies!
 	if GAMEMODE:GetWave() <= 0 then
 		local col
 		local timeleft = math.max(0, GAMEMODE:GetWaveStart() - CurTime())
@@ -104,18 +120,18 @@ if myteam == TEAM_UNDEAD then
 			col = COLOR_GRAY
 		end
 		
-		draw.SimpleText("Invasion In " .. util.ToMinutesSeconds(timeleft) .. "", "ZSHUDFontSmallZombie", 130, 0, col)
+		draw.SimpleText("Invasion In " .. util.ToMinutesSeconds(timeleft) .. "", "ZSHUDFontSmallZombie", 130 * X_MULTIPLIER, Y_MULTIPLIER, col)
 	elseif GAMEMODE:GetWaveActive() then
 		local waveend = GAMEMODE:GetWaveEnd()
 		if waveend ~= -1 then
 			local timeleft = math.max(0, waveend - CurTime())
-			draw.SimpleText(translate.Format("wave_ends_in_x", util.ToMinutesSeconds(timeleft)), "ZSHUDFontSmallZombie", 130, 0, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
+			draw.SimpleText(translate.Format("wave_ends_in_x", util.ToMinutesSeconds(timeleft)), "ZSHUDFontSmallZombie", 130 * X_MULTIPLIER, Y_MULTIPLIER, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
 		end	
 	else
 		local wavestart = GAMEMODE:GetWaveStart()
 		if wavestart ~= -1 then
 			local timeleft = math.max(0, wavestart - CurTime())
-			draw.SimpleText(translate.Format("next_wave_in_x", util.ToMinutesSeconds(timeleft)), "ZSHUDFontSmallZombie", 130, 0, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
+			draw.SimpleText(translate.Format("next_wave_in_x", util.ToMinutesSeconds(timeleft)), "ZSHUDFontSmallZombie", 130 * X_MULTIPLIER, Y_MULTIPLIER, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
 		end
 	end
 
@@ -124,7 +140,7 @@ if myteam == TEAM_UNDEAD then
 
 end
 
-if myteam == TEAM_HUMAN then
+if myteam == TEAM_HUMAN then --Huamns
 	if GAMEMODE:GetWave() <= 0 then
 		local col
 		local timeleft = math.max(0, GAMEMODE:GetWaveStart() - CurTime())
@@ -135,18 +151,18 @@ if myteam == TEAM_HUMAN then
 			col = COLOR_GRAY
 		end
 		
-		draw.SimpleText("Invasion In " .. util.ToMinutesSeconds(timeleft) .. "", self.Font, 130, 0, col)
+		draw.SimpleText("Invasion In " .. util.ToMinutesSeconds(timeleft) .. "", self.Font, 130 * X_MULTIPLIER, Y_MULTIPLIER, col)
 	elseif GAMEMODE:GetWaveActive() then
 		local waveend = GAMEMODE:GetWaveEnd()
 		if waveend ~= -1 then
 			local timeleft = math.max(0, waveend - CurTime())
-			draw.SimpleText(translate.Format("wave_ends_in_x", util.ToMinutesSeconds(timeleft)), self.Font, 130, 0, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
+			draw.SimpleText(translate.Format("wave_ends_in_x", util.ToMinutesSeconds(timeleft)), self.Font, 130 * X_MULTIPLIER, Y_MULTIPLIER, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
 		end	
 	else
 		local wavestart = GAMEMODE:GetWaveStart()
 		if wavestart ~= -1 then
 			local timeleft = math.max(0, wavestart - CurTime())
-			draw.SimpleText(translate.Format("next_wave_in_x", util.ToMinutesSeconds(timeleft)), self.Font, 130, 0, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
+			draw.SimpleText(translate.Format("next_wave_in_x", util.ToMinutesSeconds(timeleft)), self.Font, 130 * X_MULTIPLIER, Y_MULTIPLIER, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
 		end
 	end
 

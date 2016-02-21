@@ -198,13 +198,14 @@ function MakepWorth()
 	WorthRemaining = maxworth
 
 	
-	local SCREEN_W = 1280;
-	local SCREEN_H = 720;
+	local SCREEN_W = 1920; --For the screen resolution scale. This means that it can be fit exactly on the screen without any issues.
+	local SCREEN_H = 1080;
 	local X_MULTIPLIER = ScrW( ) / SCREEN_W;
 	local Y_MULTIPLIER = ScrH( ) / SCREEN_H;
 
-	local wid, hei = 250 * X_MULTIPLIER, 800 * Y_MULTIPLIER
+	local wid, hei = 350 * X_MULTIPLIER, 900 * Y_MULTIPLIER
 	local wid2, hei2 = math.min(ScrW(), 240), math.min(ScrH())
+	local wid3, hei3 = math.min(ScrW(), 100), math.min(ScrH(), 520)
 	
 	local frame = vgui.Create("DFrame")
 	pWorth = frame
@@ -280,12 +281,15 @@ function MakepWorth()
 	frame:MakePopup()
 	frame:SizeToContents()
 	
+	local w, h = ScrW(), ScrH()
 	
 	local checkout = vgui.Create("DButton",frame)
 	checkout:SetFont("ZSHUDFont2")
 	checkout:SetText("SPAWN")
 	checkout:SetSize(130, 30)
-	checkout:SetPos(80 * X_MULTIPLIER, 370 * Y_MULTIPLIER)
+	checkout:SetPos(wid3, hei3)
+	--checkout:SetPos(w * 0.04, h * 0.75)
+	--checkout:SetPos(100 * X_MULTIPLIER, 520 * Y_MULTIPLIER)
 	checkout.DoClick = function()
 		CheckoutDoClick()
 	end

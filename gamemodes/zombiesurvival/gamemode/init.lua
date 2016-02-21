@@ -64,7 +64,7 @@ AddCSLuaFile("cl_legs.lua")
 AddCSLuaFile("cl_chatsounds.lua")
 AddCSLuaFile("cl_splitmessage.lua")
 
-AddCSLuaFile("commands.lua")
+
 
 AddCSLuaFile("boneanimlib_v2/sh_boneanimlib.lua")
 AddCSLuaFile("boneanimlib_v2/cl_boneanimlib.lua")
@@ -508,8 +508,10 @@ function GM:ShowSpare1(pl)
 		end
 	else
 		--pl:SendLua("MakepWeapons()")
-		RunConsoleCommand("zsdropweapon") --Duby: <-- Sort this out to work properly..
+		--RunConsoleCommand("zsdropweapon") --Duby: <-- Sort this out to work properly..
 		--DropWeapon
+		pl:DropWeapon(pl:GetActiveWeapon())
+		--RunConsoleCommand("zsdropweapon")
 	end
 end
 
@@ -3938,9 +3940,147 @@ end)
 
 
 function CheckSpecialCharacters( pl ) -- Setting it for a player to join as part of the admin team. 
- if ( pl:SteamID() == "STEAM_0:0:59565612" ) then --Super Admin Duby	
- pl:PrintMessage( HUD_PRINTTALK, "\n You connected under the IP: " .. pl:IPAddress() )
- pl:PrintMessage( HUD_PRINTTALK, "Welcome master Duby." )
- end
+	if ( pl:SteamID() == "STEAM_0:0:59565612" ) then --Super Admin Duby	
+		pl:PrintMessage( HUD_PRINTTALK, "\n You connected under the IP: " .. pl:IPAddress() )
+		pl:PrintMessage( HUD_PRINTTALK, "Welcome master Duby." )
+	end
  end
 
+
+ --Dice Command!
+WaveZeroLength = 120
+function chatCommand( pl, text, public )
+    if (string.sub(text, 1, 4) == "!rtd" or string.sub(text, 1, 4) == "!Rtd"  or string.sub(text, 1, 4) == "!rTd"  or string.sub(text, 1, 4) == "!rtD"  or string.sub(text, 1, 4) == "/rtd") then --if the first 4 letters are !rtd
+
+
+if ENDROUND then
+		return
+	end
+	
+	if CurTime() < (WaveZeroLength+10) then --Check these Ghlobal variables..
+			pl:ChatPrint("Dice temporarily disabled at round start")
+		return
+	end
+	
+	NextYell = CurTime() + 40
+	
+	if CurTime() <= NextYell then
+		timer.Simple(0.3, function()
+			pl:PrintMessage(HUD_PRINTTALK, "You have to wait "..math.floor((NextYell-CurTime())).." more seconds before you can roll the dice!")
+		end)
+		return
+	end
+
+	--Duby: Note to self use this as a template for use else where pl:Message( "You've been randomly selected to lead the Undead Army.", 1, "255,255,255,255" )
+	
+	local choise,message,name
+	
+	choise = math.random(1,6)
+
+	
+	message = pl:GetName()
+
+	if choise == 1 then
+		if pl:Team() == TEAM_HUMAN then	
+	
+			specialitems = { "weapon_zs_vodka"} --We can add more shit later on!
+			timer.Simple(0.3, function()
+				PrintMessage( HUD_PRINTTALK, "WIN: ".. message .." rolled the dice and got a special item!" )
+			end)
+			pl:Give(table.Random(specialitems))		
+		elseif pl:Team() == TEAM_UNDEAD then	
+			pl:AddScore(1)
+			timer.Simple(0.3, function()
+				PrintMessage( HUD_PRINTTALK, "WIN: ".. message .." rolled the dice and has found a piece of brain!" )
+			end)
+		end
+	elseif choise == 2 then
+		if pl:Team() == TEAM_HUMAN then
+		timer.Simple(0.3, function()
+				PrintMessage( HUD_PRINTTALK, "LOSE: ".. message .." rolled the dice and got raped in the ass." )
+			end)
+			pl:SetHealth(1)
+		elseif pl:Team() == TEAM_UNDEAD then
+			local calchealth = math.Clamp ( 200 - pl:Health(),60,200 )
+			local randhealth = math.random( 25, math.Round ( calchealth ) )
+			pl:SetHealth(pl:Health() + randhealth)
+			timer.Simple(0.3, function()
+				PrintMessage( HUD_PRINTTALK, "WIN: ".. message .." rolled the dice and gained ".. randhealth .."KG of flesh!!" )
+			end)
+		end
+	elseif choise == 3 then
+		if pl:Team() == TEAM_HUMAN then
+
+			pl:GiveAmmo( 90, "pistol" )	
+			pl:GiveAmmo( 60, "ar2" )
+			pl:GiveAmmo( 90, "SMG1" )	
+			pl:GiveAmmo( 60, "buckshot" )		
+			pl:GiveAmmo( 5, "XBowBolt" )
+			pl:GiveAmmo( 30, "357" )
+			timer.Simple(0.2, function()
+				PrintMessage( HUD_PRINTTALK, "WIN: ".. message .." rolled the dice and received some ammo!" )
+			end)
+		elseif pl:Team() == TEAM_UNDEAD then
+			local calchealth = math.Clamp ( 100 - pl:Health(),60,100 )
+			local randhealth = math.random( 25, math.Round ( calchealth ) )
+			pl:SetHealth(math.max(pl:Health() - randhealth, 1))
+			timer.Simple(0.3, function()
+				PrintMessage( HUD_PRINTTALK, "LOSE: ".. message .." rolled the dice and lost ".. randhealth .."KG of flesh!!" )
+			end)
+		end
+	elseif choise == 4 and pl:Health() < 100 then
+		if pl:Team() == TEAM_HUMAN then
+			local calchealth = math.Clamp ( 100 - pl:Health(),25,100 )
+			local randhealth = math.random( 25, math.Round ( calchealth ) )
+			pl:SetHealth( math.min( pl:Health() + randhealth, 100 ) )
+			timer.Simple(0.3, function()
+				PrintMessage( HUD_PRINTTALK, "WIN: ".. message .." rolled the dice and gained ".. randhealth .." health!" )
+			end)
+	elseif pl:Team() == TEAM_UNDEAD then
+			local calchealth = math.Clamp ( 200 - pl:Health(),60,200 )
+			local randhealth = math.random( 25, math.Round ( calchealth ) )
+			pl:SetHealth( pl:Health() + randhealth)
+			timer.Simple(0.3, function()
+				PrintMessage( HUD_PRINTTALK, "WIN: ".. message .." rolled the dice and gained ".. randhealth .."KG of flesh!!" )
+			end)
+		end
+	elseif choise == 5 then
+		if pl:Team() == TEAM_HUMAN then
+			pl:Ignite( math.random(1,4), 0)
+			timer.Simple(0.3, function()
+				PrintMessage( HUD_PRINTTALK, "LOSE: "..message.." was put on fire by the dice." )
+			end)
+		elseif pl:Team() == TEAM_UNDEAD then
+			local calchealth = math.Clamp ( 200 - pl:Health(),60,200 )
+			local randhealth = math.random( 25, math.Round ( calchealth ) )
+				pl:SetHealth( pl:Health() + randhealth)
+			timer.Simple(0.3, function()
+				PrintMessage( HUD_PRINTTALK, "WIN: ".. message .." rolled the dice and gained ".. randhealth .."KG of flesh!!" )
+			end)
+			--pl.BrainsEaten = pl.BrainsEaten - 1
+		end
+	elseif choise == 6 then
+		if pl:Team() == TEAM_HUMAN then
+		timer.Simple(0.3, function()
+			PrintMessage( HUD_PRINTTALK, message .. ".. rolled the dice and got bugger all!" )
+		end)
+		elseif pl:Team() == TEAM_UNDEAD then
+			local calchealth = math.Clamp ( 200 - pl:Health(),60,200 )
+			local randhealth = math.random( 25, math.Round ( calchealth ) )
+				pl:SetHealth( pl:Health() + randhealth)
+			timer.Simple(0.3, function()
+				PrintMessage( HUD_PRINTTALK, "WIN: ".. message .." rolled the dice and gained ".. randhealth .."KG of flesh!!" )
+			end)
+		end	
+
+	else
+		timer.Simple(0.3, function()
+			PrintMessage( HUD_PRINTTALK, message .. ".. rolled the dice and got bugger all!" )
+		end)
+	end
+		
+	pl.LastRTD = CurTime() + RTD_TIME
+
+    end
+end
+hook.Add( "PlayerSay", "chatCommand", chatCommand );

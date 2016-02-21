@@ -18,6 +18,7 @@ include("cl_legs.lua")
 include("cl_chatsounds.lua")
 include("cl_splitmessage.lua")
 
+
 include("boneanimlib_v2/cl_boneanimlib.lua")
 
 include("vgui/dgamestate.lua")
@@ -704,38 +705,21 @@ function GM:HumanHUD2(screenscale)
 	local hudsplat = Material("hud/hud_top_left_3.png") --Items for the HUD.
 	local hudsplat2 = Material("hud/hud_bottom_left.png") --Items for the HUD.
 
+	local w, h = ScrW(), ScrH()
 	
 	local SCREEN_W = 1920; --For the screen resolution scale. This means that it can be fit exactly on the screen without any issues.
 	local SCREEN_H = 1080;
 	local X_MULTIPLIER = ScrW( ) / SCREEN_W;
 	local Y_MULTIPLIER = ScrH( ) / SCREEN_H;
-	
-	local Hud_Image_1 = {
-		color 		= Color( 225, 225, 225, 400 ); -- Color overlay of image; white = original color of image
-		material 	= Material("hud/hud_top_left_3.png"); -- Material to be used
-		x 			= 0; -- x coordinate for the material to be rendered ( mat is drawn from top left to bottom right )
-		y 			= 0; -- y coordinate for the material to be rendered ( mat is drawn from top left to bottom right )
-		w 			= 320; -- width of the material to span
-		h 			= 120; -- height of the material to span
-	};		
-	
-	local Hud_Image_2 = {
-		color 		= Color( 225, 225, 225, 400 ); -- Color overlay of image; white = original color of image
-		material 	= Material("hud/hud_bottom_left.png"); -- Material to be used
-		x 			= 0; -- x coordinate for the material to be rendered ( mat is drawn from top left to bottom right )
-		y 			= 980; -- y coordinate for the material to be rendered ( mat is drawn from top left to bottom right )
-		w 			= 320; -- width of the material to span
-		h 			= 100; -- height of the material to span
-	};		
-	
+
 	
 	surface.SetMaterial(hudsplat)
 	surface.SetDrawColor(225, 225, 225, 225 )
-	surface.DrawTexturedRect(Hud_Image_1.x, Hud_Image_1.y, Hud_Image_1.w, Hud_Image_1.h)
+	surface.DrawTexturedRect(w * 0, h * 0, w * 0.16, h * 0.11)
 	
 	surface.SetMaterial(hudsplat2)
 	surface.SetDrawColor(225, 225, 225, 225 )
-	surface.DrawTexturedRect(Hud_Image_2.x, Hud_Image_2.y, Hud_Image_2.w, Hud_Image_2.h)
+	surface.DrawTexturedRect(w * 0, h * 0.9, w * 0.16, h * 0.1)
 
 	local gc = "Skillpoints:  " .. MySelf:GetPoints() .. ""
 	draw.SimpleText(gc, "ZSHUDFontSmall",220 * X_MULTIPLIER, 1045 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
@@ -754,32 +738,16 @@ function GM:ZombieHUD2(screenscale)
 	local X_MULTIPLIER = ScrW( ) / SCREEN_W;
 	local Y_MULTIPLIER = ScrH( ) / SCREEN_H;
 	
-	local Hud_Image_1 = {
-		color 		= Color( 225, 225, 225, 400 ); -- Color overlay of image; white = original color of image
-		material 	= Material("hud/hudbackgroundnew_zombie.png"); -- Material to be used
-		x 			= 50; -- x coordinate for the material to be rendered ( mat is drawn from top left to bottom right )
-		y 			= 0; -- y coordinate for the material to be rendered ( mat is drawn from top left to bottom right )
-		w 			= 320; -- width of the material to span
-		h 			= 120; -- height of the material to span
-	};		
-	
-	local Hud_Image_2 = {
-		color 		= Color( 225, 225, 225, 400 ); -- Color overlay of image; white = original color of image
-		material 	= Material("hud/hudbackgroundnew_zombie.png"); -- Material to be used
-		x 			= -50; -- x coordinate for the material to be rendered ( mat is drawn from top left to bottom right )
-		y 			= 950; -- y coordinate for the material to be rendered ( mat is drawn from top left to bottom right )
-		w 			= 520; -- width of the material to span
-		h 			= 200; -- height of the material to span
-	};		
+	local w, h = ScrW(), ScrH()
 	
 	
 	surface.SetMaterial(hudsplat)
 	surface.SetDrawColor(225, 225, 225, 225 )
-	surface.DrawTexturedRect(Hud_Image_1.x, Hud_Image_1.y, Hud_Image_1.w, Hud_Image_1.h)
+	surface.DrawTexturedRect(w * 0, h * 0, w * 0.25, h * 0.14)
 	
 	surface.SetMaterial(hudsplat2)
 	surface.SetDrawColor(225, 225, 225, 225 )
-	surface.DrawTexturedRect(Hud_Image_2.x - 50, Hud_Image_2.y, Hud_Image_2.w, Hud_Image_2.h)
+	surface.DrawTexturedRect(w * -0.05, h * 0.88, w * 0.25, h * 0.2)
 	
 	if MySelf:IsValid() then
 		if MySelf:Team() == TEAM_UNDEAD then
@@ -1699,7 +1667,7 @@ function GM:Rewarded(class, amount)
 		if killicon.Get(class) == killicon.Get("default") then
 			self:CenterNotify(COLOR_RED, toptext..": ", color_white, wep.PrintName)
 		else
-			self:CenterNotify({killicon = class}, " ", COLOR_RED, toptext..": ", color_white, wep.PrintName)
+			self:CenterNotify(" ", COLOR_RED, toptext..": ", color_white, wep.PrintName)
 		end
 	--elseif amount then
 		--self:CenterNotify(COLOR_PURPLE, toptext..": ", color_white, amount.." "..class)
@@ -1826,10 +1794,10 @@ net.Receive("zs_wavestart", function(length)
 end)
 
 net.Receive("zs_classunlock", function(length)
-	
+	local pl =LocalPlayer()
 	--timer.Simple(6, function()
-		--GAMEMODE:Add3DMessage(140, net.ReadString())
 		GAMEMODE:CenterNotify(COLOR_GREEN, net.ReadString())
+	--	GAMEMODE:HintMessage(COLOR_GREEN, net.ReadString(), 2, 5 )
 	--end)
 end)
 

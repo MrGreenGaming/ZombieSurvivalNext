@@ -59,11 +59,13 @@ function PANEL:Init()
 end
 
 function PANEL:PerformLayout()
-	self.HumanList:SetSize(self:GetWide() / 2 - 24, self:GetTall() - 150)
+	--self.HumanList:SetSize(self:GetWide() / 2 - 24, self:GetTall() - 150)
+	self.HumanList:SetSize(self:GetWide() / 2, self:GetTall() - 150)
 	self.HumanList:AlignBottom(16)
 	self.HumanList:AlignLeft(8)
 
-	self.ZombieList:SetSize(self:GetWide() / 2 - 24, self:GetTall() - 150)
+--	self.ZombieList:SetSize(self:GetWide() / 2 - 24, self:GetTall() - 150)
+	self.ZombieList:SetSize(self:GetWide() / 2, self:GetTall() - 150)
 	self.ZombieList:AlignBottom(16)
 	self.ZombieList:AlignRight(8)
 	

@@ -1,7 +1,7 @@
 AddCSLuaFile()
 
 if CLIENT then
-	SWEP.PrintName = "'Annabelle' Rifle"
+	SWEP.PrintName = "'Annabelle' Shotgun"
 	SWEP.Description = "This modified hunting rifle's bullets will explode in to smaller bullets upon hitting a hard surface."
 	SWEP.Slot = 3
 	SWEP.SlotPos = 0
@@ -26,12 +26,12 @@ SWEP.CSMuzzleFlashes = false
 SWEP.Primary.Sound = Sound("Weapon_Shotgun.Single")
 SWEP.Primary.Damage = 90
 SWEP.Primary.NumShots = 1
-SWEP.Primary.Delay = 1
+SWEP.Primary.Delay = 0.8
 SWEP.ReloadDelay = 0.4
 
 SWEP.Primary.ClipSize = 4
 SWEP.Primary.Automatic = false
-SWEP.Primary.Ammo = "357"
+SWEP.Primary.Ammo = "buckshot"
 SWEP.Primary.DefaultClip = 24
 
 SWEP.AutoSwitchTo		= false

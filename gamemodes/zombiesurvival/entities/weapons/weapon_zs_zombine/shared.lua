@@ -268,14 +268,22 @@ function SWEP:SecondaryAttack()
 	
 	-- Create grenade
 	if SERVER then
-		local mGrenade = ents.Create ( "zombine_grenade" )
-		mGrenade:SetOwner ( mOwner )
-		mGrenade:Spawn()
-		mGrenade:Activate()
+		--local mGrenade = ents.Create ( "zombine_grenade" )
+		--mGrenade:SetOwner ( mOwner )
+		--mGrenade:Spawn()
+		--mGrenade:Activate()
 		
 		-- Parent the shit
-		mGrenade:SetParent ( mOwner )
+		--mGrenade:SetParent ( mOwner )
 	end
+	
+	local button = ents.Create( "zombine_grenade" )
+	button:SetOwner ( mOwner )
+	button:SetParent ( mOwner )
+	button:Activate()
+	button:Spawn()
+	
+	--self.Owner
 	
 	-- Animation status
 	-- mOwner.IsGettingNade = true
