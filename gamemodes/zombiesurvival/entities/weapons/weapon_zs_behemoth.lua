@@ -47,10 +47,12 @@ SWEP.WorldModel = "models/weapons/w_grenade.mdl"
 SWEP.NoDroppedWorldModel = true
 
 SWEP.MeleeDamage = 90
-SWEP.MeleeRange = 48
+SWEP.MeleeRange = 60
 SWEP.MeleeSize = 0.875
-SWEP.MeleeDelay = 1.5
+SWEP.MeleeDelay = 0.9
+SWEP.MeleeAnimationDelay = 0.35
 SWEP.Primary.Delay = 1.5
+
 
 SWEP.WalkSpeed = SPEED_FAST
 

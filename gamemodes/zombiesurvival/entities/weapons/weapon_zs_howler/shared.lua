@@ -93,7 +93,7 @@ function SWEP:PrimaryAttack()
 	--Thirdperson animation and sound
 	mOwner:DoAnimationEvent(PLAYERANIMEVENT_ATTACK_GRENADE , 123)
 
-	self.Owner:EmitSound(Sound("player/zombies/howler/howler_scream_01.mp3"), 100, math.random(95, 135))
+	self.Owner:EmitSound(Sound("zombies/howler/howler_scream_01.mp3"), 100, math.random(95, 135))
 	
 	--Just server from here
 	if CLIENT then
@@ -184,7 +184,7 @@ function SWEP:SecondaryAttack()
 	--Thirdperson animation and sound
 	mOwner:DoAnimationEvent(PLAYER_ATTACK1)
 
-	self.Owner:EmitSound(Sound("player/zombies/howler/howler_scream_01.mp3"), 100, math.random(95, 135))
+	self.Owner:EmitSound(Sound("zombies/howler/howler_scream_01.mp3"), 100, math.random(95, 135))
 
 	--Just server from here
 	if CLIENT then
@@ -249,7 +249,7 @@ function SWEP:SecondaryAttack()
 		v:SetVelocity(Velocity)
 				
 		-- Play sound
-		sound.Play("player/zombies/howler/howler_scream_01.mp3", v:GetPos() + Vector(0, 0, 20), 100, math.random(150, 160))
+		sound.Play("zombies/howler/howler_scream_01.mp3", v:GetPos() + Vector(0, 0, 20), 100, math.random(150, 160))
 
 	end
 	

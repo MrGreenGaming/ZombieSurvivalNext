@@ -7,7 +7,7 @@ if CLIENT then
 	SWEP.ViewModelFOV = 60
 
 	SWEP.ShowViewModel = false
-	SWEP.ShowWorldModel = false
+	SWEP.ShowWorldModel = true
 
 	SWEP.VElements = {
 		["base"] = { type = "Model", model = "models/props_junk/shovel01a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(1.363, 1.363, -7.728), angle = Angle(0, 0, 0), size = Vector(0.899, 0.899, 0.899), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }

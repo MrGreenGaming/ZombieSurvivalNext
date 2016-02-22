@@ -18,6 +18,7 @@ SWEP.MeleeDamage = 30
 SWEP.MeleeRange = 65
 SWEP.MeleeSize = 1.5
 SWEP.MeleeKnockBack = 0
+SWEP.MeleeAnimationDelay = 0.35
 
 SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
@@ -114,6 +115,7 @@ end
 
 function SWEP:PrimaryAttack()
 	if not self:CanPrimaryAttack() then return end
+
 
 	self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
 

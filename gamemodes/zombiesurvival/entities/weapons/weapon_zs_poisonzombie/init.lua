@@ -56,10 +56,10 @@ function SWEP:SecondaryAttack()
 
 	self.Owner:DoAnimationEvent(ACT_RANGE_ATTACK2)
 	self.Owner:EmitSound("NPC_PoisonZombie.Throw")
-	self.Owner:SetSpeed(1)
+	self.Owner:SetSpeed(80)
 	self:SetNextSecondaryFire(CurTime() + 4)
 	self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
 
-	timer.Simple(0.6, function() DoSwing(owner, self) end)
-	timer.Simple(1, function() DoFleshThrow(owner, self) end)
+	timer.Simple(0.1, function() DoSwing(owner, self) end)
+	timer.Simple(0.6, function() DoFleshThrow(owner, self) end)
 end

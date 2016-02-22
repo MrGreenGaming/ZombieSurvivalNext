@@ -1047,7 +1047,7 @@ function GM:CreateVGUI()
 	self.GameStatePanel = vgui.Create("DGameState")
 	self.GameStatePanel:SetTextFont("ZSHUDFontSmaller")
 	self.GameStatePanel:SetAlpha(220)
-	self.GameStatePanel:SetSize(screenscale * 420, screenscale * 80)
+	self.GameStatePanel:SetSize(screenscale * 420, screenscale * 90)
 	self.GameStatePanel:ParentToHUD()
 
 	self.TopNotificationHUD = vgui.Create("DEXNotificationsList")
@@ -1063,7 +1063,7 @@ function GM:CreateVGUI()
 
 	self.CenterNotificationHUD = vgui.Create("DEXNotificationsList")
 	self.CenterNotificationHUD:SetAlign(CENTER)
-	self.CenterNotificationHUD:SetMessageHeight(36)
+	self.CenterNotificationHUD:SetMessageHeight(39)
 	self.CenterNotificationHUD.PerformLayout = function(pan)
 		local screenscale = BetterScreenScale()
 		pan:SetSize(ScrW() * 0.5, ScrH() * 0.35)
@@ -1150,13 +1150,12 @@ end
 
 function GM:LastHumanMessage()
 	if self.RoundEnded or not MySelf:IsValid() then return end
-
 	local icon = self.PantsMode and "weapon_zs_legs" or "default"
 	if MySelf:Team() == TEAM_UNDEAD or not MySelf:Alive() then
-		self:CenterNotify({killicon = icon}, {font = "ZSHUDFont"}, " ", COLOR_RED, translate.Get(self.PantsMode and "kick_the_last_human" or "kill_the_last_human"), {killicon = icon})
+		GAMEMODE:Add3DMessage(100, translate.Get(self.PantsMode and "kick_the_last_human" or "kill_the_last_human"), nil, "ZSHUDFont2")
 	else
-		self:CenterNotify({font = "ZSHUDFont"}, " ", COLOR_RED, translate.Get("you_are_the_last_human"))
-		self:CenterNotify({killicon = icon}, " ", COLOR_RED, translate.Format(self.PantsMode and "x_pants_out_to_get_you" or "x_zombies_out_to_get_you", team.NumPlayers(TEAM_UNDEAD)), {killicon = icon})
+		GAMEMODE:Add3DMessage(100, translate.Get("you_are_the_last_human"), nil, "ZSHUDFont2")
+		GAMEMODE:Add3DMessage(100, translate.Get(self.PantsMode and "x_pants_out_to_get_you" or "x_zombies_out_to_get_you", team.NumPlayers(TEAM_UNDEAD)), nil, "ZSHUDFont2")
 	end
 end
 
@@ -1586,10 +1585,14 @@ function GM:LocalPlayerDied(attackername)
 
 	surface_PlaySound(self.DeathSound)
 	if attackername then
-		self:CenterNotify(COLOR_RED, {font = "ZSHUDFont"}, translate.Get("you_have_died"))
-		self:CenterNotify(COLOR_RED, translate.Format(self.PantsMode and "you_were_kicked_by_x" or "you_were_killed_by_x", tostring(attackername)))
+		--self:CenterNotify(COLOR_RED, {font = "ZSHUDFont"}, translate.Get("you_have_died"))
+		GAMEMODE:Add3DMessage(50, translate.Get("you_have_died"), nil, "ZSHUDFont2")
+		GAMEMODE:Add3DMessage(50, translate.Get(self.PantsMode and "you_were_kicked_by_x" or "you_were_killed_by_x", tostring(attackername)), nil, "ZSHUDFont2")
+		--self:CenterNotify(COLOR_RED, translate.Format(self.PantsMode and "you_were_kicked_by_x" or "you_were_killed_by_x", tostring(attackername)))
+		--self:CenterNotify(COLOR_RED, translate.Format(self.PantsMode and "you_were_kicked_by_x" or "you_were_killed_by_x", tostring(attackername)))
 	else
-		self:CenterNotify(COLOR_RED, {font = "ZSHUDFont"}, translate.Get("you_have_died"))
+		--self:CenterNotify(COLOR_RED, {font = "ZSHUDFont"}, translate.Get("you_have_died"))
+		GAMEMODE:Add3DMessage(50, translate.Get("you_have_died"), nil, "ZSHUDFont2")
 	end
 end
 
@@ -1796,7 +1799,9 @@ end)
 net.Receive("zs_classunlock", function(length)
 	local pl =LocalPlayer()
 	--timer.Simple(6, function()
-		GAMEMODE:CenterNotify(COLOR_GREEN, net.ReadString())
+	--	GAMEMODE:CenterNotify(COLOR_GREEN, net.ReadString())
+		--GAMEMODE:Add3DMessage(100,COLOR_GREEN, net.ReadString(), nil, "ZSHUDFont2")
+		GAMEMODE:Add3DMessage(100,COLOR_GREEN, net.ReadString(), "ZSHUDFont2" )
 	--	GAMEMODE:HintMessage(COLOR_GREEN, net.ReadString(), 2, 5 )
 	--end)
 end)

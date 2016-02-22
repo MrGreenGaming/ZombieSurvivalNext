@@ -1,8 +1,8 @@
 AddCSLuaFile()
 
 if CLIENT then
-	SWEP.PrintName = "'Z9000' Pulse Pistol"
-	SWEP.Description = "Although the Z9000 does not deal that much damage, the pulse shots it fires will slow targets."
+	SWEP.PrintName = "Alyx Gun"
+	SWEP.Description = "Although the Alyx Gun does not deal that much damage, the pulse shots it fires will slow targets."
 	SWEP.Slot = 1
 	SWEP.SlotPos = 0
 	

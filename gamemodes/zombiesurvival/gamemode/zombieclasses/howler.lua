@@ -7,7 +7,8 @@ CLASS.Help = "controls_howler"
 
 CLASS.Model = Model("models/mrgreen/howler.mdl")
 
-CLASS.Wave = 1 / 3 
+--CLASS.Wave = 1 / 3 
+CLASS.Wave = 0 
 CLASS.Health = 140
 CLASS.Speed = 160
 CLASS.SWEP = "weapon_zs_howler"
@@ -19,13 +20,13 @@ CLASS.Mass = DEFAULT_MASS
 CLASS.Points = 6
 
 function CLASS:PlayPainSound(pl)
-	pl:EmitSound("player/zombies/howler/howler_mad_0"..math.random(4)..".mp3", 75, math.Rand(137, 143))
+	pl:EmitSound("zombies/howler/howler_mad_0"..math.random(4)..".mp3", 75, math.Rand(137, 143))
 
 	return true
 end
 
 function CLASS:PlayDeathSound(pl)
-	pl:EmitSound("player/zombies/howler/howler_death_01.mp3", 75, math.Rand(122, 128))
+	pl:EmitSound("zombies/howler/howler_death_01.mp3", 75, math.Rand(122, 128))
 
 	return true
 end

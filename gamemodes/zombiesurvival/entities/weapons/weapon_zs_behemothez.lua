@@ -4,7 +4,8 @@ SWEP.Base = "weapon_zs_behemoth"
 
 SWEP.ZombieOnly = true
 SWEP.MeleeDamage = 90
-SWEP.MeleeDelay = 1.5
+SWEP.MeleeDelay = 0.9
+SWEP.MeleeAnimationDelay = 0.35
 SWEP.Primary.Delay = 1.5
 
 function SWEP:OnMeleeHit(hitent, hitflesh, tr)

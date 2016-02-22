@@ -49,12 +49,13 @@ SWEP.Primary.Ammo = "GaussEnergy"
 SWEP.Primary.Delay = 0.04
 SWEP.Primary.DefaultClip = -1
 
+
 SWEP.HoldType = "slam"
 
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
-SWEP.MeleeDamage = 35
+SWEP.MeleeDamage = 0
 
 SWEP.NoPropThrowing = true
 
