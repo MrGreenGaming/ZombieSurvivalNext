@@ -7,8 +7,7 @@ CLASS.Help = "controls_howler"
 
 CLASS.Model = Model("models/mrgreen/howler.mdl")
 
---CLASS.Wave = 1 / 3 
-CLASS.Wave = 0 
+CLASS.Wave = 1 / 3 
 CLASS.Health = 140
 CLASS.Speed = 160
 CLASS.SWEP = "weapon_zs_howler"
