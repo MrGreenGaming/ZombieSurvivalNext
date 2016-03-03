@@ -226,6 +226,8 @@ function SWEP:DrawHUD()
 	--local X_MULTIPLIER = ScrW( ) / SCREEN_W;
 	--local Y_MULTIPLIER = ScrH( ) / SCREEN_H;
 
+	local w, h = ScrW(), ScrH()
+	--w * 0.84, h * 0.89, w * 0.15, h * 0.1
 	
 	local SCREEN_W = 1920; --For the screen resolution scale. This means that it can be fit exactly on the screen without any issues.
 	local SCREEN_H = 1080;
@@ -252,7 +254,8 @@ function SWEP:DrawHUD()
 	
 	surface.SetMaterial(hudsplat3)
 	surface.SetDrawColor(225, 225, 225, 200 )
-	surface.DrawTexturedRect(Hud_Image_3.x, Hud_Image_3.y, Hud_Image_3.w, Hud_Image_3.h)
+	surface.DrawTexturedRect(w * 0.84, h * 0.89, w * 0.15, h * 0.1)
+	--surface.DrawTexturedRect(Hud_Image_3.x, Hud_Image_3.y, Hud_Image_3.w, Hud_Image_3.h)
 	
 
 	
@@ -260,8 +263,8 @@ function SWEP:DrawHUD()
 	local ammoTextWide, ammoTextTall = surface.GetTextSize(currentAmmo)
 	local clipTextWide, clipTextTall = surface.GetTextSize(currentClipSize)
 
-	draw.SimpleText(currentClipSize, "ZSHUDFontBig",1680 * X_MULTIPLIER, 990 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
-	draw.SimpleText(currentAmmo, "ZSHUDFont",1870 * X_MULTIPLIER, 1000 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
+	draw.SimpleText(currentClipSize, "ZSHUDFontBig",1680 * X_MULTIPLIER, 980 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
+	draw.SimpleText(currentAmmo, "ZSHUDFont",1850 * X_MULTIPLIER, 1000 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
 
 	
 	if pl:GetActiveWeapon() == "weapon_zs_hammer" then

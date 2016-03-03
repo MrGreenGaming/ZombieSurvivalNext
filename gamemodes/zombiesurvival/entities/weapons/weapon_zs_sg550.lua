@@ -21,12 +21,11 @@ SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_snip_sg550.mdl"
 
 SWEP.Primary.Sound = Sound("Weapon_SG550.Single")
-SWEP.Primary.Recoil = 2
 SWEP.Primary.Damage = 40
 SWEP.Primary.NumShots = 1
-SWEP.Primary.ReloadDelay	= 0.35
+SWEP.Primary.ReloadDelay = 0.35
 SWEP.Primary.Automatic = true
-SWEP.Primary.Ammo			= "357"
+SWEP.Primary.Ammo			= "rifle"
 
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
@@ -60,7 +59,6 @@ end
 
 
 function SWEP:IsScoped()
-
 	return self:GetIronsights() and self.fIronTime and self.fIronTime + 0.25 <= CurTime()
 end
 

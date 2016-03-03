@@ -50,9 +50,10 @@ include("cl_deathnotice.lua")
 include("cl_floatingscore.lua")
 include("cl_hint.lua")
 
-include("cl_zombieescape.lua")
+include("sub_gamemodes/zombie_escape/cl_zombieescape.lua")
+include("sub_gamemodes/arena/cl_arena.lua")
 
-w, h = ScrW(), ScrH()
+w, h = ScrW(), ScrH() --Global vars 
 
 MySelf = MySelf or NULL
 hook.Add("InitPostEntity", "GetLocal", function()
@@ -364,7 +365,6 @@ end
 
 function GM:OnReloaded()
 	self.BaseClass.OnReloaded(self)
-
 	self:LocalPlayerFound()
 end
 
@@ -703,27 +703,30 @@ function GM:HumanHUD2(screenscale)
 
 	--Duby: I will place this into a module soon enough!
 	local hudsplat = Material("hud/hud_top_left_3.png") --Items for the HUD.
+	--local hudsplat = Material("hud/hud_top_left.png") --Items for the HUD.
+	--local hudsplat2 = Material("hud/hud_bottom_left_2.png") --Items for the HUD.
 	local hudsplat2 = Material("hud/hud_bottom_left.png") --Items for the HUD.
-
 	local w, h = ScrW(), ScrH()
 	
+	surface.SetMaterial(hudsplat)
+	surface.SetDrawColor(255, 255, 255, 255 )
+	surface.DrawTexturedRect(w * 0.01, h * 0.01, w * 0.16, h * 0.11)
+	
+	surface.SetMaterial(hudsplat2)
+	surface.SetDrawColor(225, 225, 225, 225 )
+	surface.DrawTexturedRect(w * 0.01, h * 0.89, w * 0.16, h * 0.1)
+	
+	local pl = LocalPlayer()
 	local SCREEN_W = 1920; --For the screen resolution scale. This means that it can be fit exactly on the screen without any issues.
 	local SCREEN_H = 1080;
 	local X_MULTIPLIER = ScrW( ) / SCREEN_W;
 	local Y_MULTIPLIER = ScrH( ) / SCREEN_H;
-
+	local sp = " " .. MySelf:GetPoints() .. "   SkillPoints"
+	local HP = pl:Health() --Set the variable for the local players health. 
 	
-	surface.SetMaterial(hudsplat)
-	surface.SetDrawColor(225, 225, 225, 225 )
-	surface.DrawTexturedRect(w * 0, h * 0, w * 0.16, h * 0.11)
+	draw.SimpleText(HP, "ZSHUDFontBig",w * 0.05, h * 0.89 , COLOR_GRAY, TEXT_ALIGN_CENTER)
+	draw.SimpleText(sp, "ZSHUDFont",230 * X_MULTIPLIER, 1030 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
 	
-	surface.SetMaterial(hudsplat2)
-	surface.SetDrawColor(225, 225, 225, 225 )
-	surface.DrawTexturedRect(w * 0, h * 0.9, w * 0.16, h * 0.1)
-
-	local gc = "Skillpoints:  " .. MySelf:GetPoints() .. ""
-	draw.SimpleText(gc, "ZSHUDFontSmall",220 * X_MULTIPLIER, 1045 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
-
 end
 
 function GM:ZombieHUD2(screenscale)
@@ -733,13 +736,14 @@ function GM:ZombieHUD2(screenscale)
 	local hudsplat2 = Material("hud/hudbackgroundnew_zombie.png") --Items for the HUD.
 
 	
-	local SCREEN_W = 1920; --For the screen resolution scale. This means that it can be fit exactly on the screen without any issues.
+	local SCREEN_W = 1920; --Remove this and add the other system soon..
 	local SCREEN_H = 1080;
 	local X_MULTIPLIER = ScrW( ) / SCREEN_W;
 	local Y_MULTIPLIER = ScrH( ) / SCREEN_H;
 	
+	local pl = LocalPlayer()
 	local w, h = ScrW(), ScrH()
-	
+	local HP = pl:Health() --Set the variable for the local players health. 	
 	
 	surface.SetMaterial(hudsplat)
 	surface.SetDrawColor(225, 225, 225, 225 )
@@ -748,6 +752,8 @@ function GM:ZombieHUD2(screenscale)
 	surface.SetMaterial(hudsplat2)
 	surface.SetDrawColor(225, 225, 225, 225 )
 	surface.DrawTexturedRect(w * -0.05, h * 0.88, w * 0.25, h * 0.2)
+	
+	draw.SimpleText(HP, "ZSHUDFontLargeZombie",w * 0.04, h * 0.91 , COLOR_GRAY, TEXT_ALIGN_CENTER)
 	
 	if MySelf:IsValid() then
 		if MySelf:Team() == TEAM_UNDEAD then
@@ -975,6 +981,7 @@ function GM:CreateFonts()
 	surface.CreateLegacyFont("ZS New",screenscale * 40, 110, true, false, "zsdeathnotice2", false, true)
 	
 	surface.CreateLegacyFont("FaceYourFears", screenscale * 28, fontweight, fontaa, false, "ZSHUDFontSmallZombie", fontshadow, fontoutline)
+	surface.CreateLegacyFont("FaceYourFears", screenscale * 72, fontweight, fontaa, false, "ZSHUDFontLargeZombie", fontshadow, fontoutline)
 
 	
 	
@@ -1507,6 +1514,17 @@ function GM:HUDPaintBackgroundEndRound()
 	else
 		draw_SimpleText(translate.Format("next_round_in_x", util.ToMinutesSeconds(timleft)), "ZSHUDFontSmall", w * 0.5, h * 0.8, COLOR_WHITE, TEXT_ALIGN_CENTER)
 	end
+	
+		
+	--local w, h = ScrW(), ScrH()
+	--local hudsplat3 = Material("hud/hud_endgame.png") --Items for the HUD.
+		
+	--surface.SetMaterial(hudsplat3)
+	--surface.SetDrawColor(225, 225, 225, 225 )
+	--surface.DrawTexturedRect(w * 0.35, h * 0.05, w * 0.4, h * 0.7)
+	
+	
+	
 end
 
 local function EndRoundCalcView(pl, origin, angles, fov, znear, zfar)
@@ -1585,14 +1603,10 @@ function GM:LocalPlayerDied(attackername)
 
 	surface_PlaySound(self.DeathSound)
 	if attackername then
-		--self:CenterNotify(COLOR_RED, {font = "ZSHUDFont"}, translate.Get("you_have_died"))
-		GAMEMODE:Add3DMessage(50, translate.Get("you_have_died"), nil, "ZSHUDFont2")
-		GAMEMODE:Add3DMessage(50, translate.Get(self.PantsMode and "you_were_kicked_by_x" or "you_were_killed_by_x", tostring(attackername)), nil, "ZSHUDFont2")
-		--self:CenterNotify(COLOR_RED, translate.Format(self.PantsMode and "you_were_kicked_by_x" or "you_were_killed_by_x", tostring(attackername)))
-		--self:CenterNotify(COLOR_RED, translate.Format(self.PantsMode and "you_were_kicked_by_x" or "you_were_killed_by_x", tostring(attackername)))
+		self:CenterNotify(COLOR_RED, {font = "ZSHUDFont"}, translate.Get("you_have_died"))
+		self:CenterNotify(COLOR_RED, translate.Format(self.PantsMode and "you_were_kicked_by_x" or "you_were_killed_by_x", tostring(attackername)))
 	else
-		--self:CenterNotify(COLOR_RED, {font = "ZSHUDFont"}, translate.Get("you_have_died"))
-		GAMEMODE:Add3DMessage(50, translate.Get("you_have_died"), nil, "ZSHUDFont2")
+		self:CenterNotify(COLOR_RED, {font = "ZSHUDFont"}, translate.Get("you_have_died"))
 	end
 end
 
@@ -1797,13 +1811,7 @@ net.Receive("zs_wavestart", function(length)
 end)
 
 net.Receive("zs_classunlock", function(length)
-	local pl =LocalPlayer()
-	--timer.Simple(6, function()
-		GAMEMODE:CenterNotify(COLOR_GREEN, net.ReadString())
-		--GAMEMODE:Add3DMessage(100,COLOR_GREEN, net.ReadString(), nil, "ZSHUDFont2")
-		--GAMEMODE:Add3DMessage(100,COLOR_GREEN, net.ReadString(), "ZSHUDFont2" )
-	--	GAMEMODE:HintMessage(COLOR_GREEN, net.ReadString(), 2, 5 )
-	--end)
+		GAMEMODE:CenterNotify(COLOR_GREEN, net.ReadString() .. "  Unlocked")
 end)
 
 net.Receive("zs_waveend", function(length)

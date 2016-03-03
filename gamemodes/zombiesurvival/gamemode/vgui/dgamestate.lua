@@ -29,7 +29,7 @@ function PANEL:SetTextFont(font)
 end
 
 function PANEL:PerformLayout()
-	local hs = self:GetTall() * 0.5
+	local hs = self:GetTall() * 1.2
 	
 
 	self.m_Text1:SetWide(self:GetWide())
@@ -90,7 +90,7 @@ end
 
 if myteam == TEAM_HUMAN then
 	if text then
-		draw.SimpleText(text, self.Font, 130 * X_MULTIPLIER, Y_MULTIPLIER, COLOR_GRAY)
+		draw.SimpleText(text, self.Font, 150 * X_MULTIPLIER,  Y_MULTIPLIER, COLOR_GRAY)
 	end
 end	
 
@@ -120,7 +120,7 @@ if myteam == TEAM_UNDEAD then --Zombies!
 			col = COLOR_GRAY
 		end
 		
-		draw.SimpleText("Invasion In " .. util.ToMinutesSeconds(timeleft) .. "", "ZSHUDFontSmallZombie", 130 * X_MULTIPLIER, Y_MULTIPLIER, col)
+		draw.SimpleText("Invasion In " .. util.ToMinutesSeconds(timeleft) .. "", "ZSHUDFontSmallZombie", 130 * X_MULTIPLIER, 5 * Y_MULTIPLIER, col)
 	elseif GAMEMODE:GetWaveActive() then
 		local waveend = GAMEMODE:GetWaveEnd()
 		if waveend ~= -1 then
@@ -151,18 +151,18 @@ if myteam == TEAM_HUMAN then --Huamns
 			col = COLOR_GRAY
 		end
 		
-		draw.SimpleText("Invasion In " .. util.ToMinutesSeconds(timeleft) .. "", self.Font, 130 * X_MULTIPLIER, Y_MULTIPLIER, col)
+		draw.SimpleText("Invasion In " .. util.ToMinutesSeconds(timeleft) .. "", self.Font, 150 * X_MULTIPLIER, Y_MULTIPLIER, col)
 	elseif GAMEMODE:GetWaveActive() then
 		local waveend = GAMEMODE:GetWaveEnd()
 		if waveend ~= -1 then
 			local timeleft = math.max(0, waveend - CurTime())
-			draw.SimpleText(translate.Format("wave_ends_in_x", util.ToMinutesSeconds(timeleft)), self.Font, 130 * X_MULTIPLIER, Y_MULTIPLIER, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
+			draw.SimpleText(translate.Format("wave_ends_in_x", util.ToMinutesSeconds(timeleft)), self.Font, 150 * X_MULTIPLIER, Y_MULTIPLIER, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
 		end	
 	else
 		local wavestart = GAMEMODE:GetWaveStart()
 		if wavestart ~= -1 then
 			local timeleft = math.max(0, wavestart - CurTime())
-			draw.SimpleText(translate.Format("next_wave_in_x", util.ToMinutesSeconds(timeleft)), self.Font, 130 * X_MULTIPLIER, Y_MULTIPLIER, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
+			draw.SimpleText(translate.Format("next_wave_in_x", util.ToMinutesSeconds(timeleft)), self.Font, 150 * X_MULTIPLIER, Y_MULTIPLIER, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
 		end
 	end
 

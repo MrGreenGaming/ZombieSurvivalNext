@@ -12,26 +12,20 @@ function SWEP:DrawHUD()
 	self:DrawCrosshairDot()
 	
 	local hudsplat3 = Material("hud/hud_bottom_right.png") --Items for the HUD.
-	
-	local Hud_Image_3 = {
-		color 		= Color( 225, 225, 225, 400 ); -- Color overlay of image; white = original color of image
-		material 	= Material("hud/hud_bottom_right.png"); -- Material to be used
-		x 			= 1600; -- x coordinate for the material to be rendered ( mat is drawn from top left to bottom right )
-		y 			= 980; -- y coordinate for the material to be rendered ( mat is drawn from top left to bottom right )
-		w 			= 320; -- width of the material to span
-		h 			= 100; -- height of the material to span
-	};
+
+	local w, h = ScrW(), ScrH()
+
 	
 	surface.SetMaterial(hudsplat3)
 	surface.SetDrawColor(225, 225, 225, 200 )
-	surface.DrawTexturedRect(Hud_Image_3.x, Hud_Image_3.y, Hud_Image_3.w, Hud_Image_3.h)
+	surface.DrawTexturedRect(w * 0.84, h * 0.89, w * 0.15, h * 0.1)
 	
 	
 	surface.SetFont("ZSHUDFont")
-	local text = translate.Get("right_click_to_hammer_nail")
+	local text = translate.Get("supplies") --WTF, ok yea sort this out..
 	local nTEXW, nTEXH = surface.GetTextSize(text)
 	
-	draw.SimpleText("Supply Crate", "ZSHUDFont2", ScrW() - nTEXW * 0.17 - 150, ScrH() - nTEXH * 2.3, COLOR_GREY, TEXT_ALIGN_CENTER)
+	draw.SimpleText(translate.Get("supplies"), "ZSHUDFont2", ScrW() - nTEXW * 1.01 - 100, ScrH() - nTEXH * 2.5, COLOR_GREY, TEXT_ALIGN_CENTER)
 
 end
 

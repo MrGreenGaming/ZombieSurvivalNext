@@ -197,7 +197,6 @@ function MakepWorth()
 	local maxworth = GAMEMODE.StartingWorth
 	WorthRemaining = maxworth
 
-	
 	local SCREEN_W = 1920; --For the screen resolution scale. This means that it can be fit exactly on the screen without any issues.
 	local SCREEN_H = 1080;
 	local X_MULTIPLIER = ScrW( ) / SCREEN_W;
@@ -282,7 +281,7 @@ function MakepWorth()
 	frame:SizeToContents()
 	
 	local w, h = ScrW(), ScrH()
-	
+
 	local checkout = vgui.Create("DButton",frame)
 	checkout:SetFont("ZSHUDFont2")
 	checkout:SetText("SPAWN")
@@ -298,6 +297,10 @@ function MakepWorth()
 		timer.Simple(2, function()
 			surface.PlaySound( "mrgreen/music/gamestart_new_christmas_1.wav" )
 		end)
+	elseif ARENA then
+		timer.Simple(5, function()
+			surface.PlaySound( "mrgreen/music/intermission1.mp3" )
+		end)	
 	else
 		surface.PlaySound(Sound("mrgreen/music/gamestart_new"..math.random(1,2)..".mp3")) --Move this else where....
 	end
@@ -340,6 +343,7 @@ vgui.Register("ItemAmountCounter", PANEL, "DLabel")
 PANEL = {}
 
 function PANEL:Init()
+
 
 	self:SetText("")
 
@@ -398,6 +402,7 @@ function PANEL:Paint(w, h)
 	end
 
 	draw.RoundedBox(10, 0, 0, w, h, outline)
+
 end
 
 function PANEL:DoClick(silent, force)

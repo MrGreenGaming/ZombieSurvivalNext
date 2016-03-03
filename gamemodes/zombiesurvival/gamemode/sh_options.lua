@@ -1,8 +1,4 @@
 
-if SERVER and tobool(string.find(tostring(game.GetMap()),"zs_arena")) then
-	GM:SetGameMode(GAMEMODE_ARENA)
-end
-
 GM.ArenaModeWeapons = {
 	"weapon_zs_python",
 	"weapon_zs_boomerstick",
@@ -15,7 +11,7 @@ GM.ArenaModeWeapons = {
 	"weapon_zs_uzi",
 	"weapon_zs_deagle",
 	"weapon_zs_m249",
-	"eapon_zs_python", --Add a few doubles to lessen the amounts of M249 spawners! 
+	"weapon_zs_python", --Add a few doubles to lessen the amounts of M249 spawners! 
 	"weapon_zs_crackler",
 	"weapon_zs_uzi",
 	"weapon_zs_deagle"
@@ -156,14 +152,11 @@ function(pl) pl:SetModel( table.Random( {
 	"models/player/group03/male_06.mdl",
 	"models/player/group03/male_07.mdl"
 } ) ) 
-
-CLASS_1 = true
+	
 pl:Give("weapon_zs_fiveseven")
 pl:Give("weapon_zs_medicalkit")
 pl:Give("weapon_zs_plank")
-
-PrintMessage( HUD_PRINTTALK, "You're a Medic! Heal Your Teammates!" )
-
+pl:ChatPrint("You're a Medic! Heal Your Teammates!")
 
 end, "models/healthvial.mdl")
 
@@ -176,11 +169,11 @@ function(pl) pl:SetModel( table.Random( {
 	"models/player/combine_soldier.mdl",
 	"models/player/combine_soldier_prisonguard.mdl",
 } ) ) 
-CLASS_2 = true
+
 pl:Give("weapon_zs_redeemers")
 pl:Give("weapon_zs_swissarmyknife")
 pl:Give("weapon_zs_grenade")
-PrintMessage( HUD_PRINTTALK, "You're a Commando, kill and destroy!" )
+pl:ChatPrint("You're a Commando, kill and destroy!")
 
 end, "models/healthvial.mdl")
 
@@ -194,15 +187,12 @@ function(pl) pl:SetModel( table.Random( {
 	"models/player/kleiner.mdl",
 } ) )
 
-CLASS_3 = true
-
 engweapon = {"weapon_zs_barricadekit","weapon_zs_gunturret"}
-
 pl:Give("weapon_zs_pulsepistol")
 pl:Give("weapon_zs_fryingpan")
 pl:Give(table.Random(engweapon))
 pl:AddPoints(20)
-PrintMessage( HUD_PRINTTALK, "You're an Engineer, Blow shit up!" )
+pl:ChatPrint("You're an Engineer, Blow shit up!")
 
 end, "models/healthvial.mdl")
 
@@ -216,16 +206,13 @@ function(pl) pl:SetModel( table.Random( {
 	"models/player/riot.mdl",
 } ) )
 	
-CLASS_4 = true
-
 berserkerweapon = {"weapon_zs_axe","weapon_zs_pot"}
-
 pl:Give("weapon_zs_peashooter")
 pl:Give(table.Random(berserkerweapon))
 pl:Give("weapon_zs_vodka")  
 pl:Give("weapon_zs_resupplybox")  
 pl:AddPoints(20)	
-PrintMessage( HUD_PRINTTALK, "You're a Berserker, fucking smack some shit!" )
+pl:ChatPrint("You're a Berserker, smack the shit out of everything!")
 
 end, "models/healthvial.mdl")
 
@@ -239,14 +226,11 @@ function(pl) pl:SetModel( table.Random( {
 	"models/player/riot.mdl",
 } ) ) 
 
-CLASS_5 = true
-
 supweapon = {"weapon_zs_arsenalcrate"}
-
 pl:Give("weapon_zs_hammer")
 pl:Give("weapon_zs_battleaxe")
 pl:Give(table.Random(supweapon))
-PrintMessage( HUD_PRINTTALK, "You're a Support, Build barricades or fuck off!" )
+pl:ChatPrint("You're a Support, Build barricades or fuck off!")
 
 end, "models/healthvial.mdl")
 
@@ -264,6 +248,7 @@ GM:AddPointShopItem("alyxgun", "Alyx Gun", nil, ITEMCAT_GUNS2, 25, "weapon_zs_z9
 GM:AddPointShopItem("pulsepistol", "Pulse Pistol", nil, ITEMCAT_GUNS2, 27, "weapon_zs_pulsepistol")
 GM:AddPointShopItem("fiveseven", "Five Seven", nil, ITEMCAT_GUNS2, 30, "weapon_zs_fiveseven")
 GM:AddPointShopItem("Classic Pistol", "Classic Pistol", nil, ITEMCAT_GUNS2, 30, "weapon_zs_owens")
+GM:AddPointShopItem("medic_gun", "Medical Gun", nil, ITEMCAT_GUNS2, 35, "weapon_zs_medicgun")
 GM:AddPointShopItem("glock", "Glock", nil, ITEMCAT_GUNS2, 40, "weapon_zs_glock3")
 GM:AddPointShopItem("magnum", "Magnum", nil, ITEMCAT_GUNS2, 65, "weapon_zs_magnum")
 GM:AddPointShopItem("Dual Berreta's 92fs", "Duel Berreta's 92fs", nil, ITEMCAT_GUNS2, 65, "weapon_zs_berreta")
@@ -276,7 +261,6 @@ GM:AddPointShopItem("tossr", "Classic SMG", nil, ITEMCAT_GUNS, 50, "weapon_zs_to
 GM:AddPointShopItem("stbbr", "Scout Sniper", nil, ITEMCAT_GUNS, 55, "weapon_zs_stubber")
 GM:AddPointShopItem("uzi", "Uzi 9mm", nil, ITEMCAT_GUNS, 70, "weapon_zs_uzi")
 GM:AddPointShopItem("shredder", "MP5", nil, ITEMCAT_GUNS, 70, "weapon_zs_smg")
-
 GM:AddPointShopItem("bulletstorm", "P90", nil, ITEMCAT_GUNS, 70, "weapon_zs_bulletstorm")
 GM:AddPointShopItem("silencer", "TMP", nil, ITEMCAT_GUNS, 70, "weapon_zs_silencer")
 
@@ -316,12 +300,12 @@ GM:AddPointShopItem("katana", "Katana", nil, ITEMCAT_MELEE, 120, "weapon_zs_kata
 
 --[AMMO]--
 GM:AddPointShopItem("crossbowammo", "Crossbow bolt", nil, ITEMCAT_AMMO, 5, nil, function(pl) pl:GiveAmmo(1, "XBowBolt", true) end, "models/Items/CrossbowRounds.mdl")
-GM:AddPointShopItem("pistolammo", "Pistol ammo", nil, ITEMCAT_AMMO, 6, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["pistol"] or 12, "pistol", true) end, "models/Items/BoxSRounds.mdl")
-GM:AddPointShopItem("shotgunammo", "Shotgun ammo", nil, ITEMCAT_AMMO, 7, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["buckshot"] or 8, "buckshot", true) end, "models/Items/BoxBuckshot.mdl")
-GM:AddPointShopItem("smgammo", "SMG ammo", nil, ITEMCAT_AMMO, 7, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["smg1"] or 30, "smg1", true) end, "models/Items/BoxMRounds.mdl")
-GM:AddPointShopItem("assaultrifleammo", "Assault rifle ammo", nil, ITEMCAT_AMMO, 7, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["ar2"] or 30, "ar2", true) end, "models/Items/357ammobox.mdl")
-GM:AddPointShopItem("rifleammo", "Rifle ammo ", nil, ITEMCAT_AMMO, 7, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["357"] or 6, "357", true) end, "models/Items/BoxSniperRounds.mdl")
-GM:AddPointShopItem("pulseammo", "Pulse ammo", nil, ITEMCAT_AMMO, 7, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["pulse"] or 30, "pulse", true) end, "models/Items/combine_rifle_ammo01.mdl")
+GM:AddPointShopItem("pistolammo", "Pistol ammo", nil, ITEMCAT_AMMO, 5, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["pistol"] or 12, "pistol", true) end, "models/Items/BoxSRounds.mdl")
+GM:AddPointShopItem("smgammo", "SMG ammo", nil, ITEMCAT_AMMO, 5, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["smg1"] or 30, "smg1", true) end, "models/Items/BoxMRounds.mdl")
+GM:AddPointShopItem("shotgunammo", "Shotgun ammo", nil, ITEMCAT_AMMO, 6, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["buckshot"] or 8, "buckshot", true) end, "models/Items/BoxBuckshot.mdl")
+GM:AddPointShopItem("assaultrifleammo", "Assault rifle ammo", nil, ITEMCAT_AMMO, 6, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["ar2"] or 30, "ar2", true) end, "models/Items/357ammobox.mdl")
+GM:AddPointShopItem("rifleammo", "Rifle ammo ", nil, ITEMCAT_AMMO, 6, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["357"] or 6, "357", true) end, "models/Items/BoxSniperRounds.mdl")
+GM:AddPointShopItem("pulseammo", "Pulse ammo", nil, ITEMCAT_AMMO, 6, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["pulse"] or 30, "pulse", true) end, "models/Items/combine_rifle_ammo01.mdl")
 
 
 --[Other]

@@ -252,33 +252,3 @@ function GM:ToggleZombieVision(onoff)
 	end
 end
 
-
-local FuckedTime = 0
-local FuckedLength = 0
-local FuckColTab = {
-	[ "$pp_colour_addr" ] 		= 0,
-	[ "$pp_colour_addg" ] 		= 0,
-	[ "$pp_colour_addb" ] 		= 0,
-	[ "$pp_colour_brightness" ] = 0,
-	[ "$pp_colour_contrast" ] 	= 1,
-	[ "$pp_colour_colour" ] 	= 0,
-	[ "$pp_colour_mulr" ] 		= 0,
-	[ "$pp_colour_mulg" ] 		= 0,
-	[ "$pp_colour_mulb" ] 		= 0
-}
-
-local function DrawStalkerFuck()
-	DrawColorModify( FuckColTab )
-	DrawMotionBlur( 0.2, math.Clamp(FuckedTime-CurTime(),0,1), 0)
-	FuckColTab[ "$pp_colour_colour" ] = math.Approach( FuckColTab[ "$pp_colour_colour" ], 1, FuckedLength*FrameTime())
-	local sev = math.Clamp(FuckedTime-CurTime(),0,5)/35
-	FuckColTab[ "$pp_colour_brightness" ] = math.Rand(-sev*2,sev*2)
-	
-	local MySelf = LocalPlayer()
-	MySelf:SetEyeAngles((MySelf:GetAimVector()+Vector(math.Rand(-sev,sev),math.Rand(-sev,sev),math.Rand(-sev,sev))):Angle())
-	
-	if FuckedTime < CurTime() then
-		FuckColTab[ "$pp_colour_brightness" ] = 0
-		hook.Remove("RenderScreenspaceEffects", "DrawStalkerFuck")
-	end
-end

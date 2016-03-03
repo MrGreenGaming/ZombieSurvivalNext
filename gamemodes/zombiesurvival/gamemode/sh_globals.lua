@@ -52,16 +52,10 @@ DEFAULT_STEP_SIZE = 18
 DEFAULT_MASS = 80
 DEFAULT_MODELSCALE = 1
 
---Duby: Classes global variables for redeeming 
-CLASS_1 = false
-CLASS_2 = false
-CLASS_3 = false
-CLASS_4 = false
-CLASS_5 = false
-CLASS_6 = false
-
+--Special Event Gloabl vars!
 CHRISTMAS = false
 HALLOWEEEN = false
+ARENA = false
 
 -- Humans can not carry OR drag anything heavier than this (in kg.)
 CARRY_MAXIMUM_MASS = 300

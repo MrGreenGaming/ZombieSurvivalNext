@@ -138,6 +138,10 @@ LANGUAGE.too_close_to_a_spawn						= "Too close to a zombie spawn!"
 LANGUAGE.x_has_built_this_nest_and_is_still_around	= "%s has built this nest and is still around, so you can't demolish it."
 LANGUAGE.no_other_nests								= "You can't destroy a nest if only one remains."
 
+LANGUAGE.supplies									= "Supplies"
+
+
+
 -- Sigils point objectives
 LANGUAGE.sigil_destroyed							= "The Undead have destroyed a Sigil!"
 LANGUAGE.sigil_destroyed_only_one_remain_h			= "Only one remains! If it falls then there is no hope of escape!"

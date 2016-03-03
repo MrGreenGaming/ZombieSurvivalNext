@@ -3,15 +3,12 @@ CLASS.TranslationName = "class_wraith"
 CLASS.Description = "description_wraith"
 CLASS.Help = "controls_wraith"
 
---CLASS.Wave = 1 / 3
-CLASS.Wave = 0
+CLASS.Wave = 1 / 3
 CLASS.Health = 100
 CLASS.SWEP = "weapon_zs_wraith"
 CLASS.Model = Model("models/wraith_zsv1.mdl")
 CLASS.Speed = 190
 
-CLASS.Unlocked = true
-CLASS.Hidden = true
 
 CLASS.Points = 5
 
@@ -99,8 +96,8 @@ function CLASS:OnKilled(pl, attacker, inflictor, suicide, headshot, dmginfo, ass
 			effectdata:SetNormal(pl:GetForward())
 			effectdata:SetEntity(pl)
 		util.Effect("wraithdeath", effectdata, nil, true)
-	end
-
+	end		
+	pl:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(225,225,225,225))
 	return true
 end
 

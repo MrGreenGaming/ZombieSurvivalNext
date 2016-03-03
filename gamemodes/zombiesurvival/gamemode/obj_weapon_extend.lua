@@ -295,16 +295,20 @@ function meta:DrawZombieCrosshair ( m_Owner, iDistance )
 		end
 	end
 		
+	local w , h = ScrW(), ScrH()	
+		
 	-- Draw the inner crosshair
 	surface.SetDrawColor ( 190,190,190,170 )
 	surface.SetTexture ( matCore )
-	surface.DrawTexturedRectRotated ( w * 0.5, h * 0.5, x / 15 , y / 15 , 0 )
+	--surface.DrawTexturedRectRotated ( w * 0.5, h * 0.5, x / 15 , y / 15 , 0 )
+	surface.DrawTexturedRectRotated ( w * 0.5, h * 0.5, w / 15, h / 12, 0 )
 		
 	-- Draw outer crosshair
 	if bDrawOutline then
 		surface.SetDrawColor ( colOuter )
 		surface.SetTexture ( matOuter )
-		surface.DrawTexturedRectRotated ( w * 0.5, h * 0.5, x / 15 , y / 15 , 0 )
+		--surface.DrawTexturedRectRotated ( w * 0.5, h * 0.5, x / 15 , y / 15 , 0 )
+		surface.DrawTexturedRectRotated ( w * 0.5, h * 0.5, w / 15, h / 12, 0 )
 	end
 end
 

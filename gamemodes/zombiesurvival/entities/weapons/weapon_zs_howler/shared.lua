@@ -157,6 +157,30 @@ function SWEP:PrimaryAttack()
 		--Apply velocity		
 		v:SetVelocity(Velocity)
 	end
+
+	local owner = self.Owner
+	
+	owner:ViewPunch(Angle(-20, 0, math.Rand(-10, 10)))
+
+	owner:LagCompensation(true)
+
+	local mouthpos = owner:EyePos() + owner:GetUp() * -3
+	local screampos = mouthpos + owner:GetAimVector() * 16
+	for _, ent in pairs(ents.FindInSphere(screampos, 92)) do
+		if ent:IsPlayer() and ent:Team() ~= owner:Team() then
+			local entearpos = ent:EyePos()
+			local dist = screampos:Distance(entearpos)
+			if dist <= 92 and TrueVisible(entearpos, screampos) then
+				local power = (92 / dist - 1) * 2
+				viewpunch(ent, power)
+				for i=1, 5 do
+					timer.Simple(0.15 * i, function() viewpunch(ent, power - i * 0.125) end)
+				end
+			end
+		end
+	end
+
+	owner:LagCompensation(false)
 end
 
 
@@ -254,6 +278,29 @@ function SWEP:SecondaryAttack()
 	end
 	
 	--Scream effect for myself
+	local owner = self.Owner
+
+	owner:ViewPunch(Angle(-20, 0, math.Rand(-10, 10)))
+
+	owner:LagCompensation(true)
+
+	local mouthpos = owner:EyePos() + owner:GetUp() * -3
+	local screampos = mouthpos + owner:GetAimVector() * 16
+	for _, ent in pairs(ents.FindInSphere(screampos, 92)) do
+		if ent:IsPlayer() and ent:Team() ~= owner:Team() then
+			local entearpos = ent:EyePos()
+			local dist = screampos:Distance(entearpos)
+			if dist <= 92 and TrueVisible(entearpos, screampos) then
+				local power = (92 / dist - 1) * 2
+				viewpunch(ent, power)
+				for i=1, 5 do
+					timer.Simple(0.15 * i, function() viewpunch(ent, power - i * 0.125) end)
+				end
+			end
+		end
+	end
+
+	owner:LagCompensation(false)
 end
 
 function SWEP:Screaming(bl)
