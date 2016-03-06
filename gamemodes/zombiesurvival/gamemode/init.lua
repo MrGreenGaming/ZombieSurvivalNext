@@ -32,8 +32,9 @@ bananas + microwave = gelbanana
 metal barrel + something = body armor
 --]]
 
---resource.AddWorkshop("615992520")
-resource.AddWorkshop("618418410")
+--resource.AddWorkshop("615992520") --Beta
+--resource.AddWorkshop("618418410") --Beta
+resource.AddWorkshop("639539065")
 
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("shared.lua")
@@ -1468,10 +1469,12 @@ function GM:EndRound(winner)
 	self.RoundEndedTime = CurTime()
 	ROUNDWINNER = winner
 
-	if self.OverrideEndSlomo == nil or self.OverrideEndSlomo then
-		game.SetTimeScale(0.25)
-		timer.Simple(2, function() game.SetTimeScale(1) end)
-	end
+	
+	for k,v in pairs(player.GetAll()) do v:Freeze( true ) v:GodEnable() end
+	--if self.OverrideEndSlomo == nil or self.OverrideEndSlomo then
+		--game.SetTimeScale(0.25)
+		--timer.Simple(2, function() game.SetTimeScale(1) end)
+	--end
 
 	hook.Add("PlayerCanHearPlayersVoice", "EndRoundCanHearPlayersVoice", function() return true end)
 
@@ -1490,8 +1493,10 @@ function GM:EndRound(winner)
 	util.RemoveAll("prop_ammo")
 	util.RemoveAll("prop_weapon")
 
-	timer.Simple(5, function() gamemode.Call("DoHonorableMentions") end)
-
+	--timer.Simple(5, function() gamemode.Call("DoHonorableMentions") end)
+	gamemode.Call("DoHonorableMentions")
+	
+	
 	if winner == TEAM_HUMAN then
 		self.LastHumanPosition = nil
 
@@ -1518,6 +1523,9 @@ function GM:EndRound(winner)
 	gamemode.Call("PostEndRound", winner)
 
 	self:SetWaveStart(CurTime() + 9999)
+	
+	--self:Freeze( true )
+	--self:GodEnable()
 end
 
 function GM:PlayerReady(pl)
@@ -3603,7 +3611,7 @@ function GM:PlayerSpawn(pl)
 			else
 					--Duby: For now we will use this..
 					pl:SpawnMiniTurret()
-					pl:Give("weapon_zs_python") 
+					pl:Give("weapon_zs_magnum") 
 					pl:Give("weapon_zs_pot")
 					pl:AddPoints(120) --Lets give them a boost so they can get a good gun, ammo etc... 
 			end

@@ -1,13 +1,12 @@
 AddCSLuaFile()
 
-
 if CLIENT then
 
 	SWEP.PrintName = "HATE"
 	SWEP.ViewModelFOV = 43
 	SWEP.ViewModelFlip = false
 	SWEP.ShowViewModel = true
-	SWEP.ShowWorldModel = false
+	SWEP.ShowWorldModel = true
 	
 	
 SWEP.ViewModelBoneMods = {
@@ -29,14 +28,12 @@ SWEP.ViewModelBoneMods = {
 	}
 
 	SWEP.WElements = {
-	--	["chainsaw2"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "", pos = Vector(2.638, 0.55, 0.737), angle = Angle(23.18, 94.875, -8.094), size = Vector(1.519, 1.519, 1.519), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	--	["chainsaw"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(5.711, 3.444, -0.389), angle = Angle(-179.851, 118.38, -10.521), size = Vector(1.2, 1.2, 1.2), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+		["chainsaw2"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "", pos = Vector(2.638, 0.55, 0.737), angle = Angle(23.18, 94.875, -8.094), size = Vector(1.519, 1.519, 1.519), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+		["chainsaw"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(5.711, 3.444, -0.389), angle = Angle(-179.851, 118.38, -10.521), size = Vector(1.2, 1.2, 1.2), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
 
 	
 end
-
-
 
 SWEP.Base = "weapon_zs_zombie_boss"
 
@@ -44,8 +41,10 @@ SWEP.ViewModel = "models/weapons/v_pza.mdl"
 SWEP.WorldModel = "models/weapons/w_chainsaw.mdl"
 SWEP.NoDroppedWorldModel = true
 
+SWEP.MeleeDelay = 1.5
 SWEP.MeleeDamage = 65
 SWEP.SlowDownScale = 1
+SWEP.Primary.Delay = 1.5
 
 function SWEP:PlayAlertSound()
 	self.Owner:EmitSound("ambient/machines/slicer1.wav", 100, math.random( 90, 110 ) )
@@ -57,7 +56,7 @@ function SWEP:PlayHitSound()
 end
 
 function SWEP:PlaySwingSound()
-	self.Owner:EmitSound("player/zombies/hate/chainsaw_attack_miss.wav", 75, 80)
+	self.Owner:EmitSound("zombies/hate/chainsaw_attack_miss.wav", 75, 80)
 	self.ChainSound = CreateSound( self.Owner, "weapons/melee/chainsaw_idle.wav" ) 
 end
 

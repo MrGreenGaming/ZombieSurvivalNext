@@ -26,7 +26,7 @@ end
 
 local PANEL = {}
 
-PANEL.RefreshTime = 2
+PANEL.RefreshTime = 0.8
 PANEL.NextRefresh = 0
 PANEL.m_MaximumScroll = 0
 
@@ -41,6 +41,12 @@ end
 function PANEL:Init()
 	self.NextRefresh = RealTime() + 0.1
 
+	local w, h = ScrW(), ScrH()
+	local MrGreen = vgui.Create( "DImage", self )	-- Add image to Frame
+	MrGreen:SetPos( 10, 20  )	-- Move it into frame
+	MrGreen:SetSize( 120, 120 )	-- Size it to 150x150
+	MrGreen:SetImage( "hud/mrgreen_logo.png" ) 
+	
 	self.m_TitleLabel = vgui.Create("DLabel", self)
 	self.m_TitleLabel.Font = "ZSScoreBoardTitle"
 	self.m_TitleLabel:SetFont(self.m_TitleLabel.Font)
@@ -48,6 +54,7 @@ function PANEL:Init()
 	self.m_TitleLabel:SetTextColor(COLOR_GRAY)
 	self.m_TitleLabel:SizeToContents()
 	self.m_TitleLabel:NoClipping(true)
+
 
 	self.ZombieList = vgui.Create("DScrollPanel", self)
 	self.ZombieList.Team = TEAM_UNDEAD
@@ -59,12 +66,10 @@ function PANEL:Init()
 end
 
 function PANEL:PerformLayout()
-	--self.HumanList:SetSize(self:GetWide() / 2 - 24, self:GetTall() - 150)
 	self.HumanList:SetSize(self:GetWide() / 2, self:GetTall() - 150)
 	self.HumanList:AlignBottom(16)
 	self.HumanList:AlignLeft(8)
 
---	self.ZombieList:SetSize(self:GetWide() / 2 - 24, self:GetTall() - 150)
 	self.ZombieList:SetSize(self:GetWide() / 2, self:GetTall() - 150)
 	self.ZombieList:AlignBottom(16)
 	self.ZombieList:AlignRight(8)
@@ -84,8 +89,6 @@ local texDownEdge = surface.GetTextureID("gui/gradient_down")
 function PANEL:Paint()
 	local wid, hei = self:GetSize()
 	local barw = 64
-
-
 end
 
 function PANEL:GetPlayerPanel(pl)
@@ -159,7 +162,8 @@ end
 local function empty() end
 
 function PANEL:Init()
-	self:SetTall(45)
+	--self:SetTall(45)
+	self:SetTall(55)
 
 	self.m_AvatarButton = self:Add("DButton", self)
 	self.m_AvatarButton:SetText(" ")

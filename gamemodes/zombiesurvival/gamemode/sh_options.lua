@@ -241,7 +241,6 @@ end, "models/healthvial.mdl")
 --Duby: Re-arrenged this to make it cleaner to look at
 --Duby: NOTE got up to glock with the Christmas Port!
 
-
 GM:AddPointShopItem("usp", "USP", nil, ITEMCAT_GUNS2, 20, "weapon_zs_battleaxe")
 GM:AddPointShopItem("p228", "P228", nil, ITEMCAT_GUNS2, 25, "weapon_zs_peashooter")
 GM:AddPointShopItem("alyxgun", "Alyx Gun", nil, ITEMCAT_GUNS2, 25, "weapon_zs_z9000")
@@ -266,23 +265,23 @@ GM:AddPointShopItem("silencer", "TMP", nil, ITEMCAT_GUNS, 70, "weapon_zs_silence
 
 
 
-GM:AddPointShopItem("ender", "Galil", nil, ITEMCAT_GUNS, 75, "weapon_zs_ender") --Testing
 GM:AddPointShopItem("reaper", "UMP", nil, ITEMCAT_GUNS, 80, "weapon_zs_reaper")
-GM:AddPointShopItem("akbar", "AK47", nil, ITEMCAT_GUNS, 80, "weapon_zs_akbar")
 GM:AddPointShopItem("chipper", "Chipper Shotgun", nil, ITEMCAT_GUNS3, 40, "weapon_zs_chipper")
 GM:AddPointShopItem("annabelle", "Annabelle Shotgun", nil, ITEMCAT_GUNS3, 100, "weapon_zs_annabelle")
 GM:AddPointShopItem("pulsesmg", "Pulse SMG", nil, ITEMCAT_GUNS, 105, "weapon_zs_pulsesmg")
-GM:AddPointShopItem("SG552", "SG 552", nil, ITEMCAT_GUNS, 110, "weapon_zs_sg552")
-GM:AddPointShopItem("stalker", "M4A1", nil, ITEMCAT_GUNS, 125, "weapon_zs_m4")
-GM:AddPointShopItem("inferno", "AUG", nil, ITEMCAT_GUNS, 125, "weapon_zs_inferno")
+GM:AddPointShopItem("akbar", "AK47", nil, ITEMCAT_GUNS, 120, "weapon_zs_akbar")
+GM:AddPointShopItem("SG552", "SG 552", nil, ITEMCAT_GUNS, 130, "weapon_zs_sg552")
+GM:AddPointShopItem("ender", "Galil", nil, ITEMCAT_GUNS, 145, "weapon_zs_ender") --Testing
+GM:AddPointShopItem("stalker", "M4A1", nil, ITEMCAT_GUNS, 160, "weapon_zs_m4")
+GM:AddPointShopItem("inferno", "AUG", nil, ITEMCAT_GUNS, 170, "weapon_zs_inferno")
 GM:AddPointShopItem("crossbow", "Crossbow", nil, ITEMCAT_GUNS, 175, "weapon_zs_crossbow")
-GM:AddPointShopItem("m3", "M3 Shotgun", nil, ITEMCAT_GUNS3, 180, "weapon_zs_sweepershotgun")
-GM:AddPointShopItem("M1014Shotgun", "M1014 Shotgun", nil, ITEMCAT_GUNS3, 200, "weapon_zs_slugrifle")
-GM:AddPointShopItem("hunter", "AWP", nil, ITEMCAT_GUNS, 200, "weapon_zs_hunter")
-GM:AddPointShopItem("SG550", "SG 550", nil, ITEMCAT_GUNS, 210, "weapon_zs_sg550")
-GM:AddPointShopItem("pulserifle", "Pulse Rifle", nil, ITEMCAT_GUNS, 225, "weapon_zs_pulserifle")
+GM:AddPointShopItem("m3", "M3 Shotgun", nil, ITEMCAT_GUNS3, 190, "weapon_zs_sweepershotgun")
+GM:AddPointShopItem("M1014Shotgun", "M1014 Shotgun", nil, ITEMCAT_GUNS3, 220, "weapon_zs_slugrifle")
+GM:AddPointShopItem("hunter", "AWP", nil, ITEMCAT_GUNS, 230, "weapon_zs_hunter")
+GM:AddPointShopItem("SG550", "SG 550", nil, ITEMCAT_GUNS, 250, "weapon_zs_sg550")
+GM:AddPointShopItem("pulserifle", "Pulse Rifle", nil, ITEMCAT_GUNS, 300, "weapon_zs_pulserifle")
 GM:AddPointShopItem("m249", "M249 'SAW'", nil, ITEMCAT_GUNS, 400, "weapon_zs_m249")
-GM:AddPointShopItem("boomstick", "Boom Stick", nil, ITEMCAT_GUNS3, 300, "weapon_zs_boomerstick") --Duby: We have the Mr.Green one! ^^
+GM:AddPointShopItem("boomstick", "Boom Stick", nil, ITEMCAT_GUNS3, 350, "weapon_zs_boomerstick") --Duby: We have the Mr.Green one! ^^
 
 
 GM:AddPointShopItem("knife", "Knife", nil, ITEMCAT_MELEE, 5, "weapon_zs_swissarmyknife")
@@ -426,12 +425,14 @@ end)
 
 -- Initial length for wave 1.
 GM.WaveOneLength = 220
+--GM.WaveOneLength = 10
 
 -- For Classic Mode
 GM.WaveOneLengthClassic = 120
 
 -- Add this many seconds for each additional wave.
 GM.TimeAddedPerWave = 15
+--GM.TimeAddedPerWave = 1
 
 -- For Classic Mode
 GM.TimeAddedPerWaveClassic = 10
@@ -444,8 +445,10 @@ GM.NoSuicideWave = 1
 
 -- How long 'wave 0' should last in seconds. This is the time you should give for new players to join and get ready.
 GM.WaveZeroLength = 120
+--GM.WaveZeroLength = 40
 
 -- Time humans have between waves to do stuff without NEW zombies spawning. Any dead zombies will be in spectator (crow) view and any living ones will still be living.
+--GM.WaveIntermissionLength = 5
 GM.WaveIntermissionLength = 90
 
 -- For Classic Mode

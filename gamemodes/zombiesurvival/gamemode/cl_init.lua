@@ -747,7 +747,7 @@ function GM:ZombieHUD2(screenscale)
 	
 	surface.SetMaterial(hudsplat)
 	surface.SetDrawColor(225, 225, 225, 225 )
-	surface.DrawTexturedRect(w * 0, h * 0, w * 0.25, h * 0.14)
+	surface.DrawTexturedRect(w * -0.05, h * 0, w * 0.22, h * 0.14)
 	
 	surface.SetMaterial(hudsplat2)
 	surface.SetDrawColor(225, 225, 225, 225 )
@@ -1515,15 +1515,11 @@ function GM:HUDPaintBackgroundEndRound()
 		draw_SimpleText(translate.Format("next_round_in_x", util.ToMinutesSeconds(timleft)), "ZSHUDFontSmall", w * 0.5, h * 0.8, COLOR_WHITE, TEXT_ALIGN_CENTER)
 	end
 	
-		
-	--local w, h = ScrW(), ScrH()
-	--local hudsplat3 = Material("hud/hud_endgame.png") --Items for the HUD.
-		
-	--surface.SetMaterial(hudsplat3)
-	--surface.SetDrawColor(225, 225, 225, 225 )
-	--surface.DrawTexturedRect(w * 0.35, h * 0.05, w * 0.4, h * 0.7)
+	local hudsplat2 = Material("hud/hud_endgame.png") --Game over screen
 	
-	
+	surface.SetMaterial(hudsplat2)
+	surface.SetDrawColor(255, 255, 255, 255 )
+	surface.DrawTexturedRect(w * 0.3215, h * 0.22, w * 0.35, h * 0.6)
 	
 end
 
@@ -1569,7 +1565,7 @@ function GM:EndRound(winner, nextmap)
 
 	FindMetaTable("Player").GetMeleeFilter = EndRoundGetMeleeFilter
 
-	self.HUDPaint = self.HUDPaintEndRound
+	self.HUDPaint = self.HumanHUD2
 	self.HUDPaintBackground = self.HUDPaintBackgroundEndRound
 
 	if winner == TEAM_UNDEAD and GetGlobalBool("endcamera", true) then
@@ -1588,11 +1584,9 @@ function GM:EndRound(winner, nextmap)
 		timer.Simple(0.5, function() surface_PlaySound(snd) end)
 	end
 
-	timer.Simple(5, function()
 		if not (pEndBoard and pEndBoard:IsValid()) then
 			MakepEndBoard(winner)
 		end
-	end)
 end
 
 function GM:WeaponDeployed(pl, wep)
@@ -1811,7 +1805,11 @@ net.Receive("zs_wavestart", function(length)
 end)
 
 net.Receive("zs_classunlock", function(length)
-		GAMEMODE:CenterNotify(COLOR_GREEN, net.ReadString() .. "  Unlocked")
+		GAMEMODE:CenterNotify(COLOR_DARKRED, net.ReadString() .. "  Unlocked")	
+		surface_PlaySound("ambient/creatures/town_scared_sob1.wav")
+		timer.Simple(1.1, function()
+		surface_PlaySound("ambient/creatures/town_scared_sob2.wav")
+		end)
 end)
 
 net.Receive("zs_waveend", function(length)

@@ -2,17 +2,9 @@ AddCSLuaFile()
 
 SWEP.Base = "weapon_zs_hate"
 
-
-SWEP.ViewModel = "models/weapons/v_pza.mdl"
-SWEP.WorldModel = "models/weapons/w_chainsaw.mdl"
-
-
 SWEP.ZombieOnly = true
 
 SWEP.Primary.Delay = 1.9
-SWEP.Primary.Duration = 2
-SWEP.Primary.Reach = 65
-SWEP.Primary.Damage = 65
 
 SWEP.MeleeDelay = 1.9
 SWEP.MeleeRange = 65
@@ -24,22 +16,6 @@ function SWEP:OnMeleeHit(hitent, hitflesh, tr)
 	end
 end
 
-
-function SWEP:PlayAlertSound()
-	self.Owner:EmitSound("ambient/machines/slicer1.wav", 100, math.random( 90, 110 ) )
-end
-SWEP.PlayIdleSound = SWEP.PlayAlertSound
-
-
-function SWEP:PlayHitSound()
-	local pl = self.Owner
-	self.Owner:EmitSound("weapons/melee/chainsaw_gore_0"..math.random(1,4)..".wav")
-end
-
-function SWEP:PlaySwingSound()
-	local pl = self.Owner
-	self.Owner:EmitSound("player/zombies/hate/chainsaw_attack_miss.wav")
-end
 
 function SWEP:PostOnMeleeHit(hitent, hitflesh, tr)
 	self.MeleeDamage = 55

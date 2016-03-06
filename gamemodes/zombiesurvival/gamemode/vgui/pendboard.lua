@@ -2,7 +2,7 @@ function GM:AddHonorableMention(pl, mentionid, ...)
 	if not (pEndBoard and pEndBoard:Valid()) then
 		MakepEndBoard(ROUNDWINNER)
 	end
-
+	
 	local mentiontab = self.HonorableMentions[mentionid]
 	if not mentiontab then return end
 
@@ -21,12 +21,18 @@ function MakepEndBoard(winner)
 
 	local wid = 640
 
+	local w, h = ScrW(), ScrH()
+	
 	local frame = vgui.Create("DFrame")
 	frame:SetWide(wid)
 	frame:SetKeyboardInputEnabled(false)
 	frame:SetDeleteOnClose(false)
 	frame:SetCursor("pointer")
+	frame:ShowCloseButton( false )
 	frame:SetTitle(" ")
+	frame.Paint = function( self, w, h ) 
+			draw.RoundedBox( 0, 0, 0, w, h, Color( 1, 0, 0, 1 ) )
+		end
 	pEndBoard = frame
 
 	local y = 8
@@ -34,7 +40,7 @@ function MakepEndBoard(winner)
 	local heading
 	if localwin then
 		surface.PlaySound("beams/beamstart5.wav")
-		heading = EasyLabel(frame, "You have won!", "ZSHUDFont", COLOR_CYAN)
+		heading = EasyLabel(frame, "You have won!", "ZSHUDFont", COLOR_DARKRED)
 	else
 		surface.PlaySound("ambient/levels/citadel/strange_talk"..math.random(3, 11)..".wav")
 		heading = EasyLabel(frame, "You have lost.", "ZSHUDFont", COLOR_RED)
@@ -59,7 +65,7 @@ function MakepEndBoard(winner)
 
 	local list = vgui.Create("DPanelList", frame)
 	list:SetSize(wid - 16, 420)
-	list:SetPos(8, y)
+	list:SetPos(8, y + 12)
 	list:SetPadding(2)
 	list:SetSpacing(2)
 	list:EnableVerticalScrollbar()
@@ -87,6 +93,7 @@ end
 
 function PANEL:Init()
 	self:SetSize(200, 40)
+
 end
 
 function PANEL:GetPlayer()

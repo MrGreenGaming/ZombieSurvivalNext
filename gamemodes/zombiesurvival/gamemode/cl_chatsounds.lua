@@ -24,6 +24,7 @@ sounds[ "hey" ] = sounds[ "hi" ]
 sounds[ "over9000" ] = {"mrgreen/9000.wav"}
 
 sounds[ "leeroy" ] = {"mrgreen/leeroy.mp3"}
+sounds[ "bruh" ] = {"mrgreen/bruh.mp3"}
 
 sounds[ "sparta" ] = {"mrgreen/sparta.wav"}
 

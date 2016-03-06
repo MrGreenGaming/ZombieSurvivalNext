@@ -22,9 +22,9 @@ SWEP.WorldModel = "models/weapons/w_pist_elite.mdl"
 SWEP.UseHands = true
 
 SWEP.Primary.Sound = Sound("Weapon_ELITE.Single")
-SWEP.Primary.Damage = 12
+SWEP.Primary.Damage = 10
 SWEP.Primary.NumShots = 1
-SWEP.Primary.Delay = 0.3
+SWEP.Primary.Delay = 0.2
 
 SWEP.WalkSpeed = SPEED_SLOW
 

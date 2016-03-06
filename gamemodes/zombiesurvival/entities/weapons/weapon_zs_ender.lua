@@ -38,7 +38,6 @@ SWEP.Primary.Recoil			= 1.3
 SWEP.Primary.Damage			= 20
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 30
---SWEP.storeclipsize			= 30
 SWEP.MaxAmmo			    = 250
 SWEP.Primary.Delay			= 0.11
 SWEP.Primary.DefaultClip	= 90
