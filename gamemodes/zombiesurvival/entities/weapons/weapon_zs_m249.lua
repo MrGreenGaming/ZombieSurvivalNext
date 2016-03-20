@@ -9,7 +9,7 @@ if CLIENT then
 	SWEP.Slot = 2
 	SWEP.SlotPos = 0
 	SWEP.ViewModelFOV = 60
-	SWEP.FlipYaw = true
+	SWEP.FlipYaw = false
 end
 
 SWEP.Base				= "weapon_zs_base"

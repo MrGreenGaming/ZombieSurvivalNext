@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "Models/Zombie_Flassic/shirt"
+	"$translucent" 1
+	"$nocull" 1
+}

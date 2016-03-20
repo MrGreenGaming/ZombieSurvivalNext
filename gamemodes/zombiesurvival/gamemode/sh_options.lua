@@ -169,11 +169,12 @@ function(pl) pl:SetModel( table.Random( {
 	"models/player/combine_soldier.mdl",
 	"models/player/combine_soldier_prisonguard.mdl",
 } ) ) 
+ --Normal Berserker
+	pl:Give("weapon_zs_dualclassics")
+	pl:Give("weapon_zs_swissarmyknife")
+	pl:Give("weapon_zs_grenade")
+	pl:ChatPrint("You're a Commando, kill and destroy!")
 
-pl:Give("weapon_zs_redeemers")
-pl:Give("weapon_zs_swissarmyknife")
-pl:Give("weapon_zs_grenade")
-pl:ChatPrint("You're a Commando, kill and destroy!")
 
 end, "models/healthvial.mdl")
 
@@ -201,18 +202,34 @@ end, "models/healthvial.mdl")
 
 GM:CLASS("berserker", "BERSERKER", "Hit smash and destroy!", ITEMCAT_CLASS, 100, nil, 
 
-function(pl) pl:SetModel( table.Random( {
-	"models/player/gasmask.mdl",
-	"models/player/riot.mdl",
-} ) )
+function(pl) 
+pl:SetModel( table.Random( {
+	"",
+	"",
+}))
+
+if math.random(1,4) == 1  then --Gordan freeman!
+
+	pl:SetModel("models/player/gordon_classic.mdl")
+	pl:ChatPrint("You are Gordan Freeman!")
+	pl:AddPoints(60)
+	pl:Give("weapon_zs_crowbar_freeman")
+	pl:SetHealth(150)
+	pl:SetSpeed(220)
 	
-berserkerweapon = {"weapon_zs_axe","weapon_zs_pot"}
-pl:Give("weapon_zs_peashooter")
-pl:Give(table.Random(berserkerweapon))
-pl:Give("weapon_zs_vodka")  
-pl:Give("weapon_zs_resupplybox")  
-pl:AddPoints(20)	
-pl:ChatPrint("You're a Berserker, smack the shit out of everything!")
+else --Normal Berserker
+		
+	berserkerweapon = {"weapon_zs_axe","weapon_zs_pot"}
+
+	pl:SetModel("models/player/riot.mdl")
+	pl:Give("weapon_zs_peashooter")
+	pl:Give(table.Random(berserkerweapon))
+	pl:Give("weapon_zs_vodka")  
+	pl:Give("weapon_zs_resupplybox")  
+	pl:AddPoints(20)	
+	pl:ChatPrint("You're a Berserker, smack the shit out of everything!")
+
+end
 
 end, "models/healthvial.mdl")
 
@@ -249,6 +266,7 @@ GM:AddPointShopItem("fiveseven", "Five Seven", nil, ITEMCAT_GUNS2, 30, "weapon_z
 GM:AddPointShopItem("Classic Pistol", "Classic Pistol", nil, ITEMCAT_GUNS2, 30, "weapon_zs_owens")
 GM:AddPointShopItem("medic_gun", "Medical Gun", nil, ITEMCAT_GUNS2, 35, "weapon_zs_medicgun")
 GM:AddPointShopItem("glock", "Glock", nil, ITEMCAT_GUNS2, 40, "weapon_zs_glock3")
+GM:AddPointShopItem("dualclassics", "Dual Classic Pistols", nil, ITEMCAT_GUNS2, 55, "weapon_zs_dualclassics")
 GM:AddPointShopItem("magnum", "Magnum", nil, ITEMCAT_GUNS2, 65, "weapon_zs_magnum")
 GM:AddPointShopItem("Dual Berreta's 92fs", "Duel Berreta's 92fs", nil, ITEMCAT_GUNS2, 65, "weapon_zs_berreta")
 GM:AddPointShopItem("deagle", "Desert Eagle", nil, ITEMCAT_GUNS2, 70, "weapon_zs_deagle")
@@ -298,8 +316,8 @@ GM:AddPointShopItem("sledgehammer", "Sledge Hammer", nil, ITEMCAT_MELEE, 80, "we
 GM:AddPointShopItem("katana", "Katana", nil, ITEMCAT_MELEE, 120, "weapon_zs_katana")
 
 --[AMMO]--
+GM:AddPointShopItem("pistolammo", "Pistol ammo", nil, ITEMCAT_AMMO, 4, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["pistol"] or 12, "pistol", true) end, "models/Items/BoxSRounds.mdl")
 GM:AddPointShopItem("crossbowammo", "Crossbow bolt", nil, ITEMCAT_AMMO, 5, nil, function(pl) pl:GiveAmmo(1, "XBowBolt", true) end, "models/Items/CrossbowRounds.mdl")
-GM:AddPointShopItem("pistolammo", "Pistol ammo", nil, ITEMCAT_AMMO, 5, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["pistol"] or 12, "pistol", true) end, "models/Items/BoxSRounds.mdl")
 GM:AddPointShopItem("smgammo", "SMG ammo", nil, ITEMCAT_AMMO, 5, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["smg1"] or 30, "smg1", true) end, "models/Items/BoxMRounds.mdl")
 GM:AddPointShopItem("shotgunammo", "Shotgun ammo", nil, ITEMCAT_AMMO, 6, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["buckshot"] or 8, "buckshot", true) end, "models/Items/BoxBuckshot.mdl")
 GM:AddPointShopItem("assaultrifleammo", "Assault rifle ammo", nil, ITEMCAT_AMMO, 6, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["ar2"] or 30, "ar2", true) end, "models/Items/357ammobox.mdl")
@@ -455,13 +473,14 @@ GM.WaveIntermissionLength = 90
 GM.WaveIntermissionLengthClassic = 20
 
 -- Time in seconds between end round and next map.
-GM.EndGameTime = 60
+--GM.EndGameTime = 60
+GM.EndGameTime = 30
 
 -- How many clips of ammo guns from the Worth menu start with. Some guns such as shotguns and sniper rifles have multipliers on this.
 GM.SurvivalClips = 3
 
 -- Put your unoriginal, 5MB Rob Zombie and Metallica music here.
-GM.LastHumanSound = Sound("mrgreen/music/lasthuman_remastered.wav")
+GM.LastHumanSound = Sound("mrgreen/music/lasthuman.ogg")
 
 GM.IntermissionSound = Sound("mrgreen/music/intermission"..math.random(2)..".mp3")
 
@@ -469,7 +488,7 @@ GM.IntermissionSound = Sound("mrgreen/music/intermission"..math.random(2)..".mp3
 GM.AllLoseSound = Sound("music/HL2_song7.mp3")
 
 -- Sound played when humans survive.
-GM.HumanWinSound = Sound("music/HL1_song17.mp3")
+GM.HumanWinSound = Sound("music/HL2_song7.mp3")
 
 -- Sound played to a person when they die as a human.
 GM.DeathSound = Sound("music/stingers/HL1_stinger_song28.mp3")

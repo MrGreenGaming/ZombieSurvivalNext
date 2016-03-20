@@ -1,7 +1,7 @@
 AddCSLuaFile()
 
 if CLIENT then
-	SWEP.PrintName = "Butcher Knife"
+	SWEP.PrintName = "Behemoth"
 
 	SWEP.ViewModelFOV = 70
 	SWEP.ViewModelFlip = false
@@ -24,7 +24,6 @@ if CLIENT then
 }
 	
 	SWEP.VElements = {
---	["Behemoth1"] = { type = "Model", model = "models/weapons/w_crowbar.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(-8.29, -12.447, 1.335), angle = Angle(-4.758, 129.942, -25.379), size = Vector(1.917, 1.917, 1.917), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/flesh", skin = 0, bodygroup = {} }
 		["Behemoth1"] = { type = "Model", model = "models/weapons/w_crowbar.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3, 2, 0), angle = Angle(90.758, 129.942, 0.379), size = Vector(1.917, 1.917, 1.917), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/flesh", skin = 0, bodygroup = {} }
 	}
 
@@ -51,8 +50,7 @@ SWEP.MeleeRange = 60
 SWEP.MeleeSize = 0.875
 SWEP.MeleeDelay = 0.9
 SWEP.MeleeAnimationDelay = 0.35
-SWEP.Primary.Delay = 1.5
-
+SWEP.Primary.Delay = 2
 
 SWEP.WalkSpeed = SPEED_FAST
 

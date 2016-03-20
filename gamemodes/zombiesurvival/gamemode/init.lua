@@ -32,9 +32,10 @@ bananas + microwave = gelbanana
 metal barrel + something = body armor
 --]]
 
---resource.AddWorkshop("615992520") --Beta
---resource.AddWorkshop("618418410") --Beta
-resource.AddWorkshop("639539065")
+--resource.AddWorkshop("615992520") --Beta V4
+--resource.AddWorkshop("618418410") --Beta V5
+resource.AddWorkshop("639539065") -- Beta V6
+resource.AddWorkshop("649176563") -- Beta V7
 
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("shared.lua")
@@ -49,6 +50,7 @@ AddCSLuaFile("sh_options.lua")
 AddCSLuaFile("sh_zombieclasses.lua")
 AddCSLuaFile("sh_animations.lua")
 AddCSLuaFile("sh_sigils.lua")
+AddCSLuaFile("sh_tags.lua")
 
 
 AddCSLuaFile("cl_draw.lua")
@@ -64,6 +66,8 @@ AddCSLuaFile("cl_hint.lua")
 AddCSLuaFile("cl_legs.lua")
 AddCSLuaFile("cl_chatsounds.lua")
 AddCSLuaFile("cl_splitmessage.lua")
+AddCSLuaFile("cl_chatbox.lua")
+--AddCSLuaFile("cl_mapvote.lua")
 
 
 
@@ -116,7 +120,10 @@ include("mapeditor.lua")
 include("sv_playerspawnentities.lua")
 include("sv_profiling.lua")
 include("sv_sigils.lua")
+--include("sv_mapvote.lua")
 include("cl_chatsounds.lua")
+
+--include("mapvote.lua")
 
 include("sub_gamemodes/zombie_escape/sv_zombieescape.lua")
 include("sub_gamemodes/arena/sv_arena.lua")
@@ -1138,6 +1145,8 @@ function GM:LastHuman(pl)
 		LASTHUMAN = true
 	end
 
+	pl:SetHealth(50)
+	pl:Give("weapon_zs_katana")
 	self.TheLastHuman = pl
 end
 
@@ -1970,7 +1979,6 @@ function GM:GiveRandomEquipment(pl)
 	end
 	--Duby: Default loadout if a class isn't selected	
 supweapon = {"weapon_zs_resupplybox","weapon_zs_arsenalcrate"}
-
 pl:Give("weapon_zs_hammer")
 pl:Give("weapon_zs_battleaxe")
 pl:Give(table.Random(supweapon))
@@ -3930,46 +3938,36 @@ end)
 
  --Dice Command!
 --WaveZeroLength = 120
-WaveZeroLength = 2000 --Temp Disable the Dice
-NextYell = 0
-RTD_TIME = 40
+WaveZeroLength = 0 --Temp Disable the Dice
+RTD_TIME = 5
 function Dice( pl, text, public )
     if (string.sub(text, 1, 4) == "!rtd" or string.sub(text, 1, 4) == "!Rtd"  or string.sub(text, 1, 4) == "!rTd"  or string.sub(text, 1, 4) == "!rtD"  or string.sub(text, 1, 4) == "/rtd") then --if the first 4 letters are !rtd
 
-
-if ENDROUND then
-		return
-	end
 	
 	if CurTime() < (WaveZeroLength+1) then --Check these Ghlobal variables..
 		timer.Simple(0.3, function()
-			--pl:ChatPrint("Dice temporarily disabled at round start")
-			pl:ChatPrint("Dice temporarily disabled..")
+			pl:ChatPrint("Dice temporarily disabled at round start")
 		end)	
 		return
 	end
 	
+	--RTD_TIME = CurTime() math.random(40,40)
 	
-	
-	--if CurTime() <= NextYell then
---	if CurTime() >= NextYell then
-		--timer.Simple(0.3, function()
-		--	pl:PrintMessage(HUD_PRINTTALK, "You have to wait "..math.floor((NextYell-CurTime())).." more seconds before you can roll the dice!")
-		--end)
-		--return
-	--end
+	if CurTime() < RTD_TIME then
+		timer.Simple(0.3, function()
+			pl:PrintMessage(HUD_PRINTTALK, "You have to wait "..math.floor((RTD_TIME-CurTime())).." more seconds before you can roll the dice!")
+		end)
+		return
+	end
 
-	--NextYell = CurTime() math.random(40,40)
-	
-	--Duby: Note to self use this as a template for use else where pl:Message( "You've been randomly selected to lead the Undead Army.", 1, "255,255,255,255" )
-	
+
 local message,name--Move Message into a local var
 local choise = math.random(1,4) 
 	message = pl:GetName()	
 	
 	
 --Recoded by Duby for efficiency..	
-if pl:Team() == TEAM_HUMAN then --HUMANS DICE
+--if pl:Team() == TEAM_HUMAN then --HUMANS DICE
 	if choice == 1 then
 		timer.Simple(0.3, function()  --LOOSING LOTS OF HEALTH
 			PrintMessage( HUD_PRINTTALK, "LOSE: ".. message .." rolled the dice and got raped in the ass." )
@@ -4004,9 +4002,9 @@ if pl:Team() == TEAM_HUMAN then --HUMANS DICE
 		--	PrintMessage( HUD_PRINTTALK, message .. ".. rolled the dice and got bugger all!" )
 		--end)
 	end
-else
-	return
-end	
+--else
+	--return
+--end	
 	
 	
 	

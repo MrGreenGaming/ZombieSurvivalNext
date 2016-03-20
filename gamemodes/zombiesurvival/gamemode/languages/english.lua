@@ -80,7 +80,7 @@ LANGUAGE.you_are_x									= "You are %s!"
 LANGUAGE.x_has_risen_as_y							= "%s has risen as %s!!"
 LANGUAGE.x_has_risen								= "%s has risen!"
 LANGUAGE.cant_use_worth_anymore						= "You can't use the Worth menu any more!"
-LANGUAGE.class_not_unlocked_will_be_unlocked_x		= "That class is not unlocked yet. It will be unlocked at the start of wave %d."
+LANGUAGE.class_not_unlocked_will_be_unlocked_x		= "This class will be unlocked at the start of wave %d."
 LANGUAGE.you_are_already_a_x						= "You are already a %s."
 LANGUAGE.you_will_spawn_as_a_x						= "You will spawn as a %s."
 LANGUAGE.crafting_successful						= "Crafting successful!"
@@ -211,6 +211,7 @@ LANGUAGE.class_howler_zombie						= "Howler"
 LANGUAGE.class_hate									= "Hate"
 LANGUAGE.class_behemoth								= "Behemoth"
 LANGUAGE.class_nerf									= "Nerf"
+LANGUAGE.class_etherial								= "Etherial"
 
 -- Class descriptions
 LANGUAGE.description_zombie							= "The basic zombie is very durable and has powerful claws.\nIt's hard to keep down, especially if not shot in the head."
@@ -241,6 +242,7 @@ LANGUAGE.description_howler_zombie					= "A hellish school girl who limps across
 LANGUAGE.description_hate							= "A monstrosity which slaughtered its way out of a lab and has been roaming the land ever since feeding on innocent souls.."
 LANGUAGE.description_behemoth						= "A huge beast weilding a Crowbar which crushes any mortal in its path!"
 LANGUAGE.description_nerf							= "A small and twisted beast who's claws can shred through any barricade!"
+LANGUAGE.description_etherial						= "A ghastly figure which can teleport through barricades!"
 
 -- Class control schemes
 LANGUAGE.controls_zombie							= "> PRIMARY: Claws\n> SECONDARY: Scream\n> RELOAD: Moan"
@@ -266,6 +268,7 @@ LANGUAGE.controls_howler							= "> PRIMARY: Howl Push\n> SECONDARY: Howl Pull"
 LANGUAGE.controls_hate								= "> PRIMARY: Chainsaw \n> SECONDARY: Horde War Cry"
 LANGUAGE.controls_behemoth							= "> PRIMARY: Gorebar \n> SECONDARY: War Cry"
 LANGUAGE.controls_nerf								= "> PRIMARY: Shredder Claws \n> SECONDARY: Leap of Demise"
+LANGUAGE.controls_etherial							= "> PRIMARY: Slicers \n> SECONDARY: Teleport "
 
 -- The help file... Quite big! I wouldn't blame you if you didn't translate this part.
 LANGUAGE.help_cat_introduction						= "Introduction"

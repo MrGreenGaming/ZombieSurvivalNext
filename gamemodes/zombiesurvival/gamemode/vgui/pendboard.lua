@@ -11,6 +11,7 @@ function GM:AddHonorableMention(pl, mentionid, ...)
 	pEndBoard.List:AddItem(pan)
 end
 
+
 function MakepEndBoard(winner)
 	if pEndBoard and pEndBoard:IsValid() then
 		pEndBoard:Remove()
@@ -25,11 +26,11 @@ function MakepEndBoard(winner)
 	
 	local frame = vgui.Create("DFrame")
 	frame:SetWide(wid)
-	frame:SetKeyboardInputEnabled(false)
 	frame:SetDeleteOnClose(false)
 	frame:SetCursor("pointer")
 	frame:ShowCloseButton( false )
 	frame:SetTitle(" ")
+	frame:SetKeyboardInputEnabled(true)
 	frame.Paint = function( self, w, h ) 
 			draw.RoundedBox( 0, 0, 0, w, h, Color( 1, 0, 0, 1 ) )
 		end

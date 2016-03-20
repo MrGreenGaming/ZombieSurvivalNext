@@ -29,9 +29,10 @@ SWEP.Primary.Delay = 0.15
 SWEP.WalkSpeed = SPEED_SLOW
 
 SWEP.Primary.ClipSize = 30
+SWEP.Primary.DefaultClip = 150
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "pistol"
-SWEP.Primary.DefaultClip = 150
+
 
 SWEP.ConeMax = 0.055
 SWEP.ConeMin = 0.05

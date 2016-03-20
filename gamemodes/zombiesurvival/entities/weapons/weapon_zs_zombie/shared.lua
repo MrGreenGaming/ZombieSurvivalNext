@@ -24,6 +24,14 @@ SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = true
 SWEP.Secondary.Ammo = "none"
 
+SWEP.BobScale = 1
+SWEP.SwayScale = 1
+
+SWEP.BlendPos = Vector(0, 0, 0)
+SWEP.BlendAng = Vector(0, 0, 0)
+SWEP.OldDelta = Angle(0, 0, 0)
+SWEP.AngleDelta = Angle(0, 0, 0)
+
 function SWEP:StopMoaningSound()
 	local owner = self.Owner
 	owner:StopSound("NPC_BaseZombie.Moan1")
@@ -139,8 +147,31 @@ function SWEP:Swung()
 			self:PlayMissSound()
 		end
 	end
+	
+	
+	local owner = self.Owner
+	
+	owner:ViewPunch(Angle(1.5, 1, math.Rand(1.5, 1)))
 
-	owner:LagCompensation(false)
+	owner:LagCompensation(true)
+
+	local mouthpos = owner:EyePos() + owner:GetUp() * -3
+	local screampos = mouthpos + owner:GetAimVector() * 16
+	for _, ent in pairs(ents.FindInSphere(screampos, 92)) do
+		if ent:IsPlayer() and ent:Team() ~= owner:Team() then
+			local entearpos = ent:EyePos()
+			local dist = screampos:Distance(entearpos)
+			if dist <= 92 and TrueVisible(entearpos, screampos) then
+				local power = (92 / dist - 1) * 2
+				--viewpunch(ent, power)
+				for i=1, 5 do
+					--timer.Simple(0.15 * i, function() viewpunch(ent, power - i * 0.125) end)
+				end
+			end
+		end
+	end
+
+	--owner:LagCompensation(false)
 
 	if self.FrozenWhileSwinging then
 		owner:ResetSpeed()
@@ -152,6 +183,7 @@ function SWEP:Think()
 	self:CheckAttackAnimation()
 	self:CheckMoaning()
 	self:CheckMeleeAttack()
+	
 end
 
 function SWEP:MeleeHitWorld(trace)
@@ -280,6 +312,7 @@ function SWEP:StartSwinging()
 	else
 		self:Swung()
 	end
+	
 end
 
 function SWEP:StopSwinging()

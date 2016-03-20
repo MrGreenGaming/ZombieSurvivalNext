@@ -1,13 +1,13 @@
 AddCSLuaFile()
 
 if CLIENT then
-
 	SWEP.PrintName = "HATE"
-	SWEP.ViewModelFOV = 43
+
+	SWEP.ViewModelFOV = 40
 	SWEP.ViewModelFlip = false
+
 	SWEP.ShowViewModel = true
-	SWEP.ShowWorldModel = true
-	
+	SWEP.ShowWorldModel = false
 	
 SWEP.ViewModelBoneMods = {
 	["ValveBiped.Bip01_L_Forearm"] = { scale = Vector(1.343, 1.343, 1.343), pos = Vector(0, 0, 0), angle = Angle(-16.043, 20.868, -15.419) },
@@ -28,62 +28,66 @@ SWEP.ViewModelBoneMods = {
 	}
 
 	SWEP.WElements = {
-		["chainsaw2"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "", pos = Vector(2.638, 0.55, 0.737), angle = Angle(23.18, 94.875, -8.094), size = Vector(1.519, 1.519, 1.519), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+		--["chainsaw2"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "", pos = Vector(2.638, 0.55, 0.737), angle = Angle(23.18, 94.875, -8.094), size = Vector(1.519, 1.519, 1.519), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 		["chainsaw"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(5.711, 3.444, -0.389), angle = Angle(-179.851, 118.38, -10.521), size = Vector(1.2, 1.2, 1.2), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
-
-	
 end
 
 SWEP.Base = "weapon_zs_zombie_boss"
 
+
+SWEP.DamageType = DMG_SLASH
+
 SWEP.ViewModel = "models/weapons/v_pza.mdl"
 SWEP.WorldModel = "models/weapons/w_chainsaw.mdl"
-SWEP.NoDroppedWorldModel = true
 
+--SWEP.NoDroppedWorldModel = true
+
+SWEP.MeleeDamage = 90
+SWEP.MeleeRange = 60
+SWEP.MeleeSize = 0.875
 SWEP.MeleeDelay = 1.5
-SWEP.MeleeDamage = 65
-SWEP.SlowDownScale = 1
+SWEP.MeleeAnimationDelay = 0.35
 SWEP.Primary.Delay = 1.5
 
-function SWEP:PlayAlertSound()
-	self.Owner:EmitSound("ambient/machines/slicer1.wav", 100, math.random( 90, 110 ) )
-end
-SWEP.PlayIdleSound = SWEP.PlayAlertSound
+
+SWEP.WalkSpeed = SPEED_FAST
+
+--SWEP.UseMelee1 = true
+
+SWEP.HitGesture = ACT_HL2MP_GESTURE_RANGE_ATTACK_MELEE
+SWEP.MissGesture = SWEP.HitGesture
+
+SWEP.HitDecal = "Manhackcut"
+SWEP.HitAnim = ACT_VM_MISSCENTER
 
 function SWEP:PlayHitSound()
-	self.Owner:EmitSound("weapons/melee/chainsaw_gore_0"..math.random(1,4)..".wav", 75, 80)
+	self:EmitSound("weapons/melee/chainsaw_gore_0"..math.random(1,4)..".wav", 72, math.Rand(85, 95))
+			self.IdleAnimation = CurTime() + self:SequenceDuration()
+
+	self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 end
 
 function SWEP:PlaySwingSound()
-	self.Owner:EmitSound("zombies/hate/chainsaw_attack_miss.wav", 75, 80)
-	self.ChainSound = CreateSound( self.Owner, "weapons/melee/chainsaw_idle.wav" ) 
+
+	self:EmitSound(Sound("zombies/hate/chainsaw_attack_miss.wav"),math.random(150,160),math.random(95,100))
+		self.IdleAnimation = CurTime() + self:SequenceDuration()
+
+	self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 end
 
+function SWEP:PlayHitFleshSound()
+	self:EmitSound("weapons/melee/chainsaw_gore_0"..math.random(1,4)..".wav")
+			self.IdleAnimation = CurTime() + self:SequenceDuration()
 
-function SWEP:OnMeleeHit(hitent, hitflesh, tr)
-	if not hitent:IsPlayer() then
-		self.MeleeDamage = 65	
-	end
+	self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 end
 
 function SWEP:PostOnMeleeHit(hitent, hitflesh, tr)
-	self.MeleeDamage = 65
-end
-
-
-function SWEP:StopSwinging()
-	self:SetSwingEndTime(0)
-end
-
-function SWEP:SecondaryAtack()
-	if SERVER then
-		self.Owner:EmitSound("ambient/machines/slicer1.wav" ) 
+	if hitent:IsValid() and hitent:IsPlayer() and hitent:Health() <= 0 then
+		-- Dismember closest limb to tr.HitPos
 	end
-end
+			self.IdleAnimation = CurTime() + self:SequenceDuration()
 
-
-function SWEP:Reload()
-	self:SecondaryAttack()
-	self.Owner:EmitSound("zombies/hate/sawrunner_alert10.wav") 
+	self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 end

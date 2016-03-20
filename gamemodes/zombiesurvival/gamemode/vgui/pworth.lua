@@ -2,6 +2,7 @@ hook.Add("SetWave", "CloseWorthOnWave1", function(wave)
 	if wave > 0 then
 		if pWorth and pWorth:Valid() then
 			pWorth:Close()
+			
 		end
 
 		hook.Remove("SetWave", "CloseWorthOnWave1")
@@ -192,7 +193,6 @@ function MakepWorth()
 		pWorth:Remove()
 		pWorth = nil
 	end
-
 	
 	local maxworth = GAMEMODE.StartingWorth
 	WorthRemaining = maxworth
@@ -208,12 +208,12 @@ function MakepWorth()
 	
 	local frame = vgui.Create("DFrame")
 	pWorth = frame
-
+	
 	frame:SetPos(wid2, hei2)
 	frame:SetSize(wid, hei)
 	
 	frame:SetDeleteOnClose(true)
-	frame:SetKeyboardInputEnabled(false)
+	frame:SetKeyboardInputEnabled(true)
 	frame:SetDraggable( false ) 
 	frame:ShowCloseButton( false ) 
 	frame:SetTitle("")
@@ -222,6 +222,7 @@ function MakepWorth()
 
 	local propertysheet = vgui.Create("DPropertySheet", frame)
 	propertysheet:StretchToParent(4, 24, 4, 50)
+	propertysheet:SetKeyboardInputEnabled(true)
 	propertysheet.Paint = function()
 	end
 

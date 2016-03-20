@@ -1,0 +1,9 @@
+"VertexLitGeneric"
+
+{
+	
+	"$bumpmap" "models/headhumper_leak1/backlegs_normal"
+	"$envmap" "env_cubemap"
+	"$normalmapalphaenvmapmask" 1
+	"$baseTexture" "Models/Zombie_Flassic/backlegs_CL"
+}

@@ -19,10 +19,12 @@ function SWEP:PostDrawViewModel(vm)
 	self.Owner:CallZombieFunction("PostPlayerDraw")
 end
 
---[[function SWEP:Think()
-	self.BaseClass.Think(self)
+function SWEP:Think()
+local pl = self.Owner
+	--self.BaseClass.Think(self)
 
-	if self.Owner:IsValid() and MySelf == self.Owner then
-		self:BarricadeGhostingThink()
-	end
-end]]
+	--if self.Owner:IsValid() and MySelf == self.Owner then
+		--self:BarricadeGhostingThink()
+	--end
+		pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(225,225,225,100))
+end

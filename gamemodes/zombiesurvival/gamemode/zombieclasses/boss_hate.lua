@@ -14,6 +14,7 @@ CLASS.FearPerInstance = 1
 CLASS.Health = 4000
 CLASS.SWEP = "weapon_zs_hateez"
 
+--CLASS.Model = Model("models/zombie/flassic.mdl")
 CLASS.Model = Model("models/player/zombie_classic.mdl")
 
 CLASS.Speed = 170
@@ -22,12 +23,9 @@ CLASS.Points = 200
 CLASS.PainSounds = {"zombies/hate/sawrunner_pain1.wav","zombies/hate/sawrunner_pain2.wav"}
 CLASS.DeathSounds = {"npc/zombie_poison/pz_die1.wav","npc/zombie_poison/pz_die2.wav"}
 
---CLASS.VoicePitch = 0.5
 
 CLASS.ModelScale = 1.4
 CLASS.Mass = 200
---CLASS.ViewOffset = Vector(0, 0, 75)
---CLASS.ViewOffsetDucked = Vector(0, 0, 48)
 
 CLASS.ViewOffset = Vector(0, 0, 84)
 CLASS.ViewOffsetDucked = Vector(0,0,38)
@@ -74,6 +72,8 @@ function CLASS:PlayerStepSoundTime(pl, iType, bWalking)
 	return 200
 end
 
+
+
 function CLASS:CalcMainActivity(pl, velocity)
 
 	if pl:WaterLevel() >= 3 then
@@ -116,7 +116,7 @@ end
 
 
 function CLASS:BuildBonePositions(pl)
-
+--[[
 	local status = pl:GiveStatus("overridemodel")
 		if status and status:IsValid() then
 			status:SetModel("models/Zombie/Poison.mdl")
@@ -142,17 +142,19 @@ function CLASS:BuildBonePositions(pl)
 			pl:ManipulateBoneAngles( bone, v.angle  )
 			pl:ManipulateBonePosition( bone, v.pos  )
 		end
+	]]--
 	
 end
 
 
-if SERVER then
+--if CLIENT then
 function CLASS:OnSpawned(pl)
+	
 		local status = pl:GiveStatus("overridemodel")
 		if status and status:IsValid() then
+		if status then
 			status:SetModel("models/Zombie/Poison.mdl")
 		end
-
 		pl:CreateAmbience("hateambience")
 	end
 end

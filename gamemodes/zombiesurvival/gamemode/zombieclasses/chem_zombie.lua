@@ -7,7 +7,7 @@ CLASS.TranslationName = "class_chem_zombie"
 CLASS.Description = "description_chem_zombie"
 CLASS.Help = "controls_chem_zombie"
 
-CLASS.Wave = 4
+CLASS.Wave = 3 / 4
 CLASS.Health = 120
 CLASS.SWEP = "weapon_zs_chemzombie"
 CLASS.Model = Model("models/Zombie/Poison.mdl")

@@ -17,7 +17,10 @@ include("cl_postprocess.lua")
 include("cl_legs.lua")
 include("cl_chatsounds.lua")
 include("cl_splitmessage.lua")
+include("cl_chatbox.lua")
+--include("cl_mapvote.lua")
 
+--include("mapvote.lua")
 
 include("boneanimlib_v2/cl_boneanimlib.lua")
 
@@ -38,7 +41,7 @@ include("vgui/poptions.lua")
 include("vgui/phelp.lua")
 include("vgui/pclassselect.lua")
 include("vgui/pweapons.lua")
-include("vgui/pendboard.lua")
+--include("vgui/pendboard.lua")
 include("vgui/pworth.lua")
 include("vgui/ppointshop.lua")
 include("vgui/dpingmeter.lua")
@@ -602,8 +605,11 @@ function GM:PlayBeats(teamid, fear)
 	if RealTime() <= NextBeat or not gamemode.Call("ShouldPlayBeats", teamid, fear) then return end
 
 	if LASTHUMAN and cv_ShouldPlayMusic:GetBool() then
-		MySelf:EmitSound(self.LastHumanSound, 0, 100, 150)
-		NextBeat = RealTime() + (self.SoundDuration[snd] or SoundDuration(self.LastHumanSound)) - 0.025
+		--MySelf:EmitSound(self.LastHumanSound, 0, 100, 150)
+	--	MySelf:EmitSound("mrgreen/music/lasthuman.ogg", 0, 100, 150)
+		surface.PlaySound( "mrgreen/music/lasthuman.ogg" )
+		--NextBeat = RealTime() + (self.SoundDuration[snd] or SoundDuration(self.LastHumanSound)) - 0.025
+		NextBeat = RealTime() + 100000
 		return
 	end
 	
@@ -908,10 +914,10 @@ function GM:RestartRound()
 	self.RoundEnded = nil
 	LASTHUMAN = nil
 
-	if pEndBoard and pEndBoard:Valid() then
-		pEndBoard:Remove()
-		pEndBoard = nil
-	end
+	--if pEndBoard and pEndBoard:Valid() then
+	--	pEndBoard:Remove()
+		--pEndBoard = nil
+	--end
 
 	self:InitPostEntity()
 
@@ -1505,9 +1511,14 @@ function GM:DrawCraftingEntity()
 	end
 end
 
-function GM:HUDPaintBackgroundEndRound()
+function GM:HUDPaintBackgroundEndRound(winner)
 	local w, h = ScrW(), ScrH()
 	local timleft = math.max(0, self.EndTime + self.EndGameTime - CurTime())
+	local pl = LocalPlayer()
+	local mostkills = -99999 local winrar for k,v in pairs(player.GetAll()) do if v:Frags() > mostkills then mostkills = v:Frags() winrar = v --End round for most kills calculation.
+	end 
+	end --Bodge
+	local localwin = winner == TEAM_HUMAN and LocalPlayer():Team() == winner
 
 	if timleft <= 0 then
 		draw_SimpleText(translate.Get("loading"), "ZSHUDFont", w * 0.5, h * 0.8, COLOR_WHITE, TEXT_ALIGN_CENTER)
@@ -1521,7 +1532,18 @@ function GM:HUDPaintBackgroundEndRound()
 	surface.SetDrawColor(255, 255, 255, 255 )
 	surface.DrawTexturedRect(w * 0.3215, h * 0.22, w * 0.35, h * 0.6)
 	
+	--W.I.P
+		draw.SimpleText( "You Have Lost", "ZSHUDFont2", w * 0.5, h * 0.25, Color( 255,0,0,255), TEXT_ALIGN_CENTER ) 
+		draw.SimpleText( "Your Squad Has Been Wiped Out", "ZSHUDFont", w * 0.5, h * 0.29, Color( 255,0,0,255), TEXT_ALIGN_CENTER )  
+		draw.SimpleText( "The Undead Rule The World", "ZSHUDFont", w * 0.5, h * 0.31, Color( 255,0,0,255), TEXT_ALIGN_CENTER )  
+	
+		draw.SimpleText( "Honorable Mentions", "ZSHUDFont", w * 0.5, h * 0.46, Color( 255,0,0,255), TEXT_ALIGN_CENTER ) --Does the same as this lol ^
+		draw.SimpleText( " "..winrar:GetName().." Was the horniest player!", "ZSHUDFont", w * 0.5, h * 0.5, Color( 255,255,255,255), TEXT_ALIGN_CENTER ) 
+	--	draw.SimpleText( "You killed.. "..LocalPlayer():Frags().."  Zombies! ", "ZSHUDFont", ScrW() * 0.50, ScrH() * 0.52, Color( 255,255,255,255), TEXT_ALIGN_CENTER )
+		--draw.SimpleText( "You Died.. "..LocalPlayer():Deaths().. "  Times! ", "ZSHUDFont", ScrW() * 0.50, ScrH() * 0.54, Color( 255,255,255,255), TEXT_ALIGN_CENTER )
+
 end
+
 
 local function EndRoundCalcView(pl, origin, angles, fov, znear, zfar)
 	if GAMEMODE.EndTime and CurTime() < GAMEMODE.EndTime + 5 then
@@ -1565,13 +1587,13 @@ function GM:EndRound(winner, nextmap)
 
 	FindMetaTable("Player").GetMeleeFilter = EndRoundGetMeleeFilter
 
-	self.HUDPaint = self.HumanHUD2
+	
 	self.HUDPaintBackground = self.HUDPaintBackgroundEndRound
 
-	if winner == TEAM_UNDEAD and GetGlobalBool("endcamera", true) then
-		hook.Add("CalcView", "EndRoundCalcView", EndRoundCalcView)
-		hook.Add("ShouldDrawLocalPlayer", "EndRoundShouldDrawLocalPlayer", EndRoundShouldDrawLocalPlayer)
-	end
+--	if winner == TEAM_UNDEAD and GetGlobalBool("endcamera", true) then
+	--	hook.Add("CalcView", "EndRoundCalcView", EndRoundCalcView)
+		--hook.Add("ShouldDrawLocalPlayer", "EndRoundShouldDrawLocalPlayer", EndRoundShouldDrawLocalPlayer)
+	--end
 
 	local dvar = winner == TEAM_UNDEAD and self.AllLoseSound or self.HumanWinSound
 	local snd = GetGlobalString(winner == TEAM_UNDEAD and "losemusic" or "winmusic", dvar)
@@ -1584,9 +1606,9 @@ function GM:EndRound(winner, nextmap)
 		timer.Simple(0.5, function() surface_PlaySound(snd) end)
 	end
 
-		if not (pEndBoard and pEndBoard:IsValid()) then
-			MakepEndBoard(winner)
-		end
+		--if not (pEndBoard and pEndBoard:IsValid()) then
+			--MakepEndBoard(winner)
+		--end
 end
 
 function GM:WeaponDeployed(pl, wep)

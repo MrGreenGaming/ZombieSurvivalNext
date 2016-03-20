@@ -33,6 +33,26 @@ SWEP.IronSightsPos = Vector(0, 0, 0)
 
 SWEP.EmptyWhenPurchased = true
 
+if CLIENT then
+	
+	SWEP.DrawCrosshair = false
+	SWEP.BounceWeaponIcon = false
+	SWEP.DrawWeaponInfoBox = false
+	SWEP.CurFOVMod = 0
+	SWEP.DrawAmmo = true
+	SWEP.ViewbobEnabled = true
+	SWEP.ViewbobIntensity = 1
+	
+	SWEP.ViewModelFOV	= 50
+	SWEP.ViewModelFlip	= false
+	SWEP.ViewModel		= ""
+
+	SWEP.BlendPos = Vector(0, 0, 0)
+	SWEP.BlendAng = Vector(0, 0, 0)
+	SWEP.OldDelta = Angle(0, 0, 0)
+	SWEP.AngleDelta = Angle(0, 0, 0)
+end
+
 function SWEP:Initialize()
 	if not self:IsValid() then return end --???
 
@@ -245,7 +265,7 @@ function SWEP:ShootBullets(dmg, numbul, cone)
 
 	self:StartBulletKnockback()
 	owner:FireBullets({Num = numbul, Src = owner:GetShootPos(), Dir = owner:GetAimVector(), Spread = Vector(cone, cone, 0), Tracer = 1, TracerName = self.TracerName, Force = dmg * 0.1, Damage = dmg, Callback = self.BulletCallback})
-	self:DoBulletKnockback(self.Primary.KnockbackScale * 0.05)
+	self:DoBulletKnockback(self.Primary.KnockbackScale * 0)
 	self:EndBulletKnockback()
 end
 

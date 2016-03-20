@@ -15,8 +15,8 @@ SWEP.WorldModel = "models/weapons/w_crowbar.mdl"
 
 
 function SWEP:Initialize()
-local pl = self.Owner
-pl:SetRenderMode(RENDERMODE_NONE) pl:SetColor(Color(225,225,225,1))
+--local pl = self.Owner
+--pl:SetRenderMode(RENDERMODE_NONE) pl:SetColor(Color(225,225,225,1))
 	self:HideWorldModel()
 end
 
@@ -40,12 +40,16 @@ end
 function SWEP:PlayHitSound()
 local pl = self.Owner
 	self.Owner:EmitSound("ambient/machines/slicer"..math.random(4)..".wav", 90, 80)
+		pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(225,225,225,180))
+	timer.Simple(0.5, function()
+		pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(225,225,225,50))
+	end)
 end
 
 function SWEP:PlayMissSound()
 local pl = self.Owner
 	self.Owner:EmitSound("npc/zombie/claw_miss"..math.random(1, 2)..".wav", 90, 80)
-	pl:SetRenderMode(RENDERMODE_NONE) pl:SetColor(Color(225,225,225,1))
+	pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(225,225,225,50))
 end
 
 function SWEP:PlayAttackSound()
