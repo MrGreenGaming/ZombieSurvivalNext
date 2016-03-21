@@ -508,7 +508,7 @@ end
 local function DropWeapon()
 	RunConsoleCommand("zsdropweapon")
 end
---[[
+
 function GM:ShowSpare1(pl)
 	if pl:Team() == TEAM_UNDEAD then
 		if self:ShouldUseAlternateDynamicSpawn() then
@@ -523,7 +523,7 @@ function GM:ShowSpare1(pl)
 		--pl:DropWeapon(pl:GetActiveWeapon())
 		--RunConsoleCommand("zsdropweapon")
 	end
-end]]--
+end
 
 function GM:ShowSpare2(pl)
 	pl:SendLua("MakepOptions()")
