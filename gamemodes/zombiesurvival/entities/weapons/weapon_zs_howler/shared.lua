@@ -124,7 +124,7 @@ function SWEP:PrimaryAttack()
 		local fHitPercentage = math.Clamp(1 - (fDistance / self.Secondary.Reach), 0, 1)
 															
 		--Inflict damage
-		local fDamage = math.Round(15 * fHitPercentage, 0, 10)
+		local fDamage = math.Round(11 * fHitPercentage, 0, 10)
 		if fDamage > 0 then
 			v:TakeDamage(fDamage, self.Owner, self)
 		end
@@ -239,7 +239,7 @@ function SWEP:SecondaryAttack()
 		local fHitPercentage = math.Clamp(1 - (fDistance / self.Secondary.Reach), 0, 1)
 															
 		--Inflict damage
-		local fDamage = math.Round(15 * fHitPercentage, 0, 10)
+		local fDamage = math.Round(12 * fHitPercentage, 0, 10)
 		if fDamage > 0 then
 			v:TakeDamage(fDamage, self.Owner, self)
 		end

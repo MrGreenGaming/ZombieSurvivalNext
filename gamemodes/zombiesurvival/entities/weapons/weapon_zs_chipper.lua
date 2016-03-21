@@ -8,7 +8,7 @@ if CLIENT then
 	SWEP.Author	= "Pufulet, Ported by Duby"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 0
-	--SWEP.IconLetter = "k"
+
 	
 	SWEP.ViewModelFlip = false
 	
@@ -45,7 +45,7 @@ SWEP.WElements = {
 		["barrel+"] = { type = "Model", model = "models/props_docks/dock03_pole01a_256.mdl", bone = "v_weapon.M3_PARENT", rel = "", pos = Vector(0, -4.5, -9.87), angle = Angle(0, 0, 180), size = Vector(0.059, 0.059, 0.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}	
 	SWEP.ViewModelFOV = 60
-	killicon.AddFont("weapon_zs_chipper", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
+--	killicon.AddFont("weapon_zs_chipper", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
 end
 
 SWEP.Base				= "weapon_zs_base"

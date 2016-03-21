@@ -495,3 +495,5 @@ GM.DeathSound = Sound("music/stingers/HL1_stinger_song28.mp3")
 
 -- Rave sound; people will hate me for making this :')
 RAVESOUND = "mrgreen/ravebreak_fix.mp3"
+
+RTD_TIME = 10

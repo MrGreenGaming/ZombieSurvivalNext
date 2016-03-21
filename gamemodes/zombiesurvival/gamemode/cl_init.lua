@@ -18,8 +18,8 @@ include("cl_legs.lua")
 include("cl_chatsounds.lua")
 include("cl_splitmessage.lua")
 include("cl_chatbox.lua")
---include("cl_mapvote.lua")
 
+--include("cl_mapvote.lua")
 --include("mapvote.lua")
 
 include("boneanimlib_v2/cl_boneanimlib.lua")
