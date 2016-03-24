@@ -74,6 +74,11 @@ function CLASS:UpdateAnimation(pl, velocity, maxseqgroundspeed)
 	return true
 end
 
+function CLASS:OnKilled(pl, attacker, inflictor, suicide, headshot, dmginfo, assister)
+	pl:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(225,225,225,225))
+	return true
+end
+
 function CLASS:DoAnimationEvent(pl, event, data)
 	if event == PLAYERANIMEVENT_ATTACK_PRIMARY then
 		pl:AnimRestartGesture(GESTURE_SLOT_ATTACK_AND_RELOAD, ACT_GMOD_GESTURE_RANGE_ZOMBIE, true)
