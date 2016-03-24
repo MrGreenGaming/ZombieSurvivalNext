@@ -172,9 +172,9 @@ function SWEP:PrimaryAttack()
 			local dist = screampos:Distance(entearpos)
 			if dist <= 92 and TrueVisible(entearpos, screampos) then
 				local power = (92 / dist - 1) * 2
-				viewpunch(ent, power)
+				--viewpunch(ent, power)
 				for i=1, 5 do
-					timer.Simple(0.15 * i, function() viewpunch(ent, power - i * 0.125) end)
+				--	timer.Simple(0.15 * i, function() viewpunch(ent, power - i * 0.125) end)
 				end
 			end
 		end
@@ -292,9 +292,9 @@ function SWEP:SecondaryAttack()
 			local dist = screampos:Distance(entearpos)
 			if dist <= 92 and TrueVisible(entearpos, screampos) then
 				local power = (92 / dist - 1) * 2
-				viewpunch(ent, power)
+				--viewpunch(ent, power)
 				for i=1, 5 do
-					timer.Simple(0.15 * i, function() viewpunch(ent, power - i * 0.125) end)
+					--timer.Simple(0.15 * i, function() viewpunch(ent, power - i * 0.125) end)
 				end
 			end
 		end

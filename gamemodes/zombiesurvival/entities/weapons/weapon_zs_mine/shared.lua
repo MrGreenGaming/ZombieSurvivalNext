@@ -4,7 +4,7 @@
 AddCSLuaFile()
 
 SWEP.HoldType = "melee"
-
+--Ported by Duby
 if CLIENT then
 	SWEP.PrintName = "Explosive"
 	SWEP.Slot = 4
@@ -17,13 +17,20 @@ if CLIENT then
 	SWEP.UseHL2Bonemerge = false
 	SWEP.ScaleDownLeftHand = true
 	SWEP.ScaleDownRightHand = true
+
+	SWEP.ViewModelBoneMods = {
+		["Bip01_R_Finger0"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(2.444, 15.593, -0.556) },
+		["Slam_base"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+		["Bip01_R_Hand"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(12.536, 6.918, 32.043) },
+		["Bip01_R_Forearm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -0.625, 17.955) }
+	}
+
+	SWEP.VElements = {
+		["exp"] = { type = "Model", model = "models/Weapons/w_package.mdl", bone = "Slam_base", rel = "", pos = Vector(-7.4, -66.6, 22.156), angle = Angle(-43.644, -16.65, -113.362), size = Vector(0.675, 0.675, 0.675), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+
+	SWEP.WElements = {} 
 	
-	-- killicon.AddFont( "weapon_zs_mine", "CSKillIcons", "I", Color(255, 255, 255, 255 ) )
-	killicon.Add("weapon_zs_mine", "HUD/scoreboard_bomb", Color(255, 255, 255, 255 ) )
-	
-	--function SWEP:DrawHUD()
-	--	MeleeWeaponDrawHUD()
-	--end
 end
 
 function SWEP:InitializeClientsideModels()
@@ -45,7 +52,7 @@ end
 
 ActualMines = ActualMines or {}
 
-SWEP.Base				= "weapon_zs_base_dummy"
+SWEP.Base				= "weapon_zs_base" 
 
 ------------------------------------------------------------------------------------------------------
 SWEP.Author			= "" -- Original code by Amps
@@ -58,7 +65,6 @@ SWEP.ViewModelFlip	= false
 SWEP.Spawnable			= false
 SWEP.AdminSpawnable		= false
 ------------------------------------------------------------------------------------------------------
---SWEP.ViewModel      = Model ( "models/Weapons/v_slam.mdl")
 SWEP.ViewModel      = Model ( "models/Weapons/c_slam.mdl")
 SWEP.WorldModel   = Model ( "models/Weapons/w_package.mdl" )
 SWEP.UseHands = true
@@ -71,7 +77,7 @@ SWEP.Primary.Cone			= 0
 SWEP.Primary.ClipSize		= 10
 SWEP.Primary.DefaultClip	= 3
 SWEP.Primary.Automatic   	= true
-SWEP.Primary.Ammo         	= "slam"	
+SWEP.Primary.Ammo         	= "sniperpenetratedround"	
 ------------------------------------------------------------------------------------------------------
 SWEP.Secondary.Delay		= 0.04
 SWEP.Secondary.Recoil		= 0
@@ -115,7 +121,6 @@ local owner = self.Owner
 	
 	trace.start = self.Owner:GetShootPos()
 	trace.endpos = self.Owner:GetShootPos() + self.Owner:GetAimVector() * 64
-	-- trace.mask = MASK_NPCWORLDSTATIC
 	trace.filter = ents.GetAll() -- Ignore everything but the world.
 	local tr = util.TraceLine( trace )
 	-- 
@@ -127,54 +132,34 @@ local owner = self.Owner
 	end
 	
 
-		if owner:GetPerk("_mine") then
-			if mymines > 10 then
-		if SERVER then
-			self.Owner:Message("You can't place more than 10 mines per ground",1,"white")
-		end
-		return
-	end
-	
-		else	
-			
+
 	if mymines > 5 then
 		if SERVER then
-			self.Owner:Message("You can't place more than 5 mines per ground",1,"white")
+			owner:ChatPrint("You can't place more than 5 mines per ground",1,"white")
 		end
 		return
 	end
-	
-	end
+
 	
 	
 	for k,v in pairs ( ActualMines ) do-- ents.FindInBox (Vector (pos.x - 100,pos.y - 100,pos.z - 100), Vector (pos.x + 100, pos.y + 100, pos.z + 100))
 		if IsValid( v ) and tr.HitPos:Distance(v:GetPos()) <= 50 then
-			-- if v:GetClass() == "mine" then
 				mines = mines + 1
-			-- end
 		end
 	end
 		
 	if mines >= 1 then
 		if SERVER then 
-			self.Owner:Message("You must place the mine more away from other mines",1)
+			owner:ChatPrint("You must place the mine more away from other mines",1)
 		end
 		
 		return
 	end
-	
-	--[[ for k,v in pairs (ents.FindInBox (Vector (pos.x - 150,pos.y - 150,pos.z - 150), Vector (pos.x + 150, pos.y + 150, pos.z + 150)) ) do
-	 	if IsValid( v ) then
-			if v.IsBarricade and v.Nails then
-				 cades = cades + 1
-			end
-		end
-	 end]]--
-	
+
 	
 	if cades >= 1 then
 		if SERVER then 
-			self.Owner:Message("You must place the mine more away from barricades",1)
+			owner:ChatPrint("You must place the mine more away from barricades",1)
 		end
 		
 		return
@@ -184,7 +169,7 @@ local owner = self.Owner
 	-- /animation goes here
 	-- self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 
-	-- local time = self:SequenceDuration()
+
 	self.NextPlant = ( CurTime() + 1 );
 
 		if not IsValid ( self.Owner ) then return end 
@@ -201,18 +186,13 @@ local owner = self.Owner
 		if ( tr.Hit ) then	
 		-- Shared animation
 		self.Owner:SetAnimation( PLAYER_ATTACK1 )
-		-- self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
-		--self.Weapon:SetSequence("throw_throw"..math.random(1,2))
+
 		self.Weapon:SendWeaponAnim( ACT_SLAM_THROW_THROW )
-		--self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
+
 		timer.Simple(self.Weapon:SequenceDuration(),function() 
 			if self and self:IsValid() and self.Owner and self.Owner:GetActiveWeapon() == self then 
 				if 0 < self:Clip1() then 
-					--if CLIENT then
-					--	local vm = self.Owner:GetViewModel()
-					--	if not IsValid(vm) then return end
-					--	vm:SetSequence("detonator_draw")
-					--end
+
 					self.Weapon:SendWeaponAnim( ACT_SLAM_THROW_DRAW )
 				else
 					self.Weapon:SendWeaponAnim( ACT_SLAM_DETONATOR_DRAW )
@@ -225,7 +205,6 @@ local owner = self.Owner
 			
 				if self.Owner:IsPlayer() then
 					--  logging
-					-- log.PlayerAction( self.Owner, "plant_mine")
 				end
 				
 				ent:SetPos(tr.HitPos)		
@@ -267,12 +246,7 @@ function SWEP:SecondaryAttack()
 		end
 	
 	end
-	-- if CLIENT then
-	-- 	local vm = self.Owner:GetViewModel()
-	-- 	if not IsValid(vm) then return end
-	-- 		vm:SetSequence("detonator_detonate")
-	-- end
-	
+
 end 
 
 

@@ -1,3 +1,6 @@
+-- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
+-- See LICENSE.txt for license information
+
 -- Sometimes persistent ones don't get created.
 -- Sometimes persistent ones don't get created.
 local dummy = CreateClientConVar("_zs_dummyconvar", 1, false, false)

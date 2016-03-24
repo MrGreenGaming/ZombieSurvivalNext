@@ -7,27 +7,6 @@ if not GM.Arena then return end
 
 table.insert(GM.CleanupFilter, "func_brush")
 table.insert(GM.CleanupFilter, "env_global")
---[[
--- We need to fix these important entities.
-hook.Add("EntityKeyValue", "arena", function(ent, key, value)
-	-- The teamid for Terrorist and Counter Terrorist is different than Zombie and Human in ZS.
-	if ent:GetClass() == "filter_activator_team" and not ent.ZEFix then
-		if string.lower(key) == "filterteam" then
-			if value == "2" then
-				ent.ZEFix = tostring(TEAM_UNDEAD)
-			elseif value == "3" then
-				ent.ZEFix = tostring(TEAM_HUMAN)
-			end
-		end
-
-		return true
-	end
-
-	-- Some maps have brushes that regenerate or set health to dumb values. We don't want them. Although this can break maps I can't think of a way to remove the output instead.
-	if (ent:GetClass() == "trigger_multiple" or ent:GetClass() == "trigger_once") and string.find(string.lower(value), "%!.*%,.+%,health") then
-		ent.ZEDelete = true
-	end
-end)]]--
 
 hook.Add("InitPostEntityMap", "arena", function(fromze)
 	for _, ent in pairs(ents.FindByClass("filter_activator_team")) do
@@ -42,10 +21,6 @@ hook.Add("InitPostEntityMap", "arena", function(fromze)
 		end
 	end
 
-	-- Forced dynamic spawning.
-	-- It'd be pretty damn boring for the zombies with it off since there's only one spawn usually.
-	--GAMEMODE.DynamicSpawning = true
-
 	if not fromze then
 		GAMEMODE:SetRedeemBrains(0)
 		if GAMEMODE.CurrentRound <= 1 then
@@ -57,48 +32,13 @@ hook.Add("InitPostEntityMap", "arena", function(fromze)
 end)
 
 hook.Add("PlayerSpawn", "arena", function(pl)
-	--timer.Simple(0, function()
-		--if not pl:IsValid() then return end
 
-	--end)
 end)
 
--- In ze_ the winning condition is when all players on the zombie team are dead at the exact same time.
--- Usually set on by a trigger_hurt that takes over the entire map.
--- So if all living zombies get killed at the same time from a trigger_hurt that did massive damage, we end the round in favor of the humans.
--- But in order to do that we have to force zombies to spawn. Which is shitty.
---[[
-hook.Add("OnWaveStateChanged", "zombieescape", function()
-	if GAMEMODE:GetWave() == 1 and GAMEMODE:GetWaveActive() then
-		for _, pl in pairs(player.GetAll()) do
-			pl:Freeze(false)
-			pl:GodDisable()
-		end
-	end
-end)]]--
 
 local CheckTime
 local NextDamage = 0
 hook.Add("Think", "arena", function()
-	--[[if GAMEMODE:GetWave() == 0 then
-
-			game.CleanUpMap(false, GAMEMODE.CleanupFilter)
-			gamemode.Call("InitPostEntityMap", true)
-
-			for _, pl in pairs(team.GetPlayers(TEAM_HUMAN)) do
-				pl.ZEFreeze = nil
-				pl:Freeze(false)
-				pl:GodDisable()
-				local ent = GAMEMODE:PlayerSelectSpawn(pl)
-				if IsValid(ent) then
-					pl:SetPos(ent:GetPos())
-				end
-			end]]--
-
-
-	--	return
-	--end
-
 
 	if CurTime() >= GAMEMODE:GetWaveStart() + GAMEMODE.ZE_TimeLimit and CurTime() >= NextDamage then
 		NextDamage = CurTime() + 1

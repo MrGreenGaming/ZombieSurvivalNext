@@ -1,6 +1,8 @@
 SWEP.ViewModel = "models/weapons/v_pistol.mdl"
 SWEP.WorldModel = Model("models/weapons/w_c4_planted.mdl")
 
+SWEP.Base = "weapon_zs_base"
+
 SWEP.AmmoIfHas = true
 
 SWEP.Primary.ClipSize = 3

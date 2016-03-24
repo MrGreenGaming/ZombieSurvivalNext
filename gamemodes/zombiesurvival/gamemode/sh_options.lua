@@ -1,17 +1,17 @@
-
-GM.ArenaModeWeapons = {
+-- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
+-- See LICENSE.txt for license information
+GM.ArenaModeWeapons = { --Arena Mode weapons
 	"weapon_zs_python",
 	"weapon_zs_boomerstick",
 	"weapon_zs_slugrifle",
 	"weapon_zs_ender",
 	"weapon_zs_sg552",
 	"weapon_zs_bulletstorm",
-	"weapon_zs_sg550",
 	"weapon_zs_crackler",
 	"weapon_zs_uzi",
 	"weapon_zs_deagle",
 	"weapon_zs_m249",
-	"weapon_zs_python", --Add a few doubles to lessen the amounts of M249 spawners! 
+	"weapon_zs_python", 
 	"weapon_zs_crackler",
 	"weapon_zs_uzi",
 	"weapon_zs_deagle"
@@ -33,7 +33,7 @@ GM.ZombieEscapeWeapons = {
 GM.CartFile = "zscarts.txt"
 
 
-ITEMCAT_CLASS = 1
+ITEMCAT_CLASS = 1 --Human classes
 ITEMCAT_GUNS = 2
 ITEMCAT_GUNS3 = 3
 ITEMCAT_GUNS2 = 4
@@ -153,10 +153,10 @@ function(pl) pl:SetModel( table.Random( {
 	"models/player/group03/male_07.mdl"
 } ) ) 
 	
-pl:Give("weapon_zs_fiveseven")
-pl:Give("weapon_zs_medicalkit")
-pl:Give("weapon_zs_plank")
-pl:ChatPrint("You're a Medic! Heal Your Teammates!")
+	pl:Give("weapon_zs_fiveseven")
+	pl:Give("weapon_zs_medicalkit")
+	pl:Give("weapon_zs_plank")
+	pl:ChatPrint("You're a Medic! Heal Your Teammates!")
 
 end, "models/healthvial.mdl")
 
@@ -169,12 +169,10 @@ function(pl) pl:SetModel( table.Random( {
 	"models/player/combine_soldier.mdl",
 	"models/player/combine_soldier_prisonguard.mdl",
 } ) ) 
- --Normal Berserker
 	pl:Give("weapon_zs_dualclassics")
 	pl:Give("weapon_zs_swissarmyknife")
 	pl:Give("weapon_zs_grenade")
 	pl:ChatPrint("You're a Commando, kill and destroy!")
-
 
 end, "models/healthvial.mdl")
 
@@ -188,12 +186,12 @@ function(pl) pl:SetModel( table.Random( {
 	"models/player/kleiner.mdl",
 } ) )
 
-engweapon = {"weapon_zs_barricadekit","weapon_zs_gunturret"}
-pl:Give("weapon_zs_pulsepistol")
-pl:Give("weapon_zs_fryingpan")
-pl:Give(table.Random(engweapon))
-pl:AddPoints(20)
-pl:ChatPrint("You're an Engineer, Blow shit up!")
+	engweapon = {"weapon_zs_barricadekit","weapon_zs_gunturret","weapon_zs_mine"}
+	pl:Give("weapon_zs_pulsepistol")
+	pl:Give("weapon_zs_fryingpan")
+	pl:Give(table.Random(engweapon))
+	pl:AddPoints(20)
+	pl:ChatPrint("You're an Engineer, Blow shit up!")
 
 end, "models/healthvial.mdl")
 
@@ -243,11 +241,10 @@ function(pl) pl:SetModel( table.Random( {
 	"models/player/riot.mdl",
 } ) ) 
 
-supweapon = {"weapon_zs_arsenalcrate"}
-pl:Give("weapon_zs_hammer")
-pl:Give("weapon_zs_battleaxe")
-pl:Give(table.Random(supweapon))
-pl:ChatPrint("You're a Support, Build barricades or fuck off!")
+	pl:Give("weapon_zs_hammer")
+	pl:Give("weapon_zs_arsenalcrate")
+	pl:Give("weapon_zs_battleaxe")
+	pl:ChatPrint("You're a Support, Build barricades or fuck off!")
 
 end, "models/healthvial.mdl")
 
@@ -328,14 +325,15 @@ GM:AddPointShopItem("pulseammo", "Pulse ammo", nil, ITEMCAT_AMMO, 6, nil, functi
 --[Other]
 
 GM:AddPointShopItem("nail", "Nail", "It's just one nail.", ITEMCAT_OTHER, 5, nil, function(pl) pl:GiveAmmo(1, "GaussEnergy", true) end, "models/crossbow_bolt.mdl").NoClassicMode = true
-GM:AddPointShopItem("nail2", "Pack of Nail's", "It's just nails x5.", ITEMCAT_OTHER, 25, nil, function(pl) pl:GiveAmmo(5, "GaussEnergy", true) end, "models/crossbow_bolt.mdl").NoClassicMode = true
 GM:AddPointShopItem("50mkit", "50 Medical Kit power", "50 extra power for the Medical Kit.", ITEMCAT_OTHER, 20, nil, function(pl) pl:GiveAmmo(50, "Battery", true) end, "models/healthvial.mdl")
+GM:AddPointShopItem("aegisboard", "Aegis Board", "Aegis Board", ITEMCAT_OTHER, 20, nil, function(pl) pl:GiveAmmo(1, "SniperRound", true) end, "")
+GM:AddPointShopItem("c4", "C4", "C4", ITEMCAT_OTHER, 20, nil, function(pl) pl:GiveAmmo(1, "sniperpenetratedround", true) end, "")
+GM:AddPointShopItem("grenade", "Grenade", nil, ITEMCAT_TOOLS, 22, "weapon_zs_grenade")
+GM:AddPointShopItem("nail2", "Pack of Nail's", "It's just nails x5.", ITEMCAT_OTHER, 25, nil, function(pl) pl:GiveAmmo(5, "GaussEnergy", true) end, "models/crossbow_bolt.mdl").NoClassicMode = true
 GM:AddPointShopItem("spotlamp", "Spot Lamp", nil, ITEMCAT_OTHER, 25, "weapon_zs_lamp")
-GM:AddPointShopItem("aegisboard", "Aegis Board", "Aegis Board", ITEMCAT_OTHER, 20, nil, function(pl) pl:GiveAmmo(1, "SniperRound", true) end, "models/healthvial.mdl")
-GM:AddPointShopItem("vodka", "Bottle'ol Vodka", nil, ITEMCAT_OTHER, 40, "weapon_zs_vodka")
+GM:AddPointShopItem("vodka", "Bottle'ol Vodka", nil, ITEMCAT_OTHER, 60, "weapon_zs_vodka")
 GM:AddPointShopItem("Stoned Potato", "Stoned Potato +[SP]+", nil, ITEMCAT_OTHER, 2000, "")
 
-GM:AddPointShopItem("grenade", "Grenade", nil, ITEMCAT_TOOLS, 22, "weapon_zs_grenade")
 GM:AddPointShopItem("torch", "Blow Torch", nil, ITEMCAT_TOOLS, 35, "weapon_zs_torch")
 GM:AddPointShopItem("turret", "Turret", nil, ITEMCAT_TOOLS, 30, "weapon_zs_gunturret")
 GM:AddPointShopItem("junkpack", "Junk Pack", nil, ITEMCAT_TOOLS, 45, "weapon_zs_boardpack")
