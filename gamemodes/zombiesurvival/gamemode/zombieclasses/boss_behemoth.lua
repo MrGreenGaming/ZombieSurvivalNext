@@ -105,7 +105,7 @@ end
 
 if SERVER then
 	function CLASS:OnSpawned(pl)
-		pl:CreateAmbience("nightmareambience")
+		--pl:CreateAmbience("nightmareambience")
 	end
 end
 

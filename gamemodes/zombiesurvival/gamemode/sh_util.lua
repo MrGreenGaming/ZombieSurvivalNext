@@ -330,3 +330,41 @@ function VisibleToHumans ( vPos, mFilter )
 	
 	return bCanSeeMe
 end
+
+--[==[---------------------------------------------------------
+        Returns the team name (string) of a player
+---------------------------------------------------------]==]
+function GetStringTeam ( pl )
+	if not IsValid ( pl ) then return end
+	if not pl:IsPlayer() then return end
+	
+	local Team, String = pl:Team(), "TEAM_HUMAN"
+	if Team == TEAM_UNDEAD then String = "TEAM_UNDEAD" end
+	
+	return String
+end
+
+--[==[---------------------------------------------------------
+    Get a player by its name or fraction of the name
+---------------------------------------------------------]==]
+function GetPlayerByName( name )
+	if name == nil then return end
+	if name == "" then return -1 end
+
+	-- entity found, multiple found bool and string found
+	local found, multiple, foundString = nil, false
+	
+	-- run through the players
+	for k,v in pairs( player.GetAll() ) do
+		foundString = string.find( string.lower( v:GetName() ), string.lower( name ) )
+		if ( foundString ~= nil and multiple == false ) then
+			if ( found == nil ) then found = v else	multiple = true end
+		end	
+	end
+
+	-- Return -2 if found multiple or -1 if not found
+	if ( multiple == true ) then return -2 end
+	if ( found == nil or not found:IsValid() ) then return -1 end
+	
+	return found	
+end

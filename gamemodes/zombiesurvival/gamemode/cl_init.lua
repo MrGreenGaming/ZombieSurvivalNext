@@ -21,8 +21,9 @@ include("cl_legs.lua")
 include("cl_chatsounds.lua")
 include("cl_splitmessage.lua")
 include("cl_chatbox.lua")
+include("admin_mod/cl_admin.lua")
 
---include("cl_mapvote.lua")
+include("map_vote/cl_votemap.lua")
 --include("mapvote.lua")
 
 include("boneanimlib_v2/cl_boneanimlib.lua")
@@ -341,7 +342,7 @@ function GM:GetFogData()
 	self.FogBlue = fogb
 end
 
-local matAura = Material("models/debug/debugwhite")
+local matAura = Material("models/--Debug/--Debugwhite")
 local skip = false
 function GM.PostPlayerDrawMedical(pl)
 	if not skip and pl:Team() == TEAM_HUMAN and pl ~= LocalPlayer() then
@@ -608,10 +609,7 @@ function GM:PlayBeats(teamid, fear)
 	if RealTime() <= NextBeat or not gamemode.Call("ShouldPlayBeats", teamid, fear) then return end
 
 	if LASTHUMAN and cv_ShouldPlayMusic:GetBool() then
-		--MySelf:EmitSound(self.LastHumanSound, 0, 100, 150)
-	--	MySelf:EmitSound("mrgreen/music/lasthuman.ogg", 0, 100, 150)
 		surface.PlaySound( "mrgreen/music/lasthuman.ogg" )
-		--NextBeat = RealTime() + (self.SoundDuration[snd] or SoundDuration(self.LastHumanSound)) - 0.025
 		NextBeat = RealTime() + 100000
 		return
 	end
@@ -735,7 +733,8 @@ function GM:HumanHUD2(screenscale)
 	
 	draw.SimpleText(HP, "ZSHUDFontBig",w * 0.05, h * 0.89 , COLOR_GRAY, TEXT_ALIGN_CENTER)
 	draw.SimpleText(sp, "ZSHUDFont",230 * X_MULTIPLIER, 1030 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
-	
+
+
 end
 
 function GM:ZombieHUD2(screenscale)
@@ -1433,7 +1432,7 @@ end
 
 local undomodelblend = false
 local undozombievision = false
-local matWhite = Material("models/debug/debugwhite")
+local matWhite = Material("models/--Debug/--Debugwhite")
 function GM:_PrePlayerDraw(pl)
 	if pl:CallZombieFunction("PrePlayerDraw") then return true end
 
@@ -1514,6 +1513,50 @@ function GM:DrawCraftingEntity()
 	end
 end
 
+local function GetHealthiestPlayers()
+	local tblWinners = {} -- initalize a list of winners
+	tblWinners.intMin = 0 -- set minimum requirement for health
+
+
+	for _, ply in pairs( player.GetAll() ) do
+		if ply:Health() >= tblWinners.intMin then
+			if ply:Health() > tblWinners.intMin then -- recheck the table when player's health is larger
+				for intSteamID, lply in pairs( tblWinners ) do
+					if intSteamID ~= "intMin" and lply:Health() < ply:Health() then
+						tblWinners[ intSteamID ] = nil
+					end
+				end
+			end
+			tblWinners.intMin = ply:Health()
+			tblWinners[ ply:SteamID() ] = ply
+		end
+	end
+
+
+	tblWinners.intMin = nil -- We don't need this data
+
+
+	return tblWinners
+end
+
+local function tophealth(pl)
+				
+local plys = player.GetAll()
+local maxhp = 0
+
+	for _, pl in pairs(plys) do
+		maxhp = math.max( maxhp, pl:Health() )
+	end
+
+local winners = {}
+
+	for _, pl in pairs(plys) do
+		if pl:Health() == maxhp then table.insert(winners, pl) end
+	end
+
+	return winners
+end
+
 function GM:HUDPaintBackgroundEndRound(winner)
 	local w, h = ScrW(), ScrH()
 	local timleft = math.max(0, self.EndTime + self.EndGameTime - CurTime())
@@ -1521,7 +1564,7 @@ function GM:HUDPaintBackgroundEndRound(winner)
 	local mostkills = -99999 local winrar for k,v in pairs(player.GetAll()) do if v:Frags() > mostkills then mostkills = v:Frags() winrar = v --End round for most kills calculation.
 	end 
 	end --Bodge
-	local localwin = winner == TEAM_HUMAN and LocalPlayer():Team() == winner
+
 
 	if timleft <= 0 then
 		draw_SimpleText(translate.Get("loading"), "ZSHUDFont", w * 0.5, h * 0.8, COLOR_WHITE, TEXT_ALIGN_CENTER)
@@ -1530,20 +1573,49 @@ function GM:HUDPaintBackgroundEndRound(winner)
 	end
 	
 	local hudsplat2 = Material("hud/hud_endgame.png") --Game over screen
+	local hudsplat3 = Material("hud/hud_endgame_2.png") --Game over screen
 	
 	surface.SetMaterial(hudsplat2)
 	surface.SetDrawColor(255, 255, 255, 255 )
 	surface.DrawTexturedRect(w * 0.3215, h * 0.22, w * 0.35, h * 0.6)
+
+	surface.SetMaterial(hudsplat3)
+	surface.SetDrawColor(255, 255, 255, 255 )
+	--surface.DrawTexturedRect(w * 0.3215, h * 0.82, w * 0.35, h * 0.15)
+	surface.DrawTexturedRect(w * 0.4, h * 0.83, w * 0.2, h * 0.19)
+
+	
+	local localwin = winner == TEAM_HUMAN and LocalPlayer():Team() == winner
+
+
+--return winners
+
+--return hps[maxhp]
 	
 	--W.I.P
-		draw.SimpleText( "You Have Lost", "ZSHUDFont2", w * 0.5, h * 0.25, Color( 255,0,0,255), TEXT_ALIGN_CENTER ) 
-		draw.SimpleText( "Your Squad Has Been Wiped Out", "ZSHUDFont", w * 0.5, h * 0.29, Color( 255,0,0,255), TEXT_ALIGN_CENTER )  
-		draw.SimpleText( "The Undead Rule The World", "ZSHUDFont", w * 0.5, h * 0.31, Color( 255,0,0,255), TEXT_ALIGN_CENTER )  
-	
-		draw.SimpleText( "Honorable Mentions", "ZSHUDFont", w * 0.5, h * 0.46, Color( 255,0,0,255), TEXT_ALIGN_CENTER ) --Does the same as this lol ^
-		draw.SimpleText( " "..winrar:GetName().." Was the horniest player!", "ZSHUDFont", w * 0.5, h * 0.5, Color( 255,255,255,255), TEXT_ALIGN_CENTER ) 
-	--	draw.SimpleText( "You killed.. "..LocalPlayer():Frags().."  Zombies! ", "ZSHUDFont", ScrW() * 0.50, ScrH() * 0.52, Color( 255,255,255,255), TEXT_ALIGN_CENTER )
-		--draw.SimpleText( "You Died.. "..LocalPlayer():Deaths().. "  Times! ", "ZSHUDFont", ScrW() * 0.50, ScrH() * 0.54, Color( 255,255,255,255), TEXT_ALIGN_CENTER )
+		if pl:Team() == TEAM_HUMAN then
+		
+			draw.SimpleText( "You Have Won", "ZSHUDFont2", w * 0.5, h * 0.25, Color( 255,0,0,255), TEXT_ALIGN_CENTER )
+			draw.SimpleText( "Your Squad Has Survived", "ZSHUDFont", w * 0.5, h * 0.29, Color( 255,0,0,255), TEXT_ALIGN_CENTER )  
+			
+			draw.SimpleText( "Honorable Mentions", "ZSHUDFont", w * 0.5, h * 0.46, Color( 255,0,0,255), TEXT_ALIGN_CENTER ) --Does the same as this lol ^
+			draw.SimpleText( " "..winrar:GetName().." Was the horniest player!", "ZSHUDFont", w * 0.5, h * 0.5, Color( 255,255,255,255), TEXT_ALIGN_CENTER ) 
+			draw.SimpleText( " "..winrar:GetName().." Survived with the most SkillPoints ("..mostkills.."SP!)  " , "ZSHUDFont", w * 0.5, h * 0.55, Color( 255,255,255,255), TEXT_ALIGN_CENTER ) 
+		--	draw.SimpleText( " ".. winners .." Has the most HP!" , "ZSHUDFont", w * 0.5, h * 0.6, Color( 255,255,255,255), TEXT_ALIGN_CENTER ) 
+		--	draw.SimpleText( " "..winrar:GetName().." Has eaten the most braiinns "..Frags.." " , "ZSHUDFont", w * 0.5, h * 0.6, Color( 255,255,255,255), TEXT_ALIGN_CENTER ) 
+		--	draw.SimpleText( "You killed.. "..LocalPlayer():Frags().."  Zombies! >:O", "ZSHUDFont", ScrW() * 0.6, ScrH() * 0.55, Color( 255,255,255,255), TEXT_ALIGN_CENTER ) 			
+			return 
+		end	
+		if pl:Team() == TEAM_UNDEAD then
+			draw.SimpleText( "You Have Lost", "ZSHUDFont2", w * 0.5, h * 0.25, Color( 255,0,0,255), TEXT_ALIGN_CENTER )
+			draw.SimpleText( "The Undead Will Become Stronger!", "ZSHUDFont", w * 0.5, h * 0.29, Color( 255,0,0,255 ), TEXT_ALIGN_CENTER )  
+			
+			draw.SimpleText( "You Died.. "..LocalPlayer():Deaths().. "  Times! ", "ZSHUDFont", w * 0.5, h * 0.5, Color( 255,255,255,255 ), TEXT_ALIGN_CENTER ) 
+			draw.SimpleText( "You killed.. "..LocalPlayer():Frags().."  Humans! >:O", "ZSHUDFont", ScrW() * 0.5, ScrH() * 0.55, Color(  255,255,255,255 ), TEXT_ALIGN_CENTER ) 
+				return
+		end
+
+		
 
 end
 
@@ -1932,6 +2004,9 @@ net.Receive("zs_endround", function(length)
 	gamemode.Call("EndRound", winner, nextmap)
 end)
 
+net.Receive("zs_arena", function()
+	surface.PlaySound( "mrgreen/music/intermission1.mp3" )
+end)
 -- Temporary fix
 function render.DrawQuadEasy(pos, dir, xsize, ysize, color, rotation)
 	xsize = xsize / 2

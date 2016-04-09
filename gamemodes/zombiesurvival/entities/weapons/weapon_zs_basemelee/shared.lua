@@ -251,7 +251,7 @@ function SWEP:MeleeSwing()
 	
 	owner:ViewPunch(Angle(-1, 0, math.Rand(-1, 1)))
 
-	owner:LagCompensation(true)
+	--owner:LagCompensation(true)
 
 	local mouthpos = owner:EyePos() + owner:GetUp() * -3
 	local screampos = mouthpos + owner:GetAimVector() * 16

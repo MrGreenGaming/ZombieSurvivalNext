@@ -59,7 +59,7 @@ SWEP.Author			= "" -- Original code by Amps
 SWEP.Instructions	= "Stand close to a wall to plant the mine. Detonates when enemy is within visible range." 
 SWEP.NextPlant = 0
 ------------------------------------------------------------------------------------------------------
-SWEP.ViewModelFOV	= 50
+SWEP.ViewModelFOV	= 70
 SWEP.ViewModelFlip	= false
 ------------------------------------------------------------------------------------------------------
 SWEP.Spawnable			= false
@@ -110,7 +110,7 @@ function SWEP:PrimaryAttack()
 local owner = self.Owner
 	if( CurTime() < self.NextPlant ) or not self:CanPrimaryAttack() then return end
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return false end
-		self.NextPlant = ( CurTime() + 1.2 );
+		self.NextPlant = ( CurTime() + 0.8 );
 	-- 
 	local trace = {}
 	local pos = self.Owner:GetPos()

@@ -206,6 +206,7 @@ function MakepWorth()
 	local wid2, hei2 = math.min(ScrW(), 240), math.min(ScrH())
 	local wid3, hei3 = math.min(ScrW(), 100), math.min(ScrH(), 520)
 	
+
 	local frame = vgui.Create("DFrame")
 	pWorth = frame
 	
@@ -298,10 +299,6 @@ function MakepWorth()
 		timer.Simple(2, function()
 			surface.PlaySound( "mrgreen/music/gamestart_new_christmas_1.wav" )
 		end)
-	elseif ARENA then
-		timer.Simple(5, function()
-			surface.PlaySound( "mrgreen/music/intermission1.mp3" )
-		end)	
 	else
 		surface.PlaySound(Sound("mrgreen/music/gamestart_new"..math.random(1,2)..".mp3")) --Move this else where....
 	end
@@ -344,7 +341,6 @@ vgui.Register("ItemAmountCounter", PANEL, "DLabel")
 PANEL = {}
 
 function PANEL:Init()
-
 
 	self:SetText("")
 
@@ -404,6 +400,7 @@ function PANEL:Paint(w, h)
 
 	draw.RoundedBox(10, 0, 0, w, h, outline)
 
+	
 end
 
 function PANEL:DoClick(silent, force)

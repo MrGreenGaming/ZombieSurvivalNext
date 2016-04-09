@@ -194,7 +194,7 @@ function PANEL:OnRemove()
 	end
 end
 
-local matWhite = Material("models/debug/debugwhite")
+local matWhite = Material("models/Debug/Debugwhite")
 local matGlow = Material("sprites/glow04_noz")
 local matShadow = CreateMaterial("zshealthhudshadow", "UnlitGeneric", {["$basetexture"] = "decals/simpleshadow", ["$vertexalpha"] = "1", ["$vertexcolor"] = "1"})
 local colShadow = Color(20, 20, 20, 230)

@@ -111,7 +111,7 @@ function SWEP:OnMeleeHit(hitent, hitflesh, tr)
 					eff:SetMagnitude(math.random(10,40))
 					util.Effect("StunstickImpact", eff, true, true)
 
-					local eff2 = EffectData()
+			local eff2 = EffectData()
 					eff2:SetOrigin(tr.HitPos)
 					eff2:SetNormal(tr.HitNormal)
 					eff2:SetScale(math.Rand(0.9,1.2))

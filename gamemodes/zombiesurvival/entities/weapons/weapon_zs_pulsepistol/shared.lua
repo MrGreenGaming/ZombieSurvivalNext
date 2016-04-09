@@ -41,7 +41,7 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
 SWEP.Primary.Recoil			= 0.25
-SWEP.Primary.Damage			= 10
+SWEP.Primary.Damage			= 12
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 8
 SWEP.Primary.Delay			= 0.12

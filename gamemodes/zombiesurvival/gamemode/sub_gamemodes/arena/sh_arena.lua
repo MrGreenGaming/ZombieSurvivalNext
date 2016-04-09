@@ -23,7 +23,7 @@ if SERVER then
 			pl:GiveAmmo(AmmoAmount, "357", false)
 		end
 			--chat.AddText( Color( 255, 0, 0 ), "Ammo Regenerated" )
-		--Debug("[ARENA] Gave ".. #Humans .." extra ammo")
+		----Debug("[ARENA] Gave ".. #Humans .." extra ammo")
 		
 	end)
 end

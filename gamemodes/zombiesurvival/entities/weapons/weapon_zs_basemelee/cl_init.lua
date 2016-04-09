@@ -25,7 +25,9 @@ function SWEP:DrawWeaponSelection(...)
 end
 
 function SWEP:DrawHUD()
-
+if ENDROUND then
+	return
+else	
 	local SCREEN_W = 1920; --For the screen resolution scale. This means that it can be fit exactly on the screen without any issues.
 	local SCREEN_H = 1080;
 	local X_MULTIPLIER = ScrW( )  / 60 ;
@@ -56,7 +58,7 @@ function SWEP:DrawHUD()
 	
 	surface.SetDrawColor( Color ( 188,183,153,50 ) )
 	surface.DrawLine(cW + 1, cH - Y_MULTIPLIER, cW + 1, cH + Y_MULTIPLIER)
-
+end
 
 end
 

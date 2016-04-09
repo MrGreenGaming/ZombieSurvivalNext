@@ -127,7 +127,7 @@ function CLASS:BuildBonePositions(pl)
 end
 
 local nodraw = false
-local matWhite = Material("models/debug/debugwhite")
+local matWhite = Material("models/--Debug/--Debugwhite")
 local matRefract = Material("models/spawn_effect")
 function CLASS:PreRenderEffects(pl)
 	if render.SupportsVertexShaders_2_0() then

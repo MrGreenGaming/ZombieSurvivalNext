@@ -210,8 +210,8 @@ hook.Add("CalcMainActivity", "LuaAnimationSequence", function(pl)
 		-- return 0, 0
 	end	
 end)
-
-local meta = debug.getregistry()["Entity"]
+--[[
+local meta = Debug.getregistry()["Entity"]
 function meta:ResetLuaAnimation(sAnimation, fDieTime, fPower, fTimeScale)
 	local animtable = Animations[sAnimation]
 	if animtable then
@@ -361,3 +361,4 @@ function meta:StopAllLuaAnimations(fTime)
 	end
 end
 meta = nil
+]]--

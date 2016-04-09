@@ -12,7 +12,11 @@ GM.Credits = {
 	{"Zombie Panic: Source", "http://www.zombiepanic.org/", "Melee weapon sounds"},
 	{"Samuel", "samuel_games@hotmail.com", "Board Kit model"},
 	{"Typhon", "lukas-tinel@hotmail.com", "HUD textures"},
-
+	
+	{"Duby", "stcross03@gmail.com", "Mr.Green ZS Mod"},
+	{"Stelk", "N/A", "Mr.Green ZS Maps"},
+	{"Gheii-Ben", "N/A", "Mr.Green ZS Graphics"},
+	
 	{"Mr. Darkness", "", "Russian translation"},
 	{"honsal", "", "Korean translation"},
 	{"rui_troia", "", "Portuguese translation"},
@@ -56,6 +60,8 @@ include("obj_entity_extend.lua")
 include("obj_player_extend.lua")
 include("obj_weapon_extend.lua")
 
+include("shared/sh_maps.lua")
+
 include("workshopfix.lua")
 
 --Clavus' Ravebreak
@@ -84,6 +90,7 @@ GM.SoundDuration = {
 	["zombiesurvival/music_win.ogg"] = 33.149,
 	["zombiesurvival/music_lose.ogg"] = 45.714,
 	--["zombiesurvival/lasthuman.ogg"] = 120.503,
+	["mrgreen/music/lasthuman.ogg"] = 120.503,
 	["mrgreen/music/lasthuman.mp3"] = 120.503,
 
 	["zombiesurvival/beats/defaulthuman/1.ogg"] = 7.111,

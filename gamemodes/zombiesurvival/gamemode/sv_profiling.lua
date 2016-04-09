@@ -237,7 +237,7 @@ function GM:ProfilerTick()
 	end
 
 	if changed then
-		self:SaveProfiler() --self:DebugProfiler()
+		self:SaveProfiler() --self:--DebugProfiler()
 	end
 end
 timer.Create("ZSProfiler", 3, 0, function() GAMEMODE:ProfilerTick() end)

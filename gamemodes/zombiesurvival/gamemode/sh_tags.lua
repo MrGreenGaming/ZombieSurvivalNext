@@ -73,8 +73,6 @@ local ply = LocalPlayer()
 	end
 
 	hook.Add("OnPlayerChat", "OnPlayerChat", OnPlayerChat)
- 
-
 end
 
 

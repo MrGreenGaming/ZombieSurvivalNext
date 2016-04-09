@@ -1,14 +1,16 @@
+SWEP.Base 				= "weapon_zs_base"
+
 SWEP.ViewModel = "models/weapons/c_grenade.mdl"
 SWEP.WorldModel = "models/weapons/w_grenade.mdl"
 SWEP.UseHands = true
-
+SWEP.ViewModelFlip	= false
 SWEP.AmmoIfHas = true
 
-SWEP.Primary.ClipSize = 1
+SWEP.Primary.ClipSize = 10
+SWEP.Primary.DefaultClip = 3
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "grenade"
 SWEP.Primary.Delay = 1.25
-SWEP.Primary.DefaultClip = 1
 
 SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
@@ -107,12 +109,6 @@ function SWEP:Think()
 			self:SendWeaponAnim(ACT_VM_DRAW)
 		else
 			self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
-
-			if SERVER then
-				self:Remove()
-			end
 		end
-	elseif SERVER and self:GetPrimaryAmmoCount() <= 0 then
-		self:Remove()
 	end
 end

@@ -163,7 +163,7 @@ killicon.AddFont("weapon_zs_katana", "zsdeathnotice2", "h", Color(255, 255, 255,
 killicon.AddFont("weapon_zs_pipe", "zsdeathnotice2", "x", Color(255, 255, 255, 255 ) )
 killicon.AddFont("weapon_zs_hammer", "zsdeathnotice2", "c", color_white)
 killicon.AddFont("weapon_zs_electrohammer", "zsdeathnotice2", "c", color_white)
-killicon.AddFont("weapon_zs_shovel", "HL2MPTypeDeath", color_white)
+killicon.AddFont("weapon_zs_shovel", "zsdeathnotice2", "e", color_white)
 killicon.AddFont("weapon_zs_crowbar", "HL2MPTypeDeath", "6", color_white)
 killicon.AddFont("weapon_zs_stunbaton", "zsdeathnotice2", "e", color_white)
 

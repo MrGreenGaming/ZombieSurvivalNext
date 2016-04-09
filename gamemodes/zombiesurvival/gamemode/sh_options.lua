@@ -152,10 +152,11 @@ function(pl) pl:SetModel( table.Random( {
 	"models/player/group03/male_06.mdl",
 	"models/player/group03/male_07.mdl"
 } ) ) 
-	
-	pl:Give("weapon_zs_fiveseven")
+
+	MedWeapon = {"weapon_zs_fiveseven","weapon_zs_gunturret","weapon_zs_mine"}	
 	pl:Give("weapon_zs_medicalkit")
 	pl:Give("weapon_zs_plank")
+	pl:Give(table.Random(MedWeapon))
 	pl:ChatPrint("You're a Medic! Heal Your Teammates!")
 
 end, "models/healthvial.mdl")
@@ -186,10 +187,10 @@ function(pl) pl:SetModel( table.Random( {
 	"models/player/kleiner.mdl",
 } ) )
 
-	engweapon = {"weapon_zs_barricadekit","weapon_zs_gunturret","weapon_zs_mine"}
+	EngWeapon = {"weapon_zs_barricadekit","weapon_zs_gunturret","weapon_zs_mine"}
 	pl:Give("weapon_zs_pulsepistol")
 	pl:Give("weapon_zs_fryingpan")
-	pl:Give(table.Random(engweapon))
+	pl:Give(table.Random(EngWeapon))
 	pl:AddPoints(20)
 	pl:ChatPrint("You're an Engineer, Blow shit up!")
 
@@ -217,11 +218,11 @@ if math.random(1,4) == 1  then --Gordan freeman!
 	
 else --Normal Berserker
 		
-	berserkerweapon = {"weapon_zs_axe","weapon_zs_pot"}
+	BerserkerWeapon = {"weapon_zs_axe","weapon_zs_pot"}
 
 	pl:SetModel("models/player/riot.mdl")
 	pl:Give("weapon_zs_peashooter")
-	pl:Give(table.Random(berserkerweapon))
+	pl:Give(table.Random(BerserkerWeapon))
 	pl:Give("weapon_zs_vodka")  
 	pl:Give("weapon_zs_resupplybox")  
 	pl:AddPoints(20)	
@@ -261,7 +262,7 @@ GM:AddPointShopItem("alyxgun", "Alyx Gun", nil, ITEMCAT_GUNS2, 25, "weapon_zs_z9
 GM:AddPointShopItem("pulsepistol", "Pulse Pistol", nil, ITEMCAT_GUNS2, 27, "weapon_zs_pulsepistol")
 GM:AddPointShopItem("fiveseven", "Five Seven", nil, ITEMCAT_GUNS2, 30, "weapon_zs_fiveseven")
 GM:AddPointShopItem("Classic Pistol", "Classic Pistol", nil, ITEMCAT_GUNS2, 30, "weapon_zs_owens")
-GM:AddPointShopItem("medic_gun", "Medical Gun", nil, ITEMCAT_GUNS2, 35, "weapon_zs_medicgun")
+GM:AddPointShopItem("medic_gun", "Medical Pistol", nil, ITEMCAT_GUNS2, 35, "weapon_zs_medicgun")
 GM:AddPointShopItem("glock", "Glock", nil, ITEMCAT_GUNS2, 40, "weapon_zs_glock3")
 GM:AddPointShopItem("dualclassics", "Dual Classic Pistols", nil, ITEMCAT_GUNS2, 55, "weapon_zs_dualclassics")
 GM:AddPointShopItem("magnum", "Magnum", nil, ITEMCAT_GUNS2, 65, "weapon_zs_magnum")
@@ -296,7 +297,9 @@ GM:AddPointShopItem("hunter", "AWP", nil, ITEMCAT_GUNS, 230, "weapon_zs_hunter")
 GM:AddPointShopItem("SG550", "SG 550", nil, ITEMCAT_GUNS, 250, "weapon_zs_sg550")
 GM:AddPointShopItem("pulserifle", "Pulse Rifle", nil, ITEMCAT_GUNS, 300, "weapon_zs_pulserifle")
 GM:AddPointShopItem("m249", "M249 'SAW'", nil, ITEMCAT_GUNS, 400, "weapon_zs_m249")
+GM:AddPointShopItem("prototype", "The Prototype", nil, ITEMCAT_GUNS3, 330, "weapon_zs_prototype")
 GM:AddPointShopItem("boomstick", "Boom Stick", nil, ITEMCAT_GUNS3, 350, "weapon_zs_boomerstick") --Duby: We have the Mr.Green one! ^^
+
 
 
 GM:AddPointShopItem("knife", "Knife", nil, ITEMCAT_MELEE, 5, "weapon_zs_swissarmyknife")
@@ -327,7 +330,7 @@ GM:AddPointShopItem("pulseammo", "Pulse ammo", nil, ITEMCAT_AMMO, 6, nil, functi
 GM:AddPointShopItem("nail", "Nail", "It's just one nail.", ITEMCAT_OTHER, 5, nil, function(pl) pl:GiveAmmo(1, "GaussEnergy", true) end, "models/crossbow_bolt.mdl").NoClassicMode = true
 GM:AddPointShopItem("50mkit", "50 Medical Kit power", "50 extra power for the Medical Kit.", ITEMCAT_OTHER, 20, nil, function(pl) pl:GiveAmmo(50, "Battery", true) end, "models/healthvial.mdl")
 GM:AddPointShopItem("aegisboard", "Aegis Board", "Aegis Board", ITEMCAT_OTHER, 20, nil, function(pl) pl:GiveAmmo(1, "SniperRound", true) end, "")
-GM:AddPointShopItem("c4", "C4", "C4", ITEMCAT_OTHER, 20, nil, function(pl) pl:GiveAmmo(1, "sniperpenetratedround", true) end, "")
+GM:AddPointShopItem("c4", "C4 Mines", "Ground Mines", ITEMCAT_OTHER, 20, nil, function(pl) pl:GiveAmmo(1, "sniperpenetratedround", true) end, "")
 GM:AddPointShopItem("grenade", "Grenade", nil, ITEMCAT_TOOLS, 22, "weapon_zs_grenade")
 GM:AddPointShopItem("nail2", "Pack of Nail's", "It's just nails x5.", ITEMCAT_OTHER, 25, nil, function(pl) pl:GiveAmmo(5, "GaussEnergy", true) end, "models/crossbow_bolt.mdl").NoClassicMode = true
 GM:AddPointShopItem("spotlamp", "Spot Lamp", nil, ITEMCAT_OTHER, 25, "weapon_zs_lamp")
@@ -441,7 +444,7 @@ end)
 
 -- Initial length for wave 1.
 GM.WaveOneLength = 220
---GM.WaveOneLength = 10
+--GM.WaveOneLength = 4
 
 -- For Classic Mode
 GM.WaveOneLengthClassic = 120
@@ -461,7 +464,7 @@ GM.NoSuicideWave = 1
 
 -- How long 'wave 0' should last in seconds. This is the time you should give for new players to join and get ready.
 GM.WaveZeroLength = 120
---GM.WaveZeroLength = 40
+--GM.WaveZeroLength = 20
 
 -- Time humans have between waves to do stuff without NEW zombies spawning. Any dead zombies will be in spectator (crow) view and any living ones will still be living.
 --GM.WaveIntermissionLength = 5
@@ -471,8 +474,8 @@ GM.WaveIntermissionLength = 90
 GM.WaveIntermissionLengthClassic = 20
 
 -- Time in seconds between end round and next map.
---GM.EndGameTime = 60
-GM.EndGameTime = 30
+GM.EndGameTime = 60
+--GM.EndGameTime = 30
 
 -- How many clips of ammo guns from the Worth menu start with. Some guns such as shotguns and sniper rifles have multipliers on this.
 GM.SurvivalClips = 3
@@ -493,5 +496,3 @@ GM.DeathSound = Sound("music/stingers/HL1_stinger_song28.mp3")
 
 -- Rave sound; people will hate me for making this :')
 RAVESOUND = "mrgreen/ravebreak_fix.mp3"
-
-RTD_TIME = 10
