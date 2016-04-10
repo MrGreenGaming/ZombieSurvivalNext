@@ -1,15 +1,14 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
-
+AddCSLuaFile()
 
 if CLIENT then
 	SWEP.PrintName = "SG550"
-	SWEP.Slot = 0
-	SWEP.SlotPos = 6
+	SWEP.Slot = 3
+	SWEP.SlotPos = 0
 	SWEP.ViewModelFOV = 60	
-	SWEP.IconLetter = "o"
 	SWEP.ViewModelFlip = false
-	
+
 end
 
 SWEP.HoldType = "ar2"
@@ -25,7 +24,7 @@ SWEP.Primary.Damage = 40
 SWEP.Primary.NumShots = 1
 SWEP.Primary.ReloadDelay = 0.35
 SWEP.Primary.Automatic = true
-SWEP.Primary.Ammo			= "rifle"
+SWEP.Primary.Ammo = "357"
 
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false

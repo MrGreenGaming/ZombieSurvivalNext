@@ -188,9 +188,9 @@ end
 	local PosMod, AngMod = Vector(0, 0, 0), Vector(0, 0, 0)
 	local CurPosMod, CurAngMod = Vector(0, 0, 0), Vector(0, 0, 0)
 
-	function SWEP:DrawWeaponSelection(...)
+function SWEP:DrawWeaponSelection(...)
 		return self:BaseDrawWeaponSelection(...)
-	end
+end
 
 	local Ang0, curang, curviewbob = Angle(0, 0, 0), Angle(0, 0, 0), Angle(0, 0, 0)	
 function SWEP:CalcView(ply, pos, ang, fov)
@@ -220,7 +220,7 @@ function SWEP:CalcView(ply, pos, ang, fov)
 	return pos, ang + curviewbob * self.ViewbobIntensity, fov
 end
 	
-	function SWEP:PreDrawViewModel(vm)
+function SWEP:PreDrawViewModel(vm)
 		CT = UnPredictedCurTime()
 		vm = self.Owner:GetViewModel()
 
@@ -288,7 +288,7 @@ end
 	end
 	
 	local ghostlerp = 0
-	function SWEP:GetViewModelPosition(pos, ang)
+function SWEP:GetViewModelPosition(pos, ang)
 
 		local bIron = self:GetIronsights()
 

@@ -6,6 +6,9 @@ SWEP.UseHands = true
 SWEP.ViewModelFlip	= false
 SWEP.AmmoIfHas = true
 
+SWEP.ShowViewModel = true
+SWEP.ShowWorldModel = true
+
 SWEP.Primary.ClipSize = 10
 SWEP.Primary.DefaultClip = 3
 SWEP.Primary.Automatic = false

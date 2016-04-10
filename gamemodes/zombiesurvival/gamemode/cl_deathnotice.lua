@@ -149,6 +149,7 @@ killicon.AddFont("weapon_zs_berreta", "zsdeathnoticecs", "s", color_red)
 killicon.AddFont("weapon_zs_pulsesmg", "zsdeathnotice", "/", color_white)
 killicon.AddFont("weapon_zs_sg552", "zsdeathnoticecs", "w", Color(255, 255, 255, 255 ))
 killicon.AddFont("weapon_zs_sg550", "zsdeathnoticecs", "k", Color(255, 255, 255, 255 ))
+killicon.AddFont("weapon_zs_g3sg1", "zsdeathnoticecs", "k", Color(255, 255, 255, 255 ))
 
 --Melee
 killicon.AddFont("weapon_zs_melee_axe", "zsdeathnotice2", "a", Color(255, 255, 255, 255))

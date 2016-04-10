@@ -37,14 +37,16 @@ ITEMCAT_CLASS = 1 --Human classes
 ITEMCAT_GUNS = 2
 ITEMCAT_GUNS3 = 3
 ITEMCAT_GUNS2 = 4
-ITEMCAT_AMMO = 5
-ITEMCAT_MELEE = 6
-ITEMCAT_TOOLS = 7
-ITEMCAT_OTHER = 8
+ITEMCAT_GUNS4 = 5
+ITEMCAT_AMMO = 6
+ITEMCAT_MELEE = 7
+ITEMCAT_TOOLS = 8
+ITEMCAT_OTHER = 9
 
 GM.ItemCategories = {
 	[ITEMCAT_GUNS] = "Automatic Weapons",
 	[ITEMCAT_GUNS3] = "Shotguns",
+	[ITEMCAT_GUNS4] = "Sniper rifles",
 	[ITEMCAT_GUNS2] = "Pistols",
 	[ITEMCAT_MELEE] = "Melee Weapons",
 	[ITEMCAT_AMMO] = "Ammunition",
@@ -256,6 +258,7 @@ end, "models/healthvial.mdl")
 --Duby: Re-arrenged this to make it cleaner to look at
 --Duby: NOTE got up to glock with the Christmas Port!
 
+--// PISTOLS \\--
 GM:AddPointShopItem("usp", "USP", nil, ITEMCAT_GUNS2, 20, "weapon_zs_battleaxe")
 GM:AddPointShopItem("p228", "P228", nil, ITEMCAT_GUNS2, 25, "weapon_zs_peashooter")
 GM:AddPointShopItem("alyxgun", "Alyx Gun", nil, ITEMCAT_GUNS2, 25, "weapon_zs_z9000")
@@ -271,18 +274,14 @@ GM:AddPointShopItem("deagle", "Desert Eagle", nil, ITEMCAT_GUNS2, 70, "weapon_zs
 GM:AddPointShopItem("python", "Python", nil, ITEMCAT_GUNS2, 150, "weapon_zs_python")
 
 
+--// AUTOMATIC WEAPONS \\--
 GM:AddPointShopItem("crklr", "Famas", nil, ITEMCAT_GUNS, 50, "weapon_zs_crackler")
 GM:AddPointShopItem("tossr", "Classic SMG", nil, ITEMCAT_GUNS, 50, "weapon_zs_tosser") 
-GM:AddPointShopItem("stbbr", "Scout Sniper", nil, ITEMCAT_GUNS, 55, "weapon_zs_stubber")
 GM:AddPointShopItem("uzi", "Uzi 9mm", nil, ITEMCAT_GUNS, 70, "weapon_zs_uzi")
 GM:AddPointShopItem("shredder", "MP5", nil, ITEMCAT_GUNS, 70, "weapon_zs_smg")
 GM:AddPointShopItem("bulletstorm", "P90", nil, ITEMCAT_GUNS, 70, "weapon_zs_bulletstorm")
 GM:AddPointShopItem("silencer", "TMP", nil, ITEMCAT_GUNS, 70, "weapon_zs_silencer")
-
-
-
 GM:AddPointShopItem("reaper", "UMP", nil, ITEMCAT_GUNS, 80, "weapon_zs_reaper")
-GM:AddPointShopItem("chipper", "Chipper Shotgun", nil, ITEMCAT_GUNS3, 40, "weapon_zs_chipper")
 GM:AddPointShopItem("annabelle", "Annabelle Shotgun", nil, ITEMCAT_GUNS3, 100, "weapon_zs_annabelle")
 GM:AddPointShopItem("pulsesmg", "Pulse SMG", nil, ITEMCAT_GUNS, 105, "weapon_zs_pulsesmg")
 GM:AddPointShopItem("akbar", "AK47", nil, ITEMCAT_GUNS, 120, "weapon_zs_akbar")
@@ -291,17 +290,23 @@ GM:AddPointShopItem("ender", "Galil", nil, ITEMCAT_GUNS, 145, "weapon_zs_ender")
 GM:AddPointShopItem("stalker", "M4A1", nil, ITEMCAT_GUNS, 160, "weapon_zs_m4")
 GM:AddPointShopItem("inferno", "AUG", nil, ITEMCAT_GUNS, 170, "weapon_zs_inferno")
 GM:AddPointShopItem("crossbow", "Crossbow", nil, ITEMCAT_GUNS, 175, "weapon_zs_crossbow")
-GM:AddPointShopItem("m3", "M3 Shotgun", nil, ITEMCAT_GUNS3, 190, "weapon_zs_sweepershotgun")
-GM:AddPointShopItem("M1014Shotgun", "M1014 Shotgun", nil, ITEMCAT_GUNS3, 220, "weapon_zs_slugrifle")
-GM:AddPointShopItem("hunter", "AWP", nil, ITEMCAT_GUNS, 230, "weapon_zs_hunter")
-GM:AddPointShopItem("SG550", "SG 550", nil, ITEMCAT_GUNS, 250, "weapon_zs_sg550")
 GM:AddPointShopItem("pulserifle", "Pulse Rifle", nil, ITEMCAT_GUNS, 300, "weapon_zs_pulserifle")
 GM:AddPointShopItem("m249", "M249 'SAW'", nil, ITEMCAT_GUNS, 400, "weapon_zs_m249")
+
+--// SHOTGUNS \\--
+GM:AddPointShopItem("chipper", "Chipper Shotgun", nil, ITEMCAT_GUNS3, 40, "weapon_zs_chipper")
+GM:AddPointShopItem("m3", "M3 Shotgun", nil, ITEMCAT_GUNS3, 190, "weapon_zs_sweepershotgun")
+GM:AddPointShopItem("M1014Shotgun", "M1014 Shotgun", nil, ITEMCAT_GUNS3, 220, "weapon_zs_slugrifle")
 GM:AddPointShopItem("prototype", "The Prototype", nil, ITEMCAT_GUNS3, 330, "weapon_zs_prototype")
 GM:AddPointShopItem("boomstick", "Boom Stick", nil, ITEMCAT_GUNS3, 350, "weapon_zs_boomerstick") --Duby: We have the Mr.Green one! ^^
 
+--// RIFLES \\--
+GM:AddPointShopItem("stbbr", "Scout Sniper", nil, ITEMCAT_GUNS4, 55, "weapon_zs_stubber")
+GM:AddPointShopItem("g3sg1", "G3 SG1", nil, ITEMCAT_GUNS4, 130, "weapon_zs_g3sg1")
+GM:AddPointShopItem("SG550", "SG 550", nil, ITEMCAT_GUNS4, 150, "weapon_zs_sg550")
+GM:AddPointShopItem("hunter", "AWP", nil, ITEMCAT_GUNS4, 210, "weapon_zs_hunter")
 
-
+--// MELEE WEAPONS \\--
 GM:AddPointShopItem("knife", "Knife", nil, ITEMCAT_MELEE, 5, "weapon_zs_swissarmyknife")
 GM:AddPointShopItem("plank", "Plank", nil, ITEMCAT_MELEE, 10, "weapon_zs_plank")
 GM:AddPointShopItem("Keyboard", "Keyboard", nil, ITEMCAT_MELEE, 12, "weapon_zs_keyboard")
@@ -315,7 +320,7 @@ GM:AddPointShopItem("shovel", "Shovel", nil, ITEMCAT_MELEE, 70, "weapon_zs_shove
 GM:AddPointShopItem("sledgehammer", "Sledge Hammer", nil, ITEMCAT_MELEE, 80, "weapon_zs_sledgehammer") 
 GM:AddPointShopItem("katana", "Katana", nil, ITEMCAT_MELEE, 120, "weapon_zs_katana")
 
---[AMMO]--
+--// AMMO \\--
 GM:AddPointShopItem("pistolammo", "Pistol ammo", nil, ITEMCAT_AMMO, 4, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["pistol"] or 12, "pistol", true) end, "models/Items/BoxSRounds.mdl")
 GM:AddPointShopItem("crossbowammo", "Crossbow bolt", nil, ITEMCAT_AMMO, 5, nil, function(pl) pl:GiveAmmo(1, "XBowBolt", true) end, "models/Items/CrossbowRounds.mdl")
 GM:AddPointShopItem("smgammo", "SMG ammo", nil, ITEMCAT_AMMO, 5, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["smg1"] or 30, "smg1", true) end, "models/Items/BoxMRounds.mdl")
@@ -325,7 +330,7 @@ GM:AddPointShopItem("rifleammo", "Rifle ammo ", nil, ITEMCAT_AMMO, 6, nil, funct
 GM:AddPointShopItem("pulseammo", "Pulse ammo", nil, ITEMCAT_AMMO, 6, nil, function(pl) pl:GiveAmmo(GAMEMODE.AmmoCache["pulse"] or 30, "pulse", true) end, "models/Items/combine_rifle_ammo01.mdl")
 
 
---[Other]
+--// OTHER \\--
 
 GM:AddPointShopItem("nail", "Nail", "It's just one nail.", ITEMCAT_OTHER, 5, nil, function(pl) pl:GiveAmmo(1, "GaussEnergy", true) end, "models/crossbow_bolt.mdl").NoClassicMode = true
 GM:AddPointShopItem("50mkit", "50 Medical Kit power", "50 extra power for the Medical Kit.", ITEMCAT_OTHER, 20, nil, function(pl) pl:GiveAmmo(50, "Battery", true) end, "models/healthvial.mdl")
@@ -337,6 +342,7 @@ GM:AddPointShopItem("spotlamp", "Spot Lamp", nil, ITEMCAT_OTHER, 25, "weapon_zs_
 GM:AddPointShopItem("vodka", "Bottle'ol Vodka", nil, ITEMCAT_OTHER, 60, "weapon_zs_vodka")
 GM:AddPointShopItem("Stoned Potato", "Stoned Potato +[SP]+", nil, ITEMCAT_OTHER, 2000, "")
 
+--// TOOLS \\--
 GM:AddPointShopItem("torch", "Blow Torch", nil, ITEMCAT_TOOLS, 35, "weapon_zs_torch")
 GM:AddPointShopItem("turret", "Turret", nil, ITEMCAT_TOOLS, 30, "weapon_zs_gunturret")
 GM:AddPointShopItem("junkpack", "Junk Pack", nil, ITEMCAT_TOOLS, 45, "weapon_zs_boardpack")

@@ -1,7 +1,7 @@
 AddCSLuaFile()
 
 if CLIENT then
-	SWEP.PrintName = "'Hunter' Rifle"
+	SWEP.PrintName = "AWP"
 	SWEP.Description = "Fires special large caliber rounds. The reloading time is slow but it packs a powerful punch."
 	SWEP.Slot = 3
 	SWEP.SlotPos = 0
@@ -32,7 +32,8 @@ sound.Add(
 	soundlevel = 100,
 	pitchstart = 134,
 	pitchend = 10,
-	sound = "weapons/awp/awp1.wav"
+	--sound = "weapons/awp/awp1.wav"
+	sound = "Weapon_AWP.Single"
 })
 
 SWEP.Base = "weapon_zs_base"
@@ -81,10 +82,10 @@ function SWEP:SendWeaponAnimation()
 end
 
 function SWEP.BulletCallback(attacker, tr, dmginfo)
-	local effectdata = EffectData()
-		effectdata:SetOrigin(tr.HitPos)
-		effectdata:SetNormal(tr.HitNormal)
-	util.Effect("hit_hunter", effectdata)
+	--local effectdata = EffectData()
+		--effectdata:SetOrigin(tr.HitPos)
+		--effectdata:SetNormal(tr.HitNormal)
+	--util.Effect("hit_hunter", effectdata)
 
 	GenericBulletCallback(attacker, tr, dmginfo)
 end
