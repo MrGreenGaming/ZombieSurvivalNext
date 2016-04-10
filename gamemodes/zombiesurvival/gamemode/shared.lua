@@ -65,7 +65,7 @@ include("shared/sh_maps.lua")
 include("workshopfix.lua")
 
 --Clavus' Ravebreak
-include("ravebreak/sh_ravebreak.lua")
+include("modules/ravebreak/sh_ravebreak.lua")
 
 ----------------------
 

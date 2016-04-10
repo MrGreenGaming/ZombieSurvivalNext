@@ -17,16 +17,17 @@ include("obj_player_extend_cl.lua")
 include("cl_scoreboard.lua")
 include("cl_targetid.lua")
 include("cl_postprocess.lua")
-include("cl_legs.lua")
-include("cl_chatsounds.lua")
-include("cl_splitmessage.lua")
-include("cl_chatbox.lua")
-include("admin_mod/cl_admin.lua")
+include("client/cl_legs.lua")
+include("client/cl_chatsounds.lua")
+include("client/cl_splitmessage.lua")
+include("client/cl_chatbox.lua")
+include("modules/admin_mod/cl_admin.lua")
+include("modules/admin_mod/sv_pmapmanager.lua")
 
-include("map_vote/cl_votemap.lua")
+include("modules/map_vote/cl_votemap.lua")
 --include("mapvote.lua")
 
-include("boneanimlib_v2/cl_boneanimlib.lua")
+include("modules/boneanimlib_v2/cl_boneanimlib.lua")
 
 include("vgui/dgamestate.lua")
 include("vgui/dteamcounter.lua")
@@ -57,8 +58,8 @@ include("cl_deathnotice.lua")
 include("cl_floatingscore.lua")
 include("cl_hint.lua")
 
-include("sub_gamemodes/zombie_escape/cl_zombieescape.lua")
-include("sub_gamemodes/arena/cl_arena.lua")
+include("modules/sub_gamemodes/zombie_escape/cl_zombieescape.lua")
+include("modules/sub_gamemodes/arena/cl_arena.lua")
 
 w, h = ScrW(), ScrH() --Global vars 
 

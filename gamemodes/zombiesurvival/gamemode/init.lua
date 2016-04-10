@@ -68,22 +68,23 @@ AddCSLuaFile("cl_deathnotice.lua")
 AddCSLuaFile("cl_floatingscore.lua")
 AddCSLuaFile("cl_dermaskin.lua")
 AddCSLuaFile("cl_hint.lua")
-AddCSLuaFile("cl_legs.lua")
-AddCSLuaFile("cl_chatsounds.lua")
-AddCSLuaFile("cl_splitmessage.lua")
-AddCSLuaFile("cl_chatbox.lua")
+AddCSLuaFile("client/cl_legs.lua")
+AddCSLuaFile("client/cl_chatsounds.lua")
+AddCSLuaFile("client/cl_splitmessage.lua")
+AddCSLuaFile("client/cl_chatbox.lua")
+AddCSLuaFile("modules/admin_mod/sv_pmapmanager.lua")
 
-AddCSLuaFile("admin_mod/cl_admin.lua")
-AddCSLuaFile("map_vote/cl_votemap.lua")
-
-
-
-AddCSLuaFile("boneanimlib_v2/sh_boneanimlib.lua")
-AddCSLuaFile("boneanimlib_v2/cl_boneanimlib.lua")
-AddCSLuaFile("boneanimlib_v2/boneanimlib.lua")
+AddCSLuaFile("modules/admin_mod/cl_admin.lua")
+AddCSLuaFile("modules/map_vote/cl_votemap.lua")
 
 
-AddCSLuaFile("ravebreak/sh_ravebreak.lua")
+
+AddCSLuaFile("modules/boneanimlib_v2/sh_boneanimlib.lua")
+AddCSLuaFile("modules/boneanimlib_v2/cl_boneanimlib.lua")
+AddCSLuaFile("modules/boneanimlib_v2/boneanimlib.lua")
+
+
+AddCSLuaFile("modules/ravebreak/sh_ravebreak.lua")
 
 
 AddCSLuaFile("obj_vector_extend.lua")
@@ -127,20 +128,20 @@ include("mapeditor.lua")
 include("sv_playerspawnentities.lua")
 include("sv_profiling.lua")
 include("sv_sigils.lua")
-include("sv_commands.lua")
-include("map_vote/sv_votemap.lua")
-include("cl_chatsounds.lua")
+include("modules/map_vote/sv_votemap.lua")
+include("client/cl_chatsounds.lua")
 
 --[[Admin Mod]]--
-include("admin_mod/sv_commands.lua")
-include("admin_mod/admin_commands.lua")
-include("admin_mod/sv_admin.lua")
+include("modules/admin_mod/sv_commands.lua")
+include("modules/admin_mod/admin_commands.lua")
+include("modules/admin_mod/sv_admin.lua")
+include("modules/admin_mod/sv_pmapmanager.lua")
 
 
 --include("mapvote.lua")
 
-include("sub_gamemodes/zombie_escape/sv_zombieescape.lua")
-include("sub_gamemodes/arena/sv_arena.lua")
+include("modules/sub_gamemodes/zombie_escape/sv_zombieescape.lua")
+include("modules/sub_gamemodes/arena/sv_arena.lua")
 
 if file.Exists(GM.FolderName.."/gamemode/maps/"..game.GetMap()..".lua", "LUA") then
 	include("maps/"..game.GetMap()..".lua")
