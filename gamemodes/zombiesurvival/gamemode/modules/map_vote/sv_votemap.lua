@@ -7,7 +7,7 @@ Votemap = {}
 Votemap.FailCount = 0
 Votemap.Maps = {}
 
-Votemap.VoteTime = 20 -- Stop Voting after 60 seconds
+Votemap.VoteTime = 54 -- Stop Voting after 60 seconds
 Votemap.MapChangeDelay = 5 -- Change Map x seconds after Vote ends
 
 
@@ -140,7 +140,7 @@ Votemap:FindMaps()
 function Votemap:EndVoting()
 	
 	if ( !Votemap.WinMap ) then
-		MsgN("[Votemap] No Votes, simulation choosing random WinMap !")
+		MsgN("[Votemap] No Votes, choosing random WinMap !")
 		
 		local winrar = math.random(1, #Votemap.Maps)
 		
@@ -165,7 +165,7 @@ function Votemap:EndVoting()
 
 	timer.Simple(Votemap.MapChangeDelay, function()
 	
-		RunConsoleCommand("changelevel", Votemap.WinMap or "gm_construct")
+		RunConsoleCommand("changelevel", Votemap.WinMap or "zs_jail_V1")
 	
 	end)
 

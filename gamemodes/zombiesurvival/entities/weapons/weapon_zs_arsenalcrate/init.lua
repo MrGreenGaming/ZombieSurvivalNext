@@ -78,6 +78,6 @@ function SWEP:Think()
 	local count = self:GetPrimaryAmmoCount()
 	if count ~= self:GetReplicatedAmmo() then
 		self:SetReplicatedAmmo(count)
-		self.Owner:ResetSpeed()
+	--	--self.Owner:ResetSpeed()
 	end
 end

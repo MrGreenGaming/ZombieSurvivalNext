@@ -6,7 +6,6 @@ TEAM_SURVIVORS = TEAM_SURVIVOR
 TEAM_HUMAN = TEAM_SURVIVOR
 TEAM_HUMANS = TEAM_SURVIVOR
 
-
 RTD_TIME = 90
 
 DISMEMBER_HEAD = 1
@@ -105,7 +104,7 @@ GM.BarricadeHealthMax = 1100
 GM.BarricadeHealthMassFactor = 3
 GM.BarricadeHealthVolumeFactor = 4
 
-GM.BossZombiePlayersRequired = 16
+GM.BossZombiePlayersRequired = 12
 
 GM.HumanGibs = {
 Model("models/gibs/HGIBS.mdl"),

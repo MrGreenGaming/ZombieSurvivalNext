@@ -1,8 +1,7 @@
 hook.Add("SetWave", "CloseWorthOnWave1", function(wave)
 	if wave > 0 then
 		if pWorth and pWorth:Valid() then
-			pWorth:Close()
-			
+			pWorth:Close()	
 		end
 
 		hook.Remove("SetWave", "CloseWorthOnWave1")
@@ -91,109 +90,17 @@ local function CheckoutDoClick(self)
 	Checkout(tobuy)
 end
 
-local function RandDoClick(self)
-	gamemode.Call("SuppressArsenalUpgrades", 1)
-
-	RunConsoleCommand("worthrandom")
-
-	if pWorth and pWorth:Valid() then
-		pWorth:Close()
-	end
-end
-
---GM.SavedCarts = {}
---hook.Add("Initialize", "LoadCarts", function()
-	--if file.Exists(GAMEMODE.CartFile, "DATA") then
-		--GAMEMODE.SavedCarts = Deserialize(file.Read(GAMEMODE.CartFile)) or {}
-	--end
---end)
-
-local function ClearCartDoClick()
-	for _, btn in ipairs(WorthButtons) do
-		if btn.On then
-			btn:DoClick(true, true)
-		end
-	end
-
-	surface.PlaySound("buttons/button11.wav")
-end
-
---local function LoadCart(cartid, silent)
-	--[[if GAMEMODE.SavedCarts[cartid] then
-		MakepWorth()
-		for _, id in pairs(GAMEMODE.SavedCarts[cartid][2]) do
-			for __, btn in pairs(WorthButtons) do
-				if btn and (btn.ID == id or GAMEMODE.Items[id] and GAMEMODE.Items[id].Signature == btn.ID) then
-					btn:DoClick(true, true)
-				end
-			end
-		end
-		if not silent then
-			surface.PlaySound("buttons/combine_button1.wav")
-		end
-	end]]--
---end
-
-local function LoadDoClick(self)
-	LoadCart(self.ID)
-end
-
-local function SaveCurrentCart(name)
-	local tobuy = {}
-	for _, btn in pairs(WorthButtons) do
-		if btn and btn.On and btn.ID then
-			table.insert(tobuy, btn.ID)
-		end
-	end
-	--[[for i, cart in ipairs(GAMEMODE.SavedCarts) do
-		if string.lower(cart[1]) == string.lower(name) then
-			cart[1] = name
-			cart[2] = tobuy
-
-			file.Write(GAMEMODE.CartFile, Serialize(GAMEMODE.SavedCarts))
-			print("Saved cart "..tostring(name))
-
-			LoadCart(i, true)
-			return
-		end
-	end]]--
-
-	--GAMEMODE.SavedCarts[#GAMEMODE.SavedCarts + 1] = {name, tobuy}
-
-	--file.Write(GAMEMODE.CartFile, Serialize(GAMEMODE.SavedCarts))
-	--print("Saved cart "..tostring(name))
-
-	--LoadCart(#GAMEMODE.SavedCarts, true)
-end
-
-local function SaveDoClick(self)
-	Derma_StringRequest("Save cart", "Enter a name for this cart.", "Name", 
-	function(strTextOut) SaveCurrentCart(strTextOut) end,
-	function(strTextOut) end,
-	"OK", "Cancel")
-end
-
-local function DeleteDoClick(self)
-	--[[if GAMEMODE.SavedCarts[self.ID] then
-		table.remove(GAMEMODE.SavedCarts, self.ID)
-		file.Write(GAMEMODE.CartFile, Serialize(GAMEMODE.SavedCarts))
-		surface.PlaySound("buttons/button19.wav")
-		MakepWorth()
-	end]]--
-end
-
-local function QuickCheckDoClick(self)
-	--[[if GAMEMODE.SavedCarts[self.ID] then
-		Checkout(GAMEMODE.SavedCarts[self.ID][2])
-	end]]--
-end
-
-function MakepWorth()
+function MakepWorth(id)
 	if pWorth and pWorth:Valid() then
 		pWorth:Remove()
 		pWorth = nil
 	end
 	
+	if pWorth2 and pWorth2:Valid() then
+		pWorth2:Remove()
+		pWorth2 = nil
+	end
+
 	local maxworth = GAMEMODE.StartingWorth
 	WorthRemaining = maxworth
 
@@ -205,13 +112,14 @@ function MakepWorth()
 	local wid, hei = 350 * X_MULTIPLIER, 900 * Y_MULTIPLIER
 	local wid2, hei2 = math.min(ScrW(), 240), math.min(ScrH())
 	local wid3, hei3 = math.min(ScrW(), 100), math.min(ScrH(), 520)
+	local w, h = ScrW(), ScrH()
+		
 	
-
 	local frame = vgui.Create("DFrame")
 	pWorth = frame
 	
-	frame:SetPos(wid2, hei2)
-	frame:SetSize(wid, hei)
+	frame:SetPos(wid * 2, hei * 2)
+	frame:SetSize(wid * 3, hei)
 	
 	frame:SetDeleteOnClose(true)
 	frame:SetKeyboardInputEnabled(true)
@@ -219,9 +127,80 @@ function MakepWorth()
 	frame:ShowCloseButton( false ) 
 	frame:SetTitle("")
 	frame.Paint = function()
+		--draw.RoundedBox( 0, 0, 0, w, h, Color( 28, 28, 28, 300 ) ) --Debug
+	end
+	
+	local Panel = vgui.Create("DPanel",frame)
+	Panel:SetPos( w * 0.05, h * 0.13 )
+	Panel:SetSize( w * 0.2, h * 0.52 )
+	Panel.Paint = function( self, w, h ) 
+		draw.RoundedBox( 0, 0, 0, w, h, Color( 28, 28, 28, 300 ) )
+	end
+	
+	local Panel2 = vgui.Create("DPanel",frame)
+	Panel2:SetPos( w * 0.295, h * 0.13 )
+	Panel2:SetSize( w * 0.2, h * 0.52 )
+	Panel2.Paint = function( self, w, h )
+		draw.RoundedBox( 0, 0, 0, w, h, Color( 28, 28, 28, 300 ) ) 
 	end
 
-	local propertysheet = vgui.Create("DPropertySheet", frame)
+	
+	local Panel3 = vgui.Create("DPanel",frame)
+	Panel3:SetPos( w * 0.05, h * 0.01 )
+	Panel3:SetSize( w * 0.445, h * 0.11 )
+	Panel3.Paint = function( self, w, h ) 
+		draw.RoundedBox( 0, 0, 0, w, h, Color( 28, 28, 28, 300 ) ) 
+	end
+
+	
+	local Panel4 = vgui.Create("DPanel",frame)
+	Panel4:SetPos( w * 0.17, h * 0.66 )
+	Panel4:SetSize( w * 0.2, h * 0.11 )
+	Panel4.Paint = function( self, w, h ) 
+		draw.RoundedBox( 0, 0, 0, w, h, Color( 28, 28, 28, 300 ) ) 
+	end
+	
+
+	
+	local MrGreen = vgui.Create( "DLabel", Panel3 )
+	MrGreen:SetPos( 0, 0 )
+	MrGreen:SetSize( w * 0.22, h * 0.2 )
+	MrGreen:SetFont("ZSHUDFont2")
+	MrGreen:Center()
+	MrGreen:SetText("Mr.Green Zombie Survival")	
+		
+	local MrGreen2 = vgui.Create( "DLabel", Panel3 )
+	MrGreen2:SetPos(  w * 0.15, h * 0.001 )
+	MrGreen2:SetSize( w * 0.22, h * 0.2 )
+	MrGreen2:SetFont("ZSHUDFontSmallest")
+	MrGreen2:SetText("https://mrgreengaming.com/forums/")	
+
+	local ClassInfo = vgui.Create( "DLabel", Panel2 )
+	--ClassInfo:SetPos(  w * 0.01, h * 0.001 )
+	ClassInfo:SetPos(  wid * 0.01, - 80)
+	ClassInfo:SetSize( w * 0.22, h * 0.2 )
+	ClassInfo:SetFont("ZSHUDFont2")
+	ClassInfo:SetText("Information:")
+	
+	local LoadOut = vgui.Create( "DLabel", Panel2 )
+	LoadOut:SetPos(  w * 0.01, h * 0.006 )
+	LoadOut:SetSize( w * 0.22, h * 0.2 )
+	LoadOut:SetFont("ZSHUDFont")
+	LoadOut:SetText("Loadout:")
+	
+	local Staff = vgui.Create( "DLabel", Panel2 )
+	Staff:SetPos(  w * 0.01, h * 0.205 )
+	Staff:SetSize( w * 0.22, h * 0.2 )
+	Staff:SetFont("ZSHUDFont")
+	Staff:SetText(" Staff:")
+	
+	local Staff2 = vgui.Create( "DLabel", Panel2 )
+	Staff2:SetPos(  w * 0.01, h * 0.3 )
+	Staff2:SetSize( w * 0.22, h * 0.2 )
+	Staff2:SetFont("ZSHUDFontSmall")
+	Staff2:SetText(" Owner: Ywa \n Coder: Duby \n Manager: Damien \n MapManager: Reiska \n Graphics Director: Gheii-Ben \n Model Maker: BrainDawg")
+
+	local propertysheet = vgui.Create("DPropertySheet", Panel)
 	propertysheet:StretchToParent(4, 24, 4, 50)
 	propertysheet:SetKeyboardInputEnabled(true)
 	propertysheet.Paint = function()
@@ -230,19 +209,10 @@ function MakepWorth()
 	local panfont = "ZSHUDFontSmall"
 	local panhei = 40
 
+
+
 	local defaultcart = cvarDefaultCart:GetString()
 
-	--[[--for i, savetab in ipairs(GAMEMODE.SavedCarts) do
-		local cartpan = vgui.Create("DEXRoundedPanel")
-		cartpan:SetCursor("pointer")
-		cartpan:SetSize(list:GetWide(), panhei)
-
-		local cartname = savetab[1]
-
-		local x = 8
-
-		list:AddItem(cartpan)
-	end]]--
 	
 	for catid, catname in ipairs(GAMEMODE.ItemCategoryIcons2) do
 
@@ -254,11 +224,15 @@ function MakepWorth()
 		list:SetSpacing(50)
 		list:SetPadding(1)
 		list:SizeToContents()
+	--	list:SetPos( w * 0.295, h * 0.13 )
+	--	list:SetSize( w * 0.2, h * 0.52 )
 		list.Paint = function( self, w, h ) 
 			draw.RoundedBox( 0, 0, 0, w, h, Color( 1, 0, 0, 1 ) )
 		end
 
-
+			--self.ID = id
+			local tab = FindStartingItem(id)
+			local self = LocalPlayer()
 
 		for i, tab in ipairs(GAMEMODE.Items) do
 			if tab.Category == catid and tab.WorthShop then
@@ -266,8 +240,18 @@ function MakepWorth()
 				button:SetWorthID(i)
 				list:AddItem(button)
 				
+				local DLabel = vgui.Create( "DLabel", Panel2 )
+					  DLabel:SetPos(  w * 0.01, h * 0.02)
+					  DLabel:SetSize( 400, 400 )
+					  DLabel:SetFont("ZSHUDFontSmall")
+					  DLabel:SetText("")
 				button.OnCursorEntered = function()
 					surface.PlaySound( "mrgreen/ui/menu_accept.wav" )
+					DLabel:SetText(tab.Description)	
+				end
+				
+				button.OnCursorExited = function()
+					DLabel:SetText("")
 				end
 
 				
@@ -275,22 +259,21 @@ function MakepWorth()
 			end
 		end
 	end
+	
+	local w, h = ScrW(), ScrH()
 
-
+	
 	frame:Center()
 	frame:AlphaTo(225, 0.5, 0)
 	frame:MakePopup()
 	frame:SizeToContents()
-	
-	local w, h = ScrW(), ScrH()
 
-	local checkout = vgui.Create("DButton",frame)
-	checkout:SetFont("ZSHUDFont2")
+	local checkout = vgui.Create("DButton",Panel4)
+	checkout:SetFont("ZSHUDFont3")
 	checkout:SetText("SPAWN")
-	checkout:SetSize(130, 30)
-	checkout:SetPos(wid3, hei3)
-	--checkout:SetPos(w * 0.04, h * 0.75)
-	--checkout:SetPos(100 * X_MULTIPLIER, 520 * Y_MULTIPLIER)
+	checkout:SetSize(w * 0.2, h * 0.2)
+	checkout:SetPos(0,0)
+	checkout:Center()
 	checkout.DoClick = function()
 		CheckoutDoClick()
 	end
@@ -302,7 +285,7 @@ function MakepWorth()
 	else
 		surface.PlaySound(Sound("mrgreen/music/gamestart_new"..math.random(1,2)..".mp3")) --Move this else where....
 	end
-	return frame 
+	return frame, frame2, Panel
 	
 end
 
@@ -376,10 +359,7 @@ function PANEL:SetWorthID(id)
 	else
 		self.ItemCounter:SetVisible(false)
 	end
-
-
-	self:SetTooltip(tab.Description)
-
+	
 	if tab.NoClassicMode and GAMEMODE:IsClassicMode() or tab.NoZombieEscape and GAMEMODE.ZombieEscape then
 		self:SetAlpha(120)
 	else
@@ -393,7 +373,7 @@ function PANEL:Paint(w, h)
 	local outline	
 	
 	if self.Hovered then
-		outline = self.On and COLOR_GREEN or Color(100, 0, 0, 255)
+		outline = self.On and COLOR_DARKGREEN or Color(0, 100, 0, 255)
 	else
 		outline = self.On and COLOR_DARKGREEN or Color(100, 0, 0, 255)
 	end
@@ -407,7 +387,7 @@ function PANEL:DoClick(silent, force)
 	local id = self.ID
 	local tab = FindStartingItem(id)
 	if not tab then return end
-
+	
 	if self.On then
 		self.On = nil
 		if not silent then

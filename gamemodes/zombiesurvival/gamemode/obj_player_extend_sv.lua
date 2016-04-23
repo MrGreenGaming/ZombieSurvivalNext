@@ -955,6 +955,29 @@ end
 ---
 -- Chat broadcast function which uses PLAYER:CustomChatPrint
 -- 
+util.AddNetworkString( "CustomChatAdd" )
+
+-- NOTE: Function not network-friendly
+-- Pretty awesome Server-to-Client chat messages by Overv
+function meta:CustomChatPrint(arg)
+if ( type( arg[1] ) == "Player" ) then self = arg[1] end
+	
+		
+		net.Start("CustomChatAdd")
+			net.WriteDouble( #arg )
+			for _, v in pairs( arg ) do
+				if ( type( v ) == "string" ) then
+					net.WriteString( v )
+				elseif ( type ( v ) == "table" ) then
+					net.WriteDouble( v.r )
+					net.WriteDouble( v.g )
+					net.WriteDouble( v.b )
+					net.WriteDouble( v.a )
+				end
+			end
+		net.Send(self)
+end
+
 function player.CustomChatPrint( arg )
 	local players = player.GetAll()
 	

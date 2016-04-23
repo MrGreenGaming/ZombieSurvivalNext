@@ -367,7 +367,7 @@ function DoDebugCommands(pl, cmd, args)
 		WARMUPTIME = CurTime()
 
 		--Broadcast to players
-		gmod.BroadcastLua("WARMUPTIME = CurTime()")
+		--gmod.BroadcastLua("WARMUPTIME = CurTime()")
 		
 		----Debug
 		----Debug("[--Debug] Started round")

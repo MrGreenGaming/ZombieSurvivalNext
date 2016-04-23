@@ -32,9 +32,16 @@ hook.Add("InitPostEntityMap", "arena", function(fromze)
 end)
 
 hook.Add("PlayerSpawn", "arena", function(pl)
+	timer.Simple(0, function()
+		if not pl:IsValid() then return end
 
+				pl:GodEnable()
+				
+			timer.Simple(30, function()
+				pl:GodDisable()
+			end)
+	end)
 end)
-
 
 local CheckTime
 local NextDamage = 0

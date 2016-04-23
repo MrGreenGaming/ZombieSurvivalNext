@@ -23,11 +23,12 @@ SWEP.WorldModel = "models/weapons/w_smg_tmp.mdl"
 SWEP.UseHands = true
 
 SWEP.Primary.Sound = Sound("Weapon_TMP.Single")
-SWEP.Primary.Damage = 22
+SWEP.Primary.Damage = 26
 SWEP.Primary.NumShots = 1
-SWEP.Primary.Delay = 0.06
+SWEP.Primary.Delay = 0.08
 
 SWEP.Primary.ClipSize = 25
+SWEP.Primary.DefaultClipSize = 50
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "smg1"
 GAMEMODE:SetupDefaultClip(SWEP.Primary)

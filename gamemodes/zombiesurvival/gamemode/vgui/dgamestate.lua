@@ -67,6 +67,8 @@ function PANEL:Text1Paint()
 			text = translate.Get("prepare_yourself")
 		elseif GAMEMODE.ZombieEscape then
 			text = translate.Get("zombie_escape")
+		elseif GAMEMODE.Arena then
+			text = translate.Get("arena_mode")
 		else
 			local maxwaves = GAMEMODE:GetNumberOfWaves()
 			if maxwaves ~= -1 then
@@ -110,6 +112,7 @@ local Y_MULTIPLIER = ScrH( ) / SCREEN_H;
 
 
 if myteam == TEAM_UNDEAD then --Zombies!
+
 	if GAMEMODE:GetWave() <= 0 then
 		local col
 		local timeleft = math.max(0, GAMEMODE:GetWaveStart() - CurTime())
@@ -119,8 +122,8 @@ if myteam == TEAM_UNDEAD then --Zombies!
 		else
 			col = COLOR_GRAY
 		end
-		
-		draw.SimpleText("Invasion In " .. util.ToMinutesSeconds(timeleft) .. "", "ZSHUDFontSmallZombie", 30 * X_MULTIPLIER, Y_MULTIPLIER, col)
+
+			draw.SimpleText("Invasion In " .. util.ToMinutesSeconds(timeleft) .. "", "ZSHUDFontSmallZombie", 30 * X_MULTIPLIER, Y_MULTIPLIER, col)	
 	elseif GAMEMODE:GetWaveActive() then
 		local waveend = GAMEMODE:GetWaveEnd()
 		if waveend ~= -1 then

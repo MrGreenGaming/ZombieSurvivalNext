@@ -7,7 +7,7 @@ if CLIENT then
 	SWEP.ViewModelFOV = 55
 
 	SWEP.ShowViewModel = false
-	SWEP.ShowWorldModel = true
+	SWEP.ShowWorldModel = false
 
 
 	SWEP.VElements = {

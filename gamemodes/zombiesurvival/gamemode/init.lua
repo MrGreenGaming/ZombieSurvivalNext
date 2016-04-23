@@ -38,7 +38,8 @@ metal barrel + something = body armor
 --resource.AddWorkshop("615992520") --Beta V4
 --resource.AddWorkshop("618418410") --Beta V5
 --resource.AddWorkshop("639539065") -- Beta V6
-resource.AddWorkshop("649176563") -- Beta V7
+--resource.AddWorkshop("649176563") -- Beta V7
+resource.AddWorkshop("671179737") -- Beta V8
 resource.AddWorkshop("650070929") -- Dual Pistols
 
 AddCSLuaFile("cl_init.lua")
@@ -72,19 +73,8 @@ AddCSLuaFile("client/cl_legs.lua")
 AddCSLuaFile("client/cl_chatsounds.lua")
 AddCSLuaFile("client/cl_splitmessage.lua")
 AddCSLuaFile("client/cl_chatbox.lua")
-AddCSLuaFile("modules/admin_mod/sv_pmapmanager.lua")
-
-AddCSLuaFile("modules/admin_mod/cl_admin.lua")
-AddCSLuaFile("modules/map_vote/cl_votemap.lua")
 
 
-
-AddCSLuaFile("modules/boneanimlib_v2/sh_boneanimlib.lua")
-AddCSLuaFile("modules/boneanimlib_v2/cl_boneanimlib.lua")
-AddCSLuaFile("modules/boneanimlib_v2/boneanimlib.lua")
-
-
-AddCSLuaFile("modules/ravebreak/sh_ravebreak.lua")
 
 
 AddCSLuaFile("obj_vector_extend.lua")
@@ -128,20 +118,59 @@ include("mapeditor.lua")
 include("sv_playerspawnentities.lua")
 include("sv_profiling.lua")
 include("sv_sigils.lua")
-include("modules/map_vote/sv_votemap.lua")
+
 include("client/cl_chatsounds.lua")
 
---[[Admin Mod]]--
+
+
+--[[MODUELS]]--
+
+AddCSLuaFile("modules/boneanimlib_v2/sh_boneanimlib.lua")
+AddCSLuaFile("modules/boneanimlib_v2/cl_boneanimlib.lua")
+AddCSLuaFile("modules/boneanimlib_v2/boneanimlib.lua")
+AddCSLuaFile("modules/ravebreak/sh_ravebreak.lua")
+AddCSLuaFile("modules/vote_outcomes/cl_director_vote.lua")
+AddCSLuaFile("modules/admin_mod/sv_pmapmanager.lua")
+AddCSLuaFile("modules/admin_mod/cl_admin.lua")
+AddCSLuaFile("modules/map_vote/cl_votemap.lua")
+
+--Christmas
+if CHRISTMAS then
+	AddCSLuaFile("modules/christmas/snow.lua")
+end
+
+--AFK Manager
+include("modules/afk/sv_afk.lua")
+
+--News
+AddCSLuaFile("modules/news/cl_news.lua")
+
+--Dynamic walk speed
+include("modules/weightspeed/sv_weightspeed.lua")
+
+--Admin Mod
 include("modules/admin_mod/sv_commands.lua")
 include("modules/admin_mod/admin_commands.lua")
 include("modules/admin_mod/sv_admin.lua")
+
+--Map Manager (W.I.P)
 include("modules/admin_mod/sv_pmapmanager.lua")
 
+--Map vote
+include("modules/map_vote/sv_votemap.lua")
 
---include("mapvote.lua")
+--Vote Mute
+include("modules/vote_outcomes/sv_director_vote.lua")
+include("modules/vote_outcomes/cl_director_vote.lua")
 
+--Sub Gamemodes
 include("modules/sub_gamemodes/zombie_escape/sv_zombieescape.lua")
 include("modules/sub_gamemodes/arena/sv_arena.lua")
+
+--[[
+--Compass
+include("modules/compass/sv_compass.lua")
+]]--
 
 if file.Exists(GM.FolderName.."/gamemode/maps/"..game.GetMap()..".lua", "LUA") then
 	include("maps/"..game.GetMap()..".lua")
@@ -485,21 +514,22 @@ function GM:TopNotifyAll(...)
 end
 GM.TopNotify = GM.TopNotifyAll
 
+--[[
 function GM:ShowHelp(pl)
-	pl:SendLua("GAMEMODE:ShowHelp()")
-end
-
+	timer.Simple(0.1, function()
+		pl:SendLua("GAMEMODE:ShowHelp()")
+	end)
+end]]--
+--[[
 function GM:ShowTeam(pl)
-	--if pl:Team() == TEAM_HUMAN and not self.ZombieEscape then
-		--pl:SendLua(self:GetWave() > 0 and "GAMEMODE:OpenPointsShop()" or "MakepWorth()")
-		--pl:SendLua(self:GetWave() > 0 and "GAMEMODE:OpenPointsShop()")
-	--end
-end
+
+end]]--
 
 
 -- People will hate me for this
 -- Ywa: Nope. They still love you.
 -- Duby: Removed it for a while as some admins are retarded and use it every game. 
+-- Duby: Hey look, this function found its way over to ZS 3.0 
 function RaveBreak() --Needs to be made..
 	umsg.Start("RaveBreak")
 	umsg.End()
@@ -531,6 +561,7 @@ function GM:ShowSpare1(pl)
 			pl:SendLua("GAMEMODE:OpenClassSelect()")
 		end
 	else
+		pl:SendLua("GAMEMODE:ShowHelp()")
 		--pl:SendLua("MakepWeapons()")
 		--RunConsoleCommand("zsdropweapon") --Duby: <-- Sort this out to work properly..
 		--DropWeapon
@@ -1377,7 +1408,7 @@ local function CheckBroken()
 		end
 	end
 end
-
+--[[
 function GM:DoRestartGame()
 	self.RoundEnded = nil
 
@@ -1447,7 +1478,7 @@ function GM:RestartGame()
 	end
 
 	timer.Simple(0.25, function() GAMEMODE:DoRestartGame() end)
-end
+end]]--
 
 function GM:InitPostEntityMap(fromze)
 	pcall(gamemode.Call, "LoadMapEditorFile")
@@ -1578,8 +1609,6 @@ function GM:PlayerReadyRound(pl)
 	elseif self:GetWave() <= 0 and self.StartingWorth > 0 and not self.StartingLoadout and not self.ZombieEscape then
 	
 		if ARENA then
-			net.Start( "zs_arena" )
-			net.Broadcast()
 			return
 		else	
 			pl:SendLua("MakepWorth()")
@@ -1783,6 +1812,15 @@ function GM:PlayerInitialSpawnRound(pl)
 	v:CrosshairDisable()
 	end
 
+	if ARENA then
+		pl:CustomChatPrint ( {nil, Color(213,84,0),"[USEFUL TIP] ",Color(213,213,213),""..pl:Name()..", Don't stand still, shoot..",Color(213,213,213)," Your Ammo will regenerate!"} )
+		timer.Simple(10, function()
+			pl:CustomChatPrint ( {nil, Color(213,84,0),"[USEFUL TIP] ",Color(213,213,213)," You have 30 seconds of God mode.. Best of luck!"} )
+		end)
+		timer.Simple(65, function()
+			pl:CustomChatPrint ( {nil, Color(213,84,0),"[UN-USEFUL TIP] ",Color(213,213,213),""..pl:Name().." If you're still alive, then you may live another 60 seconds or so..."} )
+		end)
+	end
 	
 end
 
@@ -2003,10 +2041,14 @@ function GM:GiveRandomEquipment(pl)
 		end
 	end
 	--Duby: Default loadout if a class isn't selected	
-supweapon = {"weapon_zs_resupplybox","weapon_zs_arsenalcrate"}
-pl:Give("weapon_zs_hammer")
-pl:Give("weapon_zs_battleaxe")
-pl:Give(table.Random(supweapon))
+	if ARENA then	
+		return 		
+	else	
+		supweapon = {"weapon_zs_resupplybox","weapon_zs_arsenalcrate"}
+		pl:Give("weapon_zs_hammer")
+		pl:Give("weapon_zs_battleaxe")
+		pl:Give(table.Random(supweapon))
+	end
 end
 
 function GM:PlayerCanCheckout(pl)
@@ -3004,6 +3046,7 @@ function GM:DefaultRevive(pl)
 	end
 end
 
+util.AddNetworkString( "slowmo_debug" )
 function GM:HumanKilledZombie(pl, attacker, inflictor, dmginfo, headshot, suicide)
 	if (pl:GetZombieClassTable().Points or 0) == 0 or self.RoundEnded then return end
 
@@ -3015,7 +3058,17 @@ function GM:HumanKilledZombie(pl, attacker, inflictor, dmginfo, headshot, suicid
 			totaldamage = totaldamage + dmg
 		end
 	end
-
+	
+	if math.random(1,12) == 2 then -- Zed Time
+		game.SetTimeScale(0.35)
+		timer.Simple(0.9, function() game.SetTimeScale(1) end)
+			
+		net.Start( "slowmo_debug" )
+		net.Broadcast()	
+	else
+		game.SetTimeScale(1) --Clean this up properly sometime soon..
+	end
+		
 	local mostassistdamage = 0
 	local halftotaldamage = totaldamage / 2
 	local mostdamager
@@ -3742,7 +3795,6 @@ function GM:WaveStateChanged(newstate)
 					pl.BonusDamageCheck = CurTime()
 				end
 			end
-
 			-- We should spawn a crate in a random spawn point if no one has any.
 			if not self.ZombieEscape and #ents.FindByClass("prop_arsenalcrate") == 0 then
 				local have = false
@@ -3753,6 +3805,7 @@ function GM:WaveStateChanged(newstate)
 					end
 				end
 
+				
 				if not have and #humans >= 1 then
 					local spawn = self:PlayerSelectSpawn(humans[math.random(#humans)])
 					if spawn and spawn:IsValid() then
@@ -3991,3 +4044,5 @@ function server_RunCommand( ply, command, args)
 		end
 	umsg.End()	
 end
+
+

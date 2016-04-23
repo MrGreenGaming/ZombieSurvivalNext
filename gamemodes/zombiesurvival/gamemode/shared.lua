@@ -7,15 +7,16 @@ GM.Website	=	"http://www.noxiousnet.com"
 GM.Credits = {
 	{"William \"JetBoom\" Moodhe", "williammoodhe@gmail.com (www.noxiousnet.com)", "Creator / Programmer"},
 	{"11k", "tjd113@gmail.com", "Zombie view models"},
+	{"Duby", "stcross03@gmail.com", "Mr.Green ZS Mod"},
+	{"Stelk", "N/A", "Mr.Green ZS Maps"},
+	{"Gheii-Ben", "N/A", "Mr.Green ZS Graphics"},
 	{"Eisiger", "k2deseve@gmail.com", "Zombie kill icons"},
 	{"Austin \"Little Nemo\" Killey", "austin_odyssey@yahoo.com", "Ambient music"},
 	{"Zombie Panic: Source", "http://www.zombiepanic.org/", "Melee weapon sounds"},
 	{"Samuel", "samuel_games@hotmail.com", "Board Kit model"},
 	{"Typhon", "lukas-tinel@hotmail.com", "HUD textures"},
 	
-	{"Duby", "stcross03@gmail.com", "Mr.Green ZS Mod"},
-	{"Stelk", "N/A", "Mr.Green ZS Maps"},
-	{"Gheii-Ben", "N/A", "Mr.Green ZS Graphics"},
+
 	
 	{"Mr. Darkness", "", "Russian translation"},
 	{"honsal", "", "Korean translation"},
@@ -147,12 +148,18 @@ function GM:PlayerIsAdmin(pl)
 	return pl:IsAdmin()
 end
 
+function GM:PlayerIsSuperAdmin(pl)
+	return pl:IsSuperAdmin()
+end
+
 function GM:GetFallDamage(pl, fallspeed)
 	return 0
 end
 
 function GM:ShouldRestartRound()
-	if self.TimeLimit == -1 or self.RoundLimit == -1 then return true end
+--Duby: Disabled for now, it will need intergrating with ARENA mode and the map vote. or it'll cause a huge issue...
+
+--[[	if self.TimeLimit == -1 or self.RoundLimit == -1 then return true end
 
 	local roundlimit = self.RoundLimit
 	if self.ZombieEscape and roundlimit > 0 then
@@ -166,7 +173,7 @@ function GM:ShouldRestartRound()
 
 	if timelimit > 0 and CurTime() >= timelimit or roundlimit > 0 and self.CurrentRound >= roundlimit then return false end
 
-	return true
+	return true]]--
 end
 
 function GM:ZombieSpawnDistanceSort(other)
@@ -420,6 +427,7 @@ function GM:OnPlayerHitGround(pl, inwater, hitfloater, speed)
 
 	return true
 end
+
 
 function GM:PlayerCanBeHealed(pl)
 	return true

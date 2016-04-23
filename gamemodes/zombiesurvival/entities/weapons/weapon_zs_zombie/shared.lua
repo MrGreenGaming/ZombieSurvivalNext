@@ -117,7 +117,7 @@ end
 function SWEP:Swung()
 	local owner = self.Owner
 
-	owner:LagCompensation(true)
+	--owner:LagCompensation(true)
 
 	local hit = false
 	local traces = owner:PenetratingMeleeTrace(self.MeleeReach, self.MeleeSize, self.PreHit)

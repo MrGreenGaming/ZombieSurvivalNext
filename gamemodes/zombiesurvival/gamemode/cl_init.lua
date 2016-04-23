@@ -21,13 +21,7 @@ include("client/cl_legs.lua")
 include("client/cl_chatsounds.lua")
 include("client/cl_splitmessage.lua")
 include("client/cl_chatbox.lua")
-include("modules/admin_mod/cl_admin.lua")
-include("modules/admin_mod/sv_pmapmanager.lua")
 
-include("modules/map_vote/cl_votemap.lua")
---include("mapvote.lua")
-
-include("modules/boneanimlib_v2/cl_boneanimlib.lua")
 
 include("vgui/dgamestate.lua")
 include("vgui/dteamcounter.lua")
@@ -58,9 +52,45 @@ include("cl_deathnotice.lua")
 include("cl_floatingscore.lua")
 include("cl_hint.lua")
 
+--[[MODUELS]]--
+
+--Christmas
+if CHRISTMAS then
+	include("modules/christmas/snow.lua")
+end
+
+--AFK Manager
+include("modules/afk/cl_afk.lua")
+
+--News
+include("modules/news/cl_news.lua")
+
+--Dynamic walk speed
+include("modules/weightspeed/sh_weightspeed.lua")
+
+--Bone Lib
+include("modules/boneanimlib_v2/cl_boneanimlib.lua")
+
+
+--Admin Mod
+include("modules/admin_mod/cl_admin.lua")
+
+--Map Manager
+include("modules/admin_mod/sv_pmapmanager.lua")
+
+--Map Vote
+include("modules/map_vote/cl_votemap.lua")
+
+--Vote Mute
+include("modules/vote_outcomes/cl_director_vote.lua")
+
+--Sub Gamemodes
 include("modules/sub_gamemodes/zombie_escape/cl_zombieescape.lua")
 include("modules/sub_gamemodes/arena/cl_arena.lua")
-
+--[[
+--Compass
+include("modules/compass/cl_compass.lua")
+]]--
 w, h = ScrW(), ScrH() --Global vars 
 
 MySelf = MySelf or NULL
@@ -662,13 +692,15 @@ function GM:HumanHUD(screenscale)
 	end
 
 	if not self.RoundEnded then
-		if self:GetWave() == 0 and not self:GetWaveActive() then
+	--Duby: Temp Disabled until I find a proper place..
+	
+		--[[if self:GetWave() == 0 and not self:GetWaveActive() then
 			local txth = draw_GetFontHeight("ZSHUDFontSmall")
 
 			local desiredzombies = self:GetDesiredStartingZombies()
 
 			
-			draw_SimpleText("Zombie Volunteers:", "ZSHUDFontSmall", w * 0.5, h * 0.7 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER)
+			draw_SimpleText("Zombie Volunteers:", "ZSHUDFontSmall", w * 0.5, h * 0.9 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER)
 			
 			local y = h * 0.75 + txth * 2
 
@@ -680,7 +712,7 @@ function GM:HumanHUD(screenscale)
 					
 				end
 			end
-		end
+		end]]--
 
 		local drown = MySelf.status_drown
 		if drown and drown:IsValid() then
@@ -711,8 +743,6 @@ function GM:HumanHUD2(screenscale)
 
 	--Duby: I will place this into a module soon enough!
 	local hudsplat = Material("hud/hud_top_left_3.png") --Items for the HUD.
-	--local hudsplat = Material("hud/hud_top_left.png") --Items for the HUD.
-	--local hudsplat2 = Material("hud/hud_bottom_left_2.png") --Items for the HUD.
 	local hudsplat2 = Material("hud/hud_bottom_left.png") --Items for the HUD.
 	local w, h = ScrW(), ScrH()
 	
@@ -725,7 +755,7 @@ function GM:HumanHUD2(screenscale)
 	surface.DrawTexturedRect(w * 0.01, h * 0.89, w * 0.16, h * 0.1)
 	
 	local pl = LocalPlayer()
-	local SCREEN_W = 1920; --For the screen resolution scale. This means that it can be fit exactly on the screen without any issues.
+	local SCREEN_W = 1920; 
 	local SCREEN_H = 1080;
 	local X_MULTIPLIER = ScrW( ) / SCREEN_W;
 	local Y_MULTIPLIER = ScrH( ) / SCREEN_H;
@@ -1000,6 +1030,7 @@ function GM:CreateFonts()
 	surface.CreateLegacyFont(new_zs_font, screenscale * 28, fontweight, fontaa, false, "ZSHUDFontSmall", fontshadow, fontoutline)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 32, fontweight, fontaa, false, "ZSHUDFont", false, false)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 42, fontweight, fontaa, false, "ZSHUDFont2", false, false)
+	surface.CreateLegacyFont(new_zs_font, screenscale * 65, fontweight, fontaa, false, "ZSHUDFont3", false, false)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 72, fontweight, fontaa, false, "ZSHUDFontBig", fontshadow, fontoutline)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 16, fontweight, fontaa, false, "ZSHUDFontTinyBlur", false, false, 8)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 22, fontweight, fontaa, false, "ZSHUDFontSmallerBlur", false, false, 8)
@@ -1349,12 +1380,12 @@ function GM:_CreateMove(cmd)
 		return
 	end
 
-	if MySelf:GetLegDamage() >= 0.5 then
+	--[[if MySelf:GetLegDamage() >= 0.5 then
 		local buttons = cmd:GetButtons()
 		if bit.band(buttons, IN_JUMP) ~= 0 then
 			cmd:SetButtons(buttons - IN_JUMP)
 		end
-	end
+	end]]--
 
 	if MySelf:Team() == TEAM_HUMAN then
 		if MySelf:Alive() then
@@ -1582,17 +1613,12 @@ function GM:HUDPaintBackgroundEndRound(winner)
 
 	surface.SetMaterial(hudsplat3)
 	surface.SetDrawColor(255, 255, 255, 255 )
-	--surface.DrawTexturedRect(w * 0.3215, h * 0.82, w * 0.35, h * 0.15)
 	surface.DrawTexturedRect(w * 0.4, h * 0.83, w * 0.2, h * 0.19)
 
 	
 	local localwin = winner == TEAM_HUMAN and LocalPlayer():Team() == winner
+	--local randomply = table.Random(player.GetAll())
 
-
---return winners
-
---return hps[maxhp]
-	
 	--W.I.P
 		if pl:Team() == TEAM_HUMAN then
 		
@@ -1609,14 +1635,17 @@ function GM:HUDPaintBackgroundEndRound(winner)
 		end	
 		if pl:Team() == TEAM_UNDEAD then
 			draw.SimpleText( "You Have Lost", "ZSHUDFont2", w * 0.5, h * 0.25, Color( 255,0,0,255), TEXT_ALIGN_CENTER )
-			draw.SimpleText( "The Undead Will Become Stronger!", "ZSHUDFont", w * 0.5, h * 0.29, Color( 255,0,0,255 ), TEXT_ALIGN_CENTER )  
+			draw.SimpleText( "The Undead Have Become Stronger!", "ZSHUDFont", w * 0.5, h * 0.29, Color( 255,0,0,255 ), TEXT_ALIGN_CENTER )  
 			
-			draw.SimpleText( "You Died.. "..LocalPlayer():Deaths().. "  Times! ", "ZSHUDFont", w * 0.5, h * 0.5, Color( 255,255,255,255 ), TEXT_ALIGN_CENTER ) 
-			draw.SimpleText( "You killed.. "..LocalPlayer():Frags().."  Humans! >:O", "ZSHUDFont", ScrW() * 0.5, ScrH() * 0.55, Color(  255,255,255,255 ), TEXT_ALIGN_CENTER ) 
+			draw.SimpleText( "Dis-Honorable Mentions", "ZSHUDFont", w * 0.5, h * 0.46, Color( 255,0,0,255), TEXT_ALIGN_CENTER ) --Does the same as this lol ^
+			draw.SimpleText( " "..winrar:GetName().." Was the horniest player!", "ZSHUDFont", w * 0.5, h * 0.5, Color( 255,255,255,255), TEXT_ALIGN_CENTER ) 
+			--draw.SimpleText( " "..winrar:GetName().." Had the most SkillPoints ("..mostkills.."SP!)  " , "ZSHUDFont", w * 0.5, h * 0.55, Color( 255,255,255,255), TEXT_ALIGN_CENTER ) 
+			--draw.SimpleText( " "..randomply.." Is a Massive Ass-Hat! " , "ZSHUDFont", w * 0.5, h * 0.6, Color( 255,255,255,255), TEXT_ALIGN_CENTER ) 
+			draw.SimpleText( "You Died.. "..LocalPlayer():Deaths().. "  Times! ", "ZSHUDFont", w * 0.5, h * 0.55, Color( 255,255,255,255 ), TEXT_ALIGN_CENTER ) 
+			draw.SimpleText( "You killed.. "..LocalPlayer():Frags().."  Humans! >:O", "ZSHUDFont", w * 0.5, h * 0.6, Color(  255,255,255,255 ), TEXT_ALIGN_CENTER ) 
+		--	draw.SimpleText( "Test.. "..GetMostKey("HealedThisRound").."  Test", "ZSHUDFont", w * 0.5, h * 0.65, Color(  255,255,255,255 ), TEXT_ALIGN_CENTER ) 
 				return
 		end
-
-		
 
 end
 
@@ -2005,9 +2034,6 @@ net.Receive("zs_endround", function(length)
 	gamemode.Call("EndRound", winner, nextmap)
 end)
 
-net.Receive("zs_arena", function()
-	surface.PlaySound( "mrgreen/music/intermission1.mp3" )
-end)
 -- Temporary fix
 function render.DrawQuadEasy(pos, dir, xsize, ysize, color, rotation)
 	xsize = xsize / 2
@@ -2024,4 +2050,172 @@ function render.DrawQuadEasy(pos, dir, xsize, ysize, color, rotation)
 
 	render.DrawQuad(pos - upoffset - rightoffset, pos - upoffset + rightoffset, pos + upoffset + rightoffset, pos + upoffset - rightoffset, color)
 end
+
+net.Receive( "hentai", function( len, pl ) -- len is the net message length, which we don't care about, ply is the player who sent it.
+	local pl = LocalPlayer()
+	pl:EmitSound("mrgreen/9000.wav")
+end )
+
+net.Receive( "slowmo_debug", function( len, pl ) -- len is the net message length, which we don't care about, ply is the player who sent it.
+	local pl = LocalPlayer()
+	
+		surface.PlaySound("mrgreen/slowmo/slowmo_up_6.wav")
+	timer.Simple(0.7, function() 
+		surface.PlaySound("mrgreen/slowmo/slowmo_down_8.wav")
+	end)
+end )
+
+
+
+local GradientExample = surface.GetTextureID("gui/center_gradient")
+function DrawBlackBox(x,y,w,h,overridealpha)
+
+	local a = 1
+	
+	if overridealpha then
+		a = overridealpha
+	end
+	
+	surface.SetDrawColor( Color( 0, 0, 0, 240*a ) )
+	surface.DrawRect( x, y, w, h )
+		
+	local Quad = {} 
+	Quad.texture 	= GradientExample
+	Quad.color		= Color(40,40,40,140*a)
+ 
+	Quad.x = x
+	Quad.y = y
+	Quad.w = w
+	Quad.h = h
+	draw.TexturedQuad( Quad )
+		
+	surface.SetDrawColor( 30, 30, 30, 200*a )
+	surface.DrawOutlinedRect( x, y, w, h )
+	surface.SetDrawColor( 30, 30, 30, 255*a )
+	surface.DrawOutlinedRect( x+1, y+1, w-2, h-2 )
+end
+
+
+--Better Messages for vote commands--------
+
+local DrawVote = false
+local distapproach = 0
+local vwide, vtall = ScaleW(232), ScaleH(156)
+local xpos = -vwide
+local whiner, target,votetype, countyes, countno, timeleft = "", "", "", 0, 0, 0
+
+-- Called when vote begins
+local function OpenVoteWindow(um)
+if not IsValid ( MySelf ) then return end
+
+	target = um:ReadEntity():Name()
+	votetype = um:ReadString()
+	timeleft = CurTime() + 20
+	DrawVote = true
+	
+	surface.PlaySound("buttons/button4.wav")
+	
+end
+usermessage.Hook ( "OpenVoteWindow", OpenVoteWindow )
+
+-- Called when someone votes yes or no
+local function AddVote(um)
+if not IsValid ( MySelf ) then return end
+
+local vote = um:ReadString()
+
+	if vote == "yes" then
+		countyes = countyes + 1
+	else
+		countno = countno + 1
+	end
+	
+	surface.PlaySound("UI/hint.wav")
+	
+end
+usermessage.Hook ( "AddVote", AddVote )
+
+-- Called at the end of vote
+local function CloseVoteWindow()
+if not IsValid ( MySelf ) then return end
+
+	target,votetype,countyes,countno, timeleft = "", "", 0, 0, 0
+	DrawVote = false
+	
+	surface.PlaySound("buttons/button14.wav")
+end
+usermessage.Hook ( "CloseVoteWindow", CloseVoteWindow )
+
+-- Draw the vote message with results
+function DrawVoteMessage()
+
+
+	if not IsValid ( MySelf ) or ENDROUND then
+		return
+	end
+
+	if DrawVote then distapproach = -1 else distapproach = -vwide end
+
+	xpos = math.Clamp(math.Approach(xpos,distapproach, FrameTime()*300),-vwide,-1)
+
+	local ypos = ScrH()/2-120
+
+	if xpos == -vwide then return end
+	
+	DrawBlackBox(xpos, ypos, vwide, vtall)
+	
+	ypos = ypos+4
+	
+	draw.SimpleTextOutlined(""..string.upper(votetype).." player "..target.."?" , "ZSHUDFontSmallest", xpos + vwide/2 , ypos, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_TOP,1,Color(0,0,0,255))
+	ypos = ypos +26
+	
+	draw.SimpleTextOutlined("(Press F1 for YES or F2 for NO)" , "ZSHUDFontSmaller", xpos + vwide/2 , ypos, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_TOP,1,Color(0,0,0,255))
+	ypos = ypos +31
+	
+	draw.SimpleTextOutlined("YES" , "ZSHUDFontSmall", xpos + vwide/4 , ypos, Color (0,255,0,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_TOP,1,Color(0,0,0,255))
+	draw.SimpleTextOutlined("NO" , "ZSHUDFontSmall", xpos + 3*vwide/4 , ypos, Color (255,0,0,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_TOP,1,Color(0,0,0,255))
+	ypos = ypos +27
+	
+	draw.SimpleTextOutlined(countyes , "ZSHUDFontSmallest", xpos + vwide/4 , ypos, Color (0,255,0,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_TOP,1,Color(0,0,0,255))
+	draw.SimpleTextOutlined(countno , "ZSHUDFontSmallest", xpos + 3*vwide/4 , ypos, Color (255,0,0,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_TOP,1,Color(0,0,0,255))
+	ypos = ypos +27
+	
+	draw.SimpleTextOutlined("(Time left: "..math.Clamp(math.Round(timeleft - CurTime()),0,20)..")" , "ZSHUDFontSmallest", xpos + vwide/2 , ypos, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_TOP,1,Color(0,0,0,255))
+	
+	
+end
+hook.Add( "HUDPaint", "DrawVoteMessage", DrawVoteMessage )
+
+--Usermessage for custom messages by Overv------
+
+net.Receive( "CustomChatAdd", function( len )
+	
+	local argc = net.ReadDouble( )
+	local args = { }
+	
+	for i = 1, argc / 2, 1 do
+		table.insert( args, Color( net.ReadDouble( ), net.ReadDouble( ), net.ReadDouble( ), net.ReadDouble( ) ) )
+		table.insert( args, net.ReadString( ) )
+	end
+         
+	chat.AddText( unpack( args ) )
+
+
+end)
+
+local function CustomChatAdd(um)
+
+	local argc = um:ReadShort( )
+	local args = { }
+	
+	for i = 1, argc / 2, 1 do
+		table.insert( args, Color( um:ReadShort( ), um:ReadShort( ), um:ReadShort( ), um:ReadShort( ) ) )
+		table.insert( args, um:ReadString( ) )
+	end
+         
+	chat.AddText( unpack( args ) )
+
+end
+usermessage.Hook( "CustomChatAdd",CustomChatAdd)
+
 

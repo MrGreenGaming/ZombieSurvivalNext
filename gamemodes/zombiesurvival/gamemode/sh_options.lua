@@ -146,7 +146,7 @@ GM.AmmoResupply["pulse"] = GM.AmmoCache["pulse"]
 
 --MEDIC
 
-GM:CLASS("medic", "MEDIC", "Heals and keeps your team alive!", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("medic", "MEDIC", " Medkical Kit \n Plank \n Five Seven or Medic Gun", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/group03/male_02.mdl",
@@ -155,7 +155,7 @@ function(pl) pl:SetModel( table.Random( {
 	"models/player/group03/male_07.mdl"
 } ) ) 
 
-	MedWeapon = {"weapon_zs_fiveseven","weapon_zs_gunturret","weapon_zs_mine"}	
+	MedWeapon = {"weapon_zs_fiveseven","weapon_zs_medicgun"}	
 	pl:Give("weapon_zs_medicalkit")
 	pl:Give("weapon_zs_plank")
 	pl:Give(table.Random(MedWeapon))
@@ -166,7 +166,7 @@ end, "models/healthvial.mdl")
 
 --COMMANDO
 
-GM:CLASS("commando", "COMMANDO", "Slaughter zombies efficiently with the toughest firearms!", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("commando", "COMMANDO", " Dual Classic Pistols \n Swiss Knife \n Grenades", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/combine_soldier.mdl",
@@ -182,7 +182,7 @@ end, "models/healthvial.mdl")
 
 --ENGINEER
 
-GM:CLASS("engineer", "ENGINEER", "Technology is your best friend, use it to fuck shit up!", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("engineer", "ENGINEER", " Pulse Pistol \n Fryig Pan \n 1 in 3 Aegis Kit, Turret, Mines", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/mossman.mdl",
@@ -201,7 +201,7 @@ end, "models/healthvial.mdl")
 
 --BERSERKER
 
-GM:CLASS("berserker", "BERSERKER", "Hit smash and destroy!", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("berserker", "BERSERKER", " P228 \n Mobile Supplies \n Pot or Axe", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) 
 pl:SetModel( table.Random( {
@@ -237,7 +237,7 @@ end, "models/healthvial.mdl")
 
 --SUPPORT
 
-GM:CLASS("support", "SUPPORT", "Create barricades and support your team mates!", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("support", "SUPPORT", " Hammer \n Supply Crate \n USP ", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/gasmask.mdl",
@@ -349,7 +349,6 @@ GM:AddPointShopItem("junkpack", "Junk Pack", nil, ITEMCAT_TOOLS, 45, "weapon_zs_
 GM:AddPointShopItem("miniturret", "Mini Turret", nil, ITEMCAT_TOOLS, 50, nil, function(pl) pl:SpawnMiniTurret() end) --Un decided to if this should be kept in the shop..
 GM:AddPointShopItem("supplycrate", "Supply Crate", nil, ITEMCAT_TOOLS, 50, "weapon_zs_arsenalcrate")
 
---GM:AddPointShopItem("detpck", "Detonation Pack", nil, ITEMCAT_OTHER, 70, "weapon_zs_detpack")
 -- These are the honorable mentions that come at the end of the round.
 
 local function genericcallback(pl, magnitude) return pl:Name(), magnitude end

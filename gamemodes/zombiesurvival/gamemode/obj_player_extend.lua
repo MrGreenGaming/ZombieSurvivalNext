@@ -885,3 +885,15 @@ end
 function meta:IsZombie()
 	return self:Team() == TEAM_UNDEAD
 end
+
+--[==[----------------------------------------------------------------
+          Check if the player has already voted or not
+----------------------------------------------------------------]==]
+function meta:HasVoted(VOTES)
+	if table.HasValue(VOTES.YES, self) or table.HasValue(VOTES.NO, self) then 
+		return true
+	end
+	
+	return false
+end
+

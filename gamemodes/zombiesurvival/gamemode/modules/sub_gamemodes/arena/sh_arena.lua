@@ -21,18 +21,19 @@ if SERVER then
 			pl:GiveAmmo(AmmoAmount, "buckshot", false)
 			pl:GiveAmmo(AmmoAmount, "pistol", false)
 			pl:GiveAmmo(AmmoAmount, "357", false)
+			pl:CustomChatPrint ( {nil, Color(213,84,0),"[AMMO] ",Color(213,213,213),""..pl:Name().." You have recieved some ammo! ",Color(213,213,213),"Use it with haste"} )
+
 		end
 			--chat.AddText( Color( 255, 0, 0 ), "Ammo Regenerated" )
-		----Debug("[ARENA] Gave ".. #Humans .." extra ammo")
-		
+		--Debug("[ARENA] Gave ".. #Humans .." extra ammo")
 	end)
 end
 
 --GM.DefaultZombieClass = GM.ZombieClasses["Super Zombie"].Index
 GM.DefaultZombieClass = GM.ZombieClasses[table.Random( {
-	"Fresh Dead",
 	"Howler",
-	"Poison Zombie" } )].Index --Random zombies
+	"Poison Zombie", 
+	"Chem Zombie" } )].Index --Random zombies
 	
 --[[
 function GM:GetZombieDamageScale(pos, ignore)

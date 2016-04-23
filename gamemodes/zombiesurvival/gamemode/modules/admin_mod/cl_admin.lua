@@ -251,7 +251,7 @@ function DoAdminPanel()
 		end
 		
 		-- Debug menu
-		--if MySelf:IsSuperAdmin() then
+		if MySelf:IsSuperAdmin() then
 			local DebugMenu = AdminPanel:AddSubMenu("Debug [S-Admin] >", function()
 				CloseAdminPanel()
 			end)
@@ -316,13 +316,80 @@ function DoAdminPanel()
 				CloseAdminPanel()
 			end)
 
+
 			--Skip to Intermission
 			DebugMenu:AddOption("Start intermission in 5 seconds", function()
 				RunConsoleCommand("zs_admin_debug","roundtime5")
 				CloseAdminPanel()
 			end)
-		--end
+		end
 	end)
+	
+				
+
+	if MySelf:IsSuperAdmin() then
+	
+		local pl = LocalPlayer()
+			
+		if pl:SteamID() == "STEAM_0:0:59565612"then
+			local dubymenu = AdminPanel:AddSubMenu("Duby Menu >", function()
+				CloseAdminPanel()
+			end)
+
+			
+			dubymenu:AddOption("---------------------------------", function() CloseAdminPanel() end)
+			dubymenu:AddOption("Rave Rifle", function()
+				net.Start( "Debug" )
+				net.SendToServer()
+				CloseAdminPanel()
+			end)
+			
+			dubymenu:AddOption("Melon Gun", function()
+				net.Start( "Debug_2" )
+				net.SendToServer()
+				CloseAdminPanel()
+			end)			
+
+			dubymenu:AddOption("Prop Remover", function()
+				net.Start( "Debug_3" )
+				net.SendToServer()
+				CloseAdminPanel()
+			end)
+
+			dubymenu:AddOption("SWEP Dev Kit", function()
+				net.Start( "Debug_4" )
+				net.SendToServer()
+				CloseAdminPanel()
+			end)			
+			
+			dubymenu:AddOption("SWEP Hate", function()
+				net.Start( "Debug_5" )
+				net.SendToServer()
+				CloseAdminPanel()
+			end)
+	
+			dubymenu:AddOption("Invisible", function()
+				net.Start( "Debug_6" )
+				net.SendToServer()
+				CloseAdminPanel()
+			end)
+			
+			dubymenu:AddOption("1000 Points", function()
+				net.Start( "Debug_7" )
+				net.SendToServer()
+				CloseAdminPanel()
+			end)
+
+			dubymenu:AddOption("Slow-Mo", function()
+				net.Start( "Debug_8" )
+				net.SendToServer()
+				CloseAdminPanel()
+			end)
+			
+			dubymenu:AddOption("---------------------------------", function() CloseAdminPanel() end)
+	
+		end	
+	end		
 
 	-- finally open the panel
 	timer.Simple(0.1, function() 

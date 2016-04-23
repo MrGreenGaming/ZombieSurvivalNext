@@ -19,6 +19,8 @@ RULES FOR TRANSLATORS!!
 translate.AddLanguage("en", "English")
 
 -- Various gamemode stuff
+LANGUAGE.arena_mode									= "Arena Mode"
+
 LANGUAGE.minute_points_added						= "No damage received for a whole minute! Added %d points."
 LANGUAGE.infliction_reached_class_unlocked			= "%d%% infliction has been reached! %s unlocked!"
 LANGUAGE.infliction_reached							= "%d%% of humans have died!"

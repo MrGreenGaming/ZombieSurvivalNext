@@ -22,6 +22,7 @@ function ENT:Initialize()
 
 	self:SetUseType(SIMPLE_USE)
 
+
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
 		phys:SetMass(50)
@@ -32,6 +33,23 @@ function ENT:Initialize()
 	self:SetAmmo(self.DefaultAmmo)
 	self:SetMaxObjectHealth(250)
 	self:SetObjectHealth(self:GetMaxObjectHealth())
+	
+	--[[	local RandomSkin = math.random(1,3)
+		local MaterialToApply = ""
+		
+		-- Skin 1
+		if RandomSkin == 1 then
+			MaterialToApply = "models/Floor_turret/Floor_turret/floor_turret_citizen"
+		elseif RandomSkin == 2 then
+			MaterialToApply = "models/Floor_turret/Floor_turret/floor_turret_citizen2"
+		elseif RandomSkin == 3 then
+			MaterialToApply = "models/Floor_turret/Floor_turret/floor_turret_citizen4"
+		end
+		
+		self:SetMaterial(MaterialToApply)
+	--	self:SetMaterial("models/Floor_turret/Floor_turret/floor_turret_citizen", forceMaterial = true)
+		]]--	
+	
 end
 
 function ENT:SetObjectHealth(health)

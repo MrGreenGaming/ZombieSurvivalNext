@@ -24,17 +24,19 @@ if CHRISTMAS then
 	}
 end
 
-sound.Add(
+--[[sound.Add(
 {
 	name = "Weapon_Hunter.Single",
 	channel = CHAN_WEAPON,
 	volume = 1.0,
-	soundlevel = 100,
-	pitchstart = 134,
+	--soundlevel = 100,
+	soundlevel = 800,
+	--pitchstart = 234,
+	pitchstart = 11,
 	pitchend = 10,
-	--sound = "weapons/awp/awp1.wav"
-	sound = "Weapon_AWP.Single"
-})
+	sound = "weapons/awp/awp1.wav"
+	--sound = "Weapon_AWP.Single"
+})]]--
 
 SWEP.Base = "weapon_zs_base"
 
@@ -45,13 +47,14 @@ SWEP.WorldModel = "models/weapons/w_snip_awp.mdl"
 SWEP.UseHands = true
 
 SWEP.ReloadSound = Sound("Weapon_AWP.ClipOut")
-SWEP.Primary.Sound = Sound("Weapon_Hunter.Single")
+--SWEP.Primary.Sound = Sound("Weapon_Hunter.Single")
+SWEP.Primary.Sound = Sound("weapons/awp/awp1.wav")
 SWEP.Primary.Damage = 115
 SWEP.Primary.NumShots = 1
-SWEP.Primary.Delay = 1.5
+SWEP.Primary.Delay = 1.8
 SWEP.ReloadDelay = SWEP.Primary.Delay
 
-SWEP.Primary.ClipSize = 1
+SWEP.Primary.ClipSize = 10
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "357"
 SWEP.Primary.DefaultClip = 15
@@ -62,7 +65,8 @@ SWEP.ReloadGesture = ACT_HL2MP_GESTURE_RELOAD_SHOTGUN
 SWEP.ConeMax = 0.115
 SWEP.ConeMin = 0
 
-SWEP.IronSightsPos = Vector(5.015, -8, 2.52)
+
+SWEP.IronSightsPos = Vector(-7.481, -11.891, 2.24)
 SWEP.IronSightsAng = Vector(0, 0, 0)
 
 SWEP.WalkSpeed = SPEED_SLOWER
