@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 # Mr. Green Zombie Survival
 Mr. Green's adaptation of JetBoom's popular Garry's Mod Zombie Survival gamemode.
 
@@ -37,9 +35,3 @@ When in doubt which one applies for what. Contact us.
 # Links
 * Discussion forums: http://mrgreengaming.com/forums/forum/13-zombie-survival/
 * Direct communication: mail@mrgreengaming.com
-=======
-# Dubys-ZS
->>>>>>> origin/master
-=======
-# Dubys-ZS
->>>>>>> origin/master
