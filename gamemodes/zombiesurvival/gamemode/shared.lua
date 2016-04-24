@@ -78,7 +78,7 @@ GM.ZombieVolunteers = {}
 --team.SetUp(TEAM_SURVIVORS, "Survivors", Color(0, 160, 255, 255))
 
 team.SetUp(TEAM_ZOMBIE, "The Undead", Color(900, 0, 0, 255))
-team.SetUp(TEAM_SURVIVORS, "Survivors", Color(105, 98, 98, 255))
+team.SetUp(TEAM_SURVIVORS, "Survivors", Color(0, 160, 255, 255))
 
 local validmodels = player_manager.AllValidModels()
 validmodels["tf01"] = nil

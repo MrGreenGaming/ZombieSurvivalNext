@@ -8,7 +8,7 @@ SWEP.DamageType = DMG_CLUB
 if CLIENT then
     SWEP.NailTextDrawDistance = 170
 
-	SWEP.ViewModelFOV = 40
+	SWEP.ViewModelFOV = 60
 	
     SWEP.ShowViewModel = false
     SWEP.ShowWorldModel = true

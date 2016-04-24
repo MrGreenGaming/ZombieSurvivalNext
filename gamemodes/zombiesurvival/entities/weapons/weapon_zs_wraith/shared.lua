@@ -1,7 +1,7 @@
 SWEP.Base = "weapon_zs_zombie"
 
 SWEP.MeleeDelay = 0.5
-SWEP.MeleeReach = 50
+SWEP.MeleeReach = 54
 SWEP.MeleeSize = 1.5
 SWEP.MeleeDamage = 40
 SWEP.MeleeDamageType = DMG_SLASH
@@ -15,8 +15,6 @@ SWEP.WorldModel = "models/weapons/w_crowbar.mdl"
 
 
 function SWEP:Initialize()
---local pl = self.Owner
---pl:SetRenderMode(RENDERMODE_NONE) pl:SetColor(Color(225,225,225,1))
 	self:HideWorldModel()
 end
 
@@ -40,10 +38,6 @@ end
 function SWEP:PlayHitSound()
 local pl = self.Owner
 	self.Owner:EmitSound("ambient/machines/slicer"..math.random(4)..".wav", 90, 80)
-		pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(225,225,225,180))
-	timer.Simple(0.5, function()
-		pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(225,225,225,50))
-	end)
 end
 
 function SWEP:PlayMissSound()

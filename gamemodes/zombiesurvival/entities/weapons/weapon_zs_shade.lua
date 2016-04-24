@@ -12,19 +12,11 @@ end
 SWEP.Primary.Automatic = false
 SWEP.Secondary.Automatic = false
 
-function SWEP:Initialize()
-	self:HideWorldModel()
-	local pl = self.Owner
-self.Owner:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(0,0,225,200))
-end
 
 function SWEP:Think()
 end
 
 function SWEP:PrimaryAttack()
-
-local pl = self.Owner
-self.Owner:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(0,0,225,200))
 	if CurTime() <= self:GetNextPrimaryFire() then return end
 	self:SetNextSecondaryFire(CurTime() + 0.65)
 

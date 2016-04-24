@@ -6,6 +6,7 @@ SWEP.DrawCrosshair = false
 
 SWEP.Slot = 4
 SWEP.SlotPos = 0
+SWEP.ViewModelFOV = 60
 
 function SWEP:DrawHUD()
 

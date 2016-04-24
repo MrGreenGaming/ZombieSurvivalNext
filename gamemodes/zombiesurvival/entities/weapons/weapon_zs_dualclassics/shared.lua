@@ -1,7 +1,7 @@
 
 SWEP.Base 				= "weapon_zs_base"
 
-SWEP.ViewModelFOV		= 80
+SWEP.ViewModelFOV		= 60
 SWEP.ViewModelFlip		= true
 SWEP.ViewModel 			= "models/weapons/v_pistols.mdl"
 SWEP.WorldModel 			= "models/weapons/w_pist_elite.mdl"

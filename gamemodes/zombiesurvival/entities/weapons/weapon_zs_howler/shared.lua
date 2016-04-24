@@ -311,7 +311,7 @@ end
 function SWEP:IsScreaming()
 	return self:GetDTBool(0)
 end
-
+--[[
 function SWEP:Move(mv)
 	if self:IsInPrimaryAttack() then
 		self:SetMaxSpeed(0)
@@ -323,7 +323,7 @@ function SWEP:Move(mv)
 		self:SetSpeed(0)
 		return true
 	end
-end
+end]]--
 
 
 local matSheet = Material("models/weapons/v_zombiearms/ghoulsheet")

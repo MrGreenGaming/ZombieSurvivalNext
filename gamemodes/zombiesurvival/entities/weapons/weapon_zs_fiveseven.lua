@@ -7,7 +7,7 @@ if CLIENT then
 	SWEP.SlotPos = 0
 
 	SWEP.ViewModelFlip = false
-	SWEP.ViewModelFOV = 50
+	SWEP.ViewModelFOV = 60
 
 --	SWEP.HUD3DBone = "v_weapon.Deagle_Slide"
 --	SWEP.HUD3DPos = Vector(-1, 0, 1)

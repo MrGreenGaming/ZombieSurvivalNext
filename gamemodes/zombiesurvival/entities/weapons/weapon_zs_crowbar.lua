@@ -4,7 +4,7 @@ if CLIENT then
 	SWEP.PrintName = "Crowbar"
 	SWEP.Description = "Instantly kills headcrabs."
 
-	SWEP.ViewModelFOV = 65
+	SWEP.ViewModelFOV = 60
 end
 
 SWEP.Base = "weapon_zs_basemelee"

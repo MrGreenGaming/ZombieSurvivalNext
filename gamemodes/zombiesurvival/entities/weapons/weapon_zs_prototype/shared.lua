@@ -59,8 +59,8 @@ SWEP.WorldModel = "models/weapons/w_rif_ak47.mdl"
 
 SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
 SWEP.Primary.Recoil			= 2.8
-SWEP.Primary.Damage			= 10
-SWEP.Primary.NumShots		= 7
+SWEP.Primary.Damage			= 14
+SWEP.Primary.NumShots		= 8
 SWEP.Primary.DefaultClip	= 40
 SWEP.Primary.ClipSize		= 20
 SWEP.Primary.Delay			= 0.3

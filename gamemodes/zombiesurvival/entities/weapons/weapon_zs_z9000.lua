@@ -16,7 +16,7 @@ if CLIENT then
 	SWEP.ShowViewModel = false
 
 	SWEP.VElements = {
-		["base"] = { type = "Model", model = "models/weapons/w_alyx_gun.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(7, 2, -4.092), angle = Angle(170, 10, 10), size = Vector(1.1, 1.1, 1.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+		["base"] = { type = "Model", model = "models/weapons/w_alyx_gun.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(6, 2, -5.092), angle = Angle(170, 10, 10), size = Vector(1.3, 1.3, 1.3), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
 end
 
@@ -30,22 +30,25 @@ SWEP.UseHands = true
 
 SWEP.CSMuzzleFlashes = false
 
-SWEP.ReloadSound = Sound("Weapon_Alyx_Gun.Reload")
-SWEP.Primary.Sound = Sound("Weapon_Alyx_Gun.Single")
-SWEP.Primary.Damage = 14
+SWEP.ReloadSound = Sound("Weapon_Pistol.Reload")
+SWEP.Primary.Sound = Sound("Weapon_MP5Navy.Single")
+SWEP.Primary.Damage = 19
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 0.2
 
 SWEP.Primary.ClipSize = 10
-SWEP.Primary.Automatic = false
-SWEP.Primary.Ammo = "pulse"
 SWEP.Primary.DefaultClip = 50
+SWEP.Primary.Automatic = true
+SWEP.Primary.Ammo = "pistol"
+
 
 SWEP.ConeMax = 0.04
 SWEP.ConeMin = 0.03
 
-SWEP.IronSightsPos = Vector(-5.95, 3, 2.75)
-SWEP.IronSightsAng = Vector(-0.15, -1, 2)
+--SWEP.IronSightsPos = Vector(-5.95, 3, 2.75)
+--SWEP.IronSightsAng = Vector(-0.15, -1, 2)
+
+SWEP.IronSightsPos = Vector(-3, 4, 1)
 
 SWEP.TracerName = "AR2Tracer"
 
@@ -55,13 +58,14 @@ function SWEP.BulletCallback(attacker, tr, dmginfo)
 		ent:AddLegDamage(8)
 	end
 
-	local e = EffectData()
+	--[[local e = EffectData()
 		e:SetOrigin(tr.HitPos)
 		e:SetNormal(tr.HitNormal)
 		e:SetRadius(8)
 		e:SetMagnitude(1)
 		e:SetScale(1)
-	util.Effect("cball_bounce", e)
+	util.Effect("cball_bounce", e)]]--
+	
 
 	GenericBulletCallback(attacker, tr, dmginfo)
 end

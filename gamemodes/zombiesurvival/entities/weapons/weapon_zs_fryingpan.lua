@@ -4,7 +4,7 @@ if CLIENT then
 	SWEP.PrintName = "Frying Pan"
 
 	SWEP.ViewModelFlip = false
-	SWEP.ViewModelFOV = 55
+	SWEP.ViewModelFOV = 60
 
 	SWEP.ShowViewModel = false
 	SWEP.ShowWorldModel = false

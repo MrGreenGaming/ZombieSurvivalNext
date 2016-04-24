@@ -5,7 +5,7 @@ if CLIENT then
 	SWEP.Description = "Deals double damage to the back."
 
 	SWEP.ViewModelFlip = false
-	SWEP.ViewModelFOV = 55
+	SWEP.ViewModelFOV = 60
 end
 
 SWEP.Base = "weapon_zs_basemelee"

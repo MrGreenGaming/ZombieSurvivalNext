@@ -3,8 +3,10 @@ local GeneralInfo = {
 	"In need of GreenCoins? Visit MrGreenGaming.com for more info.",
 	"Our forums can be found on MrGreenGaming.com",
 	"We highly appreciate your feedback. Let us know what you think about our server.",
+	"Want to make a contribution? Get on the forums and let it know!",
 	"Don't hesitate to ask in the chat if you need something to be cleared up for you.",
-	"Is there a dirty little troll on the server? Grab one of our admins via our Forums Shoutbox!",
+	"Is there a dirty little troll on the server? Grab an admin via our Forums Shoutbox!",
+	"Do you want to make maps for us? Get on the forums and let us know!"
 }
 GeneralInfo = table.Shuffle(GeneralInfo)
 
@@ -14,8 +16,8 @@ local HumanHints = {
 	"Press E on Supply Crates to open the SkillPoint shop!",
 	"SP stands for SkillPoints which you earn by killing Zombies.",
 	"Press ALT to drop your current weapon.",
-	"Every Human Class has a role on a team, try to do your role!",
-	"",
+	"Every Human Class has a role in the Human team, try to do your role!",
+	"Never let NECROSSIN touch you.....", --Duby: haha I know, I'm so dam funny!
 }
 HumanHints = table.Shuffle(HumanHints)
 
@@ -24,7 +26,8 @@ local UndeadHints = {
 	"Press F3 to open the Zombie Species menu. More classes will unlock as Humans die.",
 	"Kill multiple Humans to become one of them again.",
 	"Zombie Bosses spawn at the beginning of every wave if there are enough players!",
-	"As more time goes on the more zombie classes unlock!"
+	"As more time goes on the more zombie classes unlock!",
+	"The player with the most brains will be selected for the zombie boss!"
 }
 UndeadHints = table.Shuffle(UndeadHints)
 

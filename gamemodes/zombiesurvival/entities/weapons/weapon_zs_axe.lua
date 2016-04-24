@@ -3,7 +3,7 @@ AddCSLuaFile()
 if CLIENT then
 	SWEP.PrintName = "Axe"
 
-	SWEP.ViewModelFOV = 55
+	SWEP.ViewModelFOV = 60
 	SWEP.ViewModelFlip = false
 
 	SWEP.ShowViewModel = false

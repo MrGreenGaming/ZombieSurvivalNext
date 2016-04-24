@@ -35,6 +35,12 @@ local ACT_HL2MP_IDLE_MAGIC = ACT_HL2MP_IDLE_MAGIC
 local ACT_HL2MP_RUN_MAGIC = ACT_HL2MP_RUN_MAGIC
 local ACT_HL2MP_RUN_ZOMBIE = ACT_HL2MP_RUN_ZOMBIE
 
+function CLASS:Move(pl, move)
+	if pl:KeyDown(IN_SPEED) then
+		pl:SetRenderMode(RENDERMODE_GLOW) mOwner:SetColor(Color(225,225,225,100))
+	end
+end
+
 function CLASS:PlayerFootstep(pl, vFootPos, iFoot, strSoundName, fVolume, pFilter)
 	return true
 end
@@ -98,6 +104,7 @@ function CLASS:ProcessDamage(pl, dmginfo)
 end
 
 function CLASS:OnKilled(pl, attacker, inflictor, suicide, headshot, dmginfo, assister)
+	pl:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(225,225,225,225))
 	return true
 end
 

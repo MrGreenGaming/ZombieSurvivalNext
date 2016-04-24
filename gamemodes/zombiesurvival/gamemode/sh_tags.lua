@@ -1,8 +1,8 @@
---Duby: Lets make a super cool games tag system for those special people!
+--Duby: Tags... yea... Wooo....!
 if ( SERVER ) then
 
 	local tags = {}
-	tags["STEAM_0:0:59565612"] = { "[Head ZS Coder]  ", Color(255,0,0,255) }
+	tags["STEAM_0:0:59565612"] = { "[Head ZS Coder]  ", Color(800,0,0,255) }
 	tags["STEAM_0:0:20139318"] = { "[Director Of Graphics]  ", Color(38,38,230,255) }
 	tags["STEAM_0:0:11106290"] = { "[Lord Of the Servers]  ", Color(255,0,0,255) }
 
@@ -25,10 +25,10 @@ if ( SERVER ) then
 
 end
 
-if ( CLIENT ) then
-local ply = LocalPlayer()
-	local function OnPlayerChat( self, strText, bTeamOnly, bPlayerIsDead )
-	 
+--if ( CLIENT ) then
+
+local function OnPlayerChat( self, strText, bTeamOnly, bPlayerIsDead )
+	 local ply = LocalPlayer()
 		-- I've made this all look more complicated than it is. Here's the easy version
 		-- chat.AddText( ply:GetName(), Color( 255, 255, 255 ), ": ", strText )
 	
@@ -58,20 +58,35 @@ local ply = LocalPlayer()
 		end
 
 		if ( IsValid( self ) ) then
-			table.insert( tab, self:GetName() )
+			--table.insert( tab, self:GetName() )
+			table.insert( tab, "" )
 		else
 			table.insert( tab, "Console" )
 		end
 	 
-		table.insert( tab, Color( 255, 255, 255 ) )
-		table.insert( tab, ": "..strText )
-	 
+		--table.insert( tab, Color( 255, 255, 255 ) )
+		--table.insert( tab, ""..self:GetName() .. ": "..strText )
+		
+		if ply:Team() == TEAM_ZOMBIE then
+			table.insert( tab, Color( 900, 0, 0 ) )
+			table.insert( tab, ""..self:GetName() .. ":" )
+						table.insert( tab, Color( 255, 255, 255 ) )
+			table.insert( tab, ""..strText )
+		end
+		
+		if ply:Team() == TEAM_SURVIVORS then
+			table.insert( tab, Color( 0, 0, 900 ) )
+			table.insert( tab, ""..self:GetName() .. ":")
+			table.insert( tab, Color( 255, 255, 255 ) )
+			table.insert( tab, ""..strText )
+		end
+		
 		chat.AddText( unpack(tab) )
 	 
 		return true
 	end
 
 	hook.Add("OnPlayerChat", "OnPlayerChat", OnPlayerChat)
-end
+--end
 
 

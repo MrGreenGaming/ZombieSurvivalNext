@@ -28,6 +28,7 @@ function CLASS:Move(pl, move)
 	end]]
 
 	if pl:KeyDown(IN_SPEED) then
+		pl:SetRenderMode(RENDERMODE_GLOW) mOwner:SetColor(Color(225,225,225,100))
 		move:SetMaxSpeed(50)
 		move:SetMaxClientSpeed(50)
 	end

@@ -10,7 +10,7 @@ if CLIENT then
 	SWEP.Slot = 4
 	SWEP.SlotPos = 1
 	SWEP.DrawCrosshair = false
-	
+
 	SWEP.ShowViewModel = true
 	SWEP.AlwaysDrawViewModel = true
 	SWEP.IgnoreBonemerge = false
@@ -26,14 +26,14 @@ if CLIENT then
 	}
 
 	SWEP.VElements = {
-		["exp"] = { type = "Model", model = "models/Weapons/w_package.mdl", bone = "Slam_base", rel = "", pos = Vector(-7.4, -66.6, 22.156), angle = Angle(-43.644, -16.65, -113.362), size = Vector(0.675, 0.675, 0.675), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+		["exp"] = { type = "Model", model = "models/Weapons/w_package.mdl", bone = "Slam_base", rel = "", pos = Vector(-4.5, -66.6, 22.156), angle = Angle(-43.644, -25.65, -113.362), size = Vector(0.675, 0.675, 0.675), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
 
 	SWEP.WElements = {} 
 	
 end
 
-function SWEP:InitializeClientsideModels()
+--[[function SWEP:InitializeClientsideModels()
 	
 	self.ViewModelBoneMods = {
 		["Bip01_R_Finger0"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(2.444, 15.593, -0.556) },
@@ -48,7 +48,7 @@ function SWEP:InitializeClientsideModels()
 
 	self.WElements = {} 
 	
-end
+end]]--
 
 ActualMines = ActualMines or {}
 
@@ -59,7 +59,7 @@ SWEP.Author			= "" -- Original code by Amps
 SWEP.Instructions	= "Stand close to a wall to plant the mine. Detonates when enemy is within visible range." 
 SWEP.NextPlant = 0
 ------------------------------------------------------------------------------------------------------
-SWEP.ViewModelFOV	= 70
+SWEP.ViewModelFOV	= 60
 SWEP.ViewModelFlip	= false
 ------------------------------------------------------------------------------------------------------
 SWEP.Spawnable			= false

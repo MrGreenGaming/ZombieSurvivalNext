@@ -40,6 +40,7 @@ metal barrel + something = body armor
 --resource.AddWorkshop("639539065") -- Beta V6
 --resource.AddWorkshop("649176563") -- Beta V7
 resource.AddWorkshop("671179737") -- Beta V8
+resource.AddWorkshop("671177053") -- Beta V8
 resource.AddWorkshop("650070929") -- Dual Pistols
 
 AddCSLuaFile("cl_init.lua")
@@ -111,6 +112,7 @@ AddCSLuaFile("vgui/zshealtharea.lua")
 
 include("shared.lua")
 include("sv_options.lua")
+include("server/sv_director_heal_human.lua")
 include("sv_crafts.lua")
 include("obj_entity_extend_sv.lua")
 include("obj_player_extend_sv.lua")
@@ -3560,6 +3562,9 @@ function GM:PlayerSpawn(pl)
 	pl.NextSpawnTime = nil
 	pl.Gibbed = nil
 
+	pl.LastHurt = 0
+	pl.LastHit = 0
+	
 	pl.SpawnNoSuicide = CurTime() + 1
 	pl.SpawnedTime = CurTime()
 

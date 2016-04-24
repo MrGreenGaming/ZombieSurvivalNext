@@ -6,7 +6,7 @@ if CLIENT then
 	SWEP.Slot = 4
 	SWEP.SlotPos = 0
 
-	SWEP.ViewModelFOV = 50
+	SWEP.ViewModelFOV = 60
 	SWEP.ViewModelFlip = false
 
 	SWEP.BobScale = 2

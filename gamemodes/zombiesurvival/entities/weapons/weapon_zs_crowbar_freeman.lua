@@ -4,7 +4,7 @@ if CLIENT then
 	SWEP.Author = "Duby"
 	SWEP.PrintName = "Freeman's Crowbar"
 	SWEP.Description = "Instantly kills headcrabs."
-	SWEP.ViewModelFOV = 65
+	SWEP.ViewModelFOV = 60
 	SWEP.FlipYaw = false
 end
 
