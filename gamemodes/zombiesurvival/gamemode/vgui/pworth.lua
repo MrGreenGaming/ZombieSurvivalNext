@@ -120,6 +120,7 @@ function MakepWorth(id)
 	
 	frame:SetPos(wid * 2, hei * 2)
 	frame:SetSize(wid * 3, hei)
+	--frane:SetBackgroundBlur( true ) --Duby: Test this when I get home!
 	
 	frame:SetDeleteOnClose(true)
 	frame:SetKeyboardInputEnabled(true)

@@ -122,6 +122,7 @@ function GM:OpenPointsShop()
 	local frame = vgui.Create("DFrame")
 	frame:SetSize(wid, hei)
 	frame:Center()
+	--frane:SetBackgroundBlur( true ) --Duby: Test this when I get home!
 	frame.Paint = function( self, wid, hei )
 		draw.RoundedBox( 0, 0, 0, wid, hei, Color( 1, 0, 0, 0 ) ) 
 	end
