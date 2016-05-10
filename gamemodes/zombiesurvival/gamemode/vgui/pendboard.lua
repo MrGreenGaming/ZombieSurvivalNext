@@ -21,6 +21,7 @@ function MakepEndBoard(winner)
 	local localwin = winner == TEAM_HUMAN and LocalPlayer():Team() == winner
 
 	local wid = 640
+	local wid2 = 2000
 
 	local w, h = ScrW(), ScrH()
 	
@@ -31,9 +32,10 @@ function MakepEndBoard(winner)
 	frame:ShowCloseButton( false )
 	frame:SetTitle(" ")
 	frame:SetKeyboardInputEnabled(true)
-	frame.Paint = function( self, w, h ) 
-			draw.RoundedBox( 0, 0, 0, w, h, Color( 1, 0, 0, 1 ) )
-		end
+	frame:SetBackgroundBlur( true ) 
+	--frame.Paint = function( self, w, h ) 
+			--draw.RoundedBox( 0, 0, 0, w, h, Color( 1, 0, 0, 1 ) )
+		--end
 	pEndBoard = frame
 
 	local y = 8
@@ -41,19 +43,19 @@ function MakepEndBoard(winner)
 	local heading
 	if localwin then
 		surface.PlaySound("beams/beamstart5.wav")
-		heading = EasyLabel(frame, "You have won!", "ZSHUDFont", COLOR_DARKRED)
+		heading = EasyLabel(frame, "Your Squad Has Survived", "ZSHUDFont", COLOR_DARKRED)
 	else
 		surface.PlaySound("ambient/levels/citadel/strange_talk"..math.random(3, 11)..".wav")
-		heading = EasyLabel(frame, "You have lost.", "ZSHUDFont", COLOR_RED)
+		heading = EasyLabel(frame, "Your Squad Has Been Wiped Out", "ZSHUDFont", COLOR_RED)
 	end
 	heading:SetPos(wid * 0.5 - heading:GetWide() * 0.5, y)
 	y = y + heading:GetTall() + 4
 
 	local subheading
 	if localwin then
-		subheading = EasyLabel(frame, "The humans have survived for now.", "ZSHUDFontSmall", COLOR_WHITE)
+		subheading = EasyLabel(frame, "The humans have survived for now", "ZSHUDFontSmall", COLOR_WHITE)
 	else
-		subheading = EasyLabel(frame, "The undead army grows stronger.", "ZSHUDFontSmall", COLOR_LIMEGREEN)
+		subheading = EasyLabel(frame, "The undead army grows stronger", "ZSHUDFontSmall", COLOR_WHITE)
 	end
 	subheading:SetPos(wid * 0.5 - subheading:GetWide() * 0.5, y)
 	y = y + subheading:GetTall() + 8
@@ -65,11 +67,16 @@ function MakepEndBoard(winner)
 	y = y + svpan:GetTall() + 4
 
 	local list = vgui.Create("DPanelList", frame)
-	list:SetSize(wid - 16, 420)
-	list:SetPos(8, y + 12)
+--	list:SetSize(wid - 16, 420)
+	list:SetSize(wid2 - 16, 420)
+	list:SetPos(8, y + 110)
 	list:SetPadding(2)
 	list:SetSpacing(2)
 	list:EnableVerticalScrollbar()
+	list.Paint = function()
+		surface.SetDrawColor(0,0,0,0)	
+	end
+
 	y = y + list:GetTall() + 8
 
 	frame.List = list
@@ -94,7 +101,6 @@ end
 
 function PANEL:Init()
 	self:SetSize(200, 40)
-
 end
 
 function PANEL:GetPlayer()
@@ -102,10 +108,10 @@ function PANEL:GetPlayer()
 end
 
 function PANEL:SetPlayer(pl, col, misc, misccol, overridename)
-	if self.m_pAvatar then
+	--[[if self.m_pAvatar then
 		self.m_pAvatar:Remove()
 		self.m_pAvatar = nil
-	end
+	end]]--
 	if self.m_pName then
 		self.m_pName:Remove()
 		self.m_pName = nil
@@ -118,20 +124,29 @@ function PANEL:SetPlayer(pl, col, misc, misccol, overridename)
 	if pl:IsValid() and pl:IsPlayer() then
 		local name = overridename or pl:Name()
 
-		local avatar = vgui.Create("AvatarImage", self)
+		--[[local avatar = vgui.Create("AvatarImage", self)
 		avatar:SetPos(4, 4)
 		avatar:SetSize(32, 32)
 		avatar:SetPlayer(pl)
 		avatar:SetTooltip("Click here to view their Steam Community profile.")
-		self.m_pAvatar = avatar
+		self.m_pAvatar = avatar]]--
 
-		local namelab = EasyLabel(self, name, "ZSHUDFontTiny", col)
-		namelab:SetPos(40, 4)
+		--local namelab = EasyLabel(self, name, "ZSHUDFontTiny", col)
+		local namelab = EasyLabel(self, name, "ZSHUDFontSmall", col)
+		--namelab:SetPos(40, 4)
+		namelab:Center()
+		namelab.Paint = function()
+			surface.SetDrawColor(0,0,0,0)	
+		end
 		self.m_pName = namelab
 
 		if misc then
-			local misclab = EasyLabel(self, misc, nil, misccol)
+			--local misclab = EasyLabel(self, misc, nil, misccol)
+			local misclab = EasyLabel(self, misc, "ZSHUDFontSmall", misccol)
 			misclab:SetPos(40, self:GetTall() - 4 - misclab:GetTall())
+			misclab.Paint = function()
+				surface.SetDrawColor(0,0,0,0)	
+			end
 		end
 	end
 end

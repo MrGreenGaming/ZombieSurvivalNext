@@ -1,21 +1,19 @@
+-- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
+-- See LICENSE.txt for license information
 
 AddCSLuaFile()
 
 if CLIENT then
 
-SWEP.PrintName = "Chem Grenade"
-SWEP.Description = "A toxic Grenade which repels and hurts zombies!"
-SWEP.ViewModelFOV = 60
-SWEP.ViewModelFlip = false
+	SWEP.PrintName = "Chem Grenade"
+	SWEP.Description = "A toxic Grenade which repels and hurts zombies!"
+	SWEP.ViewModelFOV = 60
+	SWEP.ViewModelFlip = false
 
-	SWEP.ShowViewModel = false
-	SWEP.IgnoreBonemerge = false
-	SWEP.UseHL2Bonemerge = true
-	SWEP.ScaleDownLeftHand = true
-	
-	killicon.AddFont( "weapon_zs_boomstick", "HL2MPTypeDeath", "0", Color( 255, 255, 255, 255 ) )
-	
-		
+	SWEP.ShowViewModel = true
+	SWEP.ShowWorldModel = true
+
+
 	SWEP.ViewModelBoneMods = {
 		["ValveBiped.Grenade_body"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0.27, 0), angle = Angle(0, 0, 0) }
 	}
@@ -26,38 +24,19 @@ SWEP.ViewModelFlip = false
 		["gasnade3"] = { type = "Model", model = "models/props/de_train/hr_t/smoke_a/smoke_a.mdl", bone = "ValveBiped.Bip01_L_Finger4", rel = "gasnade", pos = Vector(18.145, 0.13, 12.486), angle = Angle(32.153, 75.459, 5.278), size = Vector(0.009, 0.009, 0.009), color = Color(214, 255, 0, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
 
-	SWEP.WElements = {["gasnade2"] = { type = "Model", model = "models/props_interiors/Radiator01a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(4.297, 2.263, 0.109), angle = Angle(0, 0, 0), size = Vector(0.078, 0.032, 0.144), color = Color(0, 102, 0, 255), surpresslightning = false, material = "models/props_combine/tpballglow", skin = 0, bodygroup = {} },
+	SWEP.WElements = {
+		["gasnade2"] = { type = "Model", model = "models/props_interiors/Radiator01a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(4.297, 2.263, 0.109), angle = Angle(0, 0, 0), size = Vector(0.078, 0.032, 0.144), color = Color(0, 102, 0, 255), surpresslightning = false, material = "models/props_combine/tpballglow", skin = 0, bodygroup = {} },
 		["gasnade"] = { type = "Model", model = "models/props_c17/TrapPropeller_Engine.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.288, 1.7, 0.349), angle = Angle(-180, 0, 0), size = Vector(0.168, 0.168, 0.168), color = Color(26, 255, 255, 255), surpresslightning = false, material = "models/XQM/LightLinesRed_TOOL", skin = 0, bodygroup = {} }
 	} 
 end
 
-function SWEP:InitializeClientsideModels()
-	
-	self.ViewModelBoneMods = {
-		["ValveBiped.Grenade_body"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0.27, 0), angle = Angle(0, 0, 0) }
-	}
 
-	self.VElements = {
-		["gasnade2"] = { type = "Model", model = "models/props_interiors/Radiator01a.mdl", bone = "ValveBiped.Grenade_body", rel = "gasnade", pos = Vector(1.08, 0.377, -0.21), angle = Angle(0, 0, 0), size = Vector(0.078, 0.032, 0.144), color = Color(168, 255, 0, 255), surpresslightning = false, material = "models/props_combine/tpballglow", skin = 0, bodygroup = {} },
-		["gasnade"] = { type = "Model", model = "models/props_c17/TrapPropeller_Engine.mdl", bone = "ValveBiped.Grenade_body", rel = "", pos = Vector(0, -0.227, -2.366), angle = Angle(-180, -4.374, 0), size = Vector(0.168, 0.168, 0.168), color = Color(26, 255, 255, 255), surpresslightning = false, material = "models/XQM/LightLinesRed_TOOL", skin = 0, bodygroup = {} },
-		["gasnade3"] = { type = "Model", model = "models/props/de_train/hr_t/smoke_a/smoke_a.mdl", bone = "ValveBiped.Bip01_L_Finger4", rel = "gasnade", pos = Vector(18.145, 0.13, 12.486), angle = Angle(32.153, 75.459, 5.278), size = Vector(0.009, 0.009, 0.009), color = Color(214, 255, 0, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-	}
-
-	self.WElements = {["gasnade2"] = { type = "Model", model = "models/props_interiors/Radiator01a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(4.297, 2.263, 0.109), angle = Angle(0, 0, 0), size = Vector(0.078, 0.032, 0.144), color = Color(0, 102, 0, 255), surpresslightning = false, material = "models/props_combine/tpballglow", skin = 0, bodygroup = {} },
-		["gasnade"] = { type = "Model", model = "models/props_c17/TrapPropeller_Engine.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.288, 1.7, 0.349), angle = Angle(-180, 0, 0), size = Vector(0.168, 0.168, 0.168), color = Color(26, 255, 255, 255), surpresslightning = false, material = "models/XQM/LightLinesRed_TOOL", skin = 0, bodygroup = {} }
-	} 
-	
-	
-end
-	
-SWEP.Base = "weapon_zs_base"
+SWEP.Base = "weapon_zs_basemelee"
 
 SWEP.ViewModel = "models/weapons/c_grenade.mdl"
-SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_grenade.mdl"
+SWEP.UseHands = true
 
-SWEP.ShowViewModel = true
-SWEP.ShowWorldModel = false
 
 SWEP.AmmoIfHas = true
 

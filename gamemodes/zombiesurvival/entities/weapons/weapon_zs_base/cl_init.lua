@@ -351,16 +351,11 @@ function SWEP:DrawHUD()
 	if GAMEMODE.WeaponHUDMode >= 1 then
 		self:Draw2DHUD()
 	end
-	
-	--local SCREEN_W = 1280;
-	--local SCREEN_H = 720;
-	--local X_MULTIPLIER = ScrW( ) / SCREEN_W;
-	--local Y_MULTIPLIER = ScrH( ) / SCREEN_H;
 
 	local w, h = ScrW(), ScrH()
-	--w * 0.84, h * 0.89, w * 0.15, h * 0.1
+
 	
-	local SCREEN_W = 1920; --For the screen resolution scale. This means that it can be fit exactly on the screen without any issues.
+	local SCREEN_W = 1920;
 	local SCREEN_H = 1080;
 	local X_MULTIPLIER = ScrW( ) / SCREEN_W;
 	local Y_MULTIPLIER = ScrH( ) / SCREEN_H;
@@ -374,22 +369,10 @@ function SWEP:DrawHUD()
 	
 	local hudsplat3 = Material("hud/hud_bottom_right.png") --Items for the HUD.
 	
-	local Hud_Image_3 = {
-		color 		= Color( 225, 225, 225, 400 ); -- Color overlay of image; white = original color of image
-		material 	= Material("hud/hud_bottom_right.png"); -- Material to be used
-		x 			= 1600; -- x coordinate for the material to be rendered ( mat is drawn from top left to bottom right )
-		y 			= 980; -- y coordinate for the material to be rendered ( mat is drawn from top left to bottom right )
-		w 			= 320; -- width of the material to span
-		h 			= 100; -- height of the material to span
-	};
-	
 	surface.SetMaterial(hudsplat3)
-	surface.SetDrawColor(225, 225, 225, 200 )
+	surface.SetDrawColor(225, 225, 225, 255 )
 	surface.DrawTexturedRect(w * 0.84, h * 0.89, w * 0.15, h * 0.1)
-	--surface.DrawTexturedRect(Hud_Image_3.x, Hud_Image_3.y, Hud_Image_3.w, Hud_Image_3.h)
-	
 
-	
 	local currentClipSize, currentAmmo = pl:GetActiveWeapon():Clip1(), pl:GetAmmoCount(pl:GetActiveWeapon():GetPrimaryAmmoType())
 	local ammoTextWide, ammoTextTall = surface.GetTextSize(currentAmmo)
 	local clipTextWide, clipTextTall = surface.GetTextSize(currentClipSize)

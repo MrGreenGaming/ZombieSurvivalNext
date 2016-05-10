@@ -33,7 +33,9 @@ end
 GM.DefaultZombieClass = GM.ZombieClasses[table.Random( {
 	"Howler",
 	"Poison Zombie", 
-	"Chem Zombie" } )].Index --Random zombies
+	"Chem Zombie",
+	"Etherial"
+	} )].Index --Random zombies
 	
 --[[
 function GM:GetZombieDamageScale(pos, ignore)

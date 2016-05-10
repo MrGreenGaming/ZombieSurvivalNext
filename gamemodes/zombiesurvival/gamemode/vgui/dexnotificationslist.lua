@@ -3,7 +3,7 @@ GM.NotifyFadeTime = 8
 local DefaultFont = "ZSHUDFontSmallest"
 local DefaultFontEntity = "ZSHUDFontSmallest"
 
-local DefaultFont2 = "ZSHUDFont2"
+local DefaultFont2 = "ZSHUDFont1.1"
 
 local PANEL  = {}
 
@@ -35,7 +35,7 @@ function PANEL:AddLabel(text, col, font, extramargin)
 	label:SizeToContents()
 	if extramargin then
 		label:SetContentAlignment(7)
-		label:DockMargin(0, label:GetTall() * 0.2, 0, 0)
+		label:DockMargin(0, label:GetTall() * 0.25, 0, 0)
 	else
 		label:SetContentAlignment(4)
 	end

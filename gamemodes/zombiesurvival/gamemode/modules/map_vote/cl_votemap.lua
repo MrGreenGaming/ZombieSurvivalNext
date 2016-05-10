@@ -1,6 +1,4 @@
 --Duby: Lets allow the clients to recieve the vote system and make a lovely vote box for it.
-
-
 Votemap = {}
 Votemap.Maps = {}
 
@@ -20,24 +18,46 @@ function Votemap:ToggleMenu( bl )
 	
 	Votemap.Menu = vgui.Create("DFrame")
 	Votemap.Menu:SetTitle("")
-	Votemap.Menu:SetSize(400, 400)
-	Votemap.Menu:SetPos(w * 0.41, h * 0.84)
+	Votemap.Menu:SetSize(600, 400)
+--	Votemap.Menu:SetPos(w * 0.41, h * 0.42)
+	Votemap.Menu:SetPos(w * 0.33, h * 0.42)
 	Votemap.Menu:MakePopup()
 	Votemap.Menu:SetKeyBoardInputEnabled()
+	Votemap.Menu:SetBackgroundBlur( true ) 
 	Votemap.Menu:ShowCloseButton(false)
 	Votemap.Menu:SetDraggable(false)
-	Votemap.Menu.Paint = function()
-		surface.SetDrawColor(0,0,0,0)	
-	end
+	--Votemap.Menu.Paint = function()
+	--	surface.SetDrawColor(0,0,0,0)	
+	--end
+			
 	
+	--[[Votemap.Menu.Label = vgui.Create("DLabel")
+	Votemap.Menu.Label:SetText( "Map Vote" )
+	Votemap.Menu.Label:SetFont( "ZSHUDFont2" )
+	Votemap.Menu.Label:SetTextColor(COLOR_DARKRED)
+	Votemap.Menu.Label:SetPos( w * 0.47, h * 0.28 )
+	Votemap.Menu.Label:SizeToContents()
+	
+	Votemap.Menu.Label2 = vgui.Create("DLabel")
+	Votemap.Menu.Label2:SetText( "Quickly.. A horde is aproaching...." )
+	Votemap.Menu.Label2:SetFont( "ZSHUDFont" )
+	Votemap.Menu.Label2:SetTextColor(COLOR_DARKRED)
+	Votemap.Menu.Label2:SetPos( w * 0.4, h * 0.32 )
+	Votemap.Menu.Label2:SizeToContents()]]--	
+
 
 
 	Votemap.Menu.ListView = vgui.Create("DListView", Votemap.Menu)
-	Votemap.Menu.ListView:SetSize( 200, 100 )
-	Votemap.Menu.ListView:SetPos( 75, 30 )
+	Votemap.Menu.ListView:SetSize( 200, 250 )
+--	Votemap.Menu.ListView:SetSize( 500, 200 )
+	Votemap.Menu.ListView:SetPos( 200, 30 )
 	Votemap.Menu.ListView:AddColumn( "Map" )
 	Votemap.Menu.ListView:AddColumn( "Votes" )
 	Votemap.Menu.ListView:SetMultiSelect( false )
+	--Votemap.Menu.ListView.Paint = function()
+	--	surface.SetDrawColor(255,1,1,100)	
+	--end
+
 
 	for k,v in pairs(Votemap.Maps) do
 		Votemap.Menu.ListView:AddLine(k, v)
@@ -50,7 +70,7 @@ function Votemap:ToggleMenu( bl )
 	Votemap.Menu.VoteButton = vgui.Create("DButton", Votemap.Menu)
 	Votemap.Menu.VoteButton:SetText("Vote")
 	Votemap.Menu.VoteButton:SetSize( 200, 30 )
-	Votemap.Menu.VoteButton:SetPos( 75, 140 )
+	Votemap.Menu.VoteButton:SetPos( 200, 300 )
 	Votemap.Menu.VoteButton.DoClick = function( pnl )
 		
 		local selected = Votemap.Menu.ListView:GetSelectedLine()
@@ -105,10 +125,10 @@ usermessage.Hook( "Votemap.Votes", function( um )
 
 	end
 
-	if ( !ply.VotedOnce ) then
-		chat.AddText( Color(0,128,128), "[Votemap] ", Color(128, 128,128), ply:Nick() .. " Voted for: ", Color( 255, 0, 0 ), map, Color( 128, 128, 128 ), " with ", Color( 255, 0, 0 ), tostring(votes), Color( 128, 128, 128 ), " votes." ) 
-		ply.VotedOnce = true
-	end
+	--if ( !ply.VotedOnce ) then
+	--	chat.AddText( Color(0,128,128), "[Votemap] ", Color(128, 128,128), ply:Nick() .. " Voted for: ", Color( 255, 0, 0 ), map, Color( 128, 128, 128 ), " with ", Color( 255, 0, 0 ), tostring(votes), Color( 128, 128, 128 ), " votes." ) 
+	--	ply.VotedOnce = true
+	--end
 
 end)
 

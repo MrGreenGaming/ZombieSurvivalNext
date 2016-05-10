@@ -332,6 +332,12 @@ function Dice( pl, text, public )
 		end)	
 		return
 	end
+	
+	if pl:Team() == TEAM_UNDEAD then
+		pl:ChatPrint("Dice temporarily disabled for zombies (Further Updates)")
+		return
+	end
+	
 
 	if pl.LastRTD >= CurTime() then
 		timer.Simple(0.3, function()
@@ -347,13 +353,13 @@ message = pl:GetName()
 	
 	if choise == 1 then
 		if pl:Team() == TEAM_HUMAN then	
-			specialitems = {"weapon_zs_vodka"}
+			specialitems = {"weapon_zs_vodka","weapon_zs_ammo","weapon_zs_drone"}
 		timer.Simple(0.3, function()  --LOOSING LOTS OF HEALTH
 			PrintMessage( HUD_PRINTTALK, "WIN: ".. message .." rolled the dice and got a special item!" )
 		end)
 			pl:Give(table.Random(specialitems))		
 		elseif pl:Team() == TEAM_UNDEAD then	
-			pl:AddScore(1)
+			--pl:Frags() + 1
 			message = "WIN: ".. message .." rolled the dice and has found a piece of brain!"
 		end
 	elseif choise == 2 then
@@ -408,7 +414,7 @@ message = pl:GetName()
 					PrintMessage( HUD_PRINTTALK, "LOSE: "..message.." was put on fire by the dice." )
 				end)
 		elseif pl:Team() == TEAM_UNDEAD then
-			pl.BrainsEaten = pl.BrainsEaten - 1
+		--	pl.BrainsEaten = pl.Frags() - 1
 			message = "LOSE: ".. message .." rolled the dice and has lost a piece of brain!"
 		end
 	elseif choise == 6 then
@@ -424,7 +430,7 @@ message = pl:GetName()
 					PrintMessage( HUD_PRINTTALK, "LOSE: "..message.." was put on fire by the dice." )
 				end)
 		elseif pl:Team() == TEAM_UNDEAD then
-			pl:AddScore(1)
+			--pl:Frags() + 1
 			message = "WIN: ".. message .." rolled the dice and has found a piece of brain!"
 		end
 	end

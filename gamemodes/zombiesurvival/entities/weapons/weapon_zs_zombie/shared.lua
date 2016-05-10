@@ -5,9 +5,9 @@ SWEP.ViewModel = Model("models/Weapons/v_zombiearms.mdl")
 SWEP.WorldModel = "models/weapons/w_crowbar.mdl"
 
 SWEP.MeleeDelay = 0.9
-SWEP.MeleeReach = 54
+SWEP.MeleeReach = 52
 SWEP.MeleeSize = 1.5
-SWEP.MeleeDamage = 30
+SWEP.MeleeDamage = 25
 SWEP.MeleeForceScale = 1.1
 SWEP.MeleeDamageType = DMG_SLASH
 
@@ -207,7 +207,7 @@ function SWEP:MeleeHitEntity(ent, trace, damage, forcescale)
 			phys:ApplyForceOffset(damage * 150 * (forcescale or self.MeleeForceScale) * self.Owner:GetAimVector(), (ent:NearestPoint(self.Owner:EyePos()) + ent:GetPos() * 5) / 6)
 		else
 			--phys:ApplyForceOffset(damage * 750 * (forcescale or self.MeleeForceScale) * trace.Normal, (ent:NearestPoint(trace.StartPos) + ent:GetPos() * 2) / 3)
-			phys:ApplyForceOffset(damage * 850 * (forcescale or self.MeleeForceScale) * trace.Normal, (ent:NearestPoint(trace.StartPos) + ent:GetPos() * 2) / 3)
+			phys:ApplyForceOffset(damage * 950 * (forcescale or self.MeleeForceScale) * trace.Normal, (ent:NearestPoint(trace.StartPos) + ent:GetPos() * 2) / 3)
 		end
 
 		ent:SetPhysicsAttacker(self.Owner)

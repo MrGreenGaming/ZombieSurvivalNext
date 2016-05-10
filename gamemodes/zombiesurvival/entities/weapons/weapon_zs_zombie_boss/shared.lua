@@ -18,7 +18,7 @@ SWEP.MeleeDamage = 30
 SWEP.MeleeRange = 65
 SWEP.MeleeSize = 1.5
 SWEP.MeleeKnockBack = 0
-SWEP.MeleeAnimationDelay = 0.35
+SWEP.MeleeAnimationDelay = 0
 
 SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
@@ -146,7 +146,7 @@ function SWEP:StartSwinging()
 		self.IdleAnimation = CurTime() + self:SequenceDuration()
 	end
 	self:PlayStartSwingSound()
-	self:SetSwingEnd(CurTime() + self.SwingTime + 0.2)
+	self:SetSwingEnd(CurTime() + self.SwingTime + 0.5)
 	
 end
 
@@ -171,6 +171,7 @@ function SWEP:MeleeSwing()
 		end
 		self.IdleAnimation = CurTime() + self:SequenceDuration()
 
+
 		if hitflesh then
 			util.Decal(self.BloodDecal, tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
 			self:PlayHitFleshSound()
@@ -185,12 +186,14 @@ function SWEP:MeleeSwing()
 			self:PlayHitSound()
 		end
 
+
 		if self.OnMeleeHit and self:OnMeleeHit(hitent, hitflesh, tr) then
 			owner:LagCompensation(false)
 			return
 		end
 
 		if SERVER and hitent:IsValid() then
+		 timer.Simple(0.32, function()
 			damage = self.MeleeDamage * damagemultiplier
 
 			if hitent:GetClass() == "func_breakable_surf" then
@@ -239,6 +242,7 @@ function SWEP:MeleeSwing()
 					end)
 				end
 			end
+			end)
 		end
 
 		if self.PostOnMeleeHit then self:PostOnMeleeHit(hitent, hitflesh, tr) end
@@ -251,6 +255,7 @@ function SWEP:MeleeSwing()
 
 		if self.PostOnMeleeMiss then self:PostOnMeleeMiss(tr) end
 	end
+				
 	owner:LagCompensation(false)
 end
 

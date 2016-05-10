@@ -172,25 +172,15 @@ end
 local texGradDown = surface.GetTextureID("VGUI/gradient_down")
 function SWEP:DrawHUD()
 
+	local w, h = ScrW(), ScrH()
 	local hudsplat3 = Material("hud/hud_bottom_right.png") --Items for the HUD.
-	
-	local Hud_Image_3 = {
-		color 		= Color( 225, 225, 225, 400 ); -- Color overlay of image; white = original color of image
-		material 	= Material("hud/hud_bottom_right.png"); -- Material to be used
-		x 			= 1600; -- x coordinate for the material to be rendered ( mat is drawn from top left to bottom right )
-		y 			= 980; -- y coordinate for the material to be rendered ( mat is drawn from top left to bottom right )
-		w 			= 320; -- width of the material to span
-		h 			= 100; -- height of the material to span
-	};
-	
+
 	surface.SetMaterial(hudsplat3)
 	surface.SetDrawColor(225, 225, 225, 200 )
-	surface.DrawTexturedRect(Hud_Image_3.x, Hud_Image_3.y, Hud_Image_3.w, Hud_Image_3.h)
-
+	surface.DrawTexturedRect(w * 0.84, h * 0.89, w * 0.15, h * 0.1)
 
 	local screenscale = BetterScreenScale()
 	local wid, hei = 256, 16
-	--local x, y = ScrW() - wid - 32, ScrH() - hei - 72
 	local x, y = ScrW() - wid - 32, ScrH() - hei -10
 	local texty = y - 4 - draw.GetFontHeight("ZSHUDFont2")
 
@@ -207,16 +197,13 @@ function SWEP:DrawHUD()
 		surface.DrawOutlinedRect(x, y, wid / 1.5, hei)
 	end
 
-	draw.SimpleText("Medical Kit", "ZSHUDFont2", x, texty, COLOR_GREY, TEXT_ALIGN_LEFT)
+	draw.SimpleText("Medical Kit", "ZSHUDFont2", x, texty -8, COLOR_GREY, TEXT_ALIGN_LEFT)
 
 	local charges = self:GetPrimaryAmmoCount()
 	if charges > 0 then
-		draw.SimpleText(charges, "ZSHUDFont2", x + wid, texty, COLOR_GREY, TEXT_ALIGN_RIGHT)
+		draw.SimpleText(charges, "ZSHUDFont2", x + wid, texty -8, COLOR_GREY, TEXT_ALIGN_RIGHT)
 	else
-		draw.SimpleText(charges, "ZSHUDFont2", x + wid, texty, COLOR_GREY, TEXT_ALIGN_RIGHT)
+		draw.SimpleText(charges, "ZSHUDFont2", x + wid, texty -8, COLOR_GREY, TEXT_ALIGN_RIGHT)
 	end
 
-	--if GetConVarNumber("crosshair") == 1 then
-	--	self:DrawCrosshairDot()
---	end
 end

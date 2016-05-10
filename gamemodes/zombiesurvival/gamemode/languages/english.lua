@@ -214,6 +214,7 @@ LANGUAGE.class_hate									= "Hate"
 LANGUAGE.class_behemoth								= "Behemoth"
 LANGUAGE.class_nerf									= "Nerf"
 LANGUAGE.class_etherial								= "Etherial"
+LANGUAGE.class_zombine							= "Zombine"
 
 -- Class descriptions
 LANGUAGE.description_zombie							= "The basic zombie is very durable and has powerful claws.\nIt's hard to keep down, especially if not shot in the head."
@@ -245,6 +246,7 @@ LANGUAGE.description_hate							= "A monstrosity which slaughtered its way out o
 LANGUAGE.description_behemoth						= "A huge beast weilding a Crowbar which crushes any mortal in its path!"
 LANGUAGE.description_nerf							= "A small and twisted beast who's claws can shred through any barricade!"
 LANGUAGE.description_etherial						= "A ghastly figure which can teleport through barricades!"
+LANGUAGE.description_zombine					= "A Craized zombie which can pull out a granade at any second!"
 
 -- Class control schemes
 LANGUAGE.controls_zombie							= "> PRIMARY: Claws\n> SECONDARY: Scream\n> RELOAD: Moan"
@@ -271,6 +273,7 @@ LANGUAGE.controls_hate								= "> PRIMARY: Chainsaw \n> SECONDARY: Horde War Cr
 LANGUAGE.controls_behemoth							= "> PRIMARY: Gorebar \n> SECONDARY: War Cry"
 LANGUAGE.controls_nerf								= "> PRIMARY: Shredder Claws \n> SECONDARY: Leap of Demise"
 LANGUAGE.controls_etherial							= "> PRIMARY: Slicers \n> SECONDARY: Teleport "
+LANGUAGE.controls_zombine							= "> PRIMARY: Pull out Grenade \n> SECONDARY: N/A "
 
 -- The help file... Quite big! I wouldn't blame you if you didn't translate this part.
 LANGUAGE.help_cat_introduction						= "Introduction"

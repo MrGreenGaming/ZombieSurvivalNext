@@ -1,3 +1,6 @@
+CLASS.Hidden = true
+CLASS.Disabled = true
+
 CLASS.Name = "Etherial"
 CLASS.TranslationName = "class_etherial"
 CLASS.Description = "description_etherial"

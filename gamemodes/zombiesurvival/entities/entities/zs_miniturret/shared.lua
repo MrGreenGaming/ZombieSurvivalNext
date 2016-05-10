@@ -10,10 +10,10 @@ ENT.RenderGroup = RENDERGROUP_BOTH
 ENT.AutomaticFrameAdvance = true
 
 ENT.MaxHealth = 100
-ENT.MaxBullets = 150
+ENT.MaxBullets = 250
 ENT.RechargeDelay = 0.3
 ENT.SpotDistance = 190
-ENT.Damage = 6
+ENT.Damage = 14
 
 local model = Model("models/Combine_Scanner.mdl")
 
@@ -270,10 +270,10 @@ function ENT:Shoot()
 	bullet.Num = 1
 	bullet.Src = self:GetPos()
 	bullet.Dir = self:GetAngles():Forward()
-	bullet.Spread = Vector(0.1, 0.1, 0.1)  
+	bullet.Spread = Vector(0.01, 0.01, 0.01)  
 	bullet.Tracer = 6
-	bullet.Force = 1
-	bullet.Damage = 3
+	bullet.Force = 0.8
+	bullet.Damage = 6
 	bullet.TracerName = "Tracer"
 	bullet.Callback = BulletCallback
 	
@@ -344,13 +344,9 @@ end
 
 function ENT:OnTakeDamage( dmginfo )
 	if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsZombie() then
-	--if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsUNDEAD() then
 		
 		local dmg = dmginfo:GetDamage()
 		
-		if IsValid(self:GetOwner()) and self:GetOwner():GetSuit() == "techsuit" then
-			dmg = dmg*1.5
-		end
 		
 		self:SetHealth(self:GetHealth() - dmg)
 		self:EmitSound(Sound("npc/scanner/scanner_pain"..math.random(1,2)..".wav"))

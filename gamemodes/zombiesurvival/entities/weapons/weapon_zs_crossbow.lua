@@ -104,7 +104,7 @@ if CLIENT then
 			self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
 			self:TakePrimaryAmmo(1)
 			self:EmitSound("Weapon_Crossbow.Single")
-			self.Owner:RestartGesture(ACT_HL2MP_GESTURE_RANGE_ATTACK_CROSSBOW)
+			--self.Owner:RestartGesture(ACT_HL2MP_GESTURE_RANGE_ATTACK_CROSSBOW)
 			self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 			self.IdleAnimation = CurTime() + self:SequenceDuration()
 		end

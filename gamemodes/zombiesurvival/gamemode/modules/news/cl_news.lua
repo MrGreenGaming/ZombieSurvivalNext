@@ -3,7 +3,7 @@ local GeneralInfo = {
 	"In need of GreenCoins? Visit MrGreenGaming.com for more info.",
 	"Our forums can be found on MrGreenGaming.com",
 	"We highly appreciate your feedback. Let us know what you think about our server.",
-	"Want to make a contribution? Get on the forums and let it know!",
+	"Want to make a contribution? Get on the forums and let us know!",
 	"Don't hesitate to ask in the chat if you need something to be cleared up for you.",
 	"Is there a dirty little troll on the server? Grab an admin via our Forums Shoutbox!",
 	"Do you want to make maps for us? Get on the forums and let us know!"
@@ -31,6 +31,18 @@ local UndeadHints = {
 }
 UndeadHints = table.Shuffle(UndeadHints)
 
+-- Undead related hints
+local News = {
+	"A Leveling system with Leveling tree is currently being coded.",
+	"Arena Mode is having more maps created for it.",
+	"Minor tweaks to the server will be done over the next few weeks.",
+	"Green Coins will soon be introduced.",
+	"The Green shop with Hats and Suits will soon be added.",
+	"Code optimization updates will happen fequently, report any bugs."
+}
+News = table.Shuffle(News)
+
+
 
 --[==[---------------------------------------------------------
        Used to send server news/info to players
@@ -45,6 +57,17 @@ local function DisplayNews()
 	end
 end
 timer.Create("DisplayNews", 80, 0, DisplayNews)
+
+local sIndex = 1
+local function DisplayUpdates()
+	chat.AddText(Color(0, 160, 255), "[NEWS] ", Color(213, 213, 213), GeneralInfo[sIndex])
+	
+	sIndex = sIndex + 1
+	if sIndex > #GeneralInfo then
+		sIndex = 1
+	end
+end
+timer.Create("DisplayUpdates", 140, 0, DisplayUpdates)
 
 --[==[---------------------------------------------------------
        Used to send human/undead hints to players

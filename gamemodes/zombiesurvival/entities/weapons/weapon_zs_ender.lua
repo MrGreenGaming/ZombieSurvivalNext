@@ -51,8 +51,5 @@ SWEP.ConeMin = 0.14
 SWEP.WalkSpeed = SPEED_SLOWER
 
 
-SWEP.IronSightsPos = Vector(-6.2, 18, 2)
-SWEP.IronSightsAng = Vector(0,0,0)
+SWEP.IronSightsPos = Vector(-6.6, 20, 3.1)
 
-function SWEP:SecondaryAttack()
-end

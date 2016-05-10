@@ -5,26 +5,24 @@ SWEP.Base = "weapon_zs_seeker"
 SWEP.ViewModel = "models/Weapons/v_zombiearms.mdl"
 SWEP.WorldModel = "models/weapons/w_crowbar.mdl"
 
-
 SWEP.ZombieOnly = true
-
 
 SWEP.Primary.Delay = 1.9
 SWEP.Primary.Duration = 2
-SWEP.Primary.Reach = 55
-SWEP.Primary.Damage = 55
+SWEP.Primary.Reach = 60
+--SWEP.Primary.Damage = 35
 
 SWEP.MeleeDelay = 1.9
-SWEP.MeleeRange = 55
+SWEP.MeleeRange = 60
 SWEP.MeleeAnimationDelay = 0.35
 
 
 
-function SWEP:OnMeleeHit(hitent, hitflesh, tr)
+--[[function SWEP:OnMeleeHit(hitent, hitflesh, tr)
 	if not hitent:IsPlayer() then
-		self.MeleeDamage = 55	
+		self.MeleeDamage = 35	
 	end
-end
+end]]--
 
 
 function SWEP:PlayAlertSound()
@@ -57,9 +55,9 @@ timer.Simple(1, function()
 	end)
 end
 
-function SWEP:PostOnMeleeHit(hitent, hitflesh, tr)
+--[[function SWEP:PostOnMeleeHit(hitent, hitflesh, tr)
 	self.MeleeDamage = 55
-end
+end]]--
 
 
 local matSheet = Material("Models/Charple/Charple1_sheet")

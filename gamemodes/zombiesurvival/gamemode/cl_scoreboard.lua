@@ -1,13 +1,13 @@
 local ScoreBoard
 function GM:ScoreboardShow()
 	gui.EnableScreenClicker(true)
-	PlayMenuOpenSound()
+	--PlayMenuOpenSound()
 
 	if not ScoreBoard then
 		ScoreBoard = vgui.Create("ZSScoreBoard")
 	end
 
-	ScoreBoard:SetSize(math.min(ScrW(), ScrH()) * 0.7, ScrH() * 0.85)
+	ScoreBoard:SetSize(math.min(ScrW(), ScrH()) * 0.9, ScrH() * 0.85)
 	ScoreBoard:AlignTop(ScrH() * 0.05)
 	ScoreBoard:CenterHorizontal()
 	ScoreBoard:SetAlpha(0)
@@ -19,7 +19,7 @@ function GM:ScoreboardHide()
 	gui.EnableScreenClicker(false)
 
 	if ScoreBoard then
-		PlayMenuCloseSound()
+		--PlayMenuCloseSound()
 		ScoreBoard:SetVisible(false)
 	end
 end
@@ -42,20 +42,73 @@ function PANEL:Init()
 	self.NextRefresh = RealTime() + 0.1
 
 	local w, h = ScrW(), ScrH()
-	local MrGreen = vgui.Create( "DImage", self )	-- Add image to Frame
-	MrGreen:SetPos( 10, 20  )	-- Move it into frame
-	MrGreen:SetSize( 120, 120 )	-- Size it to 150x150
-	MrGreen:SetImage( "hud/mrgreen_logo.png" ) 
 	
-	self.m_TitleLabel = vgui.Create("DLabel", self)
-	self.m_TitleLabel.Font = "ZSScoreBoardTitle"
-	self.m_TitleLabel:SetFont(self.m_TitleLabel.Font)
-	self.m_TitleLabel:SetText("www.mrgreengaming.com Zombie Survival")
-	self.m_TitleLabel:SetTextColor(COLOR_GRAY)
-	self.m_TitleLabel:SizeToContents()
-	self.m_TitleLabel:NoClipping(true)
+	score_label	= vgui.Create("DLabel", self)
+	score_label:SetFont("ZSHUDFont2")
+	score_label:SetText("Scoreboard")
+	score_label:SetTextColor(COLOR_GRAY)
+	score_label:SetPos(w * 0.205,45)
+	score_label:SizeToContents()
+	
+	Names = vgui.Create("DLabel", self)
+	Names:SetFont("ZSHUDFontSmaller")
+	Names:SetText("Survivors")
+	Names:SetTextColor(COLOR_GRAY)
+	Names:SetPos(w * 0.05,100)
+	Names:SizeToContents()
+	
+	Names2 = vgui.Create("DLabel", self)
+	Names2:SetFont("ZSHUDFontSmaller")
+	Names2:SetText("SP")
+	Names2:SetTextColor(COLOR_GRAY)
+	Names2:SetPos(w * 0.155,100)
+	Names2:SizeToContents()
+	
+	Names3 = vgui.Create("DLabel", self)
+	Names3:SetFont("ZSHUDFontSmaller")
+	Names3:SetText("Ping")
+	Names3:SetTextColor(COLOR_GRAY)
+	Names3:SetPos(w * 0.21,100)
+	Names3:SizeToContents()
+	
+	Names4 = vgui.Create("DLabel", self)
+	Names4:SetFont("ZSHUDFontSmaller")
+	Names4:SetText("Zombies")
+	Names4:SetTextColor(COLOR_GRAY)
+	Names4:SetPos(w * 0.305,100)
+	Names4:SizeToContents()
+	
+	Names5 = vgui.Create("DLabel", self)
+	Names5:SetFont("ZSHUDFontSmaller")
+	Names5:SetText("Brains")
+	Names5:SetTextColor(COLOR_GRAY)
+	Names5:SetPos(w * 0.405,100)
+	Names5:SizeToContents()
+	
+	Names6 = vgui.Create("DLabel", self)
+	Names6:SetFont("ZSHUDFontSmaller")
+	Names6:SetText(" Ping")
+	Names6:SetTextColor(COLOR_GRAY)
+	Names6:SetPos(w * 0.46,100)
+	Names6:SizeToContents()
+	
+if ARENA then
+	Names7 = vgui.Create("DLabel", self)
+	Names7:SetFont("ZSHUDFont3")
+	Names7:SetText("ARNEA MODE")
+	Names7:SetTextColor(COLOR_DARKRED)
+	Names7:SetPos(w * 0.17,0)
+	Names7:SizeToContents()
+end
 
-
+if GAMEMODE.ZombieEscape then
+	Names8 = vgui.Create("DLabel", self)
+	Names8:SetFont("ZSHUDFont3")
+	Names8:SetText("OBJECTIVE MODE")
+	Names8:SetTextColor(COLOR_DARKRED)
+	Names8:SetPos(w * 0.17,0)
+	Names8:SizeToContents()
+end
 	self.ZombieList = vgui.Create("DScrollPanel", self)
 	self.ZombieList.Team = TEAM_UNDEAD
 
@@ -66,11 +119,13 @@ function PANEL:Init()
 end
 
 function PANEL:PerformLayout()
-	self.HumanList:SetSize(self:GetWide() / 2.2, self:GetTall() - 150)
+	local w, h = ScrW(), ScrH()
+	
+	self.HumanList:SetSize(self:GetWide() / 2.1, self:GetTall() - 150)
 	self.HumanList:AlignBottom(16)
 	self.HumanList:AlignLeft(8)
 
-	self.ZombieList:SetSize(self:GetWide() / 2.2, self:GetTall() - 150)
+	self.ZombieList:SetSize(self:GetWide() / 2.1, self:GetTall() - 150)
 	self.ZombieList:AlignBottom(16)
 	self.ZombieList:AlignRight(8)
 	
@@ -106,7 +161,7 @@ function PANEL:CreatePlayerPanel(pl)
 	local panel = vgui.Create("ZSPlayerPanel", pl:Team() == TEAM_UNDEAD and self.ZombieList or self.HumanList)
 	panel:SetPlayer(pl)
 	panel:Dock(TOP)
-	panel:DockMargin(8, 2, 8, 2)
+	panel:DockMargin(1, 2, 8, 1)
 
 	self.PlayerPanels[pl] = panel
 
@@ -162,7 +217,6 @@ end
 local function empty() end
 
 function PANEL:Init()
-	--self:SetTall(45)
 	self:SetTall(55)
 
 	self.m_AvatarButton = self:Add("DButton", self)
@@ -188,8 +242,8 @@ function PANEL:Init()
 	self.m_ClassImage:SetMouseInputEnabled(false)
 	self.m_ClassImage:SetVisible(false)
 
-	self.m_PlayerLabel = EasyLabel(self, " ", "ZSScoreBoardPlayer", COLOR_GREY)
-	self.m_ScoreLabel = EasyLabel(self, " ", "ZSScoreBoardPlayerSmall", COLOR_GREY)
+	self.m_PlayerLabel = EasyLabel(self, " ", "ZSHUDFontSmaller", COLOR_GREY)
+	self.m_ScoreLabel = EasyLabel(self, " ", "ZSHUDFontSmaller", COLOR_GREY)
 
 	self.m_PingMeter = vgui.Create("DPingMeter", self)
 	self.m_PingMeter:SetSize(20, 20)
@@ -245,23 +299,32 @@ function PANEL:PerformLayout()
 	self.m_PlayerLabel:CenterVertical()
 
 	self.m_ScoreLabel:SizeToContents()
-	self.m_ScoreLabel:SetPos(self:GetWide() * 0.666 - self.m_ScoreLabel:GetWide() / 2, 0)
+	local pl = self:GetPlayer()
+	if pl:Team() == TEAM_UNDEAD then
+		self.m_ScoreLabel:SetPos(self:GetWide() * 0.666 - self.m_ScoreLabel:GetWide() / 1.3, 0)
+	end
+	
+	if pl:Team() == TEAM_HUMAN then
+		self.m_ScoreLabel:SetPos(self:GetWide() * 0.666 - self.m_ScoreLabel:GetWide() / 2, 0)
+	end
+	
 	self.m_ScoreLabel:CenterVertical()
 
 	self.m_SpecialImage:CenterVertical()
 
-	self.m_ClassImage:SetSize(self:GetTall(), self:GetTall())
-	self.m_ClassImage:SetPos(self:GetWide() * 0.5 - self.m_ClassImage:GetWide() * 0.5, 0)
-	self.m_ClassImage:CenterVertical()
+	--self.m_ClassImage:SetSize(self:GetTall(), self:GetTall())
+	--self.m_ClassImage:SetPos(self:GetWide() * 0.5 - self.m_ClassImage:GetWide() * 0.5, 0)
+	--self.m_ClassImage:CenterVertical()
 
 	local pingsize = self:GetTall() - 4
 
-	self.m_PingMeter:SetSize(pingsize, pingsize)
+	self.m_PingMeter:SetSize(pingsize * 1.7, pingsize)
 	self.m_PingMeter:AlignRight(8)
 	self.m_PingMeter:CenterVertical()
 
 	self.m_Mute:SetSize(16, 16)
-	self.m_Mute:MoveLeftOf(self.m_PingMeter, 8)
+	--self.m_Mute:MoveLeftOf(self.m_PingMeter, 8)
+	self.m_Mute:MoveRightOf(self.m_PlayerLabel, 8)
 	self.m_Mute:CenterVertical()
 end
 
@@ -278,13 +341,20 @@ function PANEL:Refresh()
 	end
 	self.m_PlayerLabel:SetText(name)
 	self.m_ScoreLabel:SetText(pl:Frags())
-
-	if pl:Team() == TEAM_UNDEAD and pl:GetZombieClassTable().Icon then
+	
+	--[[if pl:Team() == TEAM_UNDEAD then
+		self.m_ScoreLabel:SetText("Brains: "..pl:Frags())
+	end
+	
+	if pl:Team() == TEAM_HUMAN then
+		self.m_ScoreLabel:SetText("SP:  "..pl:Frags())
+	end]]--
+	--[[if pl:Team() == TEAM_UNDEAD and pl:GetZombieClassTable().Icon then
 		self.m_ClassImage:SetVisible(true)
 		self.m_ClassImage:SetImage(pl:GetZombieClassTable().Icon)
 	else
 		self.m_ClassImage:SetVisible(false)
-	end
+	end]]--
 
 	if pl == LocalPlayer() then
 		self.m_Mute:SetVisible(false)

@@ -1,3 +1,5 @@
+--Duby: I need to remove a load of code from this file.. It will be a task for after release.
+
 hook.Add("SetWave", "CloseWorthOnWave1", function(wave)
 	if wave > 0 then
 		if pWorth and pWorth:Valid() then
@@ -104,41 +106,39 @@ function MakepWorth(id)
 	local maxworth = GAMEMODE.StartingWorth
 	WorthRemaining = maxworth
 
-	local SCREEN_W = 1920; --For the screen resolution scale. This means that it can be fit exactly on the screen without any issues.
-	local SCREEN_H = 1080;
-	local X_MULTIPLIER = ScrW( ) / SCREEN_W;
-	local Y_MULTIPLIER = ScrH( ) / SCREEN_H;
+	 SCREEN_W = 1920; --For the screen resolution scale. This means that it can be fit exactly on the screen without any issues.
+	 SCREEN_H = 1080;
+	 X_MULTIPLIER = ScrW( ) / SCREEN_W;
+	 Y_MULTIPLIER = ScrH( ) / SCREEN_H;
 
-	local wid, hei = 350 * X_MULTIPLIER, 900 * Y_MULTIPLIER
-	local wid2, hei2 = math.min(ScrW(), 240), math.min(ScrH())
-	local wid3, hei3 = math.min(ScrW(), 100), math.min(ScrH(), 520)
-	local w, h = ScrW(), ScrH()
+	 wid, hei = 350 * X_MULTIPLIER, 900 * Y_MULTIPLIER
+	 wid2, hei2 = math.min(ScrW(), 240), math.min(ScrH())
+	 wid3, hei3 = math.min(ScrW(), 100), math.min(ScrH(), 520)
+	 w, h = ScrW(), ScrH()
 		
-	
-	local frame = vgui.Create("DFrame")
+	frame = vgui.Create("DFrame")
 	pWorth = frame
 	
 	frame:SetPos(wid * 2, hei * 2)
-	frame:SetSize(wid * 3, hei)
-	--frane:SetBackgroundBlur( true ) --Duby: Test this when I get home!
-	
+	frame:SetSize(wid * 3, hei)	
 	frame:SetDeleteOnClose(true)
 	frame:SetKeyboardInputEnabled(true)
 	frame:SetDraggable( false ) 
 	frame:ShowCloseButton( false ) 
 	frame:SetTitle("")
 	frame.Paint = function()
-		--draw.RoundedBox( 0, 0, 0, w, h, Color( 28, 28, 28, 300 ) ) --Debug
+		draw.RoundedBox( 0, 0, 0, w, h, Color( 0, 0, 0, 0 ) ) --Debug
 	end
 	
 	local Panel = vgui.Create("DPanel",frame)
 	Panel:SetPos( w * 0.05, h * 0.13 )
 	Panel:SetSize( w * 0.2, h * 0.52 )
 	Panel.Paint = function( self, w, h ) 
+		--draw.RoundedBox( 0, 0, 0, w, h, Color( 28, 28, 28, 300 ) )
 		draw.RoundedBox( 0, 0, 0, w, h, Color( 28, 28, 28, 300 ) )
 	end
 	
-	local Panel2 = vgui.Create("DPanel",frame)
+	Panel2 = vgui.Create("DPanel",frame)
 	Panel2:SetPos( w * 0.295, h * 0.13 )
 	Panel2:SetSize( w * 0.2, h * 0.52 )
 	Panel2.Paint = function( self, w, h )
@@ -176,30 +176,12 @@ function MakepWorth(id)
 	MrGreen2:SetFont("ZSHUDFontSmallest")
 	MrGreen2:SetText("https://mrgreengaming.com/forums/")	
 
-	local ClassInfo = vgui.Create( "DLabel", Panel2 )
-	--ClassInfo:SetPos(  w * 0.01, h * 0.001 )
-	ClassInfo:SetPos(  wid * 0.01, - 80)
-	ClassInfo:SetSize( w * 0.22, h * 0.2 )
-	ClassInfo:SetFont("ZSHUDFont2")
-	ClassInfo:SetText("Information:")
 	
-	local LoadOut = vgui.Create( "DLabel", Panel2 )
+	--[[local LoadOut = vgui.Create( "DLabel", Panel2 )
 	LoadOut:SetPos(  w * 0.01, h * 0.006 )
 	LoadOut:SetSize( w * 0.22, h * 0.2 )
 	LoadOut:SetFont("ZSHUDFont")
-	LoadOut:SetText("Loadout:")
-	
-	local Staff = vgui.Create( "DLabel", Panel2 )
-	Staff:SetPos(  w * 0.01, h * 0.205 )
-	Staff:SetSize( w * 0.22, h * 0.2 )
-	Staff:SetFont("ZSHUDFont")
-	Staff:SetText(" Staff:")
-	
-	local Staff2 = vgui.Create( "DLabel", Panel2 )
-	Staff2:SetPos(  w * 0.01, h * 0.3 )
-	Staff2:SetSize( w * 0.22, h * 0.2 )
-	Staff2:SetFont("ZSHUDFontSmall")
-	Staff2:SetText(" Owner: Ywa \n Coder: Duby \n Manager: Damien \n MapManager: Reiska \n Graphics Director: Gheii-Ben \n Model Maker: BrainDawg")
+	LoadOut:SetText("Loadout:")]]--
 
 	local propertysheet = vgui.Create("DPropertySheet", Panel)
 	propertysheet:StretchToParent(4, 24, 4, 50)
@@ -225,13 +207,10 @@ function MakepWorth(id)
 		list:SetSpacing(50)
 		list:SetPadding(1)
 		list:SizeToContents()
-	--	list:SetPos( w * 0.295, h * 0.13 )
-	--	list:SetSize( w * 0.2, h * 0.52 )
 		list.Paint = function( self, w, h ) 
 			draw.RoundedBox( 0, 0, 0, w, h, Color( 1, 0, 0, 1 ) )
 		end
 
-			--self.ID = id
 			local tab = FindStartingItem(id)
 			local self = LocalPlayer()
 
@@ -240,28 +219,11 @@ function MakepWorth(id)
 				local button = vgui.Create("ZSWorthButton")
 				button:SetWorthID(i)
 				list:AddItem(button)
-				
-				local DLabel = vgui.Create( "DLabel", Panel2 )
-					  DLabel:SetPos(  w * 0.01, h * 0.02)
-					  DLabel:SetSize( 400, 400 )
-					  DLabel:SetFont("ZSHUDFontSmall")
-					  DLabel:SetText("")
-				button.OnCursorEntered = function()
-					surface.PlaySound( "mrgreen/ui/menu_accept.wav" )
-					DLabel:SetText(tab.Description)	
-				end
-				
-				button.OnCursorExited = function()
-					DLabel:SetText("")
-				end
-
-				
+			
 				WorthButtons[i] = button
 			end
 		end
 	end
-	
-	local w, h = ScrW(), ScrH()
 
 	
 	frame:Center()
@@ -276,15 +238,18 @@ function MakepWorth(id)
 	checkout:SetPos(0,0)
 	checkout:Center()
 	checkout.DoClick = function()
+		surface.PlaySound("mrgreen/ui/menu_accept.wav")
 		CheckoutDoClick()
 	end
+		
+	LoadoutMusic = {"gamestart_new1","gamestart_new2","gamestart1","gamestart2","gamestart3","gamestart4"}	
 		
 	if CHRISTMAS then
 		timer.Simple(2, function()
 			surface.PlaySound( "mrgreen/music/gamestart_new_christmas_1.wav" )
 		end)
 	else
-		surface.PlaySound(Sound("mrgreen/music/gamestart_new"..math.random(1,2)..".mp3")) --Move this else where....
+		surface.PlaySound(Sound("mrgreen/music/"..table.Random(LoadoutMusic)..".mp3")) --Move this else where....
 	end
 	return frame, frame2, Panel
 	
@@ -334,11 +299,20 @@ function PANEL:Init()
 	self.NameLabel = EasyLabel(self, "", "ZSHUDFontSmall")
 	self.NameLabel:SetContentAlignment(4)
 	self.NameLabel:Dock(FILL)
+	self.NameLabel:SetText("")
 
 
 	self.ItemCounter = vgui.Create("ItemAmountCounter", self)
 
 	self:SetWorthID(nil)
+	
+	DLabel_Class = vgui.Create( "DLabel", Panel2 )
+	DLabel_Class:SetPos(  w * 0.001, h * 0.02)
+	DLabel_Class:SetSize( 400, 400 )
+	DLabel_Class:SetFont("ZSHUDFontSmall")
+	DLabel_Class:SetText("")
+
+	return frame
 end
 
 function PANEL:SetWorthID(id)
@@ -372,16 +346,16 @@ end
 
 function PANEL:Paint(w, h)
 	local outline	
-	
+	local id = self.ID
+	local tab = FindStartingItem(id)
+
 	if self.Hovered then
-		outline = self.On and COLOR_DARKGREEN or Color(0, 100, 0, 255)
+		outline = self.On and COLOR_DARKGREEN or Color(0, 100, 0, 255)	
 	else
 		outline = self.On and COLOR_DARKGREEN or Color(100, 0, 0, 255)
 	end
 
 	draw.RoundedBox(10, 0, 0, w, h, outline)
-
-	
 end
 
 function PANEL:DoClick(silent, force)
@@ -392,9 +366,11 @@ function PANEL:DoClick(silent, force)
 	if self.On then
 		self.On = nil
 		if not silent then
-			surface.PlaySound("mrgreen/ui/menu_click01.wav")
+			surface.PlaySound("mrgreen/ui/menu_accept.wav")
 		end
 		WorthRemaining = WorthRemaining + tab.Worth
+		DLabel_Class:SetText("")
+		DLabel_Class:SetText(tab.Description)
 	else
 		if WorthRemaining < tab.Worth and not force then
 			surface.PlaySound("mrgreen/ui/menu_click01.wav")
@@ -405,6 +381,8 @@ function PANEL:DoClick(silent, force)
 			surface.PlaySound("mrgreen/ui/menu_click01.wav")
 		end
 		WorthRemaining = WorthRemaining - tab.Worth
+		DLabel_Class:SetText("")
+		DLabel_Class:SetText(tab.Description)
 	end
 
 end

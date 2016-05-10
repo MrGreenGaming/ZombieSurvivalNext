@@ -47,7 +47,7 @@ SWEP.Base = "weapon_zs_zombie_boss"
 SWEP.ViewModel = "models/Weapons/v_zombiearms.mdl"
 SWEP.WorldModel = "models/weapons/w_crowbar.mdl"
 
-SWEP.MeleeDamage = 55
+SWEP.MeleeDamage = 35
 SWEP.MeleeDelay = 1.9
 SWEP.SlowDownScale = 1
 SWEP.Primary.Delay = 1.9

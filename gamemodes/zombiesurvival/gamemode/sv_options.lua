@@ -278,7 +278,6 @@ net.Receive( "Debug", function( len, pl )
 	pl:Give("admin_raverifle")
 end )
 
-
 net.Receive( "Debug_2", function( len, pl ) 
 	pl:Give("admin_tool_igniter")
 end )
@@ -299,7 +298,7 @@ net.Receive( "Debug_5", function( len, pl )
 end )
 
 
-net.Receive( "Debug_6", function( len, pl ) -- len is the net message length, which we don't care about, ply is the player who sent it.
+net.Receive( "Debug_6", function( len, pl )
 		pl:SetRenderMode(RENDERMODE_NONE) pl:SetColor(Color(225,225,225,1))
 		timer.Simple(5, function() 
 			pl:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(225,225,225,225))
@@ -345,17 +344,17 @@ GM.HonorableMentions[HM_SALESMAN].GetPlayer = function(self)
 	return GetMostKey("PointsCommission")
 end
 
-GM.HonorableMentions[HM_WAREHOUSE].GetPlayer = function(self)
-	return GetMostKey("ResupplyBoxUsedByOthers")
-end
+--GM.HonorableMentions[HM_WAREHOUSE].GetPlayer = function(self)
+--	return GetMostKey("ResupplyBoxUsedByOthers")
+--end
 
-GM.HonorableMentions[HM_NESTDESTROYER].GetPlayer = function(self)
-	return GetMostKey("NestsDestroyed")
-end
+--GM.HonorableMentions[HM_NESTDESTROYER].GetPlayer = function(self)
+--	return GetMostKey("NestsDestroyed")
+--end
 
-GM.HonorableMentions[HM_NESTMASTER].GetPlayer = function(self)
-	return GetMostKey("NestSpawns")
-end
+--GM.HonorableMentions[HM_NESTMASTER].GetPlayer = function(self)
+--	return GetMostKey("NestSpawns")
+--end
 
 function GM:OnPlayerHowlered ( pl, iIntensity )
 	if iIntensity == nil then

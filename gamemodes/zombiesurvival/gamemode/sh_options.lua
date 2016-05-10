@@ -146,7 +146,7 @@ GM.AmmoResupply["pulse"] = GM.AmmoCache["pulse"]
 
 --MEDIC
 
-GM:CLASS("medic", "MEDIC", " Medkical Kit \n Plank \n Five Seven or Medic Gun", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("medic", "MEDIC", " Loadout items: \n\n Medkical Kit \n Plank \n Five Seven or Medic Gun \n\n\n\n Class Description: \n\n Heal your teammates! \n With pockets full of meds, \n this is the class for a team player!", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/group03/male_02.mdl",
@@ -166,7 +166,7 @@ end, "models/healthvial.mdl")
 
 --COMMANDO
 
-GM:CLASS("commando", "COMMANDO", " Dual Classic Pistols \n Swiss Knife \n Grenades", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("commando", "COMMANDO", " Loadout items: \n\n Dual Classic Pistols \n Swiss Knife \n Grenades \n\n\n\n Class Description: \n\n Shooting is your bread and butter. \n Fast and topped up with adrenline, \n this class is made for shooting!", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/combine_soldier.mdl",
@@ -182,7 +182,7 @@ end, "models/healthvial.mdl")
 
 --ENGINEER
 
-GM:CLASS("engineer", "ENGINEER", " Pulse Pistol \n Frying Pan \n 1 in 3 Aegis Kit, Turret, Mines", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("engineer", "ENGINEER", " Loadout items: \n\n Pulse Pistol \n Frying Pan \n 1 in 3 Aegis Kit, Turret, Mines \n\n\n\n Class Description: \n\n Bombs away as they say! \n Packed with explosives n'shit, \n this class really packs a punch!", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/mossman.mdl",
@@ -201,7 +201,7 @@ end, "models/healthvial.mdl")
 
 --BERSERKER
 
-GM:CLASS("berserker", "BERSERKER", " P228 \n Mobile Supplies \n Pot or Axe", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("berserker", "BERSERKER", " Loadout items: \n\n P228 \n Mobile Supplies \n Pot or Axe  \n\n\n\n Class Description: \n\n Is Dismemberment is a joy? \n Armed with your melee skills, \n the crowbar crew awaits you!", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) 
 pl:SetModel( table.Random( {
@@ -237,12 +237,16 @@ end, "models/healthvial.mdl")
 
 --SUPPORT
 
-GM:CLASS("support", "SUPPORT", " Hammer \n Supply Crate \n USP ", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("support", "SUPPORT", " Loadout items: \n\n Hammer \n Supply Crate \n USP  \n\n\n\n Class Description: \n\n Cading your way to victory. \n Filled to the brim with nails, \n this class is made for the caders!", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/gasmask.mdl",
 	"models/player/riot.mdl",
 } ) ) 
+
+	if math.random(1,3) == 1  then --1 in 3 chance of spawning with this Unique item.
+			pl:Give("weapon_zs_ammo")
+	end
 
 	pl:Give("weapon_zs_hammer")
 	pl:Give("weapon_zs_arsenalcrate")
@@ -268,10 +272,10 @@ GM:AddPointShopItem("medic_gun", "Medical Pistol", nil, ITEMCAT_GUNS2, 35, "weap
 GM:AddPointShopItem("glock", "Glock", nil, ITEMCAT_GUNS2, 40, "weapon_zs_glock3")
 GM:AddPointShopItem("dualclassics", "Dual Classic Pistols", nil, ITEMCAT_GUNS2, 55, "weapon_zs_dualclassics")
 GM:AddPointShopItem("magnum", "Magnum", nil, ITEMCAT_GUNS2, 65, "weapon_zs_magnum")
-GM:AddPointShopItem("Dual Berreta's 92fs", "Duel Berreta's 92fs", nil, ITEMCAT_GUNS2, 65, "weapon_zs_berreta")
-GM:AddPointShopItem("alyxgun", "Alyx Gun", nil, ITEMCAT_GUNS2, 68, "weapon_zs_z9000")
-GM:AddPointShopItem("deagle", "Desert Eagle", nil, ITEMCAT_GUNS2, 70, "weapon_zs_deagle")
-GM:AddPointShopItem("python", "Python", nil, ITEMCAT_GUNS2, 150, "weapon_zs_python")
+GM:AddPointShopItem("Dual Berreta's 92fs", "Duel Berreta's 92fs", nil, ITEMCAT_GUNS2, 70, "weapon_zs_berreta")
+GM:AddPointShopItem("alyxgun", "Alyx Gun", nil, ITEMCAT_GUNS2, 78, "weapon_zs_z9000")
+GM:AddPointShopItem("deagle", "Desert Eagle", nil, ITEMCAT_GUNS2, 95, "weapon_zs_deagle")
+GM:AddPointShopItem("python", "Python", nil, ITEMCAT_GUNS2, 200, "weapon_zs_python")
 
 
 --// AUTOMATIC WEAPONS \\--
@@ -353,28 +357,28 @@ GM:AddPointShopItem("supplycrate", "Supply Crate", nil, ITEMCAT_TOOLS, 50, "weap
 
 local function genericcallback(pl, magnitude) return pl:Name(), magnitude end
 GM.HonorableMentions = {}
-GM.HonorableMentions[HM_MOSTZOMBIESKILLED] = {Name = "Most zombies killed", String = "by %s, with %d killed zombies.", Callback = genericcallback, Color = COLOR_CYAN}
-GM.HonorableMentions[HM_MOSTDAMAGETOUNDEAD] = {Name = "Most damage to undead", String = "goes to %s, with a total of %d damage dealt to the undead.", Callback = genericcallback, Color = COLOR_CYAN}
-GM.HonorableMentions[HM_PACIFIST] = {Name = "Pacifist", String = "goes to %s for not killing a single zombie and still surviving!", Callback = genericcallback, Color = COLOR_CYAN}
-GM.HonorableMentions[HM_MOSTHELPFUL] = {Name = "Most helpful", String = "goes to %s for assisting in the disposal of %d zombies.", Callback = genericcallback, Color = COLOR_CYAN}
-GM.HonorableMentions[HM_LASTHUMAN] = {Name = "Last Human", String = "goes to %s for being the last person alive.", Callback = genericcallback, Color = COLOR_CYAN}
-GM.HonorableMentions[HM_OUTLANDER] = {Name = "Outlander", String = "goes to %s for getting killed %d feet away from a zombie spawn.", Callback = genericcallback, Color = COLOR_CYAN}
-GM.HonorableMentions[HM_GOODDOCTOR] = {Name = "Good Doctor", String = "goes to %s for healing their team for %d points of health.", Callback = genericcallback, Color = COLOR_CYAN}
-GM.HonorableMentions[HM_HANDYMAN] = {Name = "Handy Man", String = "goes to %s for getting %d barricade assistance points.", Callback = genericcallback, Color = COLOR_CYAN}
-GM.HonorableMentions[HM_SCARECROW] = {Name = "Scarecrow", String = "goes to %s for killing %d poor crows.", Callback = genericcallback, Color = COLOR_WHITE}
-GM.HonorableMentions[HM_MOSTBRAINSEATEN] = {Name = "Most brains eaten", String = "by %s, with %d brains eaten.", Callback = genericcallback, Color = COLOR_LIMEGREEN}
-GM.HonorableMentions[HM_MOSTDAMAGETOHUMANS] = {Name = "Most damage to humans", String = "goes to %s, with a total of %d damage given to living players.", Callback = genericcallback, Color = COLOR_LIMEGREEN}
-GM.HonorableMentions[HM_LASTBITE] = {Name = "Last Bite", String = "goes to %s for ending the round.", Callback = genericcallback, Color = COLOR_LIMEGREEN}
-GM.HonorableMentions[HM_USEFULTOOPPOSITE] = {Name = "Most useful to opposite team", String = "goes to %s for giving up a whopping %d kills!", Callback = genericcallback, Color = COLOR_RED}
-GM.HonorableMentions[HM_STUPID] = {Name = "Stupid", String = "is what %s is for getting killed %d feet away from a zombie spawn.", Callback = genericcallback, Color = COLOR_RED}
-GM.HonorableMentions[HM_SALESMAN] = {Name = "Salesman", String = "is what %s is for having %d points worth of items taken from their arsenal crate.", Callback = genericcallback, Color = COLOR_CYAN}
-GM.HonorableMentions[HM_WAREHOUSE] = {Name = "Warehouse", String = "describes %s well since they had their resupply boxes used %d times.", Callback = genericcallback, Color = COLOR_CYAN}
-GM.HonorableMentions[HM_SPAWNPOINT] = {Name = "Spawn Point", String = "goes to %s for having %d zombies spawn on them.", Callback = genericcallback, Color = COLOR_LIMEGREEN}
-GM.HonorableMentions[HM_CROWFIGHTER] = {Name = "Crow Fighter", String = "goes to %s for annihilating %d of his crow brethren.", Callback = genericcallback, Color = COLOR_WHITE}
-GM.HonorableMentions[HM_CROWBARRICADEDAMAGE] = {Name = "Minor Annoyance", String = "is what %s is for dealing %d damage to barricades while a crow.", Callback = genericcallback, Color = COLOR_LIMEGREEN}
-GM.HonorableMentions[HM_BARRICADEDESTROYER] = {Name = "Barricade Destroyer", String = "goes to %s for doing %d damage to barricades.", Callback = genericcallback, Color = COLOR_LIMEGREEN}
-GM.HonorableMentions[HM_NESTDESTROYER] = {Name = "Nest Destroyer", String = "goes to %s for destroying %d nests.", Callback = genericcallback, Color = COLOR_LIMEGREEN}
-GM.HonorableMentions[HM_NESTMASTER] = {Name = "Nest Master", String = "goes to %s for having %d zombies spawn through their nest.", Callback = genericcallback, Color = COLOR_LIMEGREEN}
+GM.HonorableMentions[HM_MOSTZOMBIESKILLED] = {Name = "", String = " %s killed %d zombies.", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_MOSTDAMAGETOUNDEAD] = {Name = "", String = " %s dealt %d damage dealt to the undead.", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_PACIFIST] = {Name = "", String = "%s Survived without killing a single zombie!", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_MOSTHELPFUL] = {Name = "", String = " %s assisted the disposal of %d zombies.", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_LASTHUMAN] = {Name = "", String = " %s was the last human alive!", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_OUTLANDER] = {Name = "", String = " %s was killed %d feet away from a zombie spawn.", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_GOODDOCTOR] = {Name = "", String = " %s healed the team with %d HP.", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_HANDYMAN] = {Name = "", String = " %s got %d barricade assistance points.", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_SCARECROW] = {Name = "", String = " %s killed %d poor crows.", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_MOSTBRAINSEATEN] = {Name = "", String = " %s ate %d brains Yummm", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_MOSTDAMAGETOHUMANS] = {Name = "", String = " %s did %d damage to humans", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_LASTBITE] = {Name = "", String = " %s ended the round with the last bite!", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_USEFULTOOPPOSITE] = {Name = "", String = " %s killed a whopping %d Humans!", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_STUPID] = {Name = "", String = " %s is stupid for getting killed %d feet away from a zombie spawn.", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_SALESMAN] = {Name = "", String = " %s had %d SP spent on his arsenal crate.", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_WAREHOUSE] = {Name = "", String = " %s had his resupply boxes used %d times.", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_SPAWNPOINT] = {Name = "", String = " %s had %d zombies spawn on them.", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_CROWFIGHTER] = {Name = "", String = " %s annihilated %d of his crow brethren.", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_CROWBARRICADEDAMAGE] = {Name = "", String = " %s dealt %d damage to barricades whilst a crow.", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_BARRICADEDESTROYER] = {Name = "", String = "%s did %d damage to barricades.", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_NESTDESTROYER] = {Name = "", String = " %s destroyed %d nests.", Callback = genericcallback, Color = COLOR_WHITE}
+GM.HonorableMentions[HM_NESTMASTER] = {Name = "", String = " %s had %d zombies spawn through their nest.", Callback = genericcallback, Color = COLOR_WHITE}
 
 -- Don't let humans use these models because they look like undead models. Must be lower case.
 GM.RestrictedModels = {
@@ -468,8 +472,8 @@ GM.NoNewHumansWave = 2
 GM.NoSuicideWave = 1
 
 -- How long 'wave 0' should last in seconds. This is the time you should give for new players to join and get ready.
-GM.WaveZeroLength = 120
---GM.WaveZeroLength = 20
+--GM.WaveZeroLength = 120
+GM.WaveZeroLength = 30
 
 -- Time humans have between waves to do stuff without NEW zombies spawning. Any dead zombies will be in spectator (crow) view and any living ones will still be living.
 --GM.WaveIntermissionLength = 5
@@ -488,13 +492,11 @@ GM.SurvivalClips = 3
 -- Put your unoriginal, 5MB Rob Zombie and Metallica music here.
 GM.LastHumanSound = Sound("mrgreen/music/lasthuman.ogg")
 
-GM.IntermissionSound = Sound("mrgreen/music/intermission"..math.random(2)..".mp3")
-
 -- Sound played when humans all die.
-GM.AllLoseSound = Sound("music/HL2_song7.mp3")
+GM.AllLoseSound = Sound("mrgreen/music/intermission_undead.mp3")
 
 -- Sound played when humans survive.
-GM.HumanWinSound = Sound("music/HL2_song7.mp3")
+GM.HumanWinSound = Sound("mrgreen/music/intermission.mp3")
 
 -- Sound played to a person when they die as a human.
 GM.DeathSound = Sound("music/stingers/HL1_stinger_song28.mp3")

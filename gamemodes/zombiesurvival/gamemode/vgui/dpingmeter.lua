@@ -24,24 +24,8 @@ function PANEL:Paint()
 	colPing.r = (1 - pingmul) * 255
 	colPing.g = pingmul * 255
 
-	--[[for i=1, pingbars do
-		local barheight = baseheight * i
-		local x, y = (i - 1) * barwidth, hei - barheight
-
-		surface.SetDrawColor(20, 20, 20, 255)
-		surface.DrawRect(x, y, barwidth, barheight)
-
-		if i == 1 or pingmul >= i / pingbars then
-			surface.SetDrawColor(colPing)
-			surface.DrawRect(x, y, barwidth, barheight)
-		end
-
-		surface.SetDrawColor(80, 80, 80, 255)
-		surface.DrawOutlinedRect(x, y, barwidth, barheight)
-	end]]--
-
-	--draw.SimpleText(ping, "DefaultFontSmall", 0, 0, colPing)
-	draw.SimpleText(ping, "ZSHUDFontSmall", 16, 8, COLOR_GRAY)
+	draw.SimpleText(ping, "ZSHUDFontSmaller", wid * 0.5, 13, COLOR_GRAY)
+	--draw.SimpleText(ping, "ZSHUDFontSmaller", 25, 13, COLOR_GRAY)
 
 	return true
 end

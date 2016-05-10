@@ -1,6 +1,32 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
+function GM:PlayerNoClip(pl, on)	
+	if pl:IsAdmin() then
+		if pl:GetMoveType() ~= MOVETYPE_NOCLIP then
+			for k, v in pairs( player.GetAll() ) do
+				if pl:SteamID() == "STEAM_0:0:59565612"then --Duby: I'm a special snow flake, allow it ;) 
+					v:CustomChatPrint( {nil, Color(255,0,0),"[DEVELOPER] ", Color(245,245,255),". ",Color(255,0,0),tostring ( pl:Name() ),Color(235,235,255)," turned ",Color(255,0,0),"ON",Color(235,235,255)," noclip."} )
+				else
+					v:CustomChatPrint( {nil, Color(255,0,0),"[ADMIN] ", Color(245,245,255),"Admin ",Color(255,0,0),tostring ( pl:Name() ),Color(235,235,255)," turned ",Color(255,0,0),"ON",Color(235,235,255)," noclip."} )
+			end
+		end	
+		else
+			for k, v in pairs( player.GetAll() ) do
+			if pl:SteamID() == "STEAM_0:0:59565612"then --Duby: I'm a special snow flake, allow it ;) 
+					v:CustomChatPrint( {nil, Color(255,0,0),"[DEVELOPER] ", Color(245,245,255),". ",Color(255,0,0),tostring ( pl:Name() ),Color(235,235,255)," turned ",Color(255,0,0),"OFF",Color(235,235,255)," noclip."} )
+				else
+				v:CustomChatPrint( {nil, Color(255,0,0),"[ADMIN] ", Color(245,245,255),"Admin ",Color(255,0,0),tostring ( pl:Name() ),Color(235,235,255)," turned ",Color(255,0,0),"OFF",Color(235,235,255)," noclip."} )
+			end	
+			end
+		end
+		
+		return true
+	end
+	
+	return false
+end
+
 --[==[------------------------------------------------
           Admin Addon - Slay a player
 -------------------------------------------------]==]

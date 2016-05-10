@@ -98,6 +98,16 @@ if SERVER then
 	end
 end
 
+
+local matSkin = Material("Models/Barnacle/barnacle_sheet")
+function CLASS:PrePlayerDraw(pl)
+	render.ModelMaterialOverride(matSkin)
+end
+
+function CLASS:PostPlayerDraw(pl)
+	render.ModelMaterialOverride()
+end
+
 local BonesToZero = {
 	"ValveBiped.Bip01_L_UpperArm",
 	"ValveBiped.Bip01_L_Forearm",
@@ -137,11 +147,3 @@ if not CLIENT then return end
 
 CLASS.Icon = "zombiesurvival/classmenu/pukepuss"
 
-local matSkin = Material("Models/Barnacle/barnacle_sheet")
-function CLASS:PrePlayerDraw(pl)
-	render.ModelMaterialOverride(matSkin)
-end
-
-function CLASS:PostPlayerDraw(pl)
-	render.ModelMaterialOverride()
-end

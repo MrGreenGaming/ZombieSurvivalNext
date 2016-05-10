@@ -29,18 +29,20 @@ include("vgui/dmodelpanelex.lua")
 include("vgui/dammocounter.lua")
 include("vgui/dteamheading.lua")
 
+
 include("vgui/dexroundedpanel.lua")
 include("vgui/dexroundedframe.lua")
 include("vgui/dexrotatedimage.lua")
 include("vgui/dexnotificationslist.lua")
 include("vgui/dexchanginglabel.lua")
 
+
 include("vgui/pmainmenu.lua")
 include("vgui/poptions.lua")
 include("vgui/phelp.lua")
 include("vgui/pclassselect.lua")
 include("vgui/pweapons.lua")
---include("vgui/pendboard.lua")
+include("vgui/pendboard.lua")
 include("vgui/pworth.lua")
 include("vgui/ppointshop.lua")
 include("vgui/dpingmeter.lua")
@@ -52,7 +54,9 @@ include("cl_deathnotice.lua")
 include("cl_floatingscore.lua")
 include("cl_hint.lua")
 
+
 --[[MODUELS]]--
+
 
 --Christmas
 if CHRISTMAS then
@@ -403,6 +407,7 @@ end
 
 function GM:OnReloaded()
 	self.BaseClass.OnReloaded(self)
+
 	self:LocalPlayerFound()
 end
 
@@ -418,11 +423,13 @@ function GM:LocalPlayerFound()
 	self.HUDPaint = self._HUDPaint
 	self.HUDPaintBackground = self._HUDPaintBackground
 	self.CreateMove = self._CreateMove
-	--self.PrePlayerDraw = self._PrePlayerDraw
+	self.PrePlayerDraw = self._PrePlayerDraw --Re-Enabled this
 	self.PostPlayerDraw = self._PostPlayerDraw
 	self.InputMouseApply = self._InputMouseApply
 	self.GUIMousePressed = self._GUIMousePressed
 	self.HUDWeaponPickedUp = self._HUDWeaponPickedUp
+
+
 
 	if render.GetDXLevel() >= 80 then
 		self.RenderScreenspaceEffects = self._RenderScreenspaceEffects
@@ -517,6 +524,7 @@ function GM:PostRender()
 
 		local dlight = DynamicLight(MySelf:EntIndex())
 		if dlight then
+
 			dlight.Pos = tr.HitPos + tr.HitNormal * 2
 			dlight.r = 10
 			dlight.g = 255
@@ -640,6 +648,8 @@ function GM:PlayBeats(teamid, fear)
 	if RealTime() <= NextBeat or not gamemode.Call("ShouldPlayBeats", teamid, fear) then return end
 
 	if LASTHUMAN and cv_ShouldPlayMusic:GetBool() then
+
+
 		surface.PlaySound( "mrgreen/music/lasthuman.ogg" )
 		NextBeat = RealTime() + 100000
 		return
@@ -697,7 +707,11 @@ function GM:HumanHUD(screenscale)
 		--[[if self:GetWave() == 0 and not self:GetWaveActive() then
 			local txth = draw_GetFontHeight("ZSHUDFontSmall")
 
+
+
 			local desiredzombies = self:GetDesiredStartingZombies()
+
+
 
 			
 			draw_SimpleText("Zombie Volunteers:", "ZSHUDFontSmall", w * 0.5, h * 0.9 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER)
@@ -739,32 +753,99 @@ function GM:HumanHUD(screenscale)
 	
 end
 
+local healthIndication = {
+	{
+		Text = "Healthy",
+		Percent = 1
+	}, { Text = "Injured", Percent = 0.8 }, { Text = "Wounded", Percent = 0.6 }, { Text = "Doctor!", Percent = 0.45 }, { Text = "Legless", Percent = 0.4 }, { Text = "Lifeless", Percent = 0.25 } }
+table.SortByMember(healthIndication, "Percent", false)
+local healthPercentageDrawn, healthStatusText = 1, healthIndication[1].Text
+
 function GM:HumanHUD2(screenscale)
 
 	--Duby: I will place this into a module soon enough!
-	local hudsplat = Material("hud/hud_top_left_3.png") --Items for the HUD.
-	local hudsplat2 = Material("hud/hud_bottom_left.png") --Items for the HUD.
 	local w, h = ScrW(), ScrH()
 	
-	surface.SetMaterial(hudsplat)
-	surface.SetDrawColor(255, 255, 255, 255 )
-	surface.DrawTexturedRect(w * 0.01, h * 0.01, w * 0.16, h * 0.11)
-	
-	surface.SetMaterial(hudsplat2)
-	surface.SetDrawColor(225, 225, 225, 225 )
-	surface.DrawTexturedRect(w * 0.01, h * 0.89, w * 0.16, h * 0.1)
+	draw.RoundedBox( 12, w * 0.01, h * 0.01, w * 0.12, h * 0.09, Color(1, 1, 1, 200) ) 	
+	draw.RoundedBox( 12, w * 0.01, h * 0.885, w * 0.189, h * 0.1, Color(1, 1, 1, 200) )	
+	draw.RoundedBox( 12, w * 0.01, h * 0.79, w * 0.09, h * 0.09, Color(1, 1, 1, 200) )
 	
 	local pl = LocalPlayer()
 	local SCREEN_W = 1920; 
 	local SCREEN_H = 1080;
 	local X_MULTIPLIER = ScrW( ) / SCREEN_W;
 	local Y_MULTIPLIER = ScrH( ) / SCREEN_H;
-	local sp = " " .. MySelf:GetPoints() .. "   SkillPoints"
+	local sp = "SP: "
+	local sp2 = " " .. MySelf:GetPoints() .. ""
+	local gc = "GC: "
+	local gc2 = "  N/A"
 	local HP = pl:Health() --Set the variable for the local players health. 
 	
-	draw.SimpleText(HP, "ZSHUDFontBig",w * 0.05, h * 0.89 , COLOR_GRAY, TEXT_ALIGN_CENTER)
-	draw.SimpleText(sp, "ZSHUDFont",230 * X_MULTIPLIER, 1030 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
+	draw.SimpleText("+"..HP, "ZSHUDFontBig",w * 0.05, h * 0.91 , COLOR_GRAY, TEXT_ALIGN_CENTER)
+	draw.SimpleText(sp, "ZSHUDFont1.1",60 * X_MULTIPLIER, 860 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
+	draw.SimpleText(sp2, "ZSHUDFont2",115 * X_MULTIPLIER, 860 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
+	
+	draw.SimpleText(gc, "ZSHUDFont1.1",60 * X_MULTIPLIER, 900 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
+	draw.SimpleText(gc2, "ZSHUDFont1.1",100 * X_MULTIPLIER, 900 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
+	
+	
+	--Duby: Ported some old HUD code. I will optimize and clean it all out soon!
+	
+	local healthPoints, maxHealthPoints = math.max(MySelf:Health(),0), 100
+	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1005)
+	local barW, barH = ScaleW(127), ScaleH(38)
+	local barX, barY = healthTextX + ScaleW(85), ScaleH(880)+ScaleH(70)
+	
+	local healthPercentage, healthChanged = math.Clamp(healthPoints / maxHealthPoints, 0, 1), false
+	if healthPercentage ~= healthPercentageDrawn then
+		healthChanged = true
+	end
 
+	healthPercentageDrawn = math.Clamp(math.Approach(healthPercentageDrawn, healthPercentage, FrameTime() * 1.8), 0, 1) --Smooth
+
+	--Determine health bar foreground color
+	local fHealth, fMaxHealth = math.max(MySelf:Health(),0), 100
+	local iPercentage = math.Clamp(fHealth / fMaxHealth, 0, 1)
+	local healthBarColor = Color(137, 30, 30, 255)
+	local healthBarBGColor = Color(300, 1, 1, 255)
+	
+	
+	--Different colors
+	if iPercentage > 0.75 then
+		healthBarColor = Color(255, 255, 255, 200)
+		healthBarBGColor = Color(300, 1, 1, 255)	
+	elseif iPercentage > 0.5 then
+		healthBarColor = Color(137, 116, 24, 255)
+		healthBarBGColor = Color(300, 1, 1, 255)
+	end
+
+	--Flash under certain conditions
+	if healthPercentageDrawn < 0.3 then
+		healthBarColor = Color(healthBarColor.r, healthBarColor.g, healthBarColor.b, math.abs( math.sin( CurTime() * 4 ) ) * 255)
+	end
+
+	--Background
+	if healthPercentageDrawn ~= 1 then
+		surface.SetDrawColor(healthBarBGColor)
+		surface.DrawRect(barX, barY, barW, barH)
+	end
+
+	--Foreground
+	surface.SetDrawColor(healthBarColor)
+	surface.DrawRect(barX, barY, barW * healthPercentageDrawn, barH)
+
+	--Only update text if health changed
+	if healthChanged then
+		for k, v in ipairs(healthIndication) do
+			if healthPercentage >= v.Percent then
+				healthStatusText = v.Text
+				break
+			end
+		end
+	end
+	
+	--Draw health status text
+	--draw.SimpleText(healthStatusText, "ZSHUDFont1.1", barX+(barW/2), barY+(barH/2), Color(250,250,250,170), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 
 end
 
@@ -819,6 +900,7 @@ function GM:_HUDPaint()
 
 	self:HUDDrawTargetID(myteam, screenscale)
 
+
 	--if self:GetWave() > 0 then --Duby: Enable this if you want the fear meter back!
 	--	self:DrawFearMeter(self:CachedFearPower(), screenscale)
 	--end
@@ -830,6 +912,7 @@ function GM:_HUDPaint()
 		self:HumanHUD(screenscale)	
 		self:HumanHUD2(screenscale)	
 	end
+
 	
 	if GetGlobalBool("classicmode") then
 		draw_SimpleText(translate.Get("classic_mode"), "ZSHUDFontSmaller", 4, ScrH() - 4, COLOR_GRAY, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
@@ -874,6 +957,8 @@ function GM:ZombieObserverHUD(obsmode)
 	end
 end
 
+
+
 local colLifeStats = Color(255, 0, 0, 255)
 function GM:ZombieHUD()
 	if self.LifeStatsEndTime and CurTime() < self.LifeStatsEndTime and (self.LifeStatsBarricadeDamage > 0 or self.LifeStatsHumanDamage > 0 or self.LifeStatsBrainsEaten > 0) then
@@ -904,7 +989,9 @@ function GM:ZombieHUD()
 	if obsmode ~= OBS_MODE_NONE then
 		self:ZombieObserverHUD(obsmode)
 	elseif not self:GetWaveActive() and not MySelf:Alive() then
+
 		draw_SimpleText(translate.Get("waiting_for_next_wave"), "ZSHUDFont", ScrW() * 0.5, ScrH() * 0.3, COLOR_DARKRED, TEXT_ALIGN_CENTER)
+
 
 		if MySelf:GetZombieClassTable().NeverAlive then
 			for _, ent in pairs(ents.FindByClass("prop_thrownbaby")) do
@@ -947,10 +1034,10 @@ function GM:RestartRound()
 	self.RoundEnded = nil
 	LASTHUMAN = nil
 
-	--if pEndBoard and pEndBoard:Valid() then
-	--	pEndBoard:Remove()
-		--pEndBoard = nil
-	--end
+	if pEndBoard and pEndBoard:Valid() then
+		pEndBoard:Remove()
+		pEndBoard = nil
+	end
 
 	self:InitPostEntity()
 
@@ -1029,6 +1116,7 @@ function GM:CreateFonts()
 	surface.CreateLegacyFont(new_zs_font, screenscale * 22, fontweight, fontaa, false, "ZSHUDFontSmaller", fontshadow, fontoutline)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 28, fontweight, fontaa, false, "ZSHUDFontSmall", fontshadow, fontoutline)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 32, fontweight, fontaa, false, "ZSHUDFont", false, false)
+	surface.CreateLegacyFont(new_zs_font, screenscale * 39, fontweight, fontaa, false, "ZSHUDFont1.1", false, false)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 42, fontweight, fontaa, false, "ZSHUDFont2", false, false)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 65, fontweight, fontaa, false, "ZSHUDFont3", false, false)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 72, fontweight, fontaa, false, "ZSHUDFontBig", fontshadow, fontoutline)
@@ -1197,6 +1285,7 @@ end
 
 function GM:LastHumanMessage()
 	if self.RoundEnded or not MySelf:IsValid() then return end
+
 	local icon = self.PantsMode and "weapon_zs_legs" or "default"
 	if MySelf:Team() == TEAM_UNDEAD or not MySelf:Alive() then
 		GAMEMODE:Add3DMessage(100, translate.Get(self.PantsMode and "kick_the_last_human" or "kill_the_last_human"), nil, "ZSHUDFont2")
@@ -1214,10 +1303,9 @@ function GM:SetWave(wave)
 	SetGlobalInt("wave", wave)
 end
 
-
 local matFilmGrain = Material("zombiesurvival/filmgrain/filmgrain")
+
 function GM:_HUDPaintBackground()
-	
 
 	if self.FilmGrainEnabled and MySelf:Team() == TEAM_HUMAN then
 		surface_SetMaterial(matFilmGrain)
@@ -1374,26 +1462,56 @@ function GM:CalcViewTaunt(pl, origin, angles, fov, zclose, zfar)
 end
 
 local staggerdir = VectorRand():GetNormalized()
-function GM:_CreateMove(cmd)
+local BHopTime = 0
+local WasPressingJump = false
+
+local function PressingJump(cmd)
+	return bit.band(cmd:GetButtons(), IN_JUMP) ~= 0
+end
+
+local function DontPressJump(cmd)
+	cmd:SetButtons(cmd:GetButtons() - IN_JUMP)
+end
+
+function GM:_CreateMove(cmd)  --Note: Test this!
+
+
 	if MySelf:IsPlayingTaunt() and MySelf:Alive() then
 		self:CreateMoveTaunt(cmd)
 		return
 	end
 
-	--[[if MySelf:GetLegDamage() >= 0.5 then
-		local buttons = cmd:GetButtons()
-		if bit.band(buttons, IN_JUMP) ~= 0 then
-			cmd:SetButtons(buttons - IN_JUMP)
+	-- Disables bunny hopping to an extent.
+	if MySelf:GetLegDamage() >= 0.5 then
+		if PressingJump(cmd) then
+			DontPressJump(cmd)
 		end
-	end]]--
+	elseif MySelf:OnGround() then
+		if CurTime() < BHopTime then
+			if PressingJump(cmd) then
+				DontPressJump(cmd)
+				WasPressingJump = true
+			end
+		elseif WasPressingJump then
+			if PressingJump(cmd) then
+				DontPressJump(cmd)
+			else
+				WasPressingJump = false
+			end
+		end
+	else
+		BHopTime = CurTime() + 0.05
+	end
 
-	if MySelf:Team() == TEAM_HUMAN then
+	local myteam = MySelf:Team()
+	if myteam == TEAM_HUMAN then
 		if MySelf:Alive() then
 			local lockon = self.HumanMenuLockOn
 			if lockon then
 				if self:ValidMenuLockOnTarget(MySelf, lockon) and self.HumanMenuPanel and self.HumanMenuPanel:Valid() and self.HumanMenuPanel:IsVisible() and MySelf:KeyDown(self.MenuKey) then
 					local oldang = cmd:GetViewAngles()
 					local newang = (lockon:EyePos() - EyePos()):Angle()
+					--oldang.pitch = math.ApproachAngle(oldang.pitch, newang.pitch, FrameTime() * math.max(45, math.abs(math.AngleDifference(oldang.pitch, newang.pitch)) ^ 1.3))
 					oldang.yaw = math.ApproachAngle(oldang.yaw, newang.yaw, FrameTime() * math.max(45, math.abs(math.AngleDifference(oldang.yaw, newang.yaw)) ^ 1.3))
 					cmd:SetViewAngles(oldang)
 				else
@@ -1410,14 +1528,13 @@ function GM:_CreateMove(cmd)
 
 					local ang = cmd:GetViewAngles()
 					local rate = ft * ((threshold - health) / threshold) * 7
-
 					ang.pitch = math.NormalizeAngle(ang.pitch + staggerdir.z * rate)
 					ang.yaw = math.NormalizeAngle(ang.yaw + staggerdir.x * rate)
 					cmd:SetViewAngles(ang)
 				end
 			end
 		end
-	else
+	elseif myteam == TEAM_UNDEAD then
 		local buttons = cmd:GetButtons()
 		if bit.band(buttons, IN_ZOOM) ~= 0 then
 			cmd:SetButtons(buttons - IN_ZOOM)
@@ -1425,6 +1542,7 @@ function GM:_CreateMove(cmd)
 
 		MySelf:CallZombieFunction("CreateMove", cmd)
 	end
+
 end
 
 function GM:CreateMoveTaunt(cmd)
@@ -1473,6 +1591,7 @@ function GM:_PrePlayerDraw(pl)
 	if pl.status_overridemodel and pl.status_overridemodel:IsValid() and self:ShouldDrawLocalPlayer(MySelf) then -- We need to do this otherwise the player's real model shows up for some reason.
 		undomodelblend = true
 		render.SetBlend(0)
+
 	end
 
 	pl.ShadowMan = shadowman
@@ -1545,32 +1664,6 @@ function GM:DrawCraftingEntity()
 	end
 end
 
-local function GetHealthiestPlayers()
-	local tblWinners = {} -- initalize a list of winners
-	tblWinners.intMin = 0 -- set minimum requirement for health
-
-
-	for _, ply in pairs( player.GetAll() ) do
-		if ply:Health() >= tblWinners.intMin then
-			if ply:Health() > tblWinners.intMin then -- recheck the table when player's health is larger
-				for intSteamID, lply in pairs( tblWinners ) do
-					if intSteamID ~= "intMin" and lply:Health() < ply:Health() then
-						tblWinners[ intSteamID ] = nil
-					end
-				end
-			end
-			tblWinners.intMin = ply:Health()
-			tblWinners[ ply:SteamID() ] = ply
-		end
-	end
-
-
-	tblWinners.intMin = nil -- We don't need this data
-
-
-	return tblWinners
-end
-
 local function tophealth(pl)
 				
 local plys = player.GetAll()
@@ -1591,61 +1684,14 @@ end
 
 function GM:HUDPaintBackgroundEndRound(winner)
 	local w, h = ScrW(), ScrH()
-	local timleft = math.max(0, self.EndTime + self.EndGameTime - CurTime())
 	local pl = LocalPlayer()
-	local mostkills = -99999 local winrar for k,v in pairs(player.GetAll()) do if v:Frags() > mostkills then mostkills = v:Frags() winrar = v --End round for most kills calculation.
-	end 
-	end --Bodge
+	local timleft = math.max(0, self.EndTime + self.EndGameTime - CurTime())
 
-
-	if timleft <= 0 then
+	--[[if timleft <= 0 then
 		draw_SimpleText(translate.Get("loading"), "ZSHUDFont", w * 0.5, h * 0.8, COLOR_WHITE, TEXT_ALIGN_CENTER)
 	else
 		draw_SimpleText(translate.Format("next_round_in_x", util.ToMinutesSeconds(timleft)), "ZSHUDFontSmall", w * 0.5, h * 0.8, COLOR_WHITE, TEXT_ALIGN_CENTER)
-	end
-	
-	local hudsplat2 = Material("hud/hud_endgame.png") --Game over screen
-	local hudsplat3 = Material("hud/hud_endgame_2.png") --Game over screen
-	
-	surface.SetMaterial(hudsplat2)
-	surface.SetDrawColor(255, 255, 255, 255 )
-	surface.DrawTexturedRect(w * 0.3215, h * 0.22, w * 0.35, h * 0.6)
-
-	surface.SetMaterial(hudsplat3)
-	surface.SetDrawColor(255, 255, 255, 255 )
-	surface.DrawTexturedRect(w * 0.4, h * 0.83, w * 0.2, h * 0.19)
-
-	
-	local localwin = winner == TEAM_HUMAN and LocalPlayer():Team() == winner
-	--local randomply = table.Random(player.GetAll())
-
-	--W.I.P
-		if pl:Team() == TEAM_HUMAN then
-		
-			draw.SimpleText( "You Have Won", "ZSHUDFont2", w * 0.5, h * 0.25, Color( 255,0,0,255), TEXT_ALIGN_CENTER )
-			draw.SimpleText( "Your Squad Has Survived", "ZSHUDFont", w * 0.5, h * 0.29, Color( 255,0,0,255), TEXT_ALIGN_CENTER )  
-			
-			draw.SimpleText( "Honorable Mentions", "ZSHUDFont", w * 0.5, h * 0.46, Color( 255,0,0,255), TEXT_ALIGN_CENTER ) --Does the same as this lol ^
-			draw.SimpleText( " "..winrar:GetName().." Was the horniest player!", "ZSHUDFont", w * 0.5, h * 0.5, Color( 255,255,255,255), TEXT_ALIGN_CENTER ) 
-			draw.SimpleText( " "..winrar:GetName().." Survived with the most SkillPoints ("..mostkills.."SP!)  " , "ZSHUDFont", w * 0.5, h * 0.55, Color( 255,255,255,255), TEXT_ALIGN_CENTER ) 
-		--	draw.SimpleText( " ".. winners .." Has the most HP!" , "ZSHUDFont", w * 0.5, h * 0.6, Color( 255,255,255,255), TEXT_ALIGN_CENTER ) 
-		--	draw.SimpleText( " "..winrar:GetName().." Has eaten the most braiinns "..Frags.." " , "ZSHUDFont", w * 0.5, h * 0.6, Color( 255,255,255,255), TEXT_ALIGN_CENTER ) 
-		--	draw.SimpleText( "You killed.. "..LocalPlayer():Frags().."  Zombies! >:O", "ZSHUDFont", ScrW() * 0.6, ScrH() * 0.55, Color( 255,255,255,255), TEXT_ALIGN_CENTER ) 			
-			return 
-		end	
-		if pl:Team() == TEAM_UNDEAD then
-			draw.SimpleText( "You Have Lost", "ZSHUDFont2", w * 0.5, h * 0.25, Color( 255,0,0,255), TEXT_ALIGN_CENTER )
-			draw.SimpleText( "The Undead Have Become Stronger!", "ZSHUDFont", w * 0.5, h * 0.29, Color( 255,0,0,255 ), TEXT_ALIGN_CENTER )  
-			
-			draw.SimpleText( "Dis-Honorable Mentions", "ZSHUDFont", w * 0.5, h * 0.46, Color( 255,0,0,255), TEXT_ALIGN_CENTER ) --Does the same as this lol ^
-			draw.SimpleText( " "..winrar:GetName().." Was the horniest player!", "ZSHUDFont", w * 0.5, h * 0.5, Color( 255,255,255,255), TEXT_ALIGN_CENTER ) 
-			--draw.SimpleText( " "..winrar:GetName().." Had the most SkillPoints ("..mostkills.."SP!)  " , "ZSHUDFont", w * 0.5, h * 0.55, Color( 255,255,255,255), TEXT_ALIGN_CENTER ) 
-			--draw.SimpleText( " "..randomply.." Is a Massive Ass-Hat! " , "ZSHUDFont", w * 0.5, h * 0.6, Color( 255,255,255,255), TEXT_ALIGN_CENTER ) 
-			draw.SimpleText( "You Died.. "..LocalPlayer():Deaths().. "  Times! ", "ZSHUDFont", w * 0.5, h * 0.55, Color( 255,255,255,255 ), TEXT_ALIGN_CENTER ) 
-			draw.SimpleText( "You killed.. "..LocalPlayer():Frags().."  Humans! >:O", "ZSHUDFont", w * 0.5, h * 0.6, Color(  255,255,255,255 ), TEXT_ALIGN_CENTER ) 
-		--	draw.SimpleText( "Test.. "..GetMostKey("HealedThisRound").."  Test", "ZSHUDFont", w * 0.5, h * 0.65, Color(  255,255,255,255 ), TEXT_ALIGN_CENTER ) 
-				return
-		end
+	end]]--
 
 end
 
@@ -1692,13 +1738,14 @@ function GM:EndRound(winner, nextmap)
 
 	FindMetaTable("Player").GetMeleeFilter = EndRoundGetMeleeFilter
 
-	
+
+	self.HUDPaint = self.HUDPaintEndRound
 	self.HUDPaintBackground = self.HUDPaintBackgroundEndRound
 
---	if winner == TEAM_UNDEAD and GetGlobalBool("endcamera", true) then
-	--	hook.Add("CalcView", "EndRoundCalcView", EndRoundCalcView)
-		--hook.Add("ShouldDrawLocalPlayer", "EndRoundShouldDrawLocalPlayer", EndRoundShouldDrawLocalPlayer)
-	--end
+	if winner == TEAM_UNDEAD and GetGlobalBool("endcamera", true) then
+		hook.Add("CalcView", "EndRoundCalcView", EndRoundCalcView)
+		hook.Add("ShouldDrawLocalPlayer", "EndRoundShouldDrawLocalPlayer", EndRoundShouldDrawLocalPlayer)
+	end
 
 	local dvar = winner == TEAM_UNDEAD and self.AllLoseSound or self.HumanWinSound
 	local snd = GetGlobalString(winner == TEAM_UNDEAD and "losemusic" or "winmusic", dvar)
@@ -1711,9 +1758,17 @@ function GM:EndRound(winner, nextmap)
 		timer.Simple(0.5, function() surface_PlaySound(snd) end)
 	end
 
-		--if not (pEndBoard and pEndBoard:IsValid()) then
-			--MakepEndBoard(winner)
-		--end
+
+	if not (pEndBoard and pEndBoard:IsValid()) then
+		MakepEndBoard(winner)
+	end
+	
+	timer.Simple(18, function () --Duby: Test this works so we can get it working with the Map Vote System!
+		surface.PlaySound("weapons/physcannon/energy_disintegrate5.wav")
+		pEndBoard:Remove()
+		pEndBoard = nil
+	end)
+	
 end
 
 function GM:WeaponDeployed(pl, wep)
@@ -1831,6 +1886,11 @@ net.Receive("zs_legdamage", function(length)
 	LocalPlayer().LegDamage = net.ReadFloat()
 end)
 
+
+
+
+
+
 net.Receive("zs_zvols", function(length)
 	local volunteers = {}
 	local count = net.ReadUInt(8)
@@ -1919,6 +1979,7 @@ net.Receive("zs_wavestart", function(length)
 	if GAMEMODE.ZombieEscape then
 		GAMEMODE:Add3DMessage(100, translate.Get("escape_from_the_zombies"), nil, "ZSHUDFont")
 	elseif wave == GAMEMODE:GetNumberOfWaves() then	
+
 		GAMEMODE:Add3DMessage(100, translate.Get("final_wave"), nil, "ZSHUDFont2")
 		GAMEMODE:Add3DMessage(100, translate.Get("final_wave_sub"), nil, "ZSHUDFont2")
 	else
@@ -1946,6 +2007,8 @@ net.Receive("zs_waveend", function(length)
 	gamemode.Call("SetWaveStart", time)
 
 	if wave < GAMEMODE:GetNumberOfWaves() and wave > 0 then
+
+
 
 		GAMEMODE:Add3DMessage(100, translate.Format("wave_x_is_over", wave), nil, "ZSHUDFont2")
 		GAMEMODE:Add3DMessage(100, translate.Format("wave_x_is_over_sub", GAMEMODE.ArsenalCrateDiscountPercentage), nil, "ZSHUDFont2")

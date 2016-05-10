@@ -52,7 +52,7 @@ include("sh_options.lua")
 include("sh_zombieclasses.lua")
 include("sh_animations.lua")
 include("sh_sigils.lua")
-include("sh_tags.lua")
+include("shared/sh_tags.lua")
 
 include("noxapi/noxapi.lua")
 
@@ -68,6 +68,10 @@ include("workshopfix.lua")
 --Clavus' Ravebreak
 include("modules/ravebreak/sh_ravebreak.lua")
 
+--Some particles
+game.AddParticles("particles/butt_fart1.pcf")
+PrecacheParticleSystem("BUTT_FART2")
+PrecacheParticleSystem("BUTT_FART3")
 ----------------------
 
 GM.EndRound = false
@@ -77,8 +81,8 @@ GM.ZombieVolunteers = {}
 --team.SetUp(TEAM_ZOMBIE, "The Undead", Color(0, 255, 0, 255))
 --team.SetUp(TEAM_SURVIVORS, "Survivors", Color(0, 160, 255, 255))
 
-team.SetUp(TEAM_ZOMBIE, "The Undead", Color(900, 0, 0, 255))
-team.SetUp(TEAM_SURVIVORS, "Survivors", Color(0, 160, 255, 255))
+team.SetUp(TEAM_ZOMBIE, "The Undead", Color(198, 43, 43))
+team.SetUp(TEAM_SURVIVORS, "Survivors", Color(43, 129, 198))
 
 local validmodels = player_manager.AllValidModels()
 validmodels["tf01"] = nil

@@ -32,7 +32,7 @@ CLASS.NoFallSlowdown = true
 CLASS.NeverAlive = true
 CLASS.AllowTeamDamage = true
 CLASS.NoDeaths = true
-CLASS.Points = 2
+CLASS.Points = 5
 
 function CLASS:NoDeathMessage(pl, attacker, dmginfo)
 	return true
@@ -83,7 +83,7 @@ function CLASS:DoAnimationEvent(pl, event, data)
 end
 
 function CLASS:Move(pl, mv)
-	if not pl:GetActiveWeapon().IsCrow then return end
+	--if not pl:GetActiveWeapon().IsCrow then return end
 
 	if not pl:IsOnGround() and pl:KeyDown(IN_JUMP) then
 		local dir = pl:EyeAngles()
@@ -115,7 +115,7 @@ function CLASS:OnKilled(pl, attacker, inflictor, suicide, headshot, dmginfo)
 	if attacker:IsPlayer() and attacker ~= pl then
 		if attacker:Team() == TEAM_HUMAN then
 			attacker.CrowKills = attacker.CrowKills + 1
-		elseif attacker:GetZombieClassTable().Name == "Crow" then
+		elseif attacker:Team() == TEAM_UNDEAD and attacker:GetZombieClassTable().Name == "Crow" then
 			attacker.CrowVsCrowKills = attacker.CrowVsCrowKills + 1
 
 			net.Start("zs_crow_kill_crow")

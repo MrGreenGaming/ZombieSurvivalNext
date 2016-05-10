@@ -1,43 +1,41 @@
-CLASS.Hidden = true
-CLASS.Disabled = true
 
 CLASS.Name = "Zombine"
-CLASS.TranslationName = ""
-CLASS.Description = ""
-CLASS.Help = ""
+CLASS.TranslationName = "class_zombine"
+CLASS.Description = "description_zombine"
+CLASS.Help = "controls_zombine"
 
 CLASS.Wave = 6
-CLASS.Unlocked = false
-CLASS.IsDefault = false
-CLASS.Order = 0
 
-CLASS.Health = 370
-CLASS.Speed = 160
-CLASS.Revives = true
+CLASS.Health = 360
+CLASS.Speed = 140
+
+CLASS.Points = 3
 
 CLASS.CanTaunt = true
-
-CLASS.Points = 5
 
 CLASS.SWEP = "weapon_zs_zombine"
 
 CLASS.Model = Model("models/player/zombie_soldier.mdl")
 
-CLASS.PainSounds = {"npc/zombine/zombine_pain1.wav","npc/zombine/zombine_pain2.wav","npc/zombine/zombine_pain3.wav","npc/zombine/zombine_pain4.wav",}
-CLASS.DeathSounds = {"npc/zombie/zombine_die1.wav","npc/zombie/zombine_die2.wav",}
+CLASS.VoicePitch = 0.7
 
-CLASS.VoicePitch = 0.65
-
-CLASS.CanFeignDeath = true
-
-function CLASS:KnockedDown(pl, status, exists)
-	pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
-end
 
 local ACT_HL2MP_SWIM_PISTOL = ACT_HL2MP_SWIM_PISTOL
 local ACT_HL2MP_IDLE_CROUCH_ZOMBIE = ACT_HL2MP_IDLE_CROUCH_ZOMBIE
 local ACT_HL2MP_WALK_CROUCH_ZOMBIE_01 = ACT_HL2MP_WALK_CROUCH_ZOMBIE_01
 local ACT_HL2MP_RUN_ZOMBIE = ACT_HL2MP_RUN_ZOMBIE
+
+function CLASS:PlayPainSound(pl)
+	pl:EmitSound("npc/zombie_poison/pz_warn"..math.random(2)..".wav", 75, math.Rand(137, 143))
+
+	return true
+end
+
+function CLASS:PlayDeathSound(pl)
+	pl:EmitSound("npc/zombie_poison/pz_die2.wav", 75, math.Rand(122, 128))
+
+	return true
+end
 
 
 
@@ -52,6 +50,7 @@ local ScuffSounds = {
 	"npc/zombine/gear2.wav",
 	"npc/zombine/gear3.wav",
 }
+
 function CLASS:PlayerFootstep(pl, vFootPos, iFoot, strSoundName, fVolume, pFilter)
 	if mathrandom() < 0.15 then
 		pl:EmitSound(ScuffSounds[mathrandom(#ScuffSounds)], 70)
@@ -73,7 +72,6 @@ function CLASS:PlayerStepSoundTime(pl, iType, bWalking)
 
 	return 450
 end
-
 
 function CLASS:CalcMainActivity(pl, velocity)
 	local feign = pl.FeignDeath
@@ -98,12 +96,25 @@ function CLASS:CalcMainActivity(pl, velocity)
 			pl.CalcIdeal = ACT_HL2MP_IDLE_ZOMBIE
 		end
 	elseif pl:Crouching() then
-		pl.CalcIdeal = ACT_HL2MP_WALK_CROUCH_ZOMBIE_01 - 1 + math.ceil((CurTime() / 4 + pl:EntIndex()) % 3)
+		pl.CalcIdeal = ACT_HL2MP_WALK_CROUCH_ZOMBIE_02 - 1 + math.ceil((CurTime() / 4 + pl:EntIndex()) % 3)
 	else
-		pl.CalcIdeal = ACT_HL2MP_WALK_ZOMBIE_01 - 1 + math.ceil((CurTime() / 4 + pl:EntIndex()) % 3)
+		pl.CalcIdeal = ACT_HL2MP_WALK_ZOMBIE_02 - 1 + math.ceil((CurTime() / 4 + pl:EntIndex()) % 3)
 	end
-
+		
+	local wep = pl:GetActiveWeapon() --Grenade Run!
+	if wep:IsValid() and wep.GetCharge then
+		local charge = wep:GetCharge()
+		local vec2 = pl:GetShootPos() 
+		if charge > 0 then
+			pl.CalcIdeal = ACT_HL2MP_RUN_ZOMBIE 
+			return true
+		end
+	end
+	
 	return true
+	
+	
+
 end
 
 function CLASS:UpdateAnimation(pl, velocity, maxseqgroundspeed)
@@ -139,72 +150,67 @@ function CLASS:DoesntGiveFear(pl)
 	return pl.FeignDeath and pl.FeignDeath:IsValid()
 end
 
+
+function CLASS:Move(pl, mv)
+	local wep = pl:GetActiveWeapon()
+	if wep.Move and wep:Move(mv) then
+		return true
+	end
+end
+
+
 if SERVER then
-	function CLASS:AltUse(pl)
-		pl:StartFeignDeath()
+	function CLASS:CanPlayerSuicide(pl)
+		local wep = pl:GetActiveWeapon()
+		if wep:IsValid() and wep.GetCharge and wep:GetCharge() > 0 then return false end
 	end
 
-	function CLASS:ProcessDamage(pl, dmginfo)
-		local attacker, inflictor, damage = dmginfo:GetAttacker(), dmginfo:GetInflictor(), dmginfo:GetDamage()
-		if attacker ~= pl and damage >= pl:Health() and pl:LastHitGroup() ~= HITGROUP_HEAD and damage < 70 and not inflictor.IsMelee and not inflictor.NoReviveFromKills and dmginfo:GetDamageType() ~= DMG_BLAST and dmginfo:GetDamageType() ~= DMG_BURN and dmginfo:GetDamageType() ~= DMG_CRUSH and (pl.NextZombieRevive or 0) <= CurTime() and pl:LastHitGroup() ~= HITGROUP_LEFTLEG and pl:LastHitGroup() ~= HITGROUP_RIGHTLEG then
-			pl.NextZombieRevive = CurTime() + 3
+	local function DoExplode(pl, pos, magnitude)
+		local inflictor = pl:GetActiveWeapon()
+		if not inflictor:IsValid() then inflictor = pl end
+		
+		local tbHumans = ents.FindHumansInSphere ( pl:GetPos(), pl.MaximumDist )
+		local vPos = pl:GetPos()
+		local effectdata = EffectData()
+			effectdata:SetOrigin(pos)
+			effectdata:SetMagnitude(magnitude)
+		util.Effect("Explosion", effectdata, true)
+		
+		local effectdata = EffectData()
+			effectdata:SetOrigin(pos)
+			effectdata:SetMagnitude(magnitude)
+		util.Effect("gib_player", effectdata, true)
+		
+		
+		
+		
+		util.PoisonBlastDamage(inflictor, pl, pos, magnitude * 230, magnitude * 230, true)
 
-			dmginfo:SetDamage(0)
-			pl:SetHealth(10)
-
-			local status = pl:GiveStatus("revive_slump")
-			if status then
-				status:SetReviveTime(CurTime() + 2.25)
-			end
-
-			return true
-		end
+		pl:CheckRedeem()
 	end
 
-	function CLASS:ReviveCallback(pl, attacker, dmginfo)
-		if not pl.Revive and not dmginfo:GetInflictor().IsMelee and not dmginfo:GetInflictor().NoReviveFromKills and dmginfo:GetDamageType() ~= DMG_BLAST and dmginfo:GetDamageType() ~= DMG_BURN and (pl:LastHitGroup() == HITGROUP_LEFTLEG or pl:LastHitGroup() == HITGROUP_RIGHTLEG) then
-			local classtable = math.random(1) == 3 and GAMEMODE.ZombieClasses["Zombie Legs"] or GAMEMODE.ZombieClasses["Zombie Torso"]
-			if classtable then
-				pl:RemoveStatus("overridemodel", false, true)
-				local deathclass = pl.DeathClass or pl:GetZombieClass()
-				pl:SetZombieClass(classtable.Index)
-				pl:DoHulls(classtable.Index, TEAM_UNDEAD)
-				pl.DeathClass = deathclass
+	function CLASS:OnKilled(pl, attacker, inflictor, suicide, headshot, dmginfo, assister)
+		local magnitude = 1
+		local wep = pl:GetActiveWeapon()
+		if wep:IsValid() and wep.GetCharge then magnitude = wep:GetCharge() end
 
-				pl:EmitSound("physics/flesh/flesh_bloody_break.wav", 100, 75)
+		if magnitude == 0 then return end
 
-				if classtable == GAMEMODE.ZombieClasses["Zombie Torso"] then
-					local ent = ents.Create("prop_dynamic_override")
-					if ent:IsValid() then
-						ent:SetModel(Model("models/Zombie/Classic_legs.mdl"))
-						ent:SetPos(pl:GetPos())
-						ent:SetAngles(pl:GetAngles())
-						ent:Spawn()
-						ent:Fire("kill", "", 1.5)
-					end
-				end
+		local pos = pl:WorldSpaceCenter()
 
-				pl:Gib()
-				pl.Gibbed = nil
+		pl:Gib(dmginfo)
+		timer.Simple(0, function() DoExplode(pl, pos, magnitude) end)
 
-				timer.Simple(0, function()
-					if pl:IsValid() then
-						pl:SecondWind()
-					end
-				end)
-
-				return true
-			end
-		end
-
-		return false
+		return true
 	end
 
-	function CLASS:OnSecondWind(pl)
-		pl:EmitSound("npc/zombie/zombie_voice_idle"..math.random(1, 14)..".wav", 100, 85)
-	end
 end
 
-if CLIENT then
-	CLASS.Icon = "zombiesurvival/classmenu/zombine"
+function CLASS:BuildBonePositions(pl)
+	
 end
+
+if not CLIENT then return end
+
+CLASS.Icon = "zombiesurvival/classmenu/zombine"
+

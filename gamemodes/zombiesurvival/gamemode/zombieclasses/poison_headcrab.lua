@@ -5,14 +5,15 @@ CLASS.Help = "controls_poison_headcrab"
 
 CLASS.Model = Model("models/headcrabblack.mdl")
 
-CLASS.Wave = 2 / 3
+--CLASS.Wave = 2 / 3
+CLASS.Wave = 0
 CLASS.Threshold = 0.6
 
 CLASS.SWEP = "weapon_zs_poisonheadcrab"
 
-CLASS.Health = 70
-CLASS.Speed = 145
-CLASS.JumpPower = 100
+CLASS.Health = 80
+CLASS.Speed = 155
+CLASS.JumpPower = 150
 
 CLASS.NoFallDamage = true
 CLASS.NoFallSlowdown = true
@@ -117,6 +118,20 @@ function CLASS:UpdateAnimation(pl, velocity, maxseqgroundspeed)
 		pl.m_PrevFrameCycle = nil
 	end
 end
+
+--Duby: Port this code.
+--[[function CLASS:OnKilled(pl, attacker, inflictor, suicide, headshot, dmginfo, assister)
+
+local Bomb = ents.Create( "projectile_poisonspit" )
+				if not IsValid( Bomb ) then return end
+				
+				-- Blast off!
+				Bomb:SetOwner( mVictim )
+				Bomb:SetPos( mVictim:GetPos() + Vector( 0,0,3 ) )
+				Bomb:SetFuse( math.Rand( 5, 6 ) )
+				Bomb:Spawn()
+				
+end]]--
 
 if not CLIENT then return end
 

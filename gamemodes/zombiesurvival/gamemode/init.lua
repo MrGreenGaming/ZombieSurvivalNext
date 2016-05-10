@@ -56,7 +56,7 @@ AddCSLuaFile("sh_options.lua")
 AddCSLuaFile("sh_zombieclasses.lua")
 AddCSLuaFile("sh_animations.lua")
 AddCSLuaFile("sh_sigils.lua")
-AddCSLuaFile("sh_tags.lua")
+AddCSLuaFile("shared/sh_tags.lua")
 AddCSLuaFile("shared/sh_maps.lua")
 
 
@@ -164,6 +164,9 @@ include("modules/map_vote/sv_votemap.lua")
 --Vote Mute
 include("modules/vote_outcomes/sv_director_vote.lua")
 include("modules/vote_outcomes/cl_director_vote.lua")
+
+include("modules/kill_rewards/sv_kill_rewards.lua")
+include("modules/kill_rewards/cl_kill_rewards.lua")
 
 --Sub Gamemodes
 include("modules/sub_gamemodes/zombie_escape/sv_zombieescape.lua")
@@ -551,10 +554,6 @@ function RaveBreak() --Needs to be made..
 	end)
 end
 
-local function DropWeapon()
-	RunConsoleCommand("zsdropweapon")
-end
-
 function GM:ShowSpare1(pl)
 	if pl:Team() == TEAM_UNDEAD then
 		if self:ShouldUseAlternateDynamicSpawn() then
@@ -776,7 +775,8 @@ function GM:CreateZombieGas()
 	local humanspawns = team.GetValidSpawnPoint(TEAM_HUMAN)
 
 	for _, spawn in pairs(team.GetValidSpawnPoint(TEAM_UNDEAD)) do
-		local gasses = ents.FindByClass("zombiegasses")
+	--	local gasses = ents.FindByClass("zombiegasses")
+		local gasses = ents.FindByClass("zs_poisongasses")
 		local numgasses = #gasses
 		if 4 < numgasses then
 			break
@@ -802,7 +802,8 @@ function GM:CreateZombieGas()
 			end
 
 			if not near then
-				local ent = ents.Create("zombiegasses")
+			--	local ent = ents.Create("zombiegasses")
+				local ent = ents.Create("zs_poisongasses")
 				if ent:IsValid() then
 					ent:SetPos(spawnpos)
 					ent:Spawn()
@@ -1525,15 +1526,13 @@ function GM:EndRound(winner)
 	self.RoundEndedTime = CurTime()
 	ROUNDWINNER = winner
 
-	if ( Votemap and Votemap.Initialize ) then
-		Votemap:Initialize()
-	end
+	timer.Simple(18.2, function()
+		if ( Votemap and Votemap.Initialize ) then
+			Votemap:Initialize()
+		end
+	end)
 
 	for k,v in pairs(player.GetAll()) do v:Freeze( true ) v:GodEnable() end
-	--if self.OverrideEndSlomo == nil or self.OverrideEndSlomo then
-		--game.SetTimeScale(0.25)
-		--timer.Simple(2, function() game.SetTimeScale(1) end)
-	--end
 
 	hook.Add("PlayerCanHearPlayersVoice", "EndRoundCanHearPlayersVoice", function() return true end)
 
@@ -2932,7 +2931,12 @@ function GM:KeyPress(pl, key)
 		end
 	elseif key == IN_ZOOM then
 		if pl:Team() == TEAM_HUMAN and pl:Alive() and pl:IsOnGround() and not self.ZombieEscape then --and pl:GetGroundEntity():IsWorld() then
-			pl:SetBarricadeGhosting(true)
+		--if pl:Team() == TEAM_HUMAN and pl:Alive() and pl:IsOnGround() and not self.ZombieEscape and pl:GetGroundEntity():IsWorld() then
+				pl:SetBarricadeGhosting(true)
+				pl:SetSpeed(90)
+			timer.Simple(2, function()
+				pl:SetSpeed(200)
+			end)
 		end
 	end
 end
@@ -4049,5 +4053,4 @@ function server_RunCommand( ply, command, args)
 		end
 	umsg.End()	
 end
-
 

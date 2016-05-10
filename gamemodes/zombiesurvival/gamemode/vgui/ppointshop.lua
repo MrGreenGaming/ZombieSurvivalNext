@@ -3,7 +3,8 @@ local function pointslabelThink(self)
 	if self.m_LastPoints ~= points then
 		self.m_LastPoints = points
 
-		self:SetText("SP:  "..points)
+		--self:SetText("SP:  "..points)
+		self:SetText("Current amount of skillPoints:  "..points)
 		self:SizeToContents()
 	end
 end
@@ -25,7 +26,6 @@ hook.Add("Think", "PointsShopThink", function()
 		local x, y = pan:GetPos()
 		if mx < x - 16 or my < y - 16 or mx > x + pan:GetWide() + 16 or my > y + pan:GetTall() + 16 then
 			pan:SetVisible(false)
-			--surface.PlaySound("npc/dog/dog_idle3.wav")
 			surface.PlaySound("items/ammocrate_close.wav")
 		end
 	end
@@ -122,10 +122,7 @@ function GM:OpenPointsShop()
 	local frame = vgui.Create("DFrame")
 	frame:SetSize(wid, hei)
 	frame:Center()
-	--frane:SetBackgroundBlur( true ) --Duby: Test this when I get home!
-	frame.Paint = function( self, wid, hei )
-		draw.RoundedBox( 0, 0, 0, wid, hei, Color( 1, 0, 0, 0 ) ) 
-	end
+	frame:SetBackgroundBlur( true ) 
 	frame:SetDeleteOnClose(false)
 	frame:SetTitle(" ")
 	frame:SetDraggable(false)
@@ -167,20 +164,11 @@ function GM:OpenPointsShop()
 	end
 
 
-	local pointslabel = EasyLabel(bottomspace, "SP:0", "ZSHUDFontSmall", COLOR_WHITE)
+	local pointslabel = EasyLabel(bottomspace, "Current amount of SkillPoints: 0", "ZSHUDFontSmall", COLOR_WHITE)
 	pointslabel:AlignTop(4)
 	pointslabel:AlignLeft(8)
 	pointslabel.Think = pointslabelThink
 	
-	local pl = LocalPlayer()
-	
-	local killslabel = EasyLabel(bottomspace, "HINT: Some weapons work better with certain classes! ", "ZSHUDFontSmallest", COLOR_WHITE)
-	killslabel:AlignTop(4)
-	killslabel:AlignLeft(160)
-	--killslabel.Think = killslabelThink
-	
-	
-
 	local lab = EasyLabel(bottomspace, " ", "ZSHUDFontTiny")
 	lab:AlignTop(4)
 	lab:AlignRight(4)
@@ -231,7 +219,6 @@ function GM:OpenPointsShop()
 					itempan.Think = ItemPanelThink
 					list:AddItem(itempan)
 
-
 					if tab.SWEP or tab.Countables then
 						local counter = vgui.Create("ItemAmountCounter", itempan)
 						counter:SetItemID(i)
@@ -257,9 +244,28 @@ function GM:OpenPointsShop()
 					button.ID = itempan.ID
 					button.DoClick = PurchaseDoClick
 					itempan.m_BuyButton = button
+					
+					local weptab = weapons.GetStored(tab.SWEP) or tab
+
+					
+					if weptab and weptab.Primary then
+						local ammotype = weptab.Primary.Ammo
+						if ammonames[ammotype] then
+						
+							local ammobutton = vgui.Create("DButton", itempan)
+							ammobutton:SetText("AMMO!")
+							ammobutton:SizeToContents()
+							ammobutton:CopyPos(button)
+							ammobutton:MoveLeftOf(button, 42)
+							ammobutton:SetTooltip("Purchase ammunition")
+							ammobutton.AmmoType = ammonames[ammotype]
+							ammobutton.DoClick = BuyAmmoDoClick
+							
+						end
+					end			
 
 					local pricelab = EasyLabel(itempan, tostring(tab.Worth).." SP", "ZSHUDFont", COLOR_RED)
-					pricelab:SetPos(itempan:GetWide() - 150 - pricelab:GetWide(), 11)
+					pricelab:SetPos(itempan:GetWide() - 190 - pricelab:GetWide(), 11)
 					itempan.m_PriceLabel = pricelab
 
 					if tab.Description then
