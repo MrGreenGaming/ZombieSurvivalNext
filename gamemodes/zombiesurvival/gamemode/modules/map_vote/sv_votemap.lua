@@ -7,7 +7,7 @@ Votemap = {}
 Votemap.FailCount = 0
 Votemap.Maps = {}
 
-Votemap.VoteTime = 54 -- Stop Voting after 60 seconds
+Votemap.VoteTime = 30 -- Stop Voting after 60 seconds
 Votemap.MapChangeDelay = 5 -- Change Map x seconds after Vote ends
 
 

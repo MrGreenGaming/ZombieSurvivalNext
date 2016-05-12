@@ -354,6 +354,7 @@ function SWEP:DrawHUD()
 
 	local w, h = ScrW(), ScrH()
 
+	draw.RoundedBox( 12, w * 0.89, h * 0.9, w * 0.09, h * 0.09, Color(1, 1, 1, 100) )	
 	
 	local SCREEN_W = 1920;
 	local SCREEN_H = 1080;
@@ -366,18 +367,12 @@ function SWEP:DrawHUD()
 		if not IsValid(ActiveWeapon) then
 			return
 		end
-	
-	local hudsplat3 = Material("hud/hud_bottom_right.png") --Items for the HUD.
-	
-	surface.SetMaterial(hudsplat3)
-	surface.SetDrawColor(225, 225, 225, 255 )
-	surface.DrawTexturedRect(w * 0.84, h * 0.89, w * 0.15, h * 0.1)
 
 	local currentClipSize, currentAmmo = pl:GetActiveWeapon():Clip1(), pl:GetAmmoCount(pl:GetActiveWeapon():GetPrimaryAmmoType())
 	local ammoTextWide, ammoTextTall = surface.GetTextSize(currentAmmo)
 	local clipTextWide, clipTextTall = surface.GetTextSize(currentClipSize)
 
-	draw.SimpleText(currentClipSize, "ZSHUDFontBig",1680 * X_MULTIPLIER, 980 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
+	draw.SimpleText(currentClipSize, "ZSHUDFontBig",1750 * X_MULTIPLIER, 980 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
 	draw.SimpleText(currentAmmo, "ZSHUDFont",1850 * X_MULTIPLIER, 1000 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
 
 	
@@ -440,6 +435,7 @@ end
 local scope = surface.GetTextureID( "zombiesurvival/scope/sniper_scope" )
 function SWEP:DrawScope()
 	surface.SetDrawColor( 0, 0, 0, 255 )
+	
 				
      local x = ScrW() / 2.0
 	 local y = ScrH() / 2.0

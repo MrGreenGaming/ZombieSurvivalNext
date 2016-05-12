@@ -385,6 +385,12 @@ function DoAdminPanel()
 				net.SendToServer()
 				CloseAdminPanel()
 			end)
+
+			dubymenu:AddOption("Ragnaroc", function()
+				net.Start( "Clavus" )
+				net.SendToServer()
+				CloseAdminPanel()
+			end)
 			
 			dubymenu:AddOption("---------------------------------", function() CloseAdminPanel() end)
 	

@@ -31,19 +31,19 @@ function Votemap:ToggleMenu( bl )
 	--end
 			
 	
-	--[[Votemap.Menu.Label = vgui.Create("DLabel")
-	Votemap.Menu.Label:SetText( "Map Vote" )
-	Votemap.Menu.Label:SetFont( "ZSHUDFont2" )
-	Votemap.Menu.Label:SetTextColor(COLOR_DARKRED)
-	Votemap.Menu.Label:SetPos( w * 0.47, h * 0.28 )
-	Votemap.Menu.Label:SizeToContents()
+	--Votemap.Menu.Label = vgui.Create("DLabel",Votemap.Menu)
+	--Votemap.Menu.Label:SetText( "Map Vote" )
+	--Votemap.Menu.Label:SetFont( "ZSHUDFont2" )
+	--Votemap.Menu.Label:SetTextColor(COLOR_DARKRED)
+--	Votemap.Menu.Label:SetPos( w * 0.01, h * 0.01)
+	--Votemap.Menu.Label:SizeToContents()
 	
-	Votemap.Menu.Label2 = vgui.Create("DLabel")
-	Votemap.Menu.Label2:SetText( "Quickly.. A horde is aproaching...." )
-	Votemap.Menu.Label2:SetFont( "ZSHUDFont" )
-	Votemap.Menu.Label2:SetTextColor(COLOR_DARKRED)
-	Votemap.Menu.Label2:SetPos( w * 0.4, h * 0.32 )
-	Votemap.Menu.Label2:SizeToContents()]]--	
+	--Votemap.Menu.Label2 = vgui.Create("DLabel")
+	--Votemap.Menu.Label2:SetText( "Quickly.. A horde is aproaching...." )
+	--Votemap.Menu.Label2:SetFont( "ZSHUDFont" )
+	--Votemap.Menu.Label2:SetTextColor(COLOR_DARKRED)
+	--Votemap.Menu.Label2:SetPos( w * 0.4, h * 0.32 )
+	--Votemap.Menu.Label2:SizeToContents()]]--	
 
 
 
@@ -51,8 +51,8 @@ function Votemap:ToggleMenu( bl )
 	Votemap.Menu.ListView:SetSize( 200, 250 )
 --	Votemap.Menu.ListView:SetSize( 500, 200 )
 	Votemap.Menu.ListView:SetPos( 200, 30 )
-	Votemap.Menu.ListView:AddColumn( "Map" )
-	Votemap.Menu.ListView:AddColumn( "Votes" )
+	Votemap.Menu.ListView:AddColumn( "" )
+	Votemap.Menu.ListView:AddColumn( "" )
 	Votemap.Menu.ListView:SetMultiSelect( false )
 	--Votemap.Menu.ListView.Paint = function()
 	--	surface.SetDrawColor(255,1,1,100)	

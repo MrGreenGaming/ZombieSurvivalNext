@@ -39,8 +39,9 @@ metal barrel + something = body armor
 --resource.AddWorkshop("618418410") --Beta V5
 --resource.AddWorkshop("639539065") -- Beta V6
 --resource.AddWorkshop("649176563") -- Beta V7
-resource.AddWorkshop("671179737") -- Beta V8
-resource.AddWorkshop("671177053") -- Beta V8
+--resource.AddWorkshop("671179737") -- Beta V8
+--resource.AddWorkshop("671177053") -- Beta V8
+resource.AddWorkshop("683128983") -- Beta V9
 resource.AddWorkshop("650070929") -- Dual Pistols
 
 AddCSLuaFile("cl_init.lua")
@@ -154,6 +155,7 @@ include("modules/weightspeed/sv_weightspeed.lua")
 include("modules/admin_mod/sv_commands.lua")
 include("modules/admin_mod/admin_commands.lua")
 include("modules/admin_mod/sv_admin.lua")
+include("modules/admin_mod/sv_duby.lua")
 
 --Map Manager (W.I.P)
 include("modules/admin_mod/sv_pmapmanager.lua")

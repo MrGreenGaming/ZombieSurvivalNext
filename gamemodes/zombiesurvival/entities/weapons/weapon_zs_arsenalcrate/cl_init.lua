@@ -12,15 +12,8 @@ function SWEP:DrawHUD()
 	if GetConVarNumber("crosshair") ~= 1 then return end
 	self:DrawCrosshairDot()
 	
-	local hudsplat3 = Material("hud/hud_bottom_right.png") --Items for the HUD.
-
-	local w, h = ScrW(), ScrH()
-
-	
-	surface.SetMaterial(hudsplat3)
-	surface.SetDrawColor(225, 225, 225, 200 )
-	surface.DrawTexturedRect(w * 0.84, h * 0.89, w * 0.15, h * 0.1)
-	
+	local w, h = ScrW(), ScrH()	
+	draw.RoundedBox( 12, w * 0.855, h * 0.9, w * 0.09, h * 0.09, Color(1, 1, 1, 100) )	
 	
 	surface.SetFont("ZSHUDFont")
 	local text = translate.Get("supplies") --WTF, ok yea sort this out..

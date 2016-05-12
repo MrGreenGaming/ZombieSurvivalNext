@@ -9,26 +9,11 @@ SWEP.SlotPos = 0
 
 function SWEP:DrawHUD()
 
+	local w, h = ScrW(), ScrH()
+	draw.RoundedBox( 12, w * 0.85, h * 0.9, w * 0.11, h * 0.09, Color(1, 1, 1, 100) )
 	
-
 	if GetConVarNumber("crosshair") ~= 1 then return end
 	self:DrawCrosshairDot()
-	
-	local hudsplat3 = Material("hud/hud_bottom_right.png") --Items for the HUD.
-	
-	local Hud_Image_3 = {
-		color 		= Color( 225, 225, 225, 400 ); -- Color overlay of image; white = original color of image
-		material 	= Material("hud/hud_bottom_right.png"); -- Material to be used
-		x 			= 1600; -- x coordinate for the material to be rendered ( mat is drawn from top left to bottom right )
-		y 			= 980; -- y coordinate for the material to be rendered ( mat is drawn from top left to bottom right )
-		w 			= 320; -- width of the material to span
-		h 			= 100; -- height of the material to span
-	};
-	
-	surface.SetMaterial(hudsplat3)
-	surface.SetDrawColor(225, 225, 225, 200 )
-	surface.DrawTexturedRect(Hud_Image_3.x, Hud_Image_3.y, Hud_Image_3.w, Hud_Image_3.h)
-	
 	
 	surface.SetFont("ZSHUDFont")
 	local text = translate.Get("right_click_to_hammer_nail")

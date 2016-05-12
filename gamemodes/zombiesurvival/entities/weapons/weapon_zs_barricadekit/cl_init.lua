@@ -14,15 +14,6 @@ function SWEP:DrawHUD()
 	if GetConVarNumber("crosshair") ~= 1 then return end
 	self:DrawCrosshairDot()
 	
-	local hudsplat3 = Material("hud/hud_bottom_right.png") --Items for the HUD.
-	
-	local w, h = ScrW(), ScrH()
-	
-	surface.SetMaterial(hudsplat3)
-	surface.SetDrawColor(225, 225, 225, 200 )
-	surface.DrawTexturedRect(w * 0.84, h * 0.89, w * 0.15, h * 0.1)
-	
-	
 	surface.SetFont("ZSHUDFont")
 	local text = translate.Get("right_click_to_hammer_nail")
 	local nails = self:GetPrimaryAmmoCount()

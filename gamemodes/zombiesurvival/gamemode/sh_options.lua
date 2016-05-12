@@ -193,7 +193,7 @@ function(pl) pl:SetModel( table.Random( {
 	pl:Give("weapon_zs_pulsepistol")
 	pl:Give("weapon_zs_fryingpan")
 	pl:Give(table.Random(EngWeapon))
-	pl:AddPoints(20)
+--	pl:AddPoints(20)
 	pl:ChatPrint("You're an Engineer, Blow shit up!")
 
 end, "models/healthvial.mdl")
@@ -227,7 +227,7 @@ else --Normal Berserker
 	pl:Give(table.Random(BerserkerWeapon))
 	pl:Give("weapon_zs_vodka")  
 	pl:Give("weapon_zs_resupplybox")  
-	pl:AddPoints(20)	
+--	pl:AddPoints(20)	
 	pl:ChatPrint("You're a Berserker, smack the shit out of everything!")
 
 end
@@ -286,7 +286,7 @@ GM:AddPointShopItem("shredder", "MP5", nil, ITEMCAT_GUNS, 70, "weapon_zs_smg")
 GM:AddPointShopItem("bulletstorm", "P90", nil, ITEMCAT_GUNS, 70, "weapon_zs_bulletstorm")
 GM:AddPointShopItem("silencer", "TMP", nil, ITEMCAT_GUNS, 70, "weapon_zs_silencer")
 GM:AddPointShopItem("reaper", "UMP", nil, ITEMCAT_GUNS, 80, "weapon_zs_reaper")
-GM:AddPointShopItem("annabelle", "Annabelle Shotgun", nil, ITEMCAT_GUNS3, 100, "weapon_zs_annabelle")
+
 GM:AddPointShopItem("pulsesmg", "Pulse SMG", nil, ITEMCAT_GUNS, 105, "weapon_zs_pulsesmg")
 GM:AddPointShopItem("akbar", "AK47", nil, ITEMCAT_GUNS, 120, "weapon_zs_akbar")
 GM:AddPointShopItem("SG552", "SG 552", nil, ITEMCAT_GUNS, 130, "weapon_zs_sg552")
@@ -299,6 +299,7 @@ GM:AddPointShopItem("m249", "M249 'SAW'", nil, ITEMCAT_GUNS, 400, "weapon_zs_m24
 
 --// SHOTGUNS \\--
 GM:AddPointShopItem("chipper", "Chipper Shotgun", nil, ITEMCAT_GUNS3, 40, "weapon_zs_chipper")
+GM:AddPointShopItem("annabelle", "Annabelle Shotgun", nil, ITEMCAT_GUNS3, 100, "weapon_zs_annabelle")
 GM:AddPointShopItem("m3", "M3 Shotgun", nil, ITEMCAT_GUNS3, 190, "weapon_zs_sweepershotgun")
 GM:AddPointShopItem("M1014Shotgun", "M1014 Shotgun", nil, ITEMCAT_GUNS3, 220, "weapon_zs_slugrifle")
 GM:AddPointShopItem("prototype", "The Prototype", nil, ITEMCAT_GUNS3, 330, "weapon_zs_prototype")
@@ -472,8 +473,8 @@ GM.NoNewHumansWave = 2
 GM.NoSuicideWave = 1
 
 -- How long 'wave 0' should last in seconds. This is the time you should give for new players to join and get ready.
---GM.WaveZeroLength = 120
-GM.WaveZeroLength = 30
+GM.WaveZeroLength = 120
+--GM.WaveZeroLength = 30
 
 -- Time humans have between waves to do stuff without NEW zombies spawning. Any dead zombies will be in spectator (crow) view and any living ones will still be living.
 --GM.WaveIntermissionLength = 5
@@ -483,7 +484,7 @@ GM.WaveIntermissionLength = 90
 GM.WaveIntermissionLengthClassic = 20
 
 -- Time in seconds between end round and next map.
-GM.EndGameTime = 60
+GM.EndGameTime = 65
 --GM.EndGameTime = 30
 
 -- How many clips of ammo guns from the Worth menu start with. Some guns such as shotguns and sniper rifles have multipliers on this.

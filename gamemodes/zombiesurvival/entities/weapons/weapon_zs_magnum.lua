@@ -24,7 +24,9 @@ SWEP.UseHands = true
 
 SWEP.CSMuzzleFlashes = false
 
-SWEP.Primary.Sound = Sound("Weapon_357.Single")
+SWEP.ReloadSound = Sound("weapons/python/reload.wav")
+--SWEP.Primary.Sound = Sound("Weapon_357.Single")
+SWEP.Primary.Sound = Sound("weapons/python/deagle-1.wav")
 SWEP.Primary.Delay = 0.7
 SWEP.Primary.Damage = 70
 SWEP.Primary.NumShots = 1

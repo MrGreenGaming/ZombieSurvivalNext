@@ -7,22 +7,16 @@ SWEP.DrawAmmo = false
 
 function SWEP:DrawHUD()
 	if GetGlobalBool("classicmode") then return end
-
-	local hudsplat3 = Material("hud/hud_bottom_right.png") --Items for the HUD.
 	
 	local w, h = ScrW(), ScrH()
-	
-	surface.SetMaterial(hudsplat3)
-	surface.SetDrawColor(225, 225, 225, 200 )
-	surface.DrawTexturedRect(w * 0.84, h * 0.89, w * 0.15, h * 0.1)
-	
+	draw.RoundedBox( 12, w * 0.85, h * 0.9, w * 0.11, h * 0.09, Color(1, 1, 1, 100) )	
 	
 	surface.SetFont("ZSHUDFont")
 	local text = translate.Get("right_click_to_hammer_nail")
 	local nails = self:GetPrimaryAmmoCount()
 	local nTEXW, nTEXH = surface.GetTextSize(text)
 
-	draw.SimpleText(translate.Format("nails_x",nails), "ZSHUDFont2", ScrW() - nTEXW * 0.4 - 80, ScrH() - nTEXH * 2.5, nails > 0 and COLOR_GREY or COLOR_GREY, TEXT_ALIGN_CENTER)
+	draw.SimpleText(translate.Format("nails_x",nails), "ZSHUDFont2", ScrW() - nTEXW * 0.3 - 80, ScrH() - nTEXH * 2.5, nails > 0 and COLOR_GREY or COLOR_GREY, TEXT_ALIGN_CENTER)
 	
 	
 	local SCREEN_W = 1920; --For the screen resolution scale. This means that it can be fit exactly on the screen without any issues.

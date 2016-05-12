@@ -753,7 +753,7 @@ function GM:HumanHUD(screenscale)
 	
 end
 
-local healthIndication = {
+local healthIndication = { --Find someting to do with this..
 	{
 		Text = "Healthy",
 		Percent = 1
@@ -766,35 +766,34 @@ function GM:HumanHUD2(screenscale)
 	--Duby: I will place this into a module soon enough!
 	local w, h = ScrW(), ScrH()
 	
-	draw.RoundedBox( 12, w * 0.01, h * 0.01, w * 0.12, h * 0.09, Color(1, 1, 1, 200) ) 	
-	draw.RoundedBox( 12, w * 0.01, h * 0.885, w * 0.189, h * 0.1, Color(1, 1, 1, 200) )	
-	draw.RoundedBox( 12, w * 0.01, h * 0.79, w * 0.09, h * 0.09, Color(1, 1, 1, 200) )
+	draw.RoundedBox( 12, w * 0.01, h * 0.01, w * 0.12, h * 0.09, Color(1, 1, 1, 100) ) 	
+	draw.RoundedBox( 12, w * 0.01, h * 0.889, w * 0.165, h * 0.09, Color(1, 1, 1, 100) )	
+	draw.RoundedBox( 12, w * 0.01, h * 0.83, w * 0.06, h * 0.05, Color(1, 1, 1, 100) )
 	
 	local pl = LocalPlayer()
 	local SCREEN_W = 1920; 
 	local SCREEN_H = 1080;
 	local X_MULTIPLIER = ScrW( ) / SCREEN_W;
 	local Y_MULTIPLIER = ScrH( ) / SCREEN_H;
-	local sp = "SP: "
+	local sp = "SP"
 	local sp2 = " " .. MySelf:GetPoints() .. ""
 	local gc = "GC: "
 	local gc2 = "  N/A"
 	local HP = pl:Health() --Set the variable for the local players health. 
 	
-	draw.SimpleText("+"..HP, "ZSHUDFontBig",w * 0.05, h * 0.91 , COLOR_GRAY, TEXT_ALIGN_CENTER)
-	draw.SimpleText(sp, "ZSHUDFont1.1",60 * X_MULTIPLIER, 860 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
-	draw.SimpleText(sp2, "ZSHUDFont2",115 * X_MULTIPLIER, 860 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
+	draw.SimpleText("+"..HP, "ZSHUDFont4",w * 0.04, h * 0.91 , COLOR_GRAY, TEXT_ALIGN_CENTER)
+	--draw.SimpleText(sp, "ZSHUDFontSmall",50 * X_MULTIPLIER, 910 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
+	--draw.SimpleText(sp2, "ZSHUDFontSmall",95 * X_MULTIPLIER, 910 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
 	
-	draw.SimpleText(gc, "ZSHUDFont1.1",60 * X_MULTIPLIER, 900 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
-	draw.SimpleText(gc2, "ZSHUDFont1.1",100 * X_MULTIPLIER, 900 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
-	
-	
+	draw.SimpleText(sp2, "ZSHUDFontSmall",50 * X_MULTIPLIER, 910 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
+	draw.SimpleText(sp, "ZSHUDFontSmall",95 * X_MULTIPLIER, 910 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
+
 	--Duby: Ported some old HUD code. I will optimize and clean it all out soon!
 	
 	local healthPoints, maxHealthPoints = math.max(MySelf:Health(),0), 100
 	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1005)
 	local barW, barH = ScaleW(127), ScaleH(38)
-	local barX, barY = healthTextX + ScaleW(85), ScaleH(880)+ScaleH(70)
+	local barX, barY = healthTextX + ScaleW(55), ScaleH(880)+ScaleH(60)
 	
 	local healthPercentage, healthChanged = math.Clamp(healthPoints / maxHealthPoints, 0, 1), false
 	if healthPercentage ~= healthPercentageDrawn then
@@ -806,17 +805,17 @@ function GM:HumanHUD2(screenscale)
 	--Determine health bar foreground color
 	local fHealth, fMaxHealth = math.max(MySelf:Health(),0), 100
 	local iPercentage = math.Clamp(fHealth / fMaxHealth, 0, 1)
-	local healthBarColor = Color(137, 30, 30, 255)
-	local healthBarBGColor = Color(300, 1, 1, 255)
+	local healthBarColor = Color(137, 30, 30, 200)
+	local healthBarBGColor = Color(1, 1, 1, 200)
 	
 	
 	--Different colors
 	if iPercentage > 0.75 then
 		healthBarColor = Color(255, 255, 255, 200)
-		healthBarBGColor = Color(300, 1, 1, 255)	
+		healthBarBGColor = Color(1, 1, 1, 200)	
 	elseif iPercentage > 0.5 then
-		healthBarColor = Color(137, 116, 24, 255)
-		healthBarBGColor = Color(300, 1, 1, 255)
+		healthBarColor = Color(137, 116, 24, 200)
+		healthBarBGColor = Color(1, 1, 1, 200)
 	end
 
 	--Flash under certain conditions
@@ -1119,6 +1118,7 @@ function GM:CreateFonts()
 	surface.CreateLegacyFont(new_zs_font, screenscale * 39, fontweight, fontaa, false, "ZSHUDFont1.1", false, false)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 42, fontweight, fontaa, false, "ZSHUDFont2", false, false)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 65, fontweight, fontaa, false, "ZSHUDFont3", false, false)
+	surface.CreateLegacyFont(new_zs_font, screenscale * 55, fontweight, fontaa, false, "ZSHUDFont4", false, false, fontshadow, fontoutline)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 72, fontweight, fontaa, false, "ZSHUDFontBig", fontshadow, fontoutline)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 16, fontweight, fontaa, false, "ZSHUDFontTinyBlur", false, false, 8)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 22, fontweight, fontaa, false, "ZSHUDFontSmallerBlur", false, false, 8)
