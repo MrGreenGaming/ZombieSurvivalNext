@@ -5,8 +5,7 @@ CLASS.Help = "controls_poison_headcrab"
 
 CLASS.Model = Model("models/headcrabblack.mdl")
 
---CLASS.Wave = 2 / 3
-CLASS.Wave = 0
+CLASS.Wave = 2 / 3
 CLASS.Threshold = 0.6
 
 CLASS.SWEP = "weapon_zs_poisonheadcrab"

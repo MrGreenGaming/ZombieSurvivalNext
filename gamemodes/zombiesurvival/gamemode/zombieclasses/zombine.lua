@@ -1,12 +1,11 @@
-
 CLASS.Name = "Zombine"
 CLASS.TranslationName = "class_zombine"
 CLASS.Description = "description_zombine"
 CLASS.Help = "controls_zombine"
 
-CLASS.Wave = 6
+CLASS.Wave = 6 / 6
 
-CLASS.Health = 360
+CLASS.Health = 460
 CLASS.Speed = 140
 
 CLASS.Points = 3
@@ -36,8 +35,6 @@ function CLASS:PlayDeathSound(pl)
 
 	return true
 end
-
-
 
 local mathrandom = math.random
 local StepSounds = {

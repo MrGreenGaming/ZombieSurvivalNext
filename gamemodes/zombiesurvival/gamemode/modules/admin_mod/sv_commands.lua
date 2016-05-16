@@ -333,10 +333,10 @@ function Dice( pl, text, public )
 		return
 	end
 	
-	if pl:Team() == TEAM_UNDEAD then
-		pl:ChatPrint("Dice temporarily disabled for zombies (Further Updates)")
-		return
-	end
+	--if pl:Team() == TEAM_UNDEAD then
+	--	pl:ChatPrint("Dice temporarily disabled for zombies (Further Updates)")
+	--	return
+	--end
 	
 
 	if pl.LastRTD >= CurTime() then
@@ -353,14 +353,21 @@ message = pl:GetName()
 	
 	if choise == 1 then
 		if pl:Team() == TEAM_HUMAN then	
-			specialitems = {"weapon_zs_vodka","weapon_zs_ammo","weapon_zs_drone"}
+			pl:GiveAmmo( 30, "pistol" )	
+			pl:GiveAmmo( 30, "ar2" )
+			pl:GiveAmmo( 90, "SMG1" )	
+			pl:GiveAmmo( 20, "buckshot" )		
+			pl:GiveAmmo( 5, "XBowBolt" )
+			pl:GiveAmmo( 30, "357" )
 		timer.Simple(0.3, function()  --LOOSING LOTS OF HEALTH
-			PrintMessage( HUD_PRINTTALK, "WIN: ".. message .." rolled the dice and got a special item!" )
+			PrintMessage( HUD_PRINTTALK, "WIN: ".. message .." rolled the dice and recieved some ammo!" )
 		end)
 			pl:Give(table.Random(specialitems))		
 		elseif pl:Team() == TEAM_UNDEAD then	
-			--pl:Frags() + 1
-			message = "WIN: ".. message .." rolled the dice and has found a piece of brain!"
+			timer.Simple(0.3, function()  --LOOSING LOTS OF HEALTH
+				PrintMessage( HUD_PRINTTALK, "LOSE: ".. message .." rolled the dice and got raped in the ass." )
+			end)
+				pl:SetHealth(1)
 		end
 	elseif choise == 2 then
 		if pl:Team() == TEAM_HUMAN then
@@ -372,7 +379,10 @@ message = pl:GetName()
 			local calchealth = math.Clamp ( 200 - pl:Health(),60,200 )
 			local randhealth = math.random( 25, math.Round ( calchealth ) )
 			pl:SetHealth(pl:Health() + randhealth)
-			message = "WIN: ".. message .." rolled the dice and gained ".. randhealth .."KG of flesh!!"
+			
+			timer.Simple(0.3, function()  
+				PrintMessage( HUD_PRINTTALK, "WIN: ".. message .." rolled the dice and gained ".. randhealth .." health!" )
+			end)
 		end
 	elseif choise == 3 then
 		if pl:Team() == TEAM_HUMAN then
@@ -395,10 +405,10 @@ message = pl:GetName()
 		end
 	elseif choise == 4 and pl:Health() < 100 then
 		if pl:Team() == TEAM_HUMAN then
-			local calchealth = math.Clamp ( 100 - pl:Health(),25,100 )
+			local calchealth = math.Clamp ( 100 - pl:Health(),25,70 )
 			local randhealth = math.random( 25, math.Round ( calchealth ) )
-			pl:SetHealth( math.min( pl:Health() + randhealth, 100 ) )
-				timer.Simple(0.3, function()  --LOOSING LOTS OF HEALTH
+			pl:SetHealth( math.min( pl:Health() + randhealth, 70 ) )
+				timer.Simple(0.3, function()  
 					PrintMessage( HUD_PRINTTALK, "WIN: ".. message .." rolled the dice and gained ".. randhealth .." health!" )
 				end)
 		elseif pl:Team() == TEAM_UNDEAD then
@@ -406,6 +416,9 @@ message = pl:GetName()
 			local randhealth = math.random( 25, math.Round ( calchealth ) )
 			pl:SetHealth( pl:Health() + randhealth)
 			message = "WIN: ".. message .." rolled the dice and gained ".. randhealth .."KG of flesh!!"
+			timer.Simple(0.3, function()  --LOOSING LOTS OF HEALTH
+				PrintMessage( HUD_PRINTTALK,  "WIN: ".. message .." rolled the dice and gained ".. randhealth .."KG of flesh!!" )
+			end)
 		end
 	elseif choise == 5 then
 		if pl:Team() == TEAM_HUMAN then
@@ -414,14 +427,24 @@ message = pl:GetName()
 					PrintMessage( HUD_PRINTTALK, "LOSE: "..message.." was put on fire by the dice." )
 				end)
 		elseif pl:Team() == TEAM_UNDEAD then
-		--	pl.BrainsEaten = pl.Frags() - 1
-			message = "LOSE: ".. message .." rolled the dice and has lost a piece of brain!"
+			local calchealth = math.Clamp ( 100 - pl:Health(),60,100 )
+			local randhealth = math.random( 25, math.Round ( calchealth ) )
+			pl:SetHealth(math.max(pl:Health() - randhealth, 1))
+				timer.Simple(0.3, function()  --LOOSING LOTS OF HEALTH
+					PrintMessage( HUD_PRINTTALK, "LOSE: ".. message .." rolled the dice and lost ".. randhealth .."KG of flesh!!" )
+				end)
 		end
 	elseif choise == 6 then
 		if pl:Team() == TEAM_HUMAN then
-			message = message .. ".. rolled the dice and got bugger all!"
+			pl:Ignite( math.random(1,4), 0)
+				timer.Simple(0.3, function()  --LOOSING LOTS OF HEALTH
+					PrintMessage( HUD_PRINTTALK, "LOSE: "..message.." was put on fire by the dice." )
+				end)
 		elseif pl:Team() == TEAM_UNDEAD then
-			message = message .." rolled the dice and got bugger all!"
+			pl:Ignite( math.random(1,4), 0)
+				timer.Simple(0.3, function()  --LOOSING LOTS OF HEALTH
+					PrintMessage( HUD_PRINTTALK, "LOSE: "..message.." was put on fire by the dice." )
+				end)
 		end	
 	else
 		if pl:Team() == TEAM_HUMAN then		
@@ -430,8 +453,10 @@ message = pl:GetName()
 					PrintMessage( HUD_PRINTTALK, "LOSE: "..message.." was put on fire by the dice." )
 				end)
 		elseif pl:Team() == TEAM_UNDEAD then
-			--pl:Frags() + 1
-			message = "WIN: ".. message .." rolled the dice and has found a piece of brain!"
+			pl:Ignite( math.random(1,4), 0)
+				timer.Simple(0.3, function()  --LOOSING LOTS OF HEALTH
+					PrintMessage( HUD_PRINTTALK, "LOSE: "..message.." was put on fire by the dice." )
+				end)
 		end
 	end
 	

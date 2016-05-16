@@ -9,12 +9,12 @@ GM.ArenaModeWeapons = { --Arena Mode weapons
 	"weapon_zs_bulletstorm",
 	"weapon_zs_crackler",
 	"weapon_zs_uzi",
-	"weapon_zs_deagle",
+	"weapon_zs_dual_degals",
 	"weapon_zs_m249",
 	"weapon_zs_python", 
 	"weapon_zs_crackler",
 	"weapon_zs_uzi",
-	"weapon_zs_deagle"
+	"weapon_zs_dual_degals"
 }
 
 GM.ZombieEscapeWeapons = {
@@ -26,6 +26,47 @@ GM.ZombieEscapeWeapons = {
 	"weapon_zs_zebulletstorm"
 }
 
+OldFags = {
+
+"STEAM_0:0:57410119", --Pistol Mags
+"STEAM_0:1:20607445", --Rui
+"Steam ID: STEAM_0:0:30210736", --Antz
+"STEAM_0:0:60372095", --Zarco
+"STEAM_0:0:59565612", --Duby
+"STEAM_0:0:51930358", --Zoidburg
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+"",
+""
+
+
+
+}
 
 
 -- Change this if you plan to alter the cost of items or you severely change how Worth works.
@@ -172,7 +213,14 @@ function(pl) pl:SetModel( table.Random( {
 	"models/player/combine_soldier.mdl",
 	"models/player/combine_soldier_prisonguard.mdl",
 } ) ) 
+
+local allowedSteamIDs = OldFags
+
+--if table.HasValue(allowedSteamIDs, pl:SteamID()) then
+	--pl:Give("weapon_zs_oldfags")
+--else
 	pl:Give("weapon_zs_dualclassics")
+--end
 	pl:Give("weapon_zs_swissarmyknife")
 	pl:Give("weapon_zs_grenade")
 	pl:ChatPrint("You're a Commando, kill and destroy!")
@@ -272,10 +320,11 @@ GM:AddPointShopItem("medic_gun", "Medical Pistol", nil, ITEMCAT_GUNS2, 35, "weap
 GM:AddPointShopItem("glock", "Glock", nil, ITEMCAT_GUNS2, 40, "weapon_zs_glock3")
 GM:AddPointShopItem("dualclassics", "Dual Classic Pistols", nil, ITEMCAT_GUNS2, 55, "weapon_zs_dualclassics")
 GM:AddPointShopItem("magnum", "Magnum", nil, ITEMCAT_GUNS2, 65, "weapon_zs_magnum")
+GM:AddPointShopItem("deagle", "Desert Eagle", nil, ITEMCAT_GUNS2, 70, "weapon_zs_deagle")
 GM:AddPointShopItem("Dual Berreta's 92fs", "Duel Berreta's 92fs", nil, ITEMCAT_GUNS2, 70, "weapon_zs_berreta")
 GM:AddPointShopItem("alyxgun", "Alyx Gun", nil, ITEMCAT_GUNS2, 78, "weapon_zs_z9000")
-GM:AddPointShopItem("deagle", "Desert Eagle", nil, ITEMCAT_GUNS2, 95, "weapon_zs_deagle")
-GM:AddPointShopItem("python", "Python", nil, ITEMCAT_GUNS2, 200, "weapon_zs_python")
+GM:AddPointShopItem("dualdegals", "Dual Degals", nil, ITEMCAT_GUNS2, 130, "weapon_zs_dual_degals")
+GM:AddPointShopItem("python", "Python", nil, ITEMCAT_GUNS2, 150, "weapon_zs_python")
 
 
 --// AUTOMATIC WEAPONS \\--

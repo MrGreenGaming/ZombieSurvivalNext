@@ -41,7 +41,9 @@ metal barrel + something = body armor
 --resource.AddWorkshop("649176563") -- Beta V7
 --resource.AddWorkshop("671179737") -- Beta V8
 --resource.AddWorkshop("671177053") -- Beta V8
-resource.AddWorkshop("683128983") -- Beta V9
+--resource.AddWorkshop("683128983") -- Beta V9
+--resource.AddWorkshop("685939937") -- Beta V10
+resource.AddWorkshop("685949762") -- Beta V11
 resource.AddWorkshop("650070929") -- Dual Pistols
 
 AddCSLuaFile("cl_init.lua")
@@ -156,6 +158,7 @@ include("modules/admin_mod/sv_commands.lua")
 include("modules/admin_mod/admin_commands.lua")
 include("modules/admin_mod/sv_admin.lua")
 include("modules/admin_mod/sv_duby.lua")
+
 
 --Map Manager (W.I.P)
 include("modules/admin_mod/sv_pmapmanager.lua")
@@ -2935,7 +2938,7 @@ function GM:KeyPress(pl, key)
 		if pl:Team() == TEAM_HUMAN and pl:Alive() and pl:IsOnGround() and not self.ZombieEscape then --and pl:GetGroundEntity():IsWorld() then
 		--if pl:Team() == TEAM_HUMAN and pl:Alive() and pl:IsOnGround() and not self.ZombieEscape and pl:GetGroundEntity():IsWorld() then
 				pl:SetBarricadeGhosting(true)
-				pl:SetSpeed(90)
+				pl:SetSpeed(50)
 			timer.Simple(2, function()
 				pl:SetSpeed(200)
 			end)
@@ -3067,7 +3070,7 @@ function GM:HumanKilledZombie(pl, attacker, inflictor, dmginfo, headshot, suicid
 		end
 	end
 	
-	if math.random(1,12) == 2 then -- Zed Time
+	if math.random(1,14) == 2 then -- Zed Time
 		game.SetTimeScale(0.35)
 		timer.Simple(0.9, function() game.SetTimeScale(1) end)
 			
@@ -4055,4 +4058,3 @@ function server_RunCommand( ply, command, args)
 		end
 	umsg.End()	
 end
-

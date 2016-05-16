@@ -11,13 +11,13 @@ SWEP.AdminSpawnable		= false
 
 SWEP.Primary.Sound 		= Sound("Weapon_Pistol.Single")
 SWEP.Primary.Recoil		= 1.5
-SWEP.Primary.Damage		= 15
+SWEP.Primary.Damage		= 16
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.Cone			= 0.016
 SWEP.Primary.Delay 		= 0.25
 
 SWEP.Primary.ClipSize		= 36					
-SWEP.Primary.DefaultClip	= 72					
+SWEP.Primary.DefaultClip	= 108					
 SWEP.Primary.Automatic		= true				
 SWEP.Primary.Ammo			= "pistol"
 

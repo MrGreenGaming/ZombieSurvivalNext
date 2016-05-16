@@ -13,8 +13,9 @@ end
 hook.Add("PlayerDisconnected", "ArsenalCrate.PlayerDisconnected", RefreshCrateOwners)
 hook.Add("OnPlayerChangedTeam", "ArsenalCrate.OnPlayerChangedTeam", RefreshCrateOwners)
 
+
 function ENT:Initialize()
-	self:SetModel("models/Items/item_item_crate.mdl")
+	self:SetModel("models/oldbill/sarsenalcrate2.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetUseType(SIMPLE_USE)
 

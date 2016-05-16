@@ -5,7 +5,7 @@ SWEP.ViewModel = Model("models/Weapons/v_zombiearms.mdl")
 SWEP.WorldModel = "models/weapons/w_crowbar.mdl"
 
 SWEP.MeleeDelay = 0.9
-SWEP.MeleeReach = 52
+SWEP.MeleeReach = 54
 SWEP.MeleeSize = 1.5
 SWEP.MeleeDamage = 25
 SWEP.MeleeForceScale = 1.1
@@ -153,7 +153,7 @@ function SWEP:Swung()
 	
 	owner:ViewPunch(Angle(1.5, 1, math.Rand(1.5, 1)))
 
-	--owner:LagCompensation(true)
+	owner:LagCompensation(true)
 
 	local mouthpos = owner:EyePos() + owner:GetUp() * -3
 	local screampos = mouthpos + owner:GetAimVector() * 16
