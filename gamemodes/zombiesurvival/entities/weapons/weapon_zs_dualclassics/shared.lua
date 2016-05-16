@@ -9,6 +9,7 @@ SWEP.WorldModel 			= "models/weapons/w_pist_elite.mdl"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= false
 
+SWEP.ReloadSound = Sound("Weapon_Pistol.Reload")
 SWEP.Primary.Sound 		= Sound("Weapon_Pistol.Single")
 SWEP.Primary.Recoil		= 1.5
 SWEP.Primary.Damage		= 16
