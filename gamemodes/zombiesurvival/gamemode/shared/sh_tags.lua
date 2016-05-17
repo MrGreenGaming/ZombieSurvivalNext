@@ -14,21 +14,6 @@ if ( SERVER ) then
 	tags["STEAM_0:1:16927564"] = { "[β] ", Color(0,800,0,255) } --The Real Freeman
 	tags["STEAM_0:0:28757539"] = { "[β] ", Color(0,800,0,255) } --Green Cube
 	tags["STEAM_0:0:8169277"] = { "[β] ", Color(0,800,0,255) } --AzoNa
-	
-	tags["STEAM_0:0:51930358"] = { "[OldFag] ", Color(0,800,0,255) } --Zoidburg
-	tags["STEAM_0:1:50553529"] = { "[OldFag] ", Color(0,800,0,255) } --Rob	
-	tags["STEAM_0:0:60372095"] = { "[OldFag] ", Color(0,800,0,255) } --Zarco
-	tags["STEAM_0:0:30210736"] = { "[OldFag] ", Color(0,800,0,255) } --Antz	
-	tags[""] = { "[OldFag] ", Color(0,800,0,255) } 	
-	tags[""] = { "[OldFag] ", Color(0,800,0,255) } 	
-	tags[""] = { "[OldFag] ", Color(0,800,0,255) } 	
-	tags[""] = { "[OldFag] ", Color(0,800,0,255) } 	
-	tags[""] = { "[OldFag] ", Color(0,800,0,255) } 	
-	tags[""] = { "[OldFag] ", Color(0,800,0,255) } 	
-	tags[""] = { "[OldFag] ", Color(0,800,0,255) } 	
-	tags[""] = { "[OldFag] ", Color(0,800,0,255) } 	
-										
-	
 
 	local Player = FindMetaTable("Player") 
 
