@@ -308,7 +308,7 @@ function PANEL:Init()
 	
 	DLabel_Class = vgui.Create( "DLabel", Panel2 )
 	DLabel_Class:SetPos(  w * 0.001, h * 0.02)
-	DLabel_Class:SetSize( 400, 400 )
+	DLabel_Class:SetSize( 400, 500 )
 	DLabel_Class:SetFont("ZSHUDFontSmall")
 	DLabel_Class:SetText("")
 

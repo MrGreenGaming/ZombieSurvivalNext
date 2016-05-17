@@ -134,4 +134,4 @@ end
 
 if not CLIENT then return end
 
-CLASS.Icon = "zombiesurvival/classmenu/nerf"
+CLASS.Icon = "zombiesurvival/classmenu/nerf_2"

@@ -30,12 +30,12 @@ OldFags = {
 
 "STEAM_0:0:57410119", --Pistol Mags
 "STEAM_0:1:20607445", --Rui
-"Steam ID: STEAM_0:0:30210736", --Antz
+"STEAM_0:0:30210736", --Antz
 "STEAM_0:0:60372095", --Zarco
 "STEAM_0:0:59565612", --Duby
 "STEAM_0:0:51930358", --Zoidburg
-"",
-"",
+"STEAM_0:1:50553529", --Rob
+"STEAM_0:1:19523408", --Pufulet
 "",
 "",
 "",
@@ -184,10 +184,11 @@ GM.AmmoResupply["pulse"] = GM.AmmoCache["pulse"]
 
 --[CLASSES]
 
+allowedSteamIDs = OldFags
 
 --MEDIC
 
-GM:CLASS("medic", "MEDIC", " Loadout items: \n\n Medkical Kit \n Plank \n Five Seven or Medic Gun \n\n\n\n Class Description: \n\n Heal your teammates! \n With pockets full of meds, \n this is the class for a team player!", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("medic", "MEDIC", " Loadout items: \n\n Medkical Kit \n Plank \n Five Seven \n\n\n\n Class Stats: \n\n 5% less maximum HP \n 10% more damage with pistols \n 10% more heal on teammates \n 5% increased speed", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/group03/male_02.mdl",
@@ -196,60 +197,84 @@ function(pl) pl:SetModel( table.Random( {
 	"models/player/group03/male_07.mdl"
 } ) ) 
 
-	MedWeapon = {"weapon_zs_fiveseven","weapon_zs_medicgun"}	
+
+if table.HasValue(allowedSteamIDs, pl:SteamID()) then
+	pl:Give("weapon_zs_fiveseven")
+	pl:ChatPrint("You're an OldFag, welcome back!")
+else
+	pl:Give("weapon_zs_fiveseven")
+end	
+
 	pl:Give("weapon_zs_medicalkit")
 	pl:Give("weapon_zs_plank")
-	pl:Give(table.Random(MedWeapon))
-	pl:ChatPrint("You're a Medic! Heal Your Teammates!")
+	pl:ChatPrint("You're a Medic! Heal Your Teammates!")	
+	
+	pl:SetSpeed(205)	
+	pl:SetHealth(95)
+	pl:SetMaximumHealth(95)
+	
 
 end, "models/healthvial.mdl")
 
 
 --COMMANDO
 
-GM:CLASS("commando", "COMMANDO", " Loadout items: \n\n Dual Classic Pistols \n Swiss Knife \n Grenades \n\n\n\n Class Description: \n\n Shooting is your bread and butter. \n Fast and topped up with adrenline, \n this class is made for shooting!", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("commando", "COMMANDO", " Loadout items: \n\n Dual Classic Pistols \n Swiss Knife \n Grenades \n\n\n\n Class Stats: \n\n 10% speed reduction \n 2 extra grenades \n 30% chance to spawn with rifle \n 5% increased crouching accuracy", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/combine_soldier.mdl",
 	"models/player/combine_soldier_prisonguard.mdl",
 } ) ) 
 
-local allowedSteamIDs = OldFags
 
---if table.HasValue(allowedSteamIDs, pl:SteamID()) then
-	--pl:Give("weapon_zs_oldfags")
---else
+
+if table.HasValue(allowedSteamIDs, pl:SteamID()) then
 	pl:Give("weapon_zs_dualclassics")
---end
+	pl:ChatPrint("You're an OldFag, welcome back!")
+else
+	pl:Give("weapon_zs_dualclassics")
+end
 	pl:Give("weapon_zs_swissarmyknife")
 	pl:Give("weapon_zs_grenade")
 	pl:ChatPrint("You're a Commando, kill and destroy!")
+	pl:SetSpeed(190)
 
+if math.Random(1,3) == 3 then
+	pl:Give("weapon_zs_crackler")
+end
+	
 end, "models/healthvial.mdl")
 
 
 --ENGINEER
 
-GM:CLASS("engineer", "ENGINEER", " Loadout items: \n\n Pulse Pistol \n Frying Pan \n 1 in 3 Aegis Kit, Turret, Mines \n\n\n\n Class Description: \n\n Bombs away as they say! \n Packed with explosives n'shit, \n this class really packs a punch!", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("engineer", "ENGINEER", " Loadout items: \n\n Pulse Pistol \n Frying Pan \n Mines \n\n\n\n Class Stats: \n\n 30% chance to spawn with Turret \n 30% chance to spawn with AegisKit \n 20% speed reduction", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/mossman.mdl",
 	"models/player/kleiner.mdl",
 } ) )
+--Aegis Kit, Turret,
+if table.HasValue(allowedSteamIDs, pl:SteamID()) then
+	pl:Give("weapon_zs_pulsepistol")
+	pl:ChatPrint("You're an OldFag, welcome back!")
+else
+	pl:Give("weapon_zs_pulsepistol")
+end
 
 	EngWeapon = {"weapon_zs_barricadekit","weapon_zs_gunturret","weapon_zs_mine"}
-	pl:Give("weapon_zs_pulsepistol")
+
 	pl:Give("weapon_zs_fryingpan")
 	pl:Give(table.Random(EngWeapon))
---	pl:AddPoints(20)
-	pl:ChatPrint("You're an Engineer, Blow shit up!")
+	pl:ChatPrint("You're an Engineer, Blow shit up!")	
+	pl:SetSpeed(180)
 
 end, "models/healthvial.mdl")
 
 
 --BERSERKER
 
-GM:CLASS("berserker", "BERSERKER", " Loadout items: \n\n P228 \n Mobile Supplies \n Pot or Axe  \n\n\n\n Class Description: \n\n Is Dismemberment is a joy? \n Armed with your melee skills, \n the crowbar crew awaits you!", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("berserker", "BERSERKER", " Loadout items: \n\n P228 \n Mobile Supplies \n Pot  \n\n\n\n Class Stats: \n\n 10% HP reduction \n 10% speed increase \n 25% chance of spawning as Gordan", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) 
 pl:SetModel( table.Random( {
@@ -261,22 +286,28 @@ if math.random(1,4) == 1  then --Gordan freeman!
 
 	pl:SetModel("models/player/gordon_classic.mdl")
 	pl:ChatPrint("You are Gordan Freeman!")
-	pl:AddPoints(60)
-	pl:Give("weapon_zs_crowbar_freeman")
-	pl:SetHealth(150)
-	pl:SetSpeed(220)
+	pl:Give("weapon_zs_peashooter")
+	pl:Give("weapon_zs_vodka")  
+	pl:Give("weapon_zs_resupplybox")  
 	
 else --Normal Berserker
 		
-	BerserkerWeapon = {"weapon_zs_axe","weapon_zs_pot"}
-
+if table.HasValue(allowedSteamIDs, pl:SteamID()) then
+	pl:Give("weapon_zs_axe")
+	pl:ChatPrint("You're an OldFag, welcome back!")
+else
+	pl:Give("weapon_zs_pot")
+end
+	
 	pl:SetModel("models/player/riot.mdl")
 	pl:Give("weapon_zs_peashooter")
-	pl:Give(table.Random(BerserkerWeapon))
 	pl:Give("weapon_zs_vodka")  
 	pl:Give("weapon_zs_resupplybox")  
---	pl:AddPoints(20)	
 	pl:ChatPrint("You're a Berserker, smack the shit out of everything!")
+	
+	pl:SetSpeed(210)
+	pl:SetHealth(90)
+	pl:SetMaximumHealth(90)
 
 end
 
@@ -285,21 +316,34 @@ end, "models/healthvial.mdl")
 
 --SUPPORT
 
-GM:CLASS("support", "SUPPORT", " Loadout items: \n\n Hammer \n Supply Crate \n USP  \n\n\n\n Class Description: \n\n Cading your way to victory. \n Filled to the brim with nails, \n this class is made for the caders!", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("support", "SUPPORT", " Loadout items: \n\n Hammer \n Supply Crate \n USP  \n\n\n\n Class Stats: \n\n 10% speed reduction \n 10% HP reduction \n 30% chance extra Ammo", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/gasmask.mdl",
 	"models/player/riot.mdl",
 } ) ) 
 
-	if math.random(1,3) == 1  then --1 in 3 chance of spawning with this Unique item.
-			pl:Give("weapon_zs_ammo")
-	end
 
+if table.HasValue(allowedSteamIDs, pl:SteamID()) then
+	pl:Give("weapon_zs_ammo")
+	pl:Give("weapon_zs_hammer")
+	pl:ChatPrint("You're an OldFag, welcome back!")
+else
+	pl:Give("weapon_zs_hammer")
+end	
+	
+if math.random(1,3) == 1  then --Ammo
+	pl:Give("weapon_zs_ammo")
+end	
+	
 	pl:Give("weapon_zs_hammer")
 	pl:Give("weapon_zs_arsenalcrate")
 	pl:Give("weapon_zs_battleaxe")
 	pl:ChatPrint("You're a Support, Build barricades or fuck off!")
+	
+	pl:SetSpeed(190)
+	pl:SetHealth(90)
+	pl:SetMaximumHealth(90)
 
 end, "models/healthvial.mdl")
 
@@ -328,7 +372,7 @@ GM:AddPointShopItem("python", "Python", nil, ITEMCAT_GUNS2, 150, "weapon_zs_pyth
 
 
 --// AUTOMATIC WEAPONS \\--
-GM:AddPointShopItem("crklr", "Famas", nil, ITEMCAT_GUNS, 50, "weapon_zs_crackler")
+GM:AddPointShopItem("crklr", "Famas", nil, ITEMCAT_GUNS, 35, "weapon_zs_crackler")
 GM:AddPointShopItem("tossr", "Classic SMG", nil, ITEMCAT_GUNS, 50, "weapon_zs_tosser") 
 GM:AddPointShopItem("uzi", "Uzi 9mm", nil, ITEMCAT_GUNS, 70, "weapon_zs_uzi")
 GM:AddPointShopItem("shredder", "MP5", nil, ITEMCAT_GUNS, 70, "weapon_zs_smg")

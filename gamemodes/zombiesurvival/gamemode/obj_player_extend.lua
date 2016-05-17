@@ -897,3 +897,18 @@ function meta:HasVoted(VOTES)
 	return false
 end
 
+--[==[----------------------------------------------------------------
+          Get Maximum Health 
+----------------------------------------------------------------]==]
+
+function meta:SetMaximumHealth ( Max )
+	if CLIENT then return end
+	
+	self:SetMaxHealth ( Max )
+	self.MaximumHealth = Max
+	self:SetDTInt ( 0, math.Round ( Max ) )
+end
+
+function meta:GetMaximumHealth ( Health )
+	return self:GetDTInt ( 0 )
+end

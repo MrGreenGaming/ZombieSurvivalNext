@@ -65,8 +65,8 @@ SWEP.HoldType = "shotgun"
 
 SWEP.Primary.Sound 			= Sound("Weapon_Shotgun.Single")
 SWEP.Primary.Recoil			= 2
-SWEP.Primary.Damage			= 13
-SWEP.Primary.NumShots		= 6
+SWEP.Primary.Damage			= 4
+SWEP.Primary.NumShots		= 5
 SWEP.Primary.ClipSize		= 6
 SWEP.Primary.Delay			= 0.75
 SWEP.Primary.DefaultClip	= 40
@@ -84,8 +84,8 @@ SWEP.ReloadDelay = 0.47
 SWEP.reloadtimer = 0
 SWEP.nextreloadfinish = 0
 
-SWEP.ConeMax = 0.12
-SWEP.ConeMin = 0.005
+SWEP.ConeMax = 0.055
+SWEP.ConeMin = 0.0275
 
 SWEP.IronSightsPos = Vector(-7.3, 9, 2.3) --Vector(-7.3, 9, 2.3)
 SWEP.IronSightsAng = Vector(0, -1, 0)

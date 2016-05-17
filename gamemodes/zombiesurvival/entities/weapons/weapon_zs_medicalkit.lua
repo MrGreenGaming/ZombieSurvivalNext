@@ -181,7 +181,7 @@ function SWEP:DrawHUD()
 
 	local screenscale = BetterScreenScale()
 	local wid, hei = 256, 16
-	local x, y = ScrW() - wid - 32, ScrH() - hei -10
+	local x, y = ScrW() - wid - 32, ScrH() - hei -20
 	local texty = y - 4 - draw.GetFontHeight("ZSHUDFont2")
 
 	local timeleft = self:GetNextCharge() - CurTime()

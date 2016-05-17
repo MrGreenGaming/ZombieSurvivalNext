@@ -40,7 +40,7 @@ SWEP.Base = "weapon_zs_zombie"
 SWEP.MeleeDelay = 0.5
 SWEP.MeleeReach = 54
 SWEP.MeleeSize = 1.5
-SWEP.MeleeDamage = 20
+SWEP.MeleeDamage = 30
 SWEP.MeleeDamageType = DMG_SLASH
 
 SWEP.AlertDelay = 6
@@ -117,7 +117,7 @@ function SWEP:DoAlert()
 
 	owner:LagCompensation(true)
 
-	local mouthpos = owner:EyePos() + owner:GetUp() * -3
+	--[[local mouthpos = owner:EyePos() + owner:GetUp() * -3
 	local screampos = mouthpos + owner:GetAimVector() * 16
 	for _, ent in pairs(ents.FindInSphere(screampos, 92)) do
 		if ent:IsPlayer() and ent:Team() ~= owner:Team() then
@@ -131,7 +131,7 @@ function SWEP:DoAlert()
 				end
 			end
 		end
-	end
+	end]]--
 
 	owner:LagCompensation(false)
 end

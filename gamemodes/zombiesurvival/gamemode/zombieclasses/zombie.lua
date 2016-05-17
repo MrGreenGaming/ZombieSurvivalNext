@@ -14,7 +14,7 @@ CLASS.Revives = true
 
 CLASS.CanTaunt = true
 
-CLASS.Points = 5
+CLASS.Points = 4
 
 CLASS.SWEP = "weapon_zs_zombie"
 

@@ -16,7 +16,7 @@ CLASS.CanTaunt = false
 
 CLASS.Mass = DEFAULT_MASS 
 
-CLASS.Points = 6
+CLASS.Points = 4
 
 function CLASS:PlayPainSound(pl)
 	pl:EmitSound("zombies/howler/howler_mad_0"..math.random(4)..".mp3", 75, math.Rand(137, 143))

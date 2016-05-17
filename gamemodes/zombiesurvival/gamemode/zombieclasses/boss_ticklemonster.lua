@@ -116,7 +116,7 @@ end
 
 if not CLIENT then return end
 
-CLASS.Icon = "zombiesurvival/classmenu/ticklemonster"
+CLASS.Icon = "zombiesurvival/classmenu/tickle_2"
 
 local vecSpineOffset = Vector(10, 0, 0)
 local SpineBones = {"ValveBiped.Bip01_Spine2", "ValveBiped.Bip01_Spine4", "ValveBiped.Bip01_Spine3"}

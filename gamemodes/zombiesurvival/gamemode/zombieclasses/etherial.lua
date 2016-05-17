@@ -1,19 +1,17 @@
---CLASS.Hidden = true
---CLASS.Disabled = true
 
 CLASS.Name = "Etherial"
 CLASS.TranslationName = "class_etherial"
 CLASS.Description = "description_etherial"
 CLASS.Help = "controls_etherial"
 
-CLASS.Wave = 1 / 2
-CLASS.Health = 160
+CLASS.Wave = 1 / 3
+CLASS.Health = 190
 CLASS.SWEP = "weapon_zs_etherial"
 CLASS.Model = Model("models/wraith_zsv1.mdl")
 CLASS.Speed = 190
 
 
-CLASS.Points = 30
+CLASS.Points = 4
 
 CLASS.VoicePitch = 0.65
 

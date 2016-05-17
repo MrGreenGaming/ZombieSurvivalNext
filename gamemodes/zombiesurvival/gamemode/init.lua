@@ -43,7 +43,8 @@ metal barrel + something = body armor
 --resource.AddWorkshop("671177053") -- Beta V8
 --resource.AddWorkshop("683128983") -- Beta V9
 --resource.AddWorkshop("685939937") -- Beta V10
-resource.AddWorkshop("685949762") -- Beta V11
+--resource.AddWorkshop("685949762") -- Beta V11
+resource.AddWorkshop("686504826") -- Beta V12
 resource.AddWorkshop("650070929") -- Dual Pistols
 
 AddCSLuaFile("cl_init.lua")
@@ -780,8 +781,8 @@ function GM:CreateZombieGas()
 	local humanspawns = team.GetValidSpawnPoint(TEAM_HUMAN)
 
 	for _, spawn in pairs(team.GetValidSpawnPoint(TEAM_UNDEAD)) do
-	--	local gasses = ents.FindByClass("zombiegasses")
-		local gasses = ents.FindByClass("zs_poisongasses")
+		local gasses = ents.FindByClass("zombiegasses")
+	--	local gasses = ents.FindByClass("zs_poisongasses") --Need to port this properly
 		local numgasses = #gasses
 		if 4 < numgasses then
 			break

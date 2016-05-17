@@ -738,18 +738,6 @@ function GM:HumanHUD(screenscale)
 			draw_SimpleText(translate.Get("breath").." ", "ZSHUDFontSmall", w * 0.4, h * 0.35 + 6, COLOR_BLUE, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
 		end
 	end
-
-	--[[if gamemode.Call("PlayerCanPurchase", MySelf) then
-		if self:GetWaveActive() then
-			draw_SimpleText(translate.Get("press_f2_for_the_points_shop"), "ZSHUDFontSmall", w * 0.5, 8, COLOR_RED, TEXT_ALIGN_CENTER)
-		else
-			local th = draw_GetFontHeight("ZSHUDFontSmall")
-			draw_SimpleText(translate.Get("press_f2_for_the_points_shop"), "ZSHUDFontSmall", w * 0.5, 8, COLOR_GRAY, TEXT_ALIGN_CENTER)
-			draw_SimpleText(translate.Format("x_discount_for_buying_between_waves", self.ArsenalCrateDiscountPercentage), "ZSHUDFontSmall", w * 0.5, 9 + th, COLOR_GRAY, TEXT_ALIGN_CENTER)
-		end
-	end]]--
-	
-
 	
 end
 
@@ -766,8 +754,8 @@ function GM:HumanHUD2(screenscale)
 	--Duby: I will place this into a module soon enough!
 	local w, h = ScrW(), ScrH()
 	
-	draw.RoundedBox( 12, w * 0.01, h * 0.01, w * 0.12, h * 0.09, Color(1, 1, 1, 100) ) 	
-	draw.RoundedBox( 12, w * 0.01, h * 0.889, w * 0.165, h * 0.09, Color(1, 1, 1, 100) )	
+	draw.RoundedBox( 12, w * 0.01, h * 0.01, w * 0.12, h * 0.1, Color(1, 1, 1, 100) ) 	
+	draw.RoundedBox( 12, w * 0.01, h * 0.889, w * 0.17, h * 0.09, Color(1, 1, 1, 100) )	
 	draw.RoundedBox( 12, w * 0.01, h * 0.83, w * 0.06, h * 0.05, Color(1, 1, 1, 100) )
 	
 	local pl = LocalPlayer()
@@ -782,13 +770,9 @@ function GM:HumanHUD2(screenscale)
 	local HP = pl:Health() --Set the variable for the local players health. 
 	
 	draw.SimpleText("+"..HP, "ZSHUDFont4",w * 0.04, h * 0.91 , COLOR_GRAY, TEXT_ALIGN_CENTER)
-	--draw.SimpleText(sp, "ZSHUDFontSmall",50 * X_MULTIPLIER, 910 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
-	--draw.SimpleText(sp2, "ZSHUDFontSmall",95 * X_MULTIPLIER, 910 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
 	
 	draw.SimpleText(sp2, "ZSHUDFontSmall",50 * X_MULTIPLIER, 910 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
 	draw.SimpleText(sp, "ZSHUDFontSmall",95 * X_MULTIPLIER, 910 * Y_MULTIPLIER, COLOR_GRAY, TEXT_ALIGN_CENTER)
-
-	--Duby: Ported some old HUD code. I will optimize and clean it all out soon!
 	
 	local healthPoints, maxHealthPoints = math.max(MySelf:Health(),0), 100
 	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1005)

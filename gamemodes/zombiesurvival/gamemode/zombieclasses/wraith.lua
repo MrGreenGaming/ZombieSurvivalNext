@@ -1,3 +1,6 @@
+CLASS.Hidden = true
+CLASS.Disabled = true
+
 CLASS.Name = "Wraith"
 CLASS.TranslationName = "class_wraith"
 CLASS.Description = "description_wraith"

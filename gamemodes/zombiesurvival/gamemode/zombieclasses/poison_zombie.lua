@@ -7,13 +7,13 @@ CLASS.Model = Model("models/Zombie/Poison.mdl")
 
 CLASS.Wave = 2 / 3
 
-CLASS.Health = 410
+CLASS.Health = 450
 CLASS.Speed = 150
 CLASS.SWEP = "weapon_zs_poisonzombie"
 
 CLASS.Mass = DEFAULT_MASS * 1.5
 
-CLASS.Points = 8
+CLASS.Points = 6
 
 CLASS.PainSounds = {"NPC_PoisonZombie.Pain"}
 CLASS.DeathSounds = {"NPC_PoisonZombie.Die"}
