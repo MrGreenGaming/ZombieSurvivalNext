@@ -30,11 +30,11 @@ OldFags = {
 
 "STEAM_0:0:57410119", --Pistol Mags
 "STEAM_0:1:20607445", --Rui
-"Steam ID: STEAM_0:0:30210736", --Antz
+"STEAM_0:0:30210736", --Antz
 "STEAM_0:0:60372095", --Zarco
 "STEAM_0:0:59565612", --Duby
 "STEAM_0:0:51930358", --Zoidburg
-"",
+"STEAM_0:1:50553529", --Rob
 "",
 "",
 "",
@@ -63,9 +63,6 @@ OldFags = {
 "",
 "",
 ""
-
-
-
 }
 
 
@@ -196,10 +193,15 @@ function(pl) pl:SetModel( table.Random( {
 	"models/player/group03/male_07.mdl"
 } ) ) 
 
-	MedWeapon = {"weapon_zs_fiveseven","weapon_zs_medicgun"}	
+if table.HasValue(allowedSteamIDs, pl:SteamID()) then
+	pl:ChatPrint("You're an OldFag, welcome back.)
+	pl:Give("weapon_zs_fiveseven")
+else
+	pl:Give("weapon_zs_fiveseven")
+end
+
 	pl:Give("weapon_zs_medicalkit")
 	pl:Give("weapon_zs_plank")
-	pl:Give(table.Random(MedWeapon))
 	pl:ChatPrint("You're a Medic! Heal Your Teammates!")
 
 end, "models/healthvial.mdl")
@@ -216,11 +218,12 @@ function(pl) pl:SetModel( table.Random( {
 
 local allowedSteamIDs = OldFags
 
---if table.HasValue(allowedSteamIDs, pl:SteamID()) then
-	--pl:Give("weapon_zs_oldfags")
---else
+if table.HasValue(allowedSteamIDs, pl:SteamID()) then
+	pl:ChatPrint("You're an OldFag, welcome back.)
 	pl:Give("weapon_zs_dualclassics")
---end
+else
+	pl:Give("weapon_zs_dualclassics")
+end
 	pl:Give("weapon_zs_swissarmyknife")
 	pl:Give("weapon_zs_grenade")
 	pl:ChatPrint("You're a Commando, kill and destroy!")
@@ -251,6 +254,7 @@ end, "models/healthvial.mdl")
 
 GM:CLASS("berserker", "BERSERKER", " Loadout items: \n\n P228 \n Mobile Supplies \n Pot or Axe  \n\n\n\n Class Description: \n\n Is Dismemberment is a joy? \n Armed with your melee skills, \n the crowbar crew awaits you!", ITEMCAT_CLASS, 100, nil, 
 
+<<<<<<< Updated upstream
 function(pl) 
 pl:SetModel( table.Random( {
 	"",
@@ -265,17 +269,19 @@ if math.random(1,4) == 1  then --Gordan freeman!
 	pl:Give("weapon_zs_crowbar_freeman")
 	pl:SetHealth(150)
 	pl:SetSpeed(220)
-	
 else --Normal Berserker
-		
-	BerserkerWeapon = {"weapon_zs_axe","weapon_zs_pot"}
 
+	if table.HasValue(allowedSteamIDs, pl:SteamID()) then --Old Fags system
+		pl:Give("weapon_zs_axe")
+		pl:ChatPrint("You're an OldFag, welcome back.)
+	else
+		pl:Give("weapon_zs_pot")
+	end
+	
 	pl:SetModel("models/player/riot.mdl")
 	pl:Give("weapon_zs_peashooter")
-	pl:Give(table.Random(BerserkerWeapon))
 	pl:Give("weapon_zs_vodka")  
 	pl:Give("weapon_zs_resupplybox")  
---	pl:AddPoints(20)	
 	pl:ChatPrint("You're a Berserker, smack the shit out of everything!")
 
 end
@@ -291,9 +297,13 @@ function(pl) pl:SetModel( table.Random( {
 	"models/player/gasmask.mdl",
 	"models/player/riot.mdl",
 } ) ) 
-
-	if math.random(1,3) == 1  then --1 in 3 chance of spawning with this Unique item.
-			pl:Give("weapon_zs_ammo")
+	
+	if table.HasValue(allowedSteamIDs, pl:SteamID()) then --Old Fags system
+		pl:ChatPrint("You're an OldFag, welcome back.)
+		pl:Give("weapon_zs_ammo")
+		pl:Give("weapon_zs_hammer")
+	else
+		pl:Give("weapon_zs_hammer")
 	end
 
 	pl:Give("weapon_zs_hammer")
