@@ -33,7 +33,7 @@ SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_pist_fiveseven.mdl" )
 
 SWEP.Primary.Sound = Sound("Weapon_FiveSeven.Single")
-SWEP.Primary.Damage = 15
+SWEP.Primary.Damage = 13
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 0.15
 SWEP.Primary.KnockbackScale = 2
@@ -41,7 +41,7 @@ SWEP.Primary.KnockbackScale = 2
 SWEP.Primary.ClipSize		= 12
 SWEP.Primary.DefaultClip	= 60
 
-SWEP.Primary.Automatic = true
+SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "pistol"
 
 SWEP.ConeMax = 0.1

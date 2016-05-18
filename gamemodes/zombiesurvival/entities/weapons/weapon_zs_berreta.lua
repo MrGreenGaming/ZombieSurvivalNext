@@ -24,13 +24,13 @@ SWEP.UseHands = true
 SWEP.Primary.Sound = Sound("Weapon_ELITE.Single")
 SWEP.Primary.Damage = 20
 SWEP.Primary.NumShots = 1
-SWEP.Primary.Delay = 0.15
+SWEP.Primary.Delay = 0.2
 
 SWEP.WalkSpeed = SPEED_SLOW
 
 SWEP.Primary.ClipSize = 30
 SWEP.Primary.DefaultClip = 150
-SWEP.Primary.Automatic = true
+SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "pistol"
 
 

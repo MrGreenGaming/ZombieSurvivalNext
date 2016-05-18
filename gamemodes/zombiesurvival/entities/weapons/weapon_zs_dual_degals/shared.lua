@@ -105,7 +105,7 @@ SWEP.Primary.Sound = Sound("weapons/deagle/deagle-1.wav")
 SWEP.Primary.Damage = 70
 SWEP.Primary.TakeAmmo = 1
 SWEP.Primary.ClipSize = 14
-SWEP.Primary.Ammo = "Pistol"
+SWEP.Primary.Ammo = "pistol"
 SWEP.Primary.DefaultClip = 24
 SWEP.Primary.Spread = 0.1
 SWEP.Primary.NumberofShots = 1
@@ -122,6 +122,9 @@ SWEP.Secondary.Ammo = "none"
 SWEP.ShootAnimation = 0
  
 SWEP.CSMuzzleFlashes = true
+ 
+SWEP.ConeMax = 0.055
+SWEP.ConeMin = 0.05
  
 function SWEP:Initialize()
 util.PrecacheSound(self.Primary.Sound)
