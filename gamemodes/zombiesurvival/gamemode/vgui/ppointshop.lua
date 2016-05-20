@@ -169,6 +169,22 @@ function GM:OpenPointsShop()
 	pointslabel:AlignLeft(8)
 	pointslabel.Think = pointslabelThink
 	
+	local Button = vgui.Create( "DButton", bottomspace )
+	Button:SetText( "Close" )
+	Button:SetFont( "ZSHUDFontSmall" )
+	Button:SetTextColor( Color( 255, 255, 255 ) )
+	Button:AlignTop(4)
+	Button:AlignRight(60)
+	--Button:SetPos( 100, 100 )
+	Button:SetSize( 100, 40 )
+	Button.DoClick = function(Button)
+		GAMEMODE.m_PointsShop:Close()
+	end
+	Button.Paint = function( self, w, h )
+		draw.RoundedBox( 0, 0, 0, w, h, Color( 50, 0, 0, 250 ) ) -- Draw a blue button
+	end
+
+	
 	local lab = EasyLabel(bottomspace, " ", "ZSHUDFontTiny")
 	lab:AlignTop(4)
 	lab:AlignRight(4)

@@ -7,7 +7,8 @@ CLASS.Wave = 6 / 6
 
 CLASS.Health = 460
 CLASS.Speed = 140
-
+CLASS.Unlocked = false
+CLASS.Hidden = true
 CLASS.Points = 3
 
 CLASS.CanTaunt = true

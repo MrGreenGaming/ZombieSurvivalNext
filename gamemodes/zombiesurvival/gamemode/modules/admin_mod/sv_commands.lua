@@ -415,7 +415,6 @@ message = pl:GetName()
 			local calchealth = math.Clamp ( 200 - pl:Health(),60,200 )
 			local randhealth = math.random( 25, math.Round ( calchealth ) )
 			pl:SetHealth( pl:Health() + randhealth)
-			message = "WIN: ".. message .." rolled the dice and gained ".. randhealth .."KG of flesh!!"
 			timer.Simple(0.3, function()  --LOOSING LOTS OF HEALTH
 				PrintMessage( HUD_PRINTTALK,  "WIN: ".. message .." rolled the dice and gained ".. randhealth .."KG of flesh!!" )
 			end)

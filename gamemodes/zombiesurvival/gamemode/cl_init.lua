@@ -754,7 +754,7 @@ function GM:HumanHUD2(screenscale)
 	--Duby: I will place this into a module soon enough!
 	local w, h = ScrW(), ScrH()
 	
-	draw.RoundedBox( 12, w * 0.01, h * 0.01, w * 0.12, h * 0.1, Color(1, 1, 1, 100) ) 	
+	draw.RoundedBox( 12, w * 0.01, h * 0.01, w * 0.12, h * 0.09, Color(1, 1, 1, 100) ) 	
 	draw.RoundedBox( 12, w * 0.01, h * 0.889, w * 0.17, h * 0.09, Color(1, 1, 1, 100) )	
 	draw.RoundedBox( 12, w * 0.01, h * 0.83, w * 0.06, h * 0.05, Color(1, 1, 1, 100) )
 	
@@ -777,7 +777,7 @@ function GM:HumanHUD2(screenscale)
 	local healthPoints, maxHealthPoints = math.max(MySelf:Health(),0), 100
 	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1005)
 	local barW, barH = ScaleW(127), ScaleH(38)
-	local barX, barY = healthTextX + ScaleW(55), ScaleH(880)+ScaleH(60)
+	local barX, barY = healthTextX + ScaleW(55), ScaleH(880)+ScaleH(62)
 	
 	local healthPercentage, healthChanged = math.Clamp(healthPoints / maxHealthPoints, 0, 1), false
 	if healthPercentage ~= healthPercentageDrawn then
@@ -787,7 +787,7 @@ function GM:HumanHUD2(screenscale)
 	healthPercentageDrawn = math.Clamp(math.Approach(healthPercentageDrawn, healthPercentage, FrameTime() * 1.8), 0, 1) --Smooth
 
 	--Determine health bar foreground color
-	local fHealth, fMaxHealth = math.max(MySelf:Health(),0), 100
+	local fHealth, fMaxHealth = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
 	local iPercentage = math.Clamp(fHealth / fMaxHealth, 0, 1)
 	local healthBarColor = Color(137, 30, 30, 200)
 	local healthBarBGColor = Color(1, 1, 1, 200)
@@ -856,7 +856,7 @@ function GM:ZombieHUD2(screenscale)
 	surface.SetDrawColor(225, 225, 225, 225 )
 	surface.DrawTexturedRect(w * -0.05, h * 0.88, w * 0.25, h * 0.2)
 	
-	draw.SimpleText(HP, "ZSHUDFontLargeZombie",w * 0.04, h * 0.91 , COLOR_GRAY, TEXT_ALIGN_CENTER)
+	draw.SimpleText("+"..HP, "ZSHUDFontLargeZombie",w * 0.04, h * 0.91 , COLOR_GRAY, TEXT_ALIGN_CENTER)
 	
 	if MySelf:IsValid() then
 		if MySelf:Team() == TEAM_UNDEAD then
@@ -1671,11 +1671,11 @@ function GM:HUDPaintBackgroundEndRound(winner)
 	local pl = LocalPlayer()
 	local timleft = math.max(0, self.EndTime + self.EndGameTime - CurTime())
 
-	--[[if timleft <= 0 then
+	if timleft <= 0 then
 		draw_SimpleText(translate.Get("loading"), "ZSHUDFont", w * 0.5, h * 0.8, COLOR_WHITE, TEXT_ALIGN_CENTER)
 	else
 		draw_SimpleText(translate.Format("next_round_in_x", util.ToMinutesSeconds(timleft)), "ZSHUDFontSmall", w * 0.5, h * 0.8, COLOR_WHITE, TEXT_ALIGN_CENTER)
-	end]]--
+	end
 
 end
 

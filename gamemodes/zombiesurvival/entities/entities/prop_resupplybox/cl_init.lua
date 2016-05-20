@@ -48,9 +48,9 @@ function ENT:RenderInfo(pos, ang, owner)
 	    end
 
 		if MySelf.MobileSupplyTimerActive == false then
-	    	--self.LineColor = Color(0, math.abs(200 * math.sin(CurTime() * 3)), 0, 100)
+	    	self.LineColor = Color(0, math.abs(200 * math.sin(CurTime() * 3)), 0, 100)
 	    elseif self.LineColor ~= Color(210, 0, 0, 100) then
-	    	--self.LineColor = Color(210, 0, 0, 100)
+	    	self.LineColor = Color(210, 0, 0, 100)
 	    end
 
 	    --Draw some stuff
@@ -70,6 +70,19 @@ function ENT:RenderInfo(pos, ang, owner)
 
 		local owner = self:GetObjectOwner()
 		local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
+		
+				--Duby: Work on this soon!
+		
+		if GAMEMODE:GetWave() <= 0 then
+				draw.SimpleTextOutlined( "Round Hasn't Started!", "ZSHUDFontSmall", 0, 30, COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			--end	
+		elseif validOwner then
+			if NextUse <= CurTime() then
+				draw.SimpleTextOutlined( "Press E For Ammo", "ZSHUDFontSmallest", 0, 30, NextUse <= CurTime() and COLOR_GREEN or COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			--end
+		end
+		
+		end
 	
 		if validOwner then
 			draw.SimpleTextOutlined( owner:Name() .."'s Mobile Supplies", "ZSHUDFontSmall", 0, 0, NextUse <= CurTime() and COLOR_GREEN or COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
@@ -82,24 +95,8 @@ function ENT:RenderInfo(pos, ang, owner)
 				draw.SimpleTextOutlined(util.ToMinutesSeconds(math.max(0, NextUse - CurTime() )) , "ZSHUDFontSmall", 0, 30, COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			end
 		end		
-		
-		if validOwner then
-			if NextUse <= CurTime() then
-				draw.SimpleTextOutlined( "Press E For Ammo", "ZSHUDFontSmallest", 0, 30, NextUse <= CurTime() and COLOR_GREEN or COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-			end
-		end
-		
-		--Duby: Work on this soon!
-		
-		--[[if validOwner then 
-			local curwave = self:WaveZeroLength()	
-			if curwave > 61 then
-				draw.SimpleTextOutlined( "Round Hasn't Started!", "ZSHUDFontSmall", 0, 30, COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-			end	
-		end]]--
-	
-	    cam.End3D2D()
 
+	    cam.End3D2D()
 
 end
 

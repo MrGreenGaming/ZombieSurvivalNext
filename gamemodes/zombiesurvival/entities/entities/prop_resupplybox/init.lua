@@ -125,10 +125,10 @@ function ENT:Use(activator, caller)
 	end
 
 		
-	if activator:Health() < 100 then
-		local healthDifference = math.Clamp(100 - activator:Health(), 0, 12)
+	if activator:Health() < activator:GetMaximumHealth() then
+		local healthDifference = math.Clamp(activator:GetMaximumHealth() - activator:Health(), 0, 12)
 		local actualHealAmount = math.random(10, healthDifference)
-			actualHealAmount = math.min(activator:Health() + actualHealAmount, 100)
+			actualHealAmount = math.min(activator:Health() + actualHealAmount, activator:GetMaximumHealth())
 			activator:SetHealth(actualHealAmount)
 	end
 

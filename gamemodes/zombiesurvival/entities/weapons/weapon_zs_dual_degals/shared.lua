@@ -17,6 +17,7 @@ SWEP.Category = "Dual Weapons"
 SWEP.Spawnable= true
 SWEP.AdminSpawnable= true
 SWEP.AdminOnly = false
+SWEP.DrawCrosshair = false
   
 SWEP.ViewModelFOV = 35
 SWEP.ViewModel = "models/weapons/dual_deagles.mdl"
@@ -34,8 +35,7 @@ SWEP.UseHands = true
 SWEP.HoldType = "Pistol"
  
 SWEP.FiresUnderwater = false
- 
-SWEP.DrawCrosshair = true
+
  
 SWEP.DrawAmmo = true
  
@@ -52,7 +52,7 @@ end
  
 SWEP.Base = "weapon_zs_base"
  
-SWEP.HoldType               = "duel"
+SWEP.HoldType = "duel"
  
  SWEP.Offset = {
 Pos = {
@@ -112,7 +112,7 @@ SWEP.Primary.NumberofShots = 1
 SWEP.Primary.Automatic = true
 SWEP.Primary.Recoil = 0.6
 SWEP.Primary.Delay = 0.3
-SWEP.Primary.Force = 5
+SWEP.Primary.Force = 0
  
 SWEP.Secondary.ClipSize = 0
 SWEP.Secondary.DefaultClip = 0
@@ -123,7 +123,7 @@ SWEP.ShootAnimation = 0
  
 SWEP.CSMuzzleFlashes = true
  
-SWEP.ConeMax = 0.055
+SWEP.ConeMax = 0.09
 SWEP.ConeMin = 0.05
  
 function SWEP:Initialize()
@@ -131,7 +131,7 @@ util.PrecacheSound(self.Primary.Sound)
 util.PrecacheSound(self.ReloadSound)
         self:SetWeaponHoldType( self.HoldType )
 end
- 
+
 function SWEP:PrimaryAttack()
  
 if ( !self:CanPrimaryAttack() ) then return end
@@ -167,7 +167,7 @@ self:TakePrimaryAmmo(self.Primary.TakeAmmo)
 self:SetNextPrimaryFire( CurTime() + self.Primary.Delay )
 self:SetNextSecondaryFire( CurTime() + self.Primary.Delay )
 end
- 
+
 function SWEP:SecondaryAttack()
 end
  

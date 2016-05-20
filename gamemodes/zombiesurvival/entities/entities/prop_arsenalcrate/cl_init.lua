@@ -47,6 +47,10 @@ function ENT:Draw()
 
 		local owner = self:GetObjectOwner()
 		local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
+		
+		if GAMEMODE:GetWave() <= 0 then
+			draw.SimpleTextOutlined( "Round Hasn't Started!", "ZSHUDFontSmall", 0, 30, COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+		end	
 	
 		if validOwner then
 			draw.SimpleTextOutlined( owner:Name() .."'s Weapons and Supplies", "ZSHUDFontSmall", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))

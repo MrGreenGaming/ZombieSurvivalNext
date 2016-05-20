@@ -39,7 +39,7 @@ SWEP.MeleeSize = 1.5
 SWEP.MeleeDamage = 30
 SWEP.MeleeDamageType = DMG_SLASH
 SWEP.MeleeAnimationDelay = 0.05
-SWEP.FrozenWhileSwinging = true
+SWEP.FrozenWhileSwinging = false
 
 SWEP.Primary.Delay = 1.5
 

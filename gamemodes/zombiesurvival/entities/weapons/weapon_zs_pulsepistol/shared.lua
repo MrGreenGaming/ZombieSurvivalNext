@@ -41,7 +41,7 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
 SWEP.Primary.Recoil			= 0.25
-SWEP.Primary.Damage			= 8
+SWEP.Primary.Damage			= 5
 SWEP.Primary.NumShots		= 2
 SWEP.Primary.ClipSize		= 8
 SWEP.Primary.Delay			= 0.12
@@ -70,8 +70,8 @@ SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 SWEP.fired = false
 SWEP.lastfire = 0
 SWEP.rechargetimer = 0
-SWEP.rechargerate = 0.40
-SWEP.startcharge = 1
+SWEP.rechargerate = 3
+SWEP.startcharge = 1.7
 SWEP.MaxClip = 12
 
 function SWEP:Think()

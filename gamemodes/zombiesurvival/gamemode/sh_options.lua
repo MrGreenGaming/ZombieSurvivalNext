@@ -239,7 +239,7 @@ end
 	pl:ChatPrint("You're a Commando, kill and destroy!")
 	pl:SetSpeed(190)
 
-if math.Random(1,3) == 3 then
+if math.random(1,3) == 3 then
 	pl:Give("weapon_zs_crackler")
 end
 	
@@ -341,7 +341,7 @@ end
 	pl:Give("weapon_zs_battleaxe")
 	pl:ChatPrint("You're a Support, Build barricades or fuck off!")
 	
-	pl:SetSpeed(190)
+	pl:SetSpeed(170)
 	pl:SetHealth(90)
 	pl:SetMaximumHealth(90)
 
@@ -442,10 +442,10 @@ GM:AddPointShopItem("Stoned Potato", "Stoned Potato +[SP]+", nil, ITEMCAT_OTHER,
 
 --// TOOLS \\--
 GM:AddPointShopItem("torch", "Blow Torch", nil, ITEMCAT_TOOLS, 35, "weapon_zs_torch")
-GM:AddPointShopItem("turret", "Turret", nil, ITEMCAT_TOOLS, 30, "weapon_zs_gunturret")
+--GM:AddPointShopItem("turret", "Turret", nil, ITEMCAT_TOOLS, 30, "weapon_zs_gunturret")
 GM:AddPointShopItem("junkpack", "Junk Pack", nil, ITEMCAT_TOOLS, 45, "weapon_zs_boardpack")
 GM:AddPointShopItem("miniturret", "Mini Turret", nil, ITEMCAT_TOOLS, 50, nil, function(pl) pl:SpawnMiniTurret() end) --Un decided to if this should be kept in the shop..
-GM:AddPointShopItem("supplycrate", "Supply Crate", nil, ITEMCAT_TOOLS, 50, "weapon_zs_arsenalcrate")
+--GM:AddPointShopItem("supplycrate", "Supply Crate", nil, ITEMCAT_TOOLS, 50, "weapon_zs_arsenalcrate")
 
 -- These are the honorable mentions that come at the end of the round.
 

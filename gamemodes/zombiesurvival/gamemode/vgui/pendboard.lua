@@ -27,15 +27,17 @@ function MakepEndBoard(winner)
 	
 	local frame = vgui.Create("DFrame")
 	frame:SetWide(wid)
+	frame:SetKeyboardInputEnabled()
 	frame:SetDeleteOnClose(false)
-	frame:SetCursor("pointer")
+	--frame:SetCursor("pointer")
 	frame:ShowCloseButton( false )
 	frame:SetTitle(" ")
-	frame:SetKeyboardInputEnabled(true)
-	frame:SetBackgroundBlur( true ) 
+
+	--frame:SetBackgroundBlur( true ) 
 	--frame.Paint = function( self, w, h ) 
 			--draw.RoundedBox( 0, 0, 0, w, h, Color( 1, 0, 0, 1 ) )
 		--end
+		
 	pEndBoard = frame
 
 	local y = 8
@@ -84,7 +86,7 @@ function MakepEndBoard(winner)
 	frame:Center()
 
 	frame:MakePopup()
-
+	frame:SetKeyboardInputEnabled()
 	return frame
 end
 

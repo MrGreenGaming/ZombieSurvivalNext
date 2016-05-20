@@ -38,7 +38,7 @@ SWEP.Spawnable			= false
 SWEP.AdminSpawnable		= false
 
 SWEP.ViewModel      = Model ( "models/weapons/c_grenade.mdl")
-SWEP.WorldModel   = Model ( "models/Weapons/v_crowbar.mdl" )
+SWEP.WorldModel   = Model ( "models/Weapons/w_crowbar.mdl" )
 SWEP.UseHands = true
 
 SWEP.Primary.Delay			= 0.01 	

@@ -7,7 +7,8 @@ function SWEP:Reload()
 	self.BaseClass.SecondaryAttack(self)
 end
 
-SWEP.Secondary.Damage = 4
+
+SWEP.Secondary.Damage = 10
 SWEP.NextLeap = 0
 function SWEP:SecondaryAttack()
 
@@ -25,7 +26,8 @@ function SWEP:SecondaryAttack()
 	local trClimb = util.TraceLine( { start = vStart, endpos = vStart + ( vAimVector * 10 ), filter = Owner } )
 		
 	if trClimb.HitWorld then
-		return
+			self.Owner:SetLocalVelocity(Vector(0, 0, 0))
+		return	
 	end
 	
 	--Leap cooldown / player flying
@@ -48,10 +50,13 @@ function SWEP:SecondaryAttack()
 	Owner:SetGroundEntity(NULL)
 	Owner:SetLocalVelocity(Velocity)
 
+						--Apply push
+	phys:ApplyForceCenter(Velocity)
+	ent:SetPhysicsAttacker(self.Owner)		
 	
 	phys:ApplyForceCenter(Velocity)
 
-	--ent:TakeDamage(self.Secondary.Damage, self.Owner, self)
+	ent:TakeDamage(self.Secondary.Damage, self.Owner, self)
 	
 	--Start leap
 	--self.Leaping = true

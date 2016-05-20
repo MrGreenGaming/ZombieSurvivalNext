@@ -129,7 +129,7 @@ function SWEP:PrimaryAttack()
 			
 		local owner = self.Owner
 	if self:CanPrimaryAttack() then
-		local health, maxhealth = owner:Health(), 100-- owner:GetMaxHealth()
+		local health, maxhealth = owner:Health(), owner:GetMaximumHealth()
 		local multiplier = 1
 		local toheal = 50
 		local totake = math.ceil(toheal / multiplier)

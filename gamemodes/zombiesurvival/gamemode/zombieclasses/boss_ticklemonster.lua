@@ -9,8 +9,8 @@ CLASS.Unlocked = true
 CLASS.Hidden = true
 CLASS.Boss = true
 
-CLASS.Health = 1200
-CLASS.Speed = 120
+CLASS.Health = 1500
+CLASS.Speed = 130
 
 CLASS.FearPerInstance = 1
 

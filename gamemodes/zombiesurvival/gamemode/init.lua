@@ -1201,7 +1201,7 @@ function GM:LastHuman(pl)
 		LASTHUMAN = true
 	end
 
-	pl:Give("weapon_zs_katana")
+	pl:Give("weapon_zs_sledgehammer")
 	self.TheLastHuman = pl
 end
 

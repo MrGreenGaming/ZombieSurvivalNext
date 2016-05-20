@@ -168,23 +168,18 @@ function MakepWorth(id)
 	MrGreen:SetSize( w * 0.22, h * 0.2 )
 	MrGreen:SetFont("ZSHUDFont2")
 	MrGreen:Center()
-	MrGreen:SetText("Mr.Green Zombie Survival")	
-		
-	local MrGreen2 = vgui.Create( "DLabel", Panel3 )
-	MrGreen2:SetPos(  w * 0.15, h * 0.001 )
-	MrGreen2:SetSize( w * 0.22, h * 0.2 )
-	MrGreen2:SetFont("ZSHUDFontSmallest")
-	MrGreen2:SetText("https://mrgreengaming.com/forums/")	
+	MrGreen:SetText("Mr. Green Zombie Survival")		
 
 	
-	--[[local LoadOut = vgui.Create( "DLabel", Panel2 )
-	LoadOut:SetPos(  w * 0.01, h * 0.006 )
-	LoadOut:SetSize( w * 0.22, h * 0.2 )
-	LoadOut:SetFont("ZSHUDFont")
-	LoadOut:SetText("Loadout:")]]--
+	local MrGreen = vgui.Create( "DLabel", Panel )
+	MrGreen:SetPos( w * 0.045, -60)
+	MrGreen:SetSize( w * 0.22, h * 0.2 )
+	MrGreen:SetFont("ZSHUDFont1.1")
+	MrGreen:SetText("Class Selection")	
 
 	local propertysheet = vgui.Create("DPropertySheet", Panel)
-	propertysheet:StretchToParent(4, 24, 4, 50)
+	--propertysheet:StretchToParent(4, 24, 4, 50) --Old
+	propertysheet:StretchToParent(4, 63, 4, 100)
 	propertysheet:SetKeyboardInputEnabled(true)
 	propertysheet.Paint = function()
 	end
@@ -204,7 +199,7 @@ function MakepWorth(id)
 		list:SetPaintBackground(false)
 		propertysheet:AddSheet(catname, list, GAMEMODE.ItemCategoryIcons[catid], false, false)
 		list:EnableVerticalScrollbar(false)
-		list:SetSpacing(50)
+		list:SetSpacing(30)
 		list:SetPadding(1)
 		list:SizeToContents()
 		list.Paint = function( self, w, h ) 
@@ -230,6 +225,16 @@ function MakepWorth(id)
 	frame:AlphaTo(225, 0.5, 0)
 	frame:MakePopup()
 	frame:SizeToContents()
+	
+	local col
+	local timeleft = math.max(0, GAMEMODE:GetWaveStart() - CurTime())
+	
+	if timeleft < 10 then
+		local glow = math.sin(RealTime() * 8) * 200 + 255
+		col = Color(255, glow, glow)
+	else
+		col = COLOR_GRAY
+	end
 
 	local checkout = vgui.Create("DButton",Panel4)
 	checkout:SetFont("ZSHUDFont3")
@@ -241,7 +246,10 @@ function MakepWorth(id)
 		surface.PlaySound("mrgreen/ui/menu_accept.wav")
 		CheckoutDoClick()
 	end
-		
+
+	--draw.SimpleTextOutlined("SPAWN ("..( timeleft )..")" , "ZSHUDFontSmallZombie", w * 0.2, h * 0.2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+	
+	
 	LoadoutMusic = {"gamestart_new1","gamestart_new2","gamestart1","gamestart2","gamestart3","gamestart4"}	
 		
 	if CHRISTMAS then
