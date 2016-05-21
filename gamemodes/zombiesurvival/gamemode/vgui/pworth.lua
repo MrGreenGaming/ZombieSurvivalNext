@@ -176,6 +176,12 @@ function MakepWorth(id)
 	MrGreen:SetSize( w * 0.22, h * 0.2 )
 	MrGreen:SetFont("ZSHUDFont1.1")
 	MrGreen:SetText("Class Selection")	
+	
+		local MrGreen = vgui.Create( "DLabel", Panel )
+	MrGreen:SetPos( w * 0.01, h * 0.38)
+	MrGreen:SetSize( w * 0.22, h * 0.2 )
+	MrGreen:SetFont("ZSHUDFontSmall")
+	MrGreen:SetText("Tip: To select another class \ndeselect your current class")
 
 	local propertysheet = vgui.Create("DPropertySheet", Panel)
 	--propertysheet:StretchToParent(4, 24, 4, 50) --Old

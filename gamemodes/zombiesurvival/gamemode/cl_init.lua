@@ -1568,7 +1568,7 @@ end
 
 local undomodelblend = false
 local undozombievision = false
-local matWhite = Material("models/--Debug/--Debugwhite")
+local matWhite = Material("models/Debug/Debugwhite")
 function GM:_PrePlayerDraw(pl)
 	if pl:CallZombieFunction("PrePlayerDraw") then return true end
 
@@ -1614,12 +1614,12 @@ function GM:_PostPlayerDraw(pl)
 		undozombievision = false
 	end
 
-	if pl ~= MySelf and MySelf:Team() == pl:Team() and pl:IsFriend() then
-		local pos = pl:GetPos() + Vector(0, 0, 2)
-		render.SetMaterial(matFriendRing)
-		render.DrawQuadEasy(pos, Vector(0, 0, 1), 32, 32, colFriend)
-		render.DrawQuadEasy(pos, Vector(0, 0, -1), 32, 32, colFriend)
-	end
+	--if pl ~= MySelf and MySelf:Team() == pl:Team() and pl:IsFriend() then
+		--local pos = pl:GetPos() + Vector(0, 0, 2)
+		--render.SetMaterial(matFriendRing)
+		--render.DrawQuadEasy(pos, Vector(0, 0, 1), 32, 32, colFriend)
+		--render.DrawQuadEasy(pos, Vector(0, 0, -1), 32, 32, colFriend)
+	--end
 end
 
 function GM:DrawCraftingEntity()

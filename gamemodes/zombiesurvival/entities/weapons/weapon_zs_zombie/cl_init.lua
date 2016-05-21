@@ -188,7 +188,7 @@ function SWEP:CalcView(ply, pos, ang, fov)
 	return pos, ang + curviewbob * self.ViewbobIntensity, fov
 end
 
-	function SWEP:GetViewModelPosition(pos, ang)
+function SWEP:GetViewModelPosition(pos, ang)
 		RotateAroundAxis(ang, Right(ang), CurAngMod.x + self.AngleDelta.p)
 		RotateAroundAxis(ang, Up(ang), CurAngMod.y + self.AngleDelta.y * 0.8)
 		RotateAroundAxis(ang, Forward(ang), CurAngMod.z + self.AngleDelta.y * 0.8)
@@ -198,4 +198,4 @@ end
 		pos = pos + (CurPosMod.z + self.BlendPos.z - self.AngleDelta.p * 0.4) * Up(ang)
 			
 		return pos, ang
-	end
+end

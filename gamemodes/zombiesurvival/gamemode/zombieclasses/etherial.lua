@@ -11,7 +11,7 @@ CLASS.Model = Model("models/wraith_zsv1.mdl")
 CLASS.Speed = 190
 
 
-CLASS.Points = 4
+CLASS.Points = 6
 
 CLASS.VoicePitch = 0.65
 

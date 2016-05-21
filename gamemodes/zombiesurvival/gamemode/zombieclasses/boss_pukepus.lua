@@ -11,7 +11,7 @@ CLASS.Boss = true
 
 CLASS.FearPerInstance = 1
 
-CLASS.Health = 2750
+CLASS.Health = 3100
 CLASS.SWEP = "weapon_zs_pukepus"
 
 CLASS.Model = Model("models/Zombie/Poison.mdl")

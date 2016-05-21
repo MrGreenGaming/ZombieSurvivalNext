@@ -13,7 +13,7 @@ CLASS.Health = 140
 CLASS.Speed = 260
 CLASS.SWEP = "weapon_zs_fastzombie"
 
-CLASS.Points = 5
+CLASS.Points = 6
 
 CLASS.Hull = {Vector(-16, -16, 0), Vector(16, 16, 58)}
 CLASS.HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)}
