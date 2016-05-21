@@ -117,7 +117,7 @@ end
 function SWEP:Swung()
 	local owner = self.Owner
 
-	--owner:LagCompensation(true)
+	owner:LagCompensation(true)
 
 	local hit = false
 	local traces = owner:PenetratingMeleeTrace(self.MeleeReach, self.MeleeSize, self.PreHit)
@@ -151,7 +151,7 @@ function SWEP:Swung()
 	
 	local owner = self.Owner
 
-	--owner:LagCompensation(false)
+	owner:LagCompensation(true)
 
 	if self.FrozenWhileSwinging then
 		owner:ResetSpeed()
@@ -184,9 +184,7 @@ function SWEP:MeleeHitEntity(ent, trace, damage, forcescale)
 	if phys:IsValid() and phys:IsMoveable() then
 		if trace.IsPreHit then
 			phys:ApplyForceOffset(damage * 750 * (forcescale or self.MeleeForceScale) * self.Owner:GetAimVector(), (ent:NearestPoint(self.Owner:EyePos()) + ent:GetPos() * 5) / 6)
-		--	phys:ApplyForceOffset(damage * 150 * (forcescale or self.MeleeForceScale) * self.Owner:GetAimVector(), (ent:NearestPoint(self.Owner:EyePos()) + ent:GetPos() * 5) / 6)
 		else
-			--phys:ApplyForceOffset(damage * 750 * (forcescale or self.MeleeForceScale) * trace.Normal, (ent:NearestPoint(trace.StartPos) + ent:GetPos() * 2) / 3)
 			phys:ApplyForceOffset(damage * 1250 * (forcescale or self.MeleeForceScale) * trace.Normal, (ent:NearestPoint(trace.StartPos) + ent:GetPos() * 2) / 3)
 		end
 
@@ -218,7 +216,7 @@ function SWEP:PrimaryAttack()
 	if CurTime() < self:GetNextPrimaryFire() or IsValid(self.Owner.FeignDeath) then return end
 
 	self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
-	self:SetNextSecondaryFire(self:GetNextPrimaryFire() + 0.5)
+	self:SetNextSecondaryFire(self:GetNextPrimaryFire() + 0.6)
 
 	self:StartSwinging()
 end

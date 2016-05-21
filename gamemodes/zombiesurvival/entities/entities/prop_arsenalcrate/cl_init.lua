@@ -49,13 +49,15 @@ function ENT:Draw()
 		local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
 		
 		if GAMEMODE:GetWave() <= 0 then
-			draw.SimpleTextOutlined( "Round Hasn't Started!", "ZSHUDFontSmall", 0, 30, COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined( "Round Hasn't Started!", "ZSHUDFontSmalldebug", 0, 30, COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+		else
+			draw.SimpleTextOutlined( "Supplies Available", "ZSHUDFontSmalldebug", 0, 30, COLOR_GREEN, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))		
 		end	
 	
 		if validOwner then
-			draw.SimpleTextOutlined( owner:Name() .."'s Weapons and Supplies", "ZSHUDFontSmall", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined( owner:Name() .."'s Weapons and Supplies", "ZSHUDFontSmalldebug", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 		else
-			draw.SimpleTextOutlined( "Weapons and Supplies", "ZSHUDFontSmall", -20, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined( "Weapons and Supplies", "ZSHUDFontSmalldebug", -20, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 		end
 	
 	    cam.End3D2D()

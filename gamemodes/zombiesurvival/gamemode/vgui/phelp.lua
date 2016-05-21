@@ -117,7 +117,7 @@ function MakepHelp()
 		</style>
 		</head>
 		<body>
-<center><span style="font-size:22px;font-weight:bold;color:limegreen;text-decoration:underline;">Zombie Survival</span><br>
+<center><span style="font-size:22px;font-weight:bold;color:limegreen;text-decoration:underline;">Zombie Survival </span><br>
 ]]..translate.Get(helptab.Name)..[[</center><br><br><div>]]..translate.Get(helptab.Content)..[[</div>
 </body>
 </html>]])

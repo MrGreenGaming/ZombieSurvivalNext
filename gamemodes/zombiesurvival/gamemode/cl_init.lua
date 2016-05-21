@@ -1137,6 +1137,8 @@ function GM:CreateFonts()
 	
 	
 
+	surface.CreateLegacyFont(CloseCaption_Normal, screenscale * 28, fontweight, false, false, "ZSHUDFontSmalldebug", false, false)
+
 
 end
 

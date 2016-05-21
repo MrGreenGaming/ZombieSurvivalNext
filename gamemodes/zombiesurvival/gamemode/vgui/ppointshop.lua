@@ -180,9 +180,9 @@ function GM:OpenPointsShop()
 	Button.DoClick = function(Button)
 		GAMEMODE.m_PointsShop:Close()
 	end
-	Button.Paint = function( self, w, h )
-		draw.RoundedBox( 0, 0, 0, w, h, Color( 50, 0, 0, 250 ) ) -- Draw a blue button
-	end
+--	Button.Paint = function( self, w, h )
+	--	draw.RoundedBox( 0, 0, 0, w, h, COLOR_DARKRED ) -- Draw a blue button
+--	end
 
 	
 	local lab = EasyLabel(bottomspace, " ", "ZSHUDFontTiny")

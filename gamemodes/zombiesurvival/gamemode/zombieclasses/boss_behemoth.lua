@@ -7,7 +7,7 @@ CLASS.Wave = 0
 CLASS.Threshold = 0
 CLASS.Unlocked = true
 CLASS.Hidden = true
-CLASS.Boss = true
+--CLASS.Boss = true
 
 CLASS.NoShadow = true
 
@@ -25,7 +25,7 @@ CLASS.Points = 200
 
 CLASS.SWEP = "weapon_zs_behemothez"
 
-CLASS.Model = Model("models/player/zombie_soldier.mdl")
+CLASS.Model = Model("models/zombie/zombie_soldier.mdl")
 
 CLASS.StepSize = 25
 
@@ -38,11 +38,11 @@ CLASS.PainSounds = {
 		Sound( "npc/strider/striderx_pain5.wav" ),
 		Sound( "npc/strider/striderx_pain7.wav" ),
 		Sound( "npc/strider/striderx_pain8.wav" )
-	}
+}
 	
 CLASS.DeathSounds = {
 		Sound("npc/strider/striderx_die1.wav")
-	}
+}
 	
 
 local ACT_HL2MP_SWIM_PISTOL = ACT_HL2MP_SWIM_PISTOL
@@ -117,4 +117,4 @@ function CLASS:BuildBonePositions(pl)
 
 end
 
-CLASS.Icon = "zombiesurvival/classmenu/behemouth"	
+CLASS.Icon = "zombiesurvival/classmenu/behemouth"

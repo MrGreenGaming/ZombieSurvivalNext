@@ -38,8 +38,9 @@ function ENT:Think()
 
 end
 
-function ENT:RenderInfo(pos, ang, owner)
 
+
+function ENT:RenderInfo(pos, ang, owner)
 
 	    self:DrawModel()
 
@@ -74,25 +75,25 @@ function ENT:RenderInfo(pos, ang, owner)
 				--Duby: Work on this soon!
 		
 		if GAMEMODE:GetWave() <= 0 then
-				draw.SimpleTextOutlined( "Round Hasn't Started!", "ZSHUDFontSmall", 0, 30, COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+				draw.SimpleTextOutlined( "Round Hasn't Started!", "ZSHUDFontSmalldebug", 0, 30, COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			--end	
 		elseif validOwner then
 			if NextUse <= CurTime() then
-				draw.SimpleTextOutlined( "Press E For Ammo", "ZSHUDFontSmallest", 0, 30, NextUse <= CurTime() and COLOR_GREEN or COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+				draw.SimpleTextOutlined( "Press E For Ammo", "ZSHUDFontSmalldebug", 0, 30, NextUse <= CurTime() and COLOR_GREEN or COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			--end
 		end
 		
 		end
 	
 		if validOwner then
-			draw.SimpleTextOutlined( owner:Name() .."'s Mobile Supplies", "ZSHUDFontSmall", 0, 0, NextUse <= CurTime() and COLOR_GREEN or COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined( owner:Name() .."'s Mobile Supplies", "ZSHUDFontSmalldebug", 0, 0, NextUse <= CurTime() and COLOR_GREEN or COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 		else
-			draw.SimpleTextOutlined( "Unclaimed Mobile Supplies", "ZSHUDFontSmall", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined( "Unclaimed Mobile Supplies", "ZSHUDFontSmalldebug", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 		end
 		
 		if validOwner then
 			if NextUse >= CurTime() then
-				draw.SimpleTextOutlined(util.ToMinutesSeconds(math.max(0, NextUse - CurTime() )) , "ZSHUDFontSmall", 0, 30, COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+				draw.SimpleTextOutlined(util.ToMinutesSeconds(math.max(0, NextUse - CurTime() )) , "ZSHUDFontSmalldebug", 0, 30, COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			end
 		end		
 
