@@ -1218,7 +1218,7 @@ function GM:PlayerHealedTeamMember(pl, other, health, wep)
 
 	if 1 <= points then
 		pl:AddPoints(points)
-
+		pl:AddPoints(3)
 		pl.CarryOverHealth = pl.CarryOverHealth - points * hpperpoint
 
 		net.Start("zs_healother")

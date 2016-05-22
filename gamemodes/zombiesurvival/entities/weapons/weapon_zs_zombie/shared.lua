@@ -7,7 +7,7 @@ SWEP.WorldModel = "models/weapons/w_crowbar.mdl"
 SWEP.MeleeDelay = 0.74
 SWEP.MeleeReach = 48
 SWEP.MeleeSize = 1.5
-SWEP.MeleeDamage = 30
+SWEP.MeleeDamage = 26
 SWEP.MeleeForceScale = 1
 SWEP.MeleeDamageType = DMG_SLASH
 
@@ -204,7 +204,7 @@ function SWEP:PrimaryAttack()
 	if CurTime() < self:GetNextPrimaryFire() or IsValid(self.Owner.FeignDeath) then return end
 
 	self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
-	self:SetNextSecondaryFire(self:GetNextPrimaryFire() + 0.5)
+	self:SetNextSecondaryFire(self:GetNextPrimaryFire() + 0.6)
 
 	self:StartSwinging()
 end

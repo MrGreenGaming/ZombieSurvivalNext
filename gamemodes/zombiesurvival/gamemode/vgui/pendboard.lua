@@ -69,7 +69,7 @@ function MakepEndBoard(winner)
 	y = y + svpan:GetTall() + 4
 
 	local list = vgui.Create("DPanelList", frame)
-	list:SetSize(wid2 - 16, 420)
+	list:SetSize(wid2 - 16, 400)
 	list:SetPos(8, y + 110)
 	list:SetPadding(2)
 	list:SetSpacing(2)

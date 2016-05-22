@@ -14,7 +14,17 @@ if ( SERVER ) then
 	tags["STEAM_0:1:16927564"] = { "[β] ", Color(0,800,0,255) } --The Real Freeman
 	tags["STEAM_0:0:28757539"] = { "[β] ", Color(0,800,0,255) } --Green Cube
 	tags["STEAM_0:0:8169277"] = { "[β] ", Color(0,800,0,255) } --AzoNa
-
+	
+	tags["STEAM_0:0:51930358"] = { "[OldFag] ", Color(0,800,0,255) } --Zoidburg
+	tags["STEAM_0:1:50553529"] = { "[OldFag] ", Color(0,800,0,255) } --Rob	
+	tags["STEAM_0:0:60372095"] = { "[OldFag] ", Color(0,800,0,255) } --Zarco
+	tags["STEAM_0:0:30210736"] = { "[OldFag] ", Color(0,800,0,255) } --Antz	
+	tags["STEAM_0:1:43653852"] = { "[OldFag] ", Color(0,800,0,255) } --Lejorah	
+	tags["STEAM_0:1:6914195"] = { "[OldFag] ", Color(0,800,0,255) } --HodsHand
+	tags["STEAM_0:0:23697677"] = { "[OldFag] ", Color(0,800,0,255) } --Stellathefella
+	tags["STEAM_0:1:26630595"] = { "[OldFag] ", Color(0,800,0,255) } --LameShot
+	tags["STEAM_0:1:14133131"] = { "[OldFag] ", Color(0,800,0,255) } --BrainDawg
+	
 	local Player = FindMetaTable("Player") 
 
 	function Player:SetTag( tag, col )
@@ -81,9 +91,9 @@ local function OnPlayerChat( self, strText, bTeamOnly, bPlayerIsDead )
 			table.insert( tab, ""..self:GetName() .. ": " )
 						table.insert( tab, Color( 255, 255, 255 ) )
 			table.insert( tab, ""..strText )
-		end
+		--end
 		
-		if ply:Team() == TEAM_SURVIVORS then
+		elseif ply:Team() == TEAM_SURVIVORS then
 			table.insert( tab, Color( 43, 129, 198 ) )
 			table.insert( tab, ""..self:GetName() .. ": ")
 			table.insert( tab, Color( 255, 255, 255 ) )
@@ -94,8 +104,7 @@ local function OnPlayerChat( self, strText, bTeamOnly, bPlayerIsDead )
 	 
 		return true
 	end
-
 	hook.Add("OnPlayerChat", "OnPlayerChat", OnPlayerChat)
---end
+
 
 

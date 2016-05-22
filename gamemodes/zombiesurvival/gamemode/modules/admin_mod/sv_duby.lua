@@ -19,6 +19,7 @@ net.Receive( "Clavus", function( len, pl )
 	pl:Give("weapon_zs_hegrenade")
 	pl:Give("weapon_zs_flakcannon")
 	pl:Give("weapon_zs_cerebralbore")
+	pl:Give("weapon_zs_proxmines")
 end )
 
 

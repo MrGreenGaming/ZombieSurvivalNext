@@ -8,7 +8,7 @@ CLASS.Wave = 1 / 3
 CLASS.Health = 190
 CLASS.SWEP = "weapon_zs_etherial"
 CLASS.Model = Model("models/wraith_zsv1.mdl")
-CLASS.Speed = 190
+CLASS.Speed = 160
 
 
 CLASS.Points = 6

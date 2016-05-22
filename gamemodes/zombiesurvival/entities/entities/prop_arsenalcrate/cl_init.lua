@@ -16,18 +16,14 @@ function ENT:Draw()
 
 	if not MySelf:IsValid() then return end
 
-	
-
 	    self:DrawModel()
 
 	    if not IsValid(MySelf) or MySelf:Team() ~= TEAM_HUMAN then
 	        return
 	    end
 
-		if MySelf.MobileSupplyTimerActive == false then
-	    	--self.LineColor = Color(0, math.abs(200 * math.sin(CurTime() * 3)), 0, 100)
+		if MySelf.MobileSupplyTimerActive == false then --Duby: Find out what this does..
 	    elseif self.LineColor ~= Color(210, 0, 0, 100) then
-	    	--self.LineColor = Color(210, 0, 0, 100)
 	    end
 
 	    --Draw some stuff

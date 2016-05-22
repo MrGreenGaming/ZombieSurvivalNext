@@ -36,11 +36,11 @@ OldFags = {
 "STEAM_0:0:51930358", --Zoidburg
 "STEAM_0:1:50553529", --Rob
 "STEAM_0:1:19523408", --Pufulet
-"",
-"",
-"",
-"",
-"",
+"STEAM_0:1:43653852", --Lejorah
+"STEAM_0:1:6914195",  --GodsHands
+"STEAM_0:0:23697677", --Stellathefella
+"STEAM_0:1:26630595", --Lameshot
+"STEAM_0:1:14133131", --BrainDawg
 "",
 "",
 "",
@@ -289,6 +289,7 @@ if math.random(1,4) == 1  then --Gordan freeman!
 	pl:Give("weapon_zs_peashooter")
 	pl:Give("weapon_zs_vodka")  
 	pl:Give("weapon_zs_resupplybox")  
+	pl:Give("weapon_zs_crowbar")  
 	
 else --Normal Berserker
 		

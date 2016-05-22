@@ -120,7 +120,6 @@ function ENT:Use(activator, caller)
 	local myuid = activator:UniqueID()
 
 	if CurTime() < (NextUse[myuid] or 0) then
-		--activator:CenterNotify(COLOR_RED, translate.ClientGet(activator, "no_ammo_here"))
 		return
 	end
 
@@ -171,13 +170,6 @@ function ENT:Use(activator, caller)
 	net.Send(activator)
 
 	activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype], ammotype)
-	--activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype2], ammotype2)
-	--activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype3], ammotype3)
-	--activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype4], ammotype4)
-	--activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype5], ammotype5)
-	--activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype6], ammotype6)
-	--activator:GiveAmmo(GAMEMODE.AmmoResupply[ammotype7], ammotype7)
---
 	
 	if activator ~= owner and owner:IsValid() and owner:IsPlayer() and owner:Team() == TEAM_HUMAN then
 		owner.ResupplyBoxUsedByOthers = owner.ResupplyBoxUsedByOthers + 1
