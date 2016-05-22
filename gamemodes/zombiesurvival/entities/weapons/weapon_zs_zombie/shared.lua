@@ -4,11 +4,11 @@ SWEP.IsMelee = true
 SWEP.ViewModel = Model("models/Weapons/v_zombiearms.mdl")
 SWEP.WorldModel = "models/weapons/w_crowbar.mdl"
 
-SWEP.MeleeDelay = 0.95
-SWEP.MeleeReach = 51
+SWEP.MeleeDelay = 0.74
+SWEP.MeleeReach = 48
 SWEP.MeleeSize = 1.5
-SWEP.MeleeDamage = 25
-SWEP.MeleeForceScale = 1.1
+SWEP.MeleeDamage = 30
+SWEP.MeleeForceScale = 1
 SWEP.MeleeDamageType = DMG_SLASH
 
 SWEP.AlertDelay = 2.5
@@ -23,14 +23,6 @@ SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = true
 SWEP.Secondary.Ammo = "none"
-
-SWEP.BobScale = 1.2
-SWEP.SwayScale = 1
-
-SWEP.BlendPos = Vector(0, 0, 0)
-SWEP.BlendAng = Vector(0, 0, 0)
-SWEP.OldDelta = Angle(0, 0, 0)
-SWEP.AngleDelta = Angle(0, 0, 0)
 
 function SWEP:StopMoaningSound()
 	local owner = self.Owner
@@ -117,10 +109,9 @@ end
 function SWEP:Swung()
 	local owner = self.Owner
 
-	owner:LagCompensation(true)
+	--owner:LagCompensation(true)
 
 	local hit = false
-	--local traces = owner:PenetratingMeleeTrace(self.MeleeReach, self.MeleeSize, self.PreHit)
 	local traces = owner:PenetratingClipHullMeleeTrace(self.MeleeReach, self.MeleeSize, self.PreHit)
 	self.PreHit = nil
 
@@ -148,11 +139,8 @@ function SWEP:Swung()
 			self:PlayMissSound()
 		end
 	end
-	
-	
-	local owner = self.Owner
 
-	owner:LagCompensation(true)
+	--owner:LagCompensation(false)
 
 	if self.FrozenWhileSwinging then
 		owner:ResetSpeed()
@@ -164,7 +152,6 @@ function SWEP:Think()
 	self:CheckAttackAnimation()
 	self:CheckMoaning()
 	self:CheckMeleeAttack()
-	
 end
 
 function SWEP:MeleeHitWorld(trace)
@@ -217,7 +204,7 @@ function SWEP:PrimaryAttack()
 	if CurTime() < self:GetNextPrimaryFire() or IsValid(self.Owner.FeignDeath) then return end
 
 	self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
-	self:SetNextSecondaryFire(self:GetNextPrimaryFire() + 0.6)
+	self:SetNextSecondaryFire(self:GetNextPrimaryFire() + 0.5)
 
 	self:StartSwinging()
 end
@@ -293,7 +280,6 @@ function SWEP:StartSwinging()
 	else
 		self:Swung()
 	end
-	
 end
 
 function SWEP:StopSwinging()
