@@ -41,7 +41,7 @@ function SWEP:PrimaryAttack()
 
 	local status = owner.status_ghost_resupplybox
 	if not (status and status:IsValid()) then return end
-	status:RecalculateValidity()
+	status:RecalculateValidity() 
 	if not status:GetValidPlacement() then return end
 
 	local pos, ang = status:RecalculateValidity()

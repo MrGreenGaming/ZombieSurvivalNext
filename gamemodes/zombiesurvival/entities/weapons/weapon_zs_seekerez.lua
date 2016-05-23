@@ -16,48 +16,10 @@ SWEP.MeleeRange = 60
 SWEP.MeleeAnimationDelay = 0.35
 
 
-
-
---[[function SWEP:OnMeleeHit(hitent, hitflesh, tr)
-	if not hitent:IsPlayer() then
-		self.MeleeDamage = 35	
-	end
-end]]--
-
-
 function SWEP:PlayAlertSound()
 	self.Owner:EmitSound("zombies/seeker/screamclose.wav")
 end
 SWEP.PlayIdleSound = SWEP.PlayAlertSound
-
-
---[[function SWEP:PlayHitSound()
-	self.Owner:EmitSound("zombies/seeker/melee_0"..math.random(3)..".wav")
-	local pl = self.Owner
-
---Lets make him visible then not visible. :O Spooky!
-self.Owner:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(225,225,225,225))
-timer.Simple(1, function() 
-	self.Owner:SetRenderMode(RENDERMODE_NONE) pl:SetColor(Color(225,225,225,1))
-	end)
-end
-
-function SWEP:PlaySwingSound()
-	--self.Owner:EmitSound("zombies/seeker/melee_0"..math.random(3)..".wav")
-	self.Owner:EmitSound("ambient/machines/slicer1.wav")
-	
-local pl = self.Owner
-
---Lets make him visible then not visible. :O Spooky!
-self.Owner:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(225,225,225,225))
-timer.Simple(1, function() 
-	self.Owner:SetRenderMode(RENDERMODE_NONE) pl:SetColor(Color(225,225,225,1))
-	end)
-end]]--
-
---[[function SWEP:PostOnMeleeHit(hitent, hitflesh, tr)
-	self.MeleeDamage = 55
-end]]--
 
 
 local matSheet = Material("Models/Charple/Charple1_sheet")

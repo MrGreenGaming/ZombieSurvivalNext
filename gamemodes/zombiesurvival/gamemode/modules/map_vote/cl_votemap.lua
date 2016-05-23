@@ -19,18 +19,12 @@ function Votemap:ToggleMenu( bl )
 	Votemap.Menu = vgui.Create("DFrame")
 	Votemap.Menu:SetTitle("")
 	Votemap.Menu:SetSize(600, 400)
---	Votemap.Menu:SetPos(w * 0.41, h * 0.42)
-	--Votemap.Menu:SetPos(w * 0.33, h * 0.42)
 	Votemap.Menu:Center()
 	Votemap.Menu:MakePopup()
 	Votemap.Menu:SetKeyBoardInputEnabled()
---	Votemap.Menu:SetBackgroundBlur( true ) 
 	Votemap.Menu:ShowCloseButton(false)
 	Votemap.Menu:SetDraggable(false)
-	--Votemap.Menu.Paint = function()
-	--	surface.SetDrawColor(0,0,0,0)	
-	--end
-			
+	
 	
 	Votemap.Menu.Label = vgui.Create("DLabel",Votemap.Menu)
 	Votemap.Menu.Label:SetText( "Map Vote" )
@@ -38,26 +32,14 @@ function Votemap:ToggleMenu( bl )
 	Votemap.Menu.Label:SetTextColor(COLOR_DARKRED)
 	Votemap.Menu.Label:SetPos( w * 0.12, h * 0.01)
 	Votemap.Menu.Label:SizeToContents()
-	
-	--[[Votemap.Menu.Label2 = vgui.Create("DLabel",Votemap.Menu.Label)
-	Votemap.Menu.Label2:SetText( "Quickly.. A horde is aproaching...." )
-	Votemap.Menu.Label2:SetFont( "ZSHUDFont" )
-	Votemap.Menu.Label2:SetTextColor(COLOR_DARKRED)
-	Votemap.Menu.Label2:SetPos( 0, h * 0.02 )
-	Votemap.Menu.Label2:SizeToContents()]]--
-
 
 
 	Votemap.Menu.ListView = vgui.Create("DListView", Votemap.Menu)
 	Votemap.Menu.ListView:SetSize( 200, 250 )
---	Votemap.Menu.ListView:SetSize( 500, 200 )
 	Votemap.Menu.ListView:SetPos( 200, 90 )
 	Votemap.Menu.ListView:AddColumn( "" )
 	Votemap.Menu.ListView:AddColumn( "" )
 	Votemap.Menu.ListView:SetMultiSelect( false )
-	--Votemap.Menu.ListView.Paint = function()
-	--	surface.SetDrawColor(255,1,1,100)	
-	--end
 
 
 	for k,v in pairs(Votemap.Maps) do

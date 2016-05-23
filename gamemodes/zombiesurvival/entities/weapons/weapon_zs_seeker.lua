@@ -69,7 +69,7 @@ function SWEP:PlayHitSound()
 	local pl = self.Owner
 
 --Lets make him visible then not visible. :O Spooky!
-self.Owner:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(225,225,225,225))
+self.Owner:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(225,225,225,10))
 timer.Simple(1, function() 
 	self.Owner:SetRenderMode(RENDERMODE_NONE) pl:SetColor(Color(225,225,225,1))
 	end)
@@ -82,7 +82,7 @@ function SWEP:PlaySwingSound()
 local pl = self.Owner
 
 --Lets make him visible then not visible. :O Spooky!
-self.Owner:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(225,225,225,225))
+self.Owner:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(225,225,225,10))
 timer.Simple(1, function() 
 	self.Owner:SetRenderMode(RENDERMODE_NONE) pl:SetColor(Color(225,225,225,1))
 	end)
@@ -90,7 +90,6 @@ timer.Simple(1, function()
 end
 
 if CLIENT then
-
 
 	SWEP.wRenderOrder = nil
 	function SWEP:DrawWorldModel()
@@ -219,20 +218,6 @@ if CLIENT then
 
 
 end
-
---[[function SWEP:DrawWorldModel()
-
-if self.WElements then 
-
-	for k,v in pairs(self.WElements) do
-	 if self:IsSwinging() then
-		v:SetColor(Color(225,225,225,225))
-	else
-		v:SetColor(Color(225,225,225,1))
-	end
-end
-end
-end]]--
 
 function SWEP:PlayAlertSound()
 	self.Owner:EmitSound("zombies/seeker/screamclose.wav")

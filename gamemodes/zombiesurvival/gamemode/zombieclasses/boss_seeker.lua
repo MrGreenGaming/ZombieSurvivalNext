@@ -5,9 +5,9 @@ CLASS.Help = "controls_seeker"
 
 CLASS.Wave = 0
 CLASS.Threshold = 0
---CLASS.Unlocked = true
---CLASS.Hidden = true
---CLASS.Boss = true
+CLASS.Unlocked = true
+CLASS.Hidden = true
+CLASS.Boss = true
 
 CLASS.NoShadow = true
 
@@ -74,10 +74,7 @@ function CLASS:UpdateAnimation(pl, velocity, maxseqgroundspeed)
 	return true
 end
 
-function CLASS:OnKilled(pl, attacker, inflictor, suicide, headshot, dmginfo, assister)
-	pl:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(225,225,225,225))
-	return true
-end
+
 
 function CLASS:DoAnimationEvent(pl, event, data)
 	if event == PLAYERANIMEVENT_ATTACK_PRIMARY then
@@ -93,6 +90,11 @@ if SERVER then
 end
 
 if not CLIENT then return end
+
+function CLASS:OnKilled(pl, attacker, inflictor, suicide, headshot, dmginfo, assister)
+	pl:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(225,225,225,225))
+	return true
+end
 
 local vecSpineOffset = Vector(10, 0, 0)
 local SpineBones = {"ValveBiped.Bip01_Spine2", "ValveBiped.Bip01_Spine4", "ValveBiped.Bip01_Spine3"}

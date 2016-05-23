@@ -548,14 +548,12 @@ end)
 
 -- Initial length for wave 1.
 GM.WaveOneLength = 220
---GM.WaveOneLength = 4
 
 -- For Classic Mode
 GM.WaveOneLengthClassic = 120
 
 -- Add this many seconds for each additional wave.
 GM.TimeAddedPerWave = 15
---GM.TimeAddedPerWave = 1
 
 -- For Classic Mode
 GM.TimeAddedPerWaveClassic = 10
@@ -571,15 +569,13 @@ GM.WaveZeroLength = 120
 --GM.WaveZeroLength = 30
 
 -- Time humans have between waves to do stuff without NEW zombies spawning. Any dead zombies will be in spectator (crow) view and any living ones will still be living.
---GM.WaveIntermissionLength = 5
 GM.WaveIntermissionLength = 90
 
 -- For Classic Mode
 GM.WaveIntermissionLengthClassic = 20
 
 -- Time in seconds between end round and next map.
-GM.EndGameTime = 65
---GM.EndGameTime = 30
+GM.EndGameTime = 55
 
 -- How many clips of ammo guns from the Worth menu start with. Some guns such as shotguns and sniper rifles have multipliers on this.
 GM.SurvivalClips = 3

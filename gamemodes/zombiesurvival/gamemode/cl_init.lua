@@ -704,7 +704,7 @@ function GM:HumanHUD(screenscale)
 	if not self.RoundEnded then
 	--Duby: Temp Disabled until I find a proper place..
 	
-		--[[if self:GetWave() == 0 and not self:GetWaveActive() then
+		if self:GetWave() == 0 and not self:GetWaveActive() then
 			local txth = draw_GetFontHeight("ZSHUDFontSmall")
 
 
@@ -714,19 +714,19 @@ function GM:HumanHUD(screenscale)
 
 
 			
-			draw_SimpleText("Zombie Volunteers:", "ZSHUDFontSmall", w * 0.5, h * 0.9 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER)
+			draw_SimpleText("Zombie volunteers", "ZSHUDFontSmall", w * 0.07, h * 0.15 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER)
 			
 			local y = h * 0.75 + txth * 2
 
 			txth = draw_GetFontHeight("ZSHUDFontTiny")
 			for i, pl in ipairs(self.ZombieVolunteers) do
 				if pl:IsValid() then
-					draw_SimpleText(pl:Name(), "ZSHUDFontSmall", w * 0.5, y * 0.95, pl == MySelf and COLOR_RED or COLOR_GRAY, TEXT_ALIGN_CENTER) 
-					y = y + txth * 1.8
+					draw_SimpleText(pl:Name(), "ZSHUDFontSmall", w * 0.07, y * 0.25, pl == MySelf and COLOR_RED or COLOR_GRAY, TEXT_ALIGN_CENTER) 
+					y = y + txth * 4.4
 					
 				end
 			end
-		end]]--
+		end
 
 		local drown = MySelf.status_drown
 		if drown and drown:IsValid() then
@@ -755,7 +755,7 @@ function GM:HumanHUD2(screenscale)
 	local w, h = ScrW(), ScrH()
 	
 	draw.RoundedBox( 12, w * 0.01, h * 0.01, w * 0.12, h * 0.09, Color(1, 1, 1, 100) ) 	
-	draw.RoundedBox( 12, w * 0.01, h * 0.889, w * 0.17, h * 0.09, Color(1, 1, 1, 100) )	
+	draw.RoundedBox( 12, w * 0.01, h * 0.89, w * 0.17, h * 0.09, Color(1, 1, 1, 100) )	
 	draw.RoundedBox( 12, w * 0.01, h * 0.83, w * 0.06, h * 0.05, Color(1, 1, 1, 100) )
 	
 	local pl = LocalPlayer()

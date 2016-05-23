@@ -45,7 +45,7 @@ function SWEP:PlayMissSound()
 end
 
 function SWEP:PlayAttackSound()
-	self.Owner:EmitSound("npc/zombiegreen/claw_miss_"..math.random(2)..".wav")
+	self.Owner:EmitSound("npc/zombiegreen/rage_at_victim"..math.random(20,37)..".wav")
 end
 
 function SWEP:Initialize()

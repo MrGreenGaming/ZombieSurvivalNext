@@ -123,7 +123,7 @@ if myteam == TEAM_UNDEAD then --Zombies!
 			col = COLOR_GRAY
 		end
 
-			draw.SimpleText("Invasion In " .. util.ToMinutesSeconds(timeleft) .. "", "ZSHUDFontSmallZombie", 30 * X_MULTIPLIER, Y_MULTIPLIER, col)	
+			draw.SimpleText("Invasion in " .. util.ToMinutesSeconds(timeleft) .. "", "ZSHUDFontSmallZombie", 30 * X_MULTIPLIER, Y_MULTIPLIER, col)	
 	elseif GAMEMODE:GetWaveActive() then
 		local waveend = GAMEMODE:GetWaveEnd()
 		if waveend ~= -1 then

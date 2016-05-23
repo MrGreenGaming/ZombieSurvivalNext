@@ -46,7 +46,8 @@ metal barrel + something = body armor
 --resource.AddWorkshop("685949762") -- Beta V11
 --resource.AddWorkshop("686504826") -- Beta V12
 --resource.AddWorkshop("686977175") -- Beta V13
-resource.AddWorkshop("690108276") -- Beta V14
+--resource.AddWorkshop("690108276") -- Beta V14
+resource.AddWorkshop("690146111") -- Beta V15
 resource.AddWorkshop("650070929") -- Dual Pistols
 
 AddCSLuaFile("cl_init.lua")
@@ -82,8 +83,6 @@ AddCSLuaFile("client/cl_splitmessage.lua")
 AddCSLuaFile("client/cl_chatbox.lua")
 
 
-
-
 AddCSLuaFile("obj_vector_extend.lua")
 AddCSLuaFile("obj_player_extend.lua")
 AddCSLuaFile("obj_player_extend_cl.lua")
@@ -114,8 +113,6 @@ AddCSLuaFile("vgui/pworth.lua")
 AddCSLuaFile("vgui/ppointshop.lua")
 AddCSLuaFile("vgui/zshealtharea.lua")
 
-
-
 include("shared.lua")
 include("sv_options.lua")
 include("server/sv_director_heal_human.lua")
@@ -126,9 +123,7 @@ include("mapeditor.lua")
 include("sv_playerspawnentities.lua")
 include("sv_profiling.lua")
 include("sv_sigils.lua")
-
 include("client/cl_chatsounds.lua")
-
 
 
 --[[MODUELS]]--
@@ -1845,6 +1840,7 @@ function GM:PlayerRedeemed(pl, silent, noequip)
 	pl:UnSpectateAndSpawn()
 	pl.m_PreRedeem = nil
 	pl:DoHulls()
+	pl:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(225,225,225,225))
 
 	local frags = pl:Frags()
 	if frags < 0 then
