@@ -25,7 +25,7 @@ function SWEP:SecondaryAttack()
 	end
 
 	if SERVER then
-		self.Owner:EmitSound("zombies/behemoth/scream.wav", math.random(140, 160), math.random(50, 90))
+		self.Owner:EmitSound("zombies/hate/sawrunner_alert30.wav", math.random(140, 160), math.random(90, 100))
 	end
 
 	self.NextYell = CurTime() + math.random(8,13)

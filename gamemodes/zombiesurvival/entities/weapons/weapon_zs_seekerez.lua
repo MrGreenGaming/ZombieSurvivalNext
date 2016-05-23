@@ -10,7 +10,6 @@ SWEP.ZombieOnly = true
 SWEP.Primary.Delay = 1.9
 SWEP.Primary.Duration = 2
 SWEP.Primary.Reach = 60
---SWEP.Primary.Damage = 35
 
 SWEP.MeleeDelay = 1.9
 SWEP.MeleeRange = 60
@@ -31,7 +30,7 @@ end
 SWEP.PlayIdleSound = SWEP.PlayAlertSound
 
 
-function SWEP:PlayHitSound()
+--[[function SWEP:PlayHitSound()
 	self.Owner:EmitSound("zombies/seeker/melee_0"..math.random(3)..".wav")
 	local pl = self.Owner
 
@@ -53,7 +52,7 @@ self.Owner:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(225,225,225,225))
 timer.Simple(1, function() 
 	self.Owner:SetRenderMode(RENDERMODE_NONE) pl:SetColor(Color(225,225,225,1))
 	end)
-end
+end]]--
 
 --[[function SWEP:PostOnMeleeHit(hitent, hitflesh, tr)
 	self.MeleeDamage = 55

@@ -26,6 +26,7 @@ function ENT:Initialize()
 
 	self:SetMaxObjectHealth(200)
 	self:SetObjectHealth(self:GetMaxObjectHealth())
+	
 end
 
 function ENT:KeyValue(key, value)
@@ -108,6 +109,7 @@ function ENT:OnPackedUp(pl)
 	pl:PushPackedItem(self:GetClass(), self:GetObjectHealth())
 
 	self:Remove()
+	hook.Remove( "PreDrawHalos", "AddAegisHalos".. tostring(self))
 end
 
 function ENT:Think()

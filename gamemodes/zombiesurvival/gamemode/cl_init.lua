@@ -835,8 +835,8 @@ end
 function GM:ZombieHUD2(screenscale)
 
 	--Duby: I will place this into a module soon enough!
-	local hudsplat = Material("hud/hudbackgroundnew_zombie.png") --Items for the HUD.
-	local hudsplat2 = Material("hud/hudbackgroundnew_zombie.png") --Items for the HUD.
+	local hudsplat = Material("hud/z_hud_1.png") --Items for the HUD.
+	local hudsplat2 = Material("hud/z_hud_2.png") --Items for the HUD.
 
 	
 	local SCREEN_W = 1920; --Remove this and add the other system soon..
@@ -850,11 +850,11 @@ function GM:ZombieHUD2(screenscale)
 	
 	surface.SetMaterial(hudsplat)
 	surface.SetDrawColor(225, 225, 225, 225 )
-	surface.DrawTexturedRect(w * -0.05, h * 0, w * 0.22, h * 0.14)
+	surface.DrawTexturedRect(w * -0.02, h * -0.01, w * 0.21, h * 0.14)
 	
 	surface.SetMaterial(hudsplat2)
 	surface.SetDrawColor(225, 225, 225, 225 )
-	surface.DrawTexturedRect(w * -0.05, h * 0.88, w * 0.25, h * 0.2)
+	surface.DrawTexturedRect(w * -0.03, h * 0.86, w * 0.25, h * 0.2)
 	
 	draw.SimpleText("+"..HP, "ZSHUDFontLargeZombie",w * 0.04, h * 0.91 , COLOR_GRAY, TEXT_ALIGN_CENTER)
 	

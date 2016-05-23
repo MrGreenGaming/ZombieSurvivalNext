@@ -5,9 +5,9 @@ CLASS.Help = "controls_seeker"
 
 CLASS.Wave = 0
 CLASS.Threshold = 0
-CLASS.Unlocked = true
-CLASS.Hidden = true
-CLASS.Boss = true
+--CLASS.Unlocked = true
+--CLASS.Hidden = true
+--CLASS.Boss = true
 
 CLASS.NoShadow = true
 

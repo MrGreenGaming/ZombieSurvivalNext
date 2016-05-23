@@ -2,14 +2,18 @@ include("shared.lua")
 
 function ENT:Initialize()
 	self:SetRenderBounds(Vector(-72, -72, -72), Vector(72, 72, 128))
+	
 end
 
+function ENT:OnRemove()
 
+end
 
 function ENT:SetObjectHealth(health)
 	self:SetDTFloat(0, health)
 end
 
+ENT.LineColor = Color(210, 0, 0, 100)
 local colFlash = Color(30, 255, 30)
 function ENT:Draw()
 	
@@ -20,10 +24,6 @@ function ENT:Draw()
 
 	    if not IsValid(MySelf) or MySelf:Team() ~= TEAM_HUMAN then
 	        return
-	    end
-
-		if MySelf.MobileSupplyTimerActive == false then --Duby: Find out what this does..
-	    elseif self.LineColor ~= Color(210, 0, 0, 100) then
 	    end
 
 	    --Draw some stuff
@@ -45,8 +45,10 @@ function ENT:Draw()
 		local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
 		
 		if GAMEMODE:GetWave() <= 0 then
+			self.LineColor = Color(0, math.abs(200 * math.sin(CurTime() * 3)), 0, 100)
 			draw.SimpleTextOutlined( "Round Hasn't Started!", "ZSHUDFontSmalldebug", 0, 30, COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 		else
+			self.LineColor = Color(210, 0, 0, 100)
 			draw.SimpleTextOutlined( "Supplies Available", "ZSHUDFontSmalldebug", 0, 30, COLOR_GREEN, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))		
 		end	
 	
