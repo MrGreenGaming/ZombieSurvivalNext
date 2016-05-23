@@ -8,7 +8,7 @@ function SWEP:Reload()
 end
 
 
-SWEP.Secondary.Damage = 10
+--SWEP.Secondary.Damage = 10
 SWEP.NextLeap = 0
 function SWEP:SecondaryAttack()
 
@@ -56,7 +56,7 @@ function SWEP:SecondaryAttack()
 	
 	phys:ApplyForceCenter(Velocity)
 
-	ent:TakeDamage(self.Secondary.Damage, self.Owner, self)
+	--ent:TakeDamage(self.Secondary.Damage, self.Owner, self)
 	
 	--Start leap
 	--self.Leaping = true
