@@ -45,7 +45,8 @@ metal barrel + something = body armor
 --resource.AddWorkshop("685939937") -- Beta V10
 --resource.AddWorkshop("685949762") -- Beta V11
 --resource.AddWorkshop("686504826") -- Beta V12
-resource.AddWorkshop("686977175") -- Beta V13
+--resource.AddWorkshop("686977175") -- Beta V13
+resource.AddWorkshop("690108276") -- Beta V14
 resource.AddWorkshop("650070929") -- Dual Pistols
 
 AddCSLuaFile("cl_init.lua")

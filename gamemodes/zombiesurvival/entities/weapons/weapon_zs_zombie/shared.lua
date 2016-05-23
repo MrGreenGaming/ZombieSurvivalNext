@@ -33,19 +33,19 @@ function SWEP:StopMoaningSound()
 end
 
 function SWEP:StartMoaningSound()
-	self.Owner:EmitSound("NPC_BaseZombie.Moan"..math.random(4))
+	--self.Owner:EmitSound("NPC_BaseZombie.Moan"..math.random(4))
 end
 
 function SWEP:PlayHitSound()
-	self.Owner:EmitSound("npc/zombie/claw_strike"..math.random(3)..".wav")
+	self.Owner:EmitSound("npc/zombiegreen/hit_punch_0"..math.random(8)..".wav")
 end
 
 function SWEP:PlayMissSound()
-	self.Owner:EmitSound("npc/zombie/claw_miss"..math.random(2)..".wav")
+	self.Owner:EmitSound("npc/zombiegreen/claw_miss_"..math.random(2)..".wav")
 end
 
 function SWEP:PlayAttackSound()
-	self.Owner:EmitSound("npc/zombie/zo_attack"..math.random(2)..".wav")
+	self.Owner:EmitSound("npc/zombiegreen/claw_miss_"..math.random(2)..".wav")
 end
 
 function SWEP:Initialize()

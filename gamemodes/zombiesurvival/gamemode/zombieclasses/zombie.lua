@@ -20,8 +20,8 @@ CLASS.SWEP = "weapon_zs_zombie"
 
 CLASS.Model = Model("models/player/zombie_classic.mdl")
 
-CLASS.PainSounds = {"npc/zombie/zombie_pain1.wav", "npc/zombie/zombie_pain2.wav", "npc/zombie/zombie_pain3.wav", "npc/zombie/zombie_pain4.wav", "npc/zombie/zombie_pain5.wav", "npc/zombie/zombie_pain6.wav"}
-CLASS.DeathSounds = {"npc/zombie/zombie_die1.wav", "npc/zombie/zombie_die2.wav", "npc/zombie/zombie_die3.wav"}
+CLASS.PainSounds = {"npc/zombiegreen/been_shot_1.wav","npc/zombiegreen/been_shot_2.wav","npc/zombiegreen/been_shot_3.wav","npc/zombiegreen/been_shot_4.wav","npc/zombiegreen/been_shot_5.wav","npc/zombiegreen/been_shot_6.wav","npc/zombiegreen/been_shot_7.wav","npc/zombiegreen/been_shot_8.wav","npc/zombiegreen/been_shot_9.wav","npc/zombiegreen/been_shot_10.wav","npc/zombiegreen/been_shot_11.wav","npc/zombiegreen/been_shot_12.wav","npc/zombiegreen/been_shot_13.wav","npc/zombiegreen/been_shot_14.wav","npc/zombiegreen/been_shot_15.wav","npc/zombiegreen/been_shot_16.wav","npc/zombiegreen/been_shot_17.wav","npc/zombiegreen/been_shot_18.wav","npc/zombiegreen/been_shot_19.wav","npc/zombiegreen/been_shot_20.wav","npc/zombiegreen/been_shot_21.wav"}
+CLASS.DeathSounds = {"npc/zombiegreen/death_17.wav","npc/zombiegreen/death_18.wav","npc/zombiegreen/death_19.wav","npc/zombiegreen/death_20.wav","npc/zombiegreen/death_21.wav","npc/zombiegreen/death_22.wav","npc/zombiegreen/death_23.wav","npc/zombiegreen/death_24.wav","npc/zombiegreen/death_25.wav","npc/zombiegreen/death_26.wav","npc/zombiegreen/death_27.wav","npc/zombiegreen/death_28.wav","npc/zombiegreen/death_29.wav","npc/zombiegreen/death_30.wav","npc/zombiegreen/death_31.wav","npc/zombiegreen/death_32.wav","npc/zombiegreen/death_33.wav","npc/zombiegreen/death_34.wav"}
 
 CLASS.VoicePitch = 0.65
 
