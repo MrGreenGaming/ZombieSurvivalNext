@@ -87,30 +87,148 @@ timer.Simple(1, function()
 	self.Owner:SetRenderMode(RENDERMODE_NONE) pl:SetColor(Color(225,225,225,1))
 	end)
 	
-if SERVER then	
-if self.WElements then 
-
-	for k,v in pairs(self.WElements) do
-	if self:IsSwinging() then
-		v:SetColor(255,255,255,255)
-	else
-		v:SetColor(255,255,255,0)
-	end
-end	
-	end
-end	
 end
 
+if CLIENT then
+
+
+	SWEP.wRenderOrder = nil
+	function SWEP:DrawWorldModel()
+			
+		-- if not self:IsAttacking() then return end
+		
+		if self.WElements then
+			for k,v in pairs(self.WElements) do
+				if self:IsSwinging() then
+					v.color = Color(255,255,255,255)
+				else
+					v.color = Color(255,255,255,1)
+				end
+			end
+		end
+		
+		if (not self.WElements) then return end
+		
+		if (not self.wRenderOrder) then
+
+			self.wRenderOrder = {}
+
+			for k, v in pairs( self.WElements ) do
+				if (v.type == "Model") then
+					table.insert(self.wRenderOrder, 1, k)
+				elseif (v.type == "Sprite" or v.type == "Quad") then
+					table.insert(self.wRenderOrder, k)
+				end
+			end
+
+		end
+		
+		if (IsValid(self.Owner)) then
+			if self.Owner.KnockedDown and IsValid(self.Owner:GetRagdollEntity()) then
+				bone_ent = self.Owner:GetRagdollEntity()
+			else
+				bone_ent = self.Owner
+			end
+		else
+			--  when the weapon is dropped
+			bone_ent = self
+		end
+		
+		for k, name in pairs( self.wRenderOrder ) do
+		
+			local v = self.WElements[name]
+			if (not v) then self.wRenderOrder = nil break end
+			
+			local pos, ang
+			
+			if (v.bone) then
+				pos, ang = self:GetBoneOrientation( self.WElements, v, bone_ent )
+			else
+				pos, ang = self:GetBoneOrientation( self.WElements, v, bone_ent, "ValveBiped.Bip01_R_Hand" )
+			end
+			
+			if (not pos) then continue end
+			
+			local model = v.modelEnt
+			local sprite = v.spriteMaterial
+			
+			if (v.type == "Model" and IsValid(model)) then
+
+				model:SetPos(pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z )
+				ang:RotateAroundAxis(ang:Up(), v.angle.y)
+				ang:RotateAroundAxis(ang:Right(), v.angle.p)
+				ang:RotateAroundAxis(ang:Forward(), v.angle.r)
+
+				model:SetAngles(ang)
+			--	model:SetModelScale(v.size)
+				
+				if (v.material == "") then
+					model:SetMaterial("")
+				elseif (model:GetMaterial() ~= v.material) then
+					model:SetMaterial( v.material )
+				end
+				
+				if (v.skin and v.skin ~= model:GetSkin()) then
+					model:SetSkin(v.skin)
+				end
+				
+				if (v.bodygroup) then
+					for k, v in pairs( v.bodygroup ) do
+						if (model:GetBodygroup(k) ~= v) then
+							model:SetBodygroup(k, v)
+						end
+					end
+				end
+				
+				if (v.surpresslightning) then
+					render.SuppressEngineLighting(true)
+				end
+				
+				render.SetColorModulation(v.color.r/255, v.color.g/255, v.color.b/255)
+				render.SetBlend(v.color.a/255)
+				model:DrawModel()
+				render.SetBlend(1)
+				render.SetColorModulation(1, 1, 1)
+				
+				if (v.surpresslightning) then
+					render.SuppressEngineLighting(false)
+				end
+				
+			elseif (v.type == "Sprite" and sprite) then
+				
+				local drawpos = pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z
+				render.SetMaterial(sprite)
+				render.DrawSprite(drawpos, v.size.x, v.size.y, v.color)
+				
+			elseif (v.type == "Quad" and v.draw_func) then
+				
+				local drawpos = pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z
+				ang:RotateAroundAxis(ang:Up(), v.angle.y)
+				ang:RotateAroundAxis(ang:Right(), v.angle.p)
+				ang:RotateAroundAxis(ang:Forward(), v.angle.r)
+				
+				cam.Start3D2D(drawpos, ang, v.size)
+					v.draw_func( self )
+				cam.End3D2D()
+
+			end
+			
+		end
+		
+	end
+
+
+end
 
 --[[function SWEP:DrawWorldModel()
 
 if self.WElements then 
 
 	for k,v in pairs(self.WElements) do
-	 if self:IsAttacking() then
-		v:SetColor(255,255,255,255)
+	 if self:IsSwinging() then
+		v:SetColor(Color(225,225,225,225))
 	else
-		return
+		v:SetColor(Color(225,225,225,1))
 	end
 end
 end

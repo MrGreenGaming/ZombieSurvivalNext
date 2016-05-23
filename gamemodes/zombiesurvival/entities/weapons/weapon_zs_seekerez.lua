@@ -17,6 +17,7 @@ SWEP.MeleeAnimationDelay = 0.35
 
 
 
+
 --[[function SWEP:OnMeleeHit(hitent, hitflesh, tr)
 	if not hitent:IsPlayer() then
 		self.MeleeDamage = 35	
