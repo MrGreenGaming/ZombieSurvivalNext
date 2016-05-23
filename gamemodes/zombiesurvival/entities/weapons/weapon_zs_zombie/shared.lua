@@ -45,7 +45,7 @@ function SWEP:PlayMissSound()
 end
 
 function SWEP:PlayAttackSound()
-	self.Owner:EmitSound("npc/zombiegreen/rage_at_victim"..math.random(20,37)..".wav")
+	self.Owner:EmitSound("npc/zombiegreen/rage_at_victim"..math.random(20,37)..".mp3")
 end
 
 function SWEP:Initialize()
