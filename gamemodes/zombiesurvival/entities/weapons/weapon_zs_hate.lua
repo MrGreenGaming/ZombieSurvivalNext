@@ -50,6 +50,7 @@ SWEP.MeleeSize = 0.875
 SWEP.MeleeDelay = 1.5
 SWEP.MeleeAnimationDelay = 0.35
 SWEP.Primary.Delay = 1.5
+SWEP.FrozenWhileSwinging = true
 
 SWEP.WalkSpeed = SPEED_FAST
 

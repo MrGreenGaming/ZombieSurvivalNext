@@ -311,7 +311,7 @@ function SWEP:Deploy()
 
 	if self.DelayWhenDeployed and self.Primary.Delay > 0 then
 		self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
-		self:SetNextSecondaryFire(self:GetNextPrimaryFire() + 0.5)
+		self:SetNextSecondaryFire(self:GetNextPrimaryFire() + 0.6)
 	end
 
 	return true

@@ -7,7 +7,7 @@ CLASS.Wave = 0
 CLASS.Threshold = 0
 CLASS.Unlocked = true
 CLASS.Hidden = true
---CLASS.Boss = true
+CLASS.Boss = false
 
 CLASS.NoShadow = true
 
@@ -67,27 +67,64 @@ function CLASS:PlayerFootstep(pl, vFootPos, iFoot, strSoundName, fVolume, pFilte
 end
 
 function CLASS:CalcMainActivity(pl, velocity)
+	local feign = pl.FeignDeath
+	if feign and feign:IsValid() then
+		if feign:GetDirection() == DIR_BACK then
+			pl.CalcSeqOverride = pl:LookupSequence("zombie_slump_rise_02_fast")
+		else
+			pl.CalcIdeal = ACT_HL2MP_ZOMBIE_SLUMP_RISE
+		end
+		return true
+	end
+
 	if pl:WaterLevel() >= 3 then
 		pl.CalcIdeal = ACT_HL2MP_SWIM_PISTOL
-	elseif pl:Crouching() then
-		if velocity:Length2D() <= 0.5 then
-			pl.CalcIdeal = ACT_HL2MP_RUN_ZOMBIE
+		return true
+	end
+
+	if velocity:Length2D() <= 0.5 then
+		if pl:Crouching() then
+			pl.CalcIdeal = ACT_HL2MP_IDLE_CROUCH_ZOMBIE
 		else
-			pl.CalcIdeal = ACT_HL2MP_WALK_CROUCH_ZOMBIE_01 - 1 + math.ceil((CurTime() / 4 + pl:EntIndex()) % 3)
+			pl.CalcIdeal = ACT_HL2MP_IDLE_ZOMBIE
 		end
+	elseif pl:Crouching() then
+		pl.CalcIdeal = ACT_HL2MP_WALK_CROUCH_ZOMBIE_02 - 1 + math.ceil((CurTime() / 4 + pl:EntIndex()) % 3)
 	else
-		pl.CalcIdeal = ACT_HL2MP_RUN_ZOMBIE
+		pl.CalcIdeal = ACT_HL2MP_WALK_ZOMBIE_02 - 1 + math.ceil((CurTime() / 4 + pl:EntIndex()) % 3)
+	end
+		
+	local wep = pl:GetActiveWeapon() --Grenade Run!
+	if wep:IsValid() and wep.GetCharge then
+		local charge = wep:GetCharge()
+		local vec2 = pl:GetShootPos() 
+		if charge > 0 then
+			pl.CalcIdeal = ACT_HL2MP_RUN_ZOMBIE 
+			return true
+		end
 	end
 	
-	local wep = pl:GetActiveWeapon()
-
 	return true
+	
+	
+
 end
 
 function CLASS:UpdateAnimation(pl, velocity, maxseqgroundspeed)
+	local feign = pl.FeignDeath
+	if feign and feign:IsValid() then
+		if feign:GetState() == 1 then
+			pl:SetCycle(1 - math.max(feign:GetStateEndTime() - CurTime(), 0) * 0.666)
+		else
+			pl:SetCycle(math.max(feign:GetStateEndTime() - CurTime(), 0) * 0.666)
+		end
+		pl:SetPlaybackRate(0)
+		return true
+	end
+
 	local len2d = velocity:Length2D()
 	if len2d > 0.5 then
-		pl:SetPlaybackRate(math.min(len2d / maxseqgroundspeed, 3))
+		pl:SetPlaybackRate(math.min(len2d / maxseqgroundspeed * 0.666, 3))
 	else
 		pl:SetPlaybackRate(1)
 	end
@@ -98,7 +135,6 @@ end
 function CLASS:DoAnimationEvent(pl, event, data)
 	if event == PLAYERANIMEVENT_ATTACK_PRIMARY then
 		pl:AnimRestartGesture(GESTURE_SLOT_ATTACK_AND_RELOAD, ACT_GMOD_GESTURE_RANGE_ZOMBIE, true)
-	--	pl:AnimRestartGesture(GESTURE_SLOT_ATTACK_AND_RELOAD, ACT_GMOD_GESTURE_RANGE_ZOMBIE_SPECIAL, true)
 		return ACT_INVALID
 	end
 end

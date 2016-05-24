@@ -790,16 +790,16 @@ function GM:HumanHUD2(screenscale)
 	local fHealth, fMaxHealth = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
 	local iPercentage = math.Clamp(fHealth / fMaxHealth, 0, 1)
 	local healthBarColor = Color(137, 30, 30, 200)
-	local healthBarBGColor = Color(1, 1, 1, 200)
+	local healthBarBGColor = Color(1, 1, 1, 1)
 	
 	
 	--Different colors
 	if iPercentage > 0.75 then
 		healthBarColor = Color(255, 255, 255, 200)
-		healthBarBGColor = Color(1, 1, 1, 200)	
+		healthBarBGColor = Color(1, 1, 1, 1)	
 	elseif iPercentage > 0.5 then
 		healthBarColor = Color(137, 116, 24, 200)
-		healthBarBGColor = Color(1, 1, 1, 200)
+		healthBarBGColor = Color(1, 1, 1, 1)
 	end
 
 	--Flash under certain conditions
@@ -835,7 +835,7 @@ end
 function GM:ZombieHUD2(screenscale)
 
 	--Duby: I will place this into a module soon enough!
-	local hudsplat = Material("hud/z_hud_1.png") --Items for the HUD.
+	local hudsplat = Material("hud/z_hud_2.png") --Items for the HUD.
 	local hudsplat2 = Material("hud/z_hud_2.png") --Items for the HUD.
 
 	

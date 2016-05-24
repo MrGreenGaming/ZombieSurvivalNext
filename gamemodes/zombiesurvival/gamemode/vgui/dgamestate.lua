@@ -156,7 +156,7 @@ if myteam == TEAM_HUMAN then --Huamns
 			col = COLOR_GRAY
 		end
 		
-		draw.SimpleText("Invasion In " .. util.ToMinutesSeconds(timeleft) .. "", self.Font, 40 * X_MULTIPLIER, Y_MULTIPLIER, col)
+		draw.SimpleText("Invasion in " .. util.ToMinutesSeconds(timeleft) .. "", self.Font, 40 * X_MULTIPLIER, Y_MULTIPLIER, col)
 	elseif GAMEMODE:GetWaveActive() then
 		local waveend = GAMEMODE:GetWaveEnd()
 		if waveend ~= -1 then

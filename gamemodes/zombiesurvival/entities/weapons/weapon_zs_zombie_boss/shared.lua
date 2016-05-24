@@ -146,7 +146,7 @@ function SWEP:StartSwinging()
 		self.IdleAnimation = CurTime() + self:SequenceDuration()
 	end
 	self:PlayStartSwingSound()
-	self:SetSwingEnd(CurTime() + self.SwingTime + 0.5)
+	self:SetSwingEnd(CurTime() + self.SwingTime + 0.7)
 	
 end
 

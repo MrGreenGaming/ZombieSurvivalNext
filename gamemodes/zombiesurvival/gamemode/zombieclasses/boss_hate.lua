@@ -7,17 +7,14 @@ CLASS.Wave = 0
 CLASS.Threshold = 0
 CLASS.Unlocked = true
 CLASS.Hidden = true
-CLASS.Boss = false
+CLASS.Boss = true
 
 CLASS.FearPerInstance = 1
 
 CLASS.Health = 4000
 CLASS.SWEP = "weapon_zs_hateez"
 
---CLASS.Model = Model("models/zombie/flassic.mdl")
---CLASS.Model = Model("models/player/zombie_classic.mdl")
-CLASS.Model = Model("models/Zombie/Poison.mdl")
-
+CLASS.Model = Model("models/player/zombie_classic.mdl")
 
 CLASS.Speed = 170
 CLASS.Points = 200
@@ -53,16 +50,6 @@ local ScuffSounds = {
 	"npc/zombie_poison/pz_right_foot1.wav"
 }
 
-function CLASS:CalcMainActivity(pl, velocity)
-
-	if velocity:Length2D() <= 0.5 then
-		pl.CalcIdeal = ACT_IDLE
-	else
-		pl.CalcIdeal = ACT_WALK
-	end
-
-	return true
-end
 
 function CLASS:PlayerFootstep(pl, vFootPos, iFoot, strSoundName, fVolume, pFilter)
 	if iFoot == 0 and mathrandom() < 0.333 then
@@ -86,34 +73,37 @@ function CLASS:PlayerStepSoundTime(pl, iType, bWalking)
 	return 200
 end
 
-function CLASS:DoAnimationEvent(pl, event, data)
-	if event == PLAYERANIMEVENT_ATTACK_PRIMARY then
-		pl:AnimRestartGesture(GESTURE_SLOT_ATTACK_AND_RELOAD, ACT_MELEE_ATTACK1, true)
-		return ACT_INVALID
+
+
+function CLASS:CalcMainActivity(pl, velocity)
+
+	if pl:WaterLevel() >= 3 then
+		pl.CalcIdeal = ACT_HL2MP_SWIM_PISTOL
+		return true
 	end
+
+	if velocity:Length2D() <= 0.5 then
+		if pl:Crouching() then
+			pl.CalcIdeal = ACT_WALK_ON_FIRE
+		else
+			pl.CalcIdeal = ACT_IDLE_ON_FIRE
+		end
+		
+	elseif pl:Crouching() then
+		pl.CalcIdeal = ACT_WALK_ON_FIRE 
+	else
+		pl.CalcIdeal = ACT_WALK_ON_FIRE 
+	end
+
+	return true
 end
 
-local vecSpineOffset = Vector(5, 0, 0)
-local SpineBones = {"ValveBiped.Bip01_Spine2", "ValveBiped.Bip01_Spine4", "ValveBiped.Bip01_Spine3"}
-function CLASS:BuildBonePositions(pl)
-	for _, bone in pairs(SpineBones) do
-		local spineid = pl:LookupBone(bone)
-		if spineid and spineid > 0 then
-			pl:ManipulateBonePosition(spineid, vecSpineOffset)
-		end
-	end
---[[pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 5, 5), math.Rand( 11, 5)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 8, 5), math.Rand( -10, -10), math.Rand( 0, 0)) )	--arm left
-	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--hand left
-	
 
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 5, 5), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	
-	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 8, 5), math.Rand( 5, 5), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--hand right
-]]--
+function CLASS:DoAnimationEvent(pl, event, data)
+	if event == PLAYERANIMEVENT_ATTACK_PRIMARY then
+		pl:AnimRestartGesture(GESTURE_SLOT_ATTACK_AND_RELOAD, ACT_GMOD_GESTURE_RANGE_ZOMBIE_SPECIAL, true)
+		return ACT_INVALID
+	end
 end
 
 function CLASS:UpdateAnimation(pl, velocity, maxseqgroundspeed)
@@ -121,7 +111,6 @@ function CLASS:UpdateAnimation(pl, velocity, maxseqgroundspeed)
 end
 
 local matSkin = Material("Models/Charple/Charple1_sheet")
---local matSkin = Material("models/flesh")
 function CLASS:PrePlayerDraw(pl)
 	render.ModelMaterialOverride(matSkin)
 end
@@ -130,7 +119,11 @@ function CLASS:PostPlayerDraw(pl)
 	render.ModelMaterialOverride()
 end
 
-
+if SERVER then
+	function CLASS:OnSpawned(pl)
+		pl:CreateAmbience("hateambience")
+	end
+end
 
 if not CLIENT then return end
 

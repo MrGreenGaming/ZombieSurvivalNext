@@ -41,7 +41,7 @@ OldFags = {
 "STEAM_0:0:23697677", --Stellathefella
 "STEAM_0:1:26630595", --Lameshot
 "STEAM_0:1:14133131", --BrainDawg
-"",
+"STEAM_0:1:16927564", --The Real Freeman
 "",
 "",
 "",
