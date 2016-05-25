@@ -2037,7 +2037,7 @@ net.Receive("zs_boss_spawned", function(length)
 	if ent == MySelf and ent:IsValid() then
 		GAMEMODE:Add3DMessage(100, translate.Format("you_are_x", translate.Get(GAMEMODE.ZombieClasses[classindex].TranslationName)), nil, "ZSHUDFont2")
 	elseif ent:IsValid() then
-		GAMEMODE:Add3DMessage(100, translate.Format("x_has_risen_as_y", ent:Name(), translate.Get(GAMEMODE.ZombieClasses[classindex].TranslationName))), nil, "ZSHUDFont2")
+		GAMEMODE:Add3DMessage(100, translate.Format("x_has_risen_as_y", ent:Name(), translate.Get(GAMEMODE.ZombieClasses[classindex].TranslationName)), nil, "ZSHUDFont2")
 	else
 		GAMEMODE:Add3DMessage(100, translate.Format("x_has_risen", translate.Get(GAMEMODE.ZombieClasses[classindex].TranslationName)), nil, "ZSHUDFont2")
 	end
