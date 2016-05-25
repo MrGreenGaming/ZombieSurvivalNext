@@ -11,7 +11,7 @@ CLASS.Boss = true
 
 CLASS.FearPerInstance = 1
 
-CLASS.Health = 4000
+CLASS.Health = 3500
 CLASS.SWEP = "weapon_zs_hateez"
 
 CLASS.Model = Model("models/player/zombie_classic.mdl")

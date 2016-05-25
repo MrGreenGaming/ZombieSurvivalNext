@@ -1277,7 +1277,7 @@ function GM:LastHumanMessage()
 		GAMEMODE:Add3DMessage(100, translate.Get(self.PantsMode and "kick_the_last_human" or "kill_the_last_human"), nil, "ZSHUDFont2")
 	else
 		GAMEMODE:Add3DMessage(100, translate.Get("you_are_the_last_human"), nil, "ZSHUDFont2")
-		GAMEMODE:Add3DMessage(100, translate.Get(self.PantsMode and "x_pants_out_to_get_you" or "x_zombies_out_to_get_you", team.NumPlayers(TEAM_UNDEAD)), nil, "ZSHUDFont2")
+	--	GAMEMODE:Add3DMessage(100, translate.Get(self.PantsMode and "x_pants_out_to_get_you" or "x_zombies_out_to_get_you", team.NumPlayers(TEAM_UNDEAD)), nil, "ZSHUDFont2")
 	end
 end
 

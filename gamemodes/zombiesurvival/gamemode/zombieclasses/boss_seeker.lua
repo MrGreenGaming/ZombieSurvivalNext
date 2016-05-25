@@ -11,7 +11,7 @@ CLASS.Boss = true
 
 CLASS.NoShadow = true
 
-CLASS.Health = 3000
+CLASS.Health = 2500
 CLASS.Speed = 150
 
 CLASS.CanTaunt = false

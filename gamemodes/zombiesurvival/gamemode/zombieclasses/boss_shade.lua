@@ -7,7 +7,7 @@ CLASS.Wave = 0
 CLASS.Threshold = 0
 CLASS.Unlocked = true
 CLASS.Hidden = true
-CLASS.Boss = true
+--CLASS.Boss = true
 
 CLASS.NoGibs = true
 CLASS.NoFallDamage = true
