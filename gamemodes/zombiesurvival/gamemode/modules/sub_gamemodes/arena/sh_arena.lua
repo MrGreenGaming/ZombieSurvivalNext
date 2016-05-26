@@ -32,9 +32,7 @@ end
 --GM.DefaultZombieClass = GM.ZombieClasses["Super Zombie"].Index
 GM.DefaultZombieClass = GM.ZombieClasses[table.Random( {
 	"Howler",
-	"Poison Zombie", 
-	"Chem Zombie",
-	"Etherial"
+	"Poison Zombie"
 	} )].Index --Random zombies
 	
 --[[

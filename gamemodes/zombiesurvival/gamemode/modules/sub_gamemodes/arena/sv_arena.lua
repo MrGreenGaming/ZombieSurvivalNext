@@ -34,12 +34,13 @@ end)
 hook.Add("PlayerSpawn", "arena", function(pl)
 	timer.Simple(0, function()
 		if not pl:IsValid() then return end
-
+		
+			if pl:Team() == TEAM_HUMAN then
 				pl:GodEnable()
-				
-			timer.Simple(30, function()
-				pl:GodDisable()
-			end)
+				timer.Simple(30, function()
+					pl:GodDisable()
+				end)
+			end
 	end)
 end)
 

@@ -3,6 +3,15 @@ AddCSLuaFile()
 if CLIENT then
 	SWEP.PrintName = "Sledgehammer"
 	SWEP.ViewModelFOV = 75
+	
+
+	SWEP.ShowViewModel = false
+	SWEP.ShowWorldModel = true
+
+	SWEP.VElements = {
+		["sledge"] = { type = "Model", model = "models/weapons/w_sledgehammer.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.144, 1.421, 8.611), angle = Angle(0, 0, 180), size = Vector(0.899, 0.899, 0.899), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+
 end
 
 SWEP.Base = "weapon_zs_basemelee"
@@ -11,7 +20,9 @@ SWEP.HoldType = "melee2"
 
 SWEP.DamageType = DMG_CLUB
 
-SWEP.ViewModel = "models/weapons/v_sledgehammer/v_sledgehammer.mdl"
+--SWEP.ViewModel = "models/weapons/v_sledgehammer/v_sledgehammer.mdl"
+SWEP.ViewModel = "models/weapons/c_stunstick.mdl"
+SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_sledgehammer.mdl"
 
 SWEP.MeleeDamage = 95
