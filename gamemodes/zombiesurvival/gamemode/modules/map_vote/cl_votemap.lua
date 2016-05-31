@@ -26,12 +26,12 @@ function Votemap:ToggleMenu( bl )
 	Votemap.Menu:SetDraggable(false)
 	
 	
-	Votemap.Menu.Label = vgui.Create("DLabel",Votemap.Menu)
+	--[[Votemap.Menu.Label = vgui.Create("DLabel",Votemap.Menu)
 	Votemap.Menu.Label:SetText( "Map Vote" )
 	Votemap.Menu.Label:SetFont( "ZSHUDFont2" )
 	Votemap.Menu.Label:SetTextColor(COLOR_DARKRED)
 	Votemap.Menu.Label:SetPos( w * 0.12, h * 0.01)
-	Votemap.Menu.Label:SizeToContents()
+	Votemap.Menu.Label:SizeToContents()]]--
 
 
 	Votemap.Menu.ListView = vgui.Create("DListView", Votemap.Menu)
