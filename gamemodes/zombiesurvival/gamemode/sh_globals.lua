@@ -104,7 +104,7 @@ GM.BarricadeHealthMax = 1100
 GM.BarricadeHealthMassFactor = 3
 GM.BarricadeHealthVolumeFactor = 4
 
-GM.BossZombiePlayersRequired = 9
+GM.BossZombiePlayersRequired = 6
 
 GM.HumanGibs = {
 Model("models/gibs/HGIBS.mdl"),
@@ -207,12 +207,12 @@ GM.ValidBeaconMessages = {
 }
 
 GM.FanList = {
-	"1418945843",
-	"1595085577",
-	"3311458935",
-	"3023059541",
-	"2000875318",
-	"778584317",
-	"6086255",
-	"2867054481"
+	--"1418945843",
+	--"1595085577",
+	--"3311458935",
+	--"3023059541",
+	--"2000875318",
+	--"778584317",
+	--"6086255",
+	--"2867054481"
 }

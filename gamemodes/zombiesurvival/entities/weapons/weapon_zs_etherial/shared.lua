@@ -144,8 +144,8 @@ local mOwner = self.Owner
 	end
 	mOwner:SetRenderMode(RENDERMODE_GLOW) mOwner:SetColor(Color(225,225,225,100))
 	--Delay next teleport
-	self.Weapon:SetNextSecondaryFire(CurTime() + 0.5)
-	self.Weapon:SetNextPrimaryFire(0.2)
+	self.Weapon:SetNextSecondaryFire(CurTime() + 0.8)
+	self.Weapon:SetNextPrimaryFire(0.6)
 
 	--Don't teleport in air
 	if not mOwner:OnGround() then
@@ -259,7 +259,6 @@ local mOwner = self.Owner
 	end
 
 end
-
 
 -- Play teleport fail sound
 function SWEP:TeleportFail()

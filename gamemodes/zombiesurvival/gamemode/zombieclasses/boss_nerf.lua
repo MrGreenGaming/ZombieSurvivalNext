@@ -14,7 +14,7 @@ CLASS.Speed = 220
 
 CLASS.FearPerInstance = 1
 
-CLASS.Points = 150
+CLASS.Points = 30
 
 CLASS.SWEP = "weapon_zs_nerf"
 

@@ -151,7 +151,7 @@ function SWEP:MeleeSwing()
 
 	local filter = owner:GetMeleeFilter()
 
-	--owner:LagCompensation(true)
+	owner:LagCompensation(true)
 
 	local tr = owner:MeleeTrace(self.MeleeRange, self.MeleeSize, filter)
 	if tr.Hit then
@@ -180,7 +180,7 @@ function SWEP:MeleeSwing()
 		end
 
 		if self.OnMeleeHit and self:OnMeleeHit(hitent, hitflesh, tr) then
-			--owner:LagCompensation(false)
+			owner:LagCompensation(false)
 			return
 		end
 
@@ -269,7 +269,7 @@ function SWEP:MeleeSwing()
 		end
 	end
 
-	--owner:LagCompensation(false)
+	owner:LagCompensation(false)
 end
 
 function SWEP:StopSwinging()

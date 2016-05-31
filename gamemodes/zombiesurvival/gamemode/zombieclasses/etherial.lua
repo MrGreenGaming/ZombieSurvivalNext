@@ -5,7 +5,7 @@ CLASS.Description = "description_etherial"
 CLASS.Help = "controls_etherial"
 
 CLASS.Wave = 1 / 3
-CLASS.Health = 190
+CLASS.Health = 90
 CLASS.SWEP = "weapon_zs_etherial"
 CLASS.Model = Model("models/wraith_zsv1.mdl")
 CLASS.Speed = 160

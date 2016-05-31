@@ -18,7 +18,7 @@ CLASS.CanTaunt = false
 
 CLASS.FearPerInstance = 1
 
-CLASS.Points = 200
+CLASS.Points = 30
 
 CLASS.SWEP = "weapon_zs_seekerez"
 

@@ -6,11 +6,11 @@ CLASS.Help = "controls_bloated_zombie"
 CLASS.Wave = 3 / 6
 
 CLASS.Health = 325
-CLASS.Speed = 135
+CLASS.Speed = 150
 CLASS.JumpPower = 150
 CLASS.Mass = DEFAULT_MASS * 2
 
-CLASS.CanTaunt = true
+CLASS.CanTaunt = false
 
 CLASS.Points = 6
 
