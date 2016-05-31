@@ -2,8 +2,9 @@ if string.sub(string.lower(game.GetMap()), 1, 3) ~= "za_" then return end
 
 ARENA = true
 GM.Arena = true
-GM.WaveZeroLength = 90
-GM.EndGameTime = 35
+--GM.WaveZeroLength = 90
+GM.WaveZeroLength = 10
+GM.EndGameTime = 60
 GM.ZE_TimeLimit = 60 * 16
 
 if SERVER then
