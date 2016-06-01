@@ -1,4 +1,5 @@
 --Duby: I need to remove a load of code from this file.. It will be a task for after release.
+--Radavec: Yeah you do lol.
 
 hook.Add("SetWave", "CloseWorthOnWave1", function(wave)
 	if wave > 0 then
@@ -92,6 +93,8 @@ local function CheckoutDoClick(self)
 	Checkout(tobuy)
 end
 
+local buttons = {};
+
 function MakepWorth(id)
 	if pWorth and pWorth:Valid() then
 		pWorth:Remove()
@@ -134,8 +137,8 @@ function MakepWorth(id)
 	Panel:SetPos( w * 0.05, h * 0.13 )
 	Panel:SetSize( w * 0.2, h * 0.52 )
 	Panel.Paint = function( self, w, h ) 
-		--draw.RoundedBox( 0, 0, 0, w, h, Color( 28, 28, 28, 300 ) )
 		draw.RoundedBox( 0, 0, 0, w, h, Color( 28, 28, 28, 300 ) )
+		--draw.RoundedBox( 0, 0, 0, w, h, Color( 28, 28, 28, 300 ) )
 	end
 	
 	Panel2 = vgui.Create("DPanel",frame)
@@ -177,11 +180,11 @@ function MakepWorth(id)
 	MrGreen:SetFont("ZSHUDFont1.1")
 	MrGreen:SetText("Class Selection")	
 	
-		local MrGreen = vgui.Create( "DLabel", Panel )
+	--[[local MrGreen = vgui.Create( "DLabel", Panel )
 	MrGreen:SetPos( w * 0.01, h * 0.38)
 	MrGreen:SetSize( w * 0.22, h * 0.2 )
 	MrGreen:SetFont("ZSHUDFontSmall")
-	MrGreen:SetText("Tip: To select another class \ndeselect your current class")
+	MrGreen:SetText("Tip: To select another class \ndeselect your current class")]]--
 
 	local propertysheet = vgui.Create("DPropertySheet", Panel)
 	--propertysheet:StretchToParent(4, 24, 4, 50) --Old
@@ -220,6 +223,7 @@ function MakepWorth(id)
 				local button = vgui.Create("ZSWorthButton")
 				button:SetWorthID(i)
 				list:AddItem(button)
+				table.insert(buttons, button);
 			
 				WorthButtons[i] = button
 			end
@@ -366,10 +370,10 @@ function PANEL:Paint(w, h)
 	if self.Hovered then
 		outline = self.On and COLOR_DARKGREEN or Color(0, 100, 0, 255)	
 	else
-		outline = self.On and COLOR_DARKGREEN or Color(100, 0, 0, 255)
+		outline = self.On and COLOR_DARKGREEN or Color(130, 0, 0, 255)
 	end
 
-	draw.RoundedBox(10, 0, 0, w, h, outline)
+	draw.RoundedBox(0, 0, 0, w, h, outline)
 end
 
 function PANEL:DoClick(silent, force)
@@ -387,7 +391,18 @@ function PANEL:DoClick(silent, force)
 		DLabel_Class:SetText(tab.Description)
 	else
 		if WorthRemaining < tab.Worth and not force then
-			surface.PlaySound("mrgreen/ui/menu_click01.wav")
+			unselectAll();
+			WorthRemaining = WorthRemaining + tab.Worth
+			DLabel_Class:SetText("")
+			DLabel_Class:SetText(tab.Description)
+
+			self.On = true
+			if not silent then
+				surface.PlaySound("mrgreen/ui/menu_click01.wav")
+			end
+			WorthRemaining = WorthRemaining - tab.Worth
+			DLabel_Class:SetText("")
+			DLabel_Class:SetText(tab.Description)
 			return
 		end
 		self.On = true
@@ -399,6 +414,12 @@ function PANEL:DoClick(silent, force)
 		DLabel_Class:SetText(tab.Description)
 	end
 
+end
+
+function unselectAll()
+	for k, v in pairs(buttons) do
+		v.On = false;
+	end
 end
 
 vgui.Register("ZSWorthButton", PANEL, "DButton")
