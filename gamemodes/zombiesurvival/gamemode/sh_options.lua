@@ -77,17 +77,19 @@ ITEMCAT_CLASS = 1 --Human classes
 ITEMCAT_GUNS = 2
 ITEMCAT_GUNS3 = 3
 ITEMCAT_GUNS2 = 4
-ITEMCAT_GUNS4 = 5
-ITEMCAT_AMMO = 6
-ITEMCAT_MELEE = 7
-ITEMCAT_TOOLS = 8
-ITEMCAT_OTHER = 9
+ITEMCAT_GUNS5 = 5
+ITEMCAT_GUNS4 = 6
+ITEMCAT_AMMO = 7
+ITEMCAT_MELEE = 8
+ITEMCAT_TOOLS = 9
+ITEMCAT_OTHER = 10
 
 GM.ItemCategories = {
 	[ITEMCAT_GUNS] = "Automatic Weapons",
 	[ITEMCAT_GUNS3] = "Shotguns",
 	[ITEMCAT_GUNS4] = "Sniper rifles",
 	[ITEMCAT_GUNS2] = "Pistols",
+	[ITEMCAT_GUNS5] = "Dual Pistols",
 	[ITEMCAT_MELEE] = "Melee Weapons",
 	[ITEMCAT_AMMO] = "Ammunition",
 	[ITEMCAT_TOOLS] = "Tools",
@@ -228,11 +230,12 @@ function(pl) pl:SetModel( table.Random( {
 
 
 if table.HasValue(allowedSteamIDs, pl:SteamID()) then
-	pl:Give("weapon_zs_dualclassics")
+	pl:Give("weapon_zs_dual_p228")
 	pl:ChatPrint("You're an OldFag, welcome back!")
 else
-	pl:Give("weapon_zs_dualclassics")
+	pl:Give("weapon_zs_dual_p228")
 end
+
 	pl:Give("weapon_zs_swissarmyknife")
 	pl:Give("weapon_zs_grenade")
 	pl:ChatPrint("You're a Commando, kill and destroy!")
@@ -362,12 +365,13 @@ GM:AddPointShopItem("fiveseven", "Five Seven", nil, ITEMCAT_GUNS2, 30, "weapon_z
 GM:AddPointShopItem("Classic Pistol", "Classic Pistol", nil, ITEMCAT_GUNS2, 30, "weapon_zs_owens")
 GM:AddPointShopItem("medic_gun", "Medical Pistol", nil, ITEMCAT_GUNS2, 35, "weapon_zs_medicgun")
 GM:AddPointShopItem("glock", "Glock", nil, ITEMCAT_GUNS2, 40, "weapon_zs_glock3")
-GM:AddPointShopItem("dualclassics", "Dual Classic Pistols", nil, ITEMCAT_GUNS2, 55, "weapon_zs_dualclassics")
+GM:AddPointShopItem("dualp228", "Dual P228", nil, ITEMCAT_GUNS5, 30, "weapon_zs_dual_p228")
 GM:AddPointShopItem("magnum", "Magnum", nil, ITEMCAT_GUNS2, 65, "weapon_zs_magnum")
+GM:AddPointShopItem("dualclassics", "Dual Classic Pistols", nil, ITEMCAT_GUNS5, 65, "weapon_zs_dualclassics")
 GM:AddPointShopItem("deagle", "Desert Eagle", nil, ITEMCAT_GUNS2, 70, "weapon_zs_deagle")
-GM:AddPointShopItem("Dual Berreta's 92fs", "Duel Berreta's 92fs", nil, ITEMCAT_GUNS2, 70, "weapon_zs_berreta")
+GM:AddPointShopItem("Dual Berreta's 92fs", "Duel Berreta's 92fs", nil, ITEMCAT_GUNS5, 70, "weapon_zs_berreta")
 GM:AddPointShopItem("alyxgun", "Alyx Gun", nil, ITEMCAT_GUNS2, 78, "weapon_zs_z9000")
-GM:AddPointShopItem("dualdegals", "Dual Degals", nil, ITEMCAT_GUNS2, 130, "weapon_zs_dual_degals")
+GM:AddPointShopItem("dualdegals", "Dual Degals", nil, ITEMCAT_GUNS5, 130, "weapon_zs_dual_degals")
 GM:AddPointShopItem("python", "Python", nil, ITEMCAT_GUNS2, 150, "weapon_zs_python")
 
 

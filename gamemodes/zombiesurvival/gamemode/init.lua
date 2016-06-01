@@ -47,7 +47,8 @@ metal barrel + something = body armor
 --resource.AddWorkshop("686504826") -- Beta V12
 --resource.AddWorkshop("686977175") -- Beta V13
 --resource.AddWorkshop("690108276") -- Beta V14
-resource.AddWorkshop("690146111") -- Beta V15
+--resource.AddWorkshop("690146111") -- Beta V18
+resource.AddWorkshop("695456199") -- Beta V15
 resource.AddWorkshop("650070929") -- Dual Pistols
 
 AddCSLuaFile("cl_init.lua")
@@ -81,6 +82,7 @@ AddCSLuaFile("client/cl_legs.lua")
 AddCSLuaFile("client/cl_chatsounds.lua")
 AddCSLuaFile("client/cl_splitmessage.lua")
 AddCSLuaFile("client/cl_chatbox.lua")
+AddCSLuaFile("modules/achievements/cl_achievements_gui.lua")
 
 
 AddCSLuaFile("obj_vector_extend.lua")
@@ -157,6 +159,16 @@ include("modules/admin_mod/admin_commands.lua")
 include("modules/admin_mod/sv_admin.lua")
 include("modules/admin_mod/sv_duby.lua")
 
+--Achievements
+AddCSLuaFile("modules/achievements/server/sv_achievements.lua")
+AddCSLuaFile("modules/achievements/cl_achievements_gui.lua")
+AddCSLuaFile("modules/achievements/sv_achievements_commands.lua")
+AddCSLuaFile("modules/achievements/sv_achievements_creation.lua")
+
+--include("modules/achievements/server/sv_achievements.lua")
+--include("modules/achievements/cl_achievements_gui.lua")
+--include("modules/achievements/sv_achievements_commands.lua")
+--include("modules/achievements/sv_achievements_creation.lua")
 
 --Map Manager (W.I.P)
 include("modules/admin_mod/sv_pmapmanager.lua")
@@ -805,8 +817,8 @@ function GM:CreateZombieGas()
 			end
 
 			if not near then
-			--	local ent = ents.Create("zombiegasses")
-				local ent = ents.Create("zs_poisongasses")
+				local ent = ents.Create("zombiegasses")
+			--	local ent = ents.Create("zs_poisongasses")
 				if ent:IsValid() then
 					ent:SetPos(spawnpos)
 					ent:Spawn()

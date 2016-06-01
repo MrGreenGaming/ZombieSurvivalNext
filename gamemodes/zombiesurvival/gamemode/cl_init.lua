@@ -75,6 +75,10 @@ include("modules/weightspeed/sh_weightspeed.lua")
 --Bone Lib
 include("modules/boneanimlib_v2/cl_boneanimlib.lua")
 
+--Achievements
+AddCSLuaFile("modules/achievements/cl_achievements_gui.lua")
+include("modules/achievements/cl_achievements_gui.lua")
+
 
 --Admin Mod
 include("modules/admin_mod/cl_admin.lua")
@@ -2266,5 +2270,3 @@ local function CustomChatAdd(um)
 
 end
 usermessage.Hook( "CustomChatAdd",CustomChatAdd)
-
-
