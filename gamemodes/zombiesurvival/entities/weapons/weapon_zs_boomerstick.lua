@@ -62,6 +62,9 @@ SWEP.WalkSpeed = 180
 SWEP.reloadtimer = 0
 SWEP.nextreloadfinish = 0
 
+SWEP.ConeMax = 0.055
+SWEP.ConeMin = 0.0275
+
 SWEP.IronSightsPos = Vector(-7.3, 9, 2.3) --Vector(-7.3, 9, 2.3)
 SWEP.IronSightsAng = Vector(0, -1, 0)
 
