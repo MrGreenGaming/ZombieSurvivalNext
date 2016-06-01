@@ -7,7 +7,6 @@ GM.ArenaModeWeapons = { --Arena Mode weapons
 	"weapon_zs_ender",
 	"weapon_zs_sg552",
 	"weapon_zs_bulletstorm",
-	"weapon_zs_crackler",
 	"weapon_zs_uzi",
 	"weapon_zs_dual_degals",
 	"weapon_zs_m249",
@@ -219,7 +218,7 @@ end, "models/healthvial.mdl")
 
 --COMMANDO
 
-GM:CLASS("commando", "COMMANDO", " Loadout items: \n\n Dual Classic Pistols \n Swiss Knife \n Grenades \n\n\n\n Class Stats: \n\n 10% speed reduction \n 2 extra grenades \n 30% chance to spawn with rifle \n 5% increased crouching accuracy", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("commando", "COMMANDO", " Loadout items: \n\n Dual Classic Pistols \n Swiss Knife \n Grenades \n\n\n\n Class Stats: \n\n 10% speed reduction \n 4 grenades \n 30% chance to spawn with rifle \n 5% increased crouching accuracy", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/combine_soldier.mdl",

@@ -44,7 +44,7 @@ SWEP.Primary.Recoil			= 0.25
 SWEP.Primary.Damage			= 4
 SWEP.Primary.NumShots		= 2
 SWEP.Primary.ClipSize		= 8
-SWEP.Primary.Delay			= 0.12
+SWEP.Primary.Delay			= 0.13
 SWEP.Primary.DefaultClip	= 12
 SWEP.Primary.Automatic		= false
 
@@ -71,7 +71,7 @@ SWEP.fired = false
 SWEP.lastfire = 0
 SWEP.rechargetimer = 0
 SWEP.rechargerate = 3
-SWEP.startcharge = 1.7
+SWEP.startcharge = 1.9
 SWEP.MaxClip = 12
 
 function SWEP:Think()
