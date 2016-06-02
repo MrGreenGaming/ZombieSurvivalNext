@@ -42,8 +42,8 @@ SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "pistol"
 
 
-SWEP.ConeMax = 0.04
-SWEP.ConeMin = 0.03
+SWEP.ConeMax = 0.077
+SWEP.ConeMin = 0.033
 
 --SWEP.IronSightsPos = Vector(-5.95, 3, 2.75)
 --SWEP.IronSightsAng = Vector(-0.15, -1, 2)

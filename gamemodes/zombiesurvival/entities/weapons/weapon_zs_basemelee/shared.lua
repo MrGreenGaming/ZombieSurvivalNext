@@ -180,7 +180,7 @@ function SWEP:MeleeSwing()
 		end
 
 		if self.OnMeleeHit and self:OnMeleeHit(hitent, hitflesh, tr) then
-			owner:LagCompensation(false)
+			--owner:LagCompensation(false)
 			return
 		end
 

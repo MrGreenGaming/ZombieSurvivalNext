@@ -23,16 +23,19 @@ SWEP.WorldModel = "models/weapons/w_pist_p228.mdl"
 SWEP.UseHands = true
 
 SWEP.Primary.Sound = Sound("Weapon_P228.Single")
-SWEP.Primary.Damage = 14
+SWEP.Primary.Damage = 11
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 0.15
+
+--SWEP.SDPS ()= 1,320 
+--(SWEP.Damage x Clipsize / Delay)
 
 SWEP.Primary.ClipSize = 18
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "pistol"
 GAMEMODE:SetupDefaultClip(SWEP.Primary)
 
-SWEP.ConeMax = 0.08
-SWEP.ConeMin = 0.015
+SWEP.ConeMax = 0.081
+SWEP.ConeMin = 0.037
 
 SWEP.IronSightsPos = Vector(-6, -1, 2.25)

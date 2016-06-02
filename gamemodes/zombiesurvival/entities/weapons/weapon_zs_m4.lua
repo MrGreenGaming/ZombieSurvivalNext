@@ -24,9 +24,12 @@ SWEP.WorldModel = "models/weapons/w_rif_m4a1.mdl"
 SWEP.UseHands = true
 
 SWEP.Primary.Sound = Sound("Weapon_m4a1.Single")
-SWEP.Primary.Damage = 24
+SWEP.Primary.Damage = 18
 SWEP.Primary.NumShots = 1
-SWEP.Primary.Delay = 0.11
+SWEP.Primary.Delay = 0.12
+
+--SWEP.SDPS ()= 4,909
+--(SWEP.Damage x Clipsize / Delay)
 
 SWEP.Primary.ClipSize = 30
 SWEP.Primary.Automatic = true

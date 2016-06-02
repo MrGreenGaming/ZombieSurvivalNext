@@ -41,21 +41,17 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
 SWEP.Primary.Recoil			= 0.25
-SWEP.Primary.Damage			= 4
+SWEP.Primary.Damage			= 9
 SWEP.Primary.NumShots		= 2
 SWEP.Primary.ClipSize		= 8
-SWEP.Primary.Delay			= 0.13
+SWEP.Primary.Delay			= 0.16
 SWEP.Primary.DefaultClip	= 12
 SWEP.Primary.Automatic		= false
 
-SWEP.Primary.Ammo			= "none"
+SWEP.ConeMax = 0.075
+SWEP.ConeMin = 0.035
 
---SWEP.Cone 			= 0.030
---SWEP.ConeMoving		 = SWEP.Cone *1.3
---SWEP.ConeCrouching 	 = SWEP.Cone *0.90
---SWEP.ConeIron 		 = SWEP.Cone *0.95
---SWEP.ConeIronCrouching   	= SWEP.ConeCrouching *0.9
---SWEP.ConeIronMoving	 = SWEP.ConeMoving *0.9
+SWEP.Primary.Ammo			= "none"
 
 SWEP.IronSightsPos = Vector(-3, 4, 1)
 
@@ -65,13 +61,11 @@ SWEP.Secondary.ClipSize		= -1
 SWEP.Secondary.DefaultClip	= -1
 SWEP.Secondary.Automatic	= false
 SWEP.Secondary.Ammo			= "none"
-SWEP.MaxBulletDistance 		= 2900 -- Uses pulse power, FTW!
-SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 SWEP.fired = false
 SWEP.lastfire = 0
 SWEP.rechargetimer = 0
 SWEP.rechargerate = 3
-SWEP.startcharge = 1.9
+SWEP.startcharge = 1.7
 SWEP.MaxClip = 12
 
 function SWEP:Think()

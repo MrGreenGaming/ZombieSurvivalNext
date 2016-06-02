@@ -176,9 +176,9 @@ local function DrawLine(x, y, rot)
 	rot = 270 - rot
 	surface.SetMaterial(matGrad)
 	surface.SetDrawColor(0, 0, 0, 220)
-	surface.DrawTexturedRectRotated(x, y, 14, 4, rot)
+	surface.DrawTexturedRectRotated(x, y, 14, 2, rot)
 	surface.SetDrawColor(GAMEMODE.CrosshairColor)
-	surface.DrawTexturedRectRotated(x, y, 12, 4, rot)
+	surface.DrawTexturedRectRotated(x, y, 12, 2, rot)
 end
 local baserot = 0
 function meta:DrawCrosshairCross()

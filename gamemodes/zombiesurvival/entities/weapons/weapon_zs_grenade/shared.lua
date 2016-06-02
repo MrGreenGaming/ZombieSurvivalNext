@@ -10,7 +10,7 @@ SWEP.ShowViewModel = true
 SWEP.ShowWorldModel = true
 
 SWEP.Primary.ClipSize = 10
-SWEP.Primary.DefaultClip = 4
+SWEP.Primary.DefaultClip = 3
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "grenade"
 SWEP.Primary.Delay = 1.25

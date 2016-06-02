@@ -23,11 +23,14 @@ SWEP.WorldModel = "models/weapons/w_smg_tmp.mdl"
 SWEP.UseHands = true
 
 SWEP.Primary.Sound = Sound("Weapon_TMP.Single")
-SWEP.Primary.Damage = 26
+SWEP.Primary.Damage = 25
 SWEP.Primary.NumShots = 1
-SWEP.Primary.Delay = 0.08
+SWEP.Primary.Delay = 0.095
 
-SWEP.Primary.ClipSize = 25
+--SWEP.SDPS ()= 6,063
+--(SWEP.Damage x Clipsize / Delay)
+
+SWEP.Primary.ClipSize = 24
 SWEP.Primary.DefaultClipSize = 50
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "smg1"
@@ -36,8 +39,8 @@ GAMEMODE:SetupDefaultClip(SWEP.Primary)
 SWEP.Primary.Gesture = ACT_HL2MP_GESTURE_RANGE_ATTACK_SMG1
 SWEP.ReloadGesture = ACT_HL2MP_GESTURE_RELOAD_SMG1
 
-SWEP.ConeMax = 0.13
-SWEP.ConeMin = 0.1
+SWEP.ConeMax = 0.16
+SWEP.ConeMin = 0.08
 
 SWEP.WalkSpeed = SPEED_NORMAL
 

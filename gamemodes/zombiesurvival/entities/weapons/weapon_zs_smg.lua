@@ -1,7 +1,7 @@
 AddCSLuaFile()
 
 if CLIENT then
-	SWEP.PrintName = "'Shredder' SMG"
+	SWEP.PrintName = "'MP5' SMG"
 	SWEP.Slot = 2
 	SWEP.SlotPos = 0
 
@@ -23,9 +23,12 @@ SWEP.WorldModel = "models/weapons/w_smg_mp5.mdl"
 SWEP.UseHands = true
 
 SWEP.Primary.Sound = Sound("Weapon_MP5Navy.Single")
-SWEP.Primary.Damage = 18
+SWEP.Primary.Damage = 19
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 0.09
+
+--SWEP.SDPS ()= 6,300
+--(SWEP.Damage x Clipsize / Delay)
 
 SWEP.Primary.ClipSize = 30
 SWEP.Primary.Automatic = true

@@ -75,10 +75,6 @@ include("modules/weightspeed/sh_weightspeed.lua")
 --Bone Lib
 include("modules/boneanimlib_v2/cl_boneanimlib.lua")
 
---Achievements
-AddCSLuaFile("modules/achievements/cl_achievements_gui.lua")
-include("modules/achievements/cl_achievements_gui.lua")
-
 
 --Admin Mod
 include("modules/admin_mod/cl_admin.lua")
@@ -758,9 +754,9 @@ function GM:HumanHUD2(screenscale)
 	--Duby: I will place this into a module soon enough!
 	local w, h = ScrW(), ScrH()
 	
-	draw.RoundedBox( 12, w * 0.01, h * 0.01, w * 0.12, h * 0.09, Color(1, 1, 1, 100) ) 	
-	draw.RoundedBox( 12, w * 0.01, h * 0.89, w * 0.17, h * 0.09, Color(1, 1, 1, 100) )	
-	draw.RoundedBox( 12, w * 0.01, h * 0.83, w * 0.06, h * 0.05, Color(1, 1, 1, 100) )
+	draw.RoundedBox( 2, w * 0.01, h * 0.015, w * 0.12, h * 0.09, Color(1, 1, 1, 100) ) 	
+	draw.RoundedBox( 2, w * 0.01, h * 0.89, w * 0.17, h * 0.09, Color(1, 1, 1, 100) )	
+	draw.RoundedBox( 2, w * 0.01, h * 0.83, w * 0.06, h * 0.05, Color(1, 1, 1, 100) )
 	
 	local pl = LocalPlayer()
 	local SCREEN_W = 1920; 
@@ -854,19 +850,19 @@ function GM:ZombieHUD2(screenscale)
 	
 	surface.SetMaterial(hudsplat)
 	surface.SetDrawColor(225, 225, 225, 225 )
-	surface.DrawTexturedRect(w * -0.02, h * -0.01, w * 0.21, h * 0.14)
+	surface.DrawTexturedRect(w * -0.02, h * -0.08, w * 0.21, h * 0.25)
 	
 	surface.SetMaterial(hudsplat2)
 	surface.SetDrawColor(225, 225, 225, 225 )
 	surface.DrawTexturedRect(w * -0.03, h * 0.86, w * 0.25, h * 0.2)
 	
-	draw.SimpleText("+"..HP, "ZSHUDFontLargeZombie",w * 0.04, h * 0.91 , COLOR_GRAY, TEXT_ALIGN_CENTER)
+	draw.SimpleText("HEALTH: "..HP, "ZSHUDFontLargeZombie",w * 0.07, h * 0.91 , COLOR_GRAY, TEXT_ALIGN_CENTER)
 	
 	if MySelf:IsValid() then
 		if MySelf:Team() == TEAM_UNDEAD then
 			local toredeem = GAMEMODE:GetRedeemBrains()
 			if toredeem > 0 then
-				draw.SimpleText(translate.Format("brains_eaten_x", MySelf:Frags().." / "..toredeem), "ZSHUDFontSmallZombie", 100 * X_MULTIPLIER, 1045 * Y_MULTIPLIER, COLOR_GRAY)
+				draw.SimpleText(translate.Format("brains_eaten_x", MySelf:Frags().." / "..toredeem), "ZSHUDFontSmallZombie", 28 * X_MULTIPLIER, 1045 * Y_MULTIPLIER, COLOR_GRAY)
 			else
 				draw.SimpleText(translate.Format("brains_eaten_x", MySelf:Frags()), "ZSHUDFontSmallZombie",100 * X_MULTIPLIER, 1045 * Y_MULTIPLIER, COLOR_GRAY)
 			end
@@ -1094,10 +1090,15 @@ function GM:CreateFonts()
 	surface.CreateLegacyFont("ZS New",screenscale * 40, 110, true, false, "zsdeathnotice2", false, true)
 	
 	surface.CreateLegacyFont("FaceYourFears", screenscale * 28, fontweight, fontaa, false, "ZSHUDFontSmallZombie", fontshadow, fontoutline)
+	surface.CreateLegacyFont("FaceYourFears", screenscale * 40, fontweight, fontaa, false, "ZSHUDFontMediumZombie", fontshadow, fontoutline)
 	surface.CreateLegacyFont("FaceYourFears", screenscale * 72, fontweight, fontaa, false, "ZSHUDFontLargeZombie", fontshadow, fontoutline)
+	
+	--Used for tools/displays
+	surface.CreateLegacyFont("hidden", screenscale * 19, fontweight, fontaa, false, "ZSHUDFontTinySpecial")
+	surface.CreateLegacyFont("hidden", screenscale * 28, fontweight, fontaa, false, "ZSHUDFontSmallSpecial")
+	surface.CreateLegacyFont("hidden", screenscale * 40, fontweight, fontaa, false, "ZSHUDFontMediumSpecial")
+	surface.CreateLegacyFont("hidden", screenscale * 72, fontweight, fontaa, false, "ZSHUDFontLargeSpecial")
 
-	
-	
 	surface.CreateLegacyFont(new_zs_font, screenscale * 16, fontweight, fontaa, false, "ZSHUDFontTiny", fontshadow, fontoutline)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 20, fontweight, fontaa, false, "ZSHUDFontSmallest", fontshadow, fontoutline)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 22, fontweight, fontaa, false, "ZSHUDFontSmaller", fontshadow, fontoutline)
@@ -1106,7 +1107,7 @@ function GM:CreateFonts()
 	surface.CreateLegacyFont(new_zs_font, screenscale * 39, fontweight, fontaa, false, "ZSHUDFont1.1", false, false)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 42, fontweight, fontaa, false, "ZSHUDFont2", false, false)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 65, fontweight, fontaa, false, "ZSHUDFont3", false, false)
-	surface.CreateLegacyFont(new_zs_font, screenscale * 55, fontweight, fontaa, false, "ZSHUDFont4", false, false, fontshadow, fontoutline)
+	surface.CreateLegacyFont(new_zs_font, screenscale * 55, fontweight, fontaa, false, "ZSHUDFont4", fontshadow, fontoutline)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 72, fontweight, fontaa, false, "ZSHUDFontBig", fontshadow, fontoutline)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 16, fontweight, fontaa, false, "ZSHUDFontTinyBlur", false, false, 8)
 	surface.CreateLegacyFont(new_zs_font, screenscale * 22, fontweight, fontaa, false, "ZSHUDFontSmallerBlur", false, false, 8)
@@ -1141,7 +1142,7 @@ function GM:CreateFonts()
 	
 	
 
-	surface.CreateLegacyFont(CloseCaption_Normal, screenscale * 28, fontweight, false, false, "ZSHUDFontSmalldebug", false, false)
+	surface.CreateLegacyFont(CloseCaption_Normal, screenscale * 15, fontweight, false, false, "ZSHUDFontSmalldebug", false, false)
 
 
 end
@@ -2270,3 +2271,4 @@ local function CustomChatAdd(um)
 
 end
 usermessage.Hook( "CustomChatAdd",CustomChatAdd)
+

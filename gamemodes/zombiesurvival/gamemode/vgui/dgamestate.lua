@@ -86,13 +86,13 @@ function PANEL:Text1Paint()
 	
 if myteam == TEAM_UNDEAD then
 	if text then
-		draw.SimpleText(text, "ZSHUDFontSmallZombie", 30 * X_MULTIPLIER, Y_MULTIPLIER, COLOR_GRAY)
+		draw.SimpleText(text, "ZSHUDFontMediumZombie", 30 * X_MULTIPLIER, Y_MULTIPLIER, COLOR_GRAY)
 	end
 end
 
 if myteam == TEAM_HUMAN then
 	if text then
-		draw.SimpleText(text, self.Font, 40 *  X_MULTIPLIER,  Y_MULTIPLIER, COLOR_GRAY)
+		draw.SimpleText(text, "ZSHUDFontSmall", 40 *  X_MULTIPLIER,  Y_MULTIPLIER, COLOR_GRAY)
 	end
 end	
 
@@ -123,18 +123,18 @@ if myteam == TEAM_UNDEAD then --Zombies!
 			col = COLOR_GRAY
 		end
 
-			draw.SimpleText("Invasion in " .. util.ToMinutesSeconds(timeleft) .. "", "ZSHUDFontSmallZombie", 30 * X_MULTIPLIER, Y_MULTIPLIER, col)	
+			draw.SimpleText("Invasion in " .. util.ToMinutesSeconds(timeleft) .. "", "ZSHUDFontMediumZombie", 30 * X_MULTIPLIER, -12 * Y_MULTIPLIER, col)	
 	elseif GAMEMODE:GetWaveActive() then
 		local waveend = GAMEMODE:GetWaveEnd()
 		if waveend ~= -1 then
 			local timeleft = math.max(0, waveend - CurTime())
-			draw.SimpleText(translate.Format("wave_ends_in_x", util.ToMinutesSeconds(timeleft)), "ZSHUDFontSmallZombie", 30 * X_MULTIPLIER, Y_MULTIPLIER, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
+			draw.SimpleText(translate.Format("wave_ends_in_x", util.ToMinutesSeconds(timeleft)), "ZSHUDFontMediumZombie", 30 * X_MULTIPLIER, -12 * Y_MULTIPLIER, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
 		end	
 	else
 		local wavestart = GAMEMODE:GetWaveStart()
 		if wavestart ~= -1 then
 			local timeleft = math.max(0, wavestart - CurTime())
-			draw.SimpleText(translate.Format("next_wave_in_x", util.ToMinutesSeconds(timeleft)), "ZSHUDFontSmallZombie", 30 * X_MULTIPLIER, Y_MULTIPLIER, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
+			draw.SimpleText(translate.Format("next_wave_in_x", util.ToMinutesSeconds(timeleft)), "ZSHUDFontMediumZombie", 30 * X_MULTIPLIER, Y_MULTIPLIER, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
 		end
 	end
 
@@ -156,18 +156,18 @@ if myteam == TEAM_HUMAN then --Huamns
 			col = COLOR_GRAY
 		end
 		
-		draw.SimpleText("Invasion in " .. util.ToMinutesSeconds(timeleft) .. "", self.Font, 40 * X_MULTIPLIER, Y_MULTIPLIER, col)
+		draw.SimpleText("Invasion in " .. util.ToMinutesSeconds(timeleft) .. "", "ZSHUDFontSmall", 40 * X_MULTIPLIER, Y_MULTIPLIER, col)
 	elseif GAMEMODE:GetWaveActive() then
 		local waveend = GAMEMODE:GetWaveEnd()
 		if waveend ~= -1 then
 			local timeleft = math.max(0, waveend - CurTime())
-			draw.SimpleText(translate.Format("wave_ends_in_x", util.ToMinutesSeconds(timeleft)), self.Font, 40 * X_MULTIPLIER, Y_MULTIPLIER, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
+			draw.SimpleText(translate.Format("wave_ends_in_x", util.ToMinutesSeconds(timeleft)), "ZSHUDFontSmall", 40 * X_MULTIPLIER, Y_MULTIPLIER, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
 		end	
 	else
 		local wavestart = GAMEMODE:GetWaveStart()
 		if wavestart ~= -1 then
 			local timeleft = math.max(0, wavestart - CurTime())
-			draw.SimpleText(translate.Format("next_wave_in_x", util.ToMinutesSeconds(timeleft)), self.Font, 40 * X_MULTIPLIER, Y_MULTIPLIER, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
+			draw.SimpleText(translate.Format("next_wave_in_x", util.ToMinutesSeconds(timeleft)), "ZSHUDFontSmall", 40 * X_MULTIPLIER, Y_MULTIPLIER, 10 < timeleft and COLOR_GRAY or Color(255, 0, 0, math.abs(math.sin(RealTime() * 8)) * 180 + 40))
 		end
 	end
 

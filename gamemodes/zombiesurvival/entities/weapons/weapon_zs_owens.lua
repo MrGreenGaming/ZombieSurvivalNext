@@ -6,7 +6,7 @@ if CLIENT then
 	SWEP.SlotPos = 0
 	
 	SWEP.ViewModelFlip = false
-	SWEP.ViewModelFOV = 60
+	SWEP.ViewModelFOV = 50
 
 	SWEP.HUD3DBone = "ValveBiped.square"
 	SWEP.HUD3DPos = Vector(1.1, 0.25, -2)
@@ -25,17 +25,20 @@ SWEP.CSMuzzleFlashes = false
 
 SWEP.ReloadSound = Sound("Weapon_Pistol.Reload")
 SWEP.Primary.Sound = Sound("Weapon_Pistol.NPC_Single")
-SWEP.Primary.Damage = 12
+SWEP.Primary.Damage = 13.5
 SWEP.Primary.NumShots = 2
-SWEP.Primary.Delay = 0.2
+SWEP.Primary.Delay = 0.24
+
+--SWEP.SDPS ()= 1,350 
+--(SWEP.Damage x Clipsize / Delay)
 
 SWEP.Primary.ClipSize = 12
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "pistol"
 GAMEMODE:SetupDefaultClip(SWEP.Primary)
 
-SWEP.ConeMax = 0.08
-SWEP.ConeMin = 0.04
+SWEP.ConeMax = 0.12
+SWEP.ConeMin = 0.06
 
 SWEP.IronSightsPos = Vector(-5.95, 3, 2.75)
 SWEP.IronSightsAng = Vector(-0.15, -1, 2)

@@ -48,7 +48,7 @@ SWEP.Secondary.Ammo = "none"
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
-SWEP.MeleeDamage = 35
+SWEP.MeleeDamage = 45
 SWEP.MeleeRange = 50
 SWEP.MeleeSize = 0.875
 
