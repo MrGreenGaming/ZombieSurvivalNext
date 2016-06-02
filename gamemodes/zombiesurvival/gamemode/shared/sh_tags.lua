@@ -6,6 +6,7 @@ if ( SERVER ) then
 	tags["STEAM_0:0:59565612"] = { "[Head ZS Coder] ", Color(800,0,0,255) }
 	tags["STEAM_0:0:20139318"] = { "[Director Of Graphics] ", Color(38,38,230,255) }
 	tags["STEAM_0:0:11106290"] = { "[Lord Of the Servers] ", Color(255,0,0,255) }
+	tags["STEAM_0:0:20139318"] = { "[Cheese Cake Hax] ", Color(255,0,0,255) }
 	
 	--Our Humble Beta testers
 	tags["STEAM_0:1:20607445"] = { "[β] ", Color(0,800,0,255) } --Rui
