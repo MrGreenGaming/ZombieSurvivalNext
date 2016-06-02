@@ -563,7 +563,7 @@ function GM:ShowSpare1(pl)
 		if self:ShouldUseAlternateDynamicSpawn() then
 			pl:CenterNotify(COLOR_RED, translate.ClientGet(pl, "no_class_switch_in_this_mode"))
 		else
-			pl:SendLua("DoClassesMenu()")
+			pl:SendLua("GAMEMODE:OpenClassSelect()")
 		end
 	else
 		pl:SendLua("GAMEMODE:ShowHelp()")
