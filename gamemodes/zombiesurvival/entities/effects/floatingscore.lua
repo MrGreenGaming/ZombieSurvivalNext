@@ -28,7 +28,8 @@ function EFFECT:Think()
 end
 
 local cols = {}
-cols[0] = Color(190, 190, 220, 255)
+cols[0] = Color(67, 226, 35, 255)
+--cols[0] = Color(190, 190, 220, 255)
 cols[1] = Color(255, 255, 10, 255)
 cols[2] = Color(255, 10, 10, 255)
 local col2 = Color(0, 0, 0, 255)
@@ -43,7 +44,7 @@ function EFFECT:Render()
 	ang:RotateAroundAxis(ang:Forward(), 90)
 	cam.IgnoreZ(true)
 	cam.Start3D2D(self.Pos + math.sin(CurTime() + self.Seed) * 30 * delta * right, ang, (delta * 0.12 + 0.045) / 2)
-		draw.SimpleText(self.Amount, "ZS3D2DFont2Big", 0, -21, col, TEXT_ALIGN_CENTER)
+		draw.SimpleText(self.Amount.." (SP)", "ZSHUDFontLargeSpecial", 0, -21, col, TEXT_ALIGN_CENTER)
 	cam.End3D2D()
 	cam.IgnoreZ(false)
 end

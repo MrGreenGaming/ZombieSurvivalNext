@@ -23,9 +23,12 @@ SWEP.WorldModel = "models/weapons/w_smg_p90.mdl"
 SWEP.UseHands = true
 
 SWEP.Primary.Sound = Sound("Weapon_p90.Single")
-SWEP.Primary.Damage = 15.5
+SWEP.Primary.Damage = 13
 SWEP.Primary.NumShots = 1
-SWEP.Primary.Delay = 0.07
+SWEP.Primary.Delay = 0.09
+
+--SWEP.SDPS ()= 7,222
+--(SWEP.Damage x Clipsize / Delay)
 
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
@@ -36,7 +39,7 @@ SWEP.Primary.Ammo = "smg1"
 GAMEMODE:SetupDefaultClip(SWEP.Primary)
 
 SWEP.ConeMax = 0.11
-SWEP.ConeMin = 0.06
+SWEP.ConeMin = 0.075
 
 SWEP.Primary.Gesture = ACT_HL2MP_GESTURE_RANGE_ATTACK_SMG1
 SWEP.ReloadGesture = ACT_HL2MP_GESTURE_RELOAD_SMG1

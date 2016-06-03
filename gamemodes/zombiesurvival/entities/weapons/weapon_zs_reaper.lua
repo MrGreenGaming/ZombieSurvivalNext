@@ -27,6 +27,9 @@ SWEP.Primary.Damage = 24
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 0.13
 
+--SWEP.SDPS ()= 5,169
+--(SWEP.Damage x Clipsize / Delay)
+
 SWEP.Primary.ClipSize = 28
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "smg1"
@@ -35,8 +38,8 @@ GAMEMODE:SetupDefaultClip(SWEP.Primary)
 SWEP.Primary.Gesture = ACT_HL2MP_GESTURE_RANGE_ATTACK_AR2
 SWEP.ReloadGesture = ACT_HL2MP_GESTURE_RELOAD_AR2
 
-SWEP.ConeMax = 0.08
-SWEP.ConeMin = 0.045
+SWEP.ConeMax = 0.12
+SWEP.ConeMin = 0.07
 
 SWEP.WalkSpeed = SPEED_SLOW
 

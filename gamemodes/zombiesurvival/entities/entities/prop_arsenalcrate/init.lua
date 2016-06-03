@@ -24,7 +24,7 @@ function ENT:Initialize()
 		phys:EnableMotion(false)
 	end
 
-	self:SetMaxObjectHealth(200)
+	self:SetMaxObjectHealth(800)
 	self:SetObjectHealth(self:GetMaxObjectHealth())
 	
 end

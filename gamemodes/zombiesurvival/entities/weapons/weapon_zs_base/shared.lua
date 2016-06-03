@@ -185,6 +185,18 @@ function SWEP:Reload()
 		if self.ReloadSound then
 			self:EmitSound(self.ReloadSound)
 		end
+		
+		local MaleSounds = {"vo/npc/male01/gottareload01.wav"}
+		local FemaleSounds = {"vo/npc/female01/gottareload01.wav"}
+		local CombineSounds = {"npc/combine_soldier/vo/coverme.wav", "npc/combine_soldier/vo/targetmyradial.wav"}
+		
+		if (self.Owner.VoiceSet == "male") && (math.random(100) <= 25) then
+			self.Owner:EmitSound(MaleSounds[math.random(#MaleSounds-1)])
+		elseif (self.Owner.VoiceSet == "female") && (math.random(100) <= 25) then
+			self.Owner:EmitSound(FemaleSounds[math.random(#MaleSounds-1)])
+		elseif (self.Owner.VoiceSet == "combine") && (math.random(100) <= 25) then
+			self.Owner:EmitSound(CombineSounds[math.random(#MaleSounds-1)])
+		end
 	end
 end
 

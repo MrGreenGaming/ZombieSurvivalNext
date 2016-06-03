@@ -31,7 +31,7 @@ SWEP.ViewModel = "models/weapons/c_stunstick.mdl"
 SWEP.WorldModel = "models/weapons/w_keyboard.mdl"
 SWEP.UseHands = true
 
-SWEP.MeleeDamage = 35
+SWEP.MeleeDamage = 39
 SWEP.MeleeRange = 52
 SWEP.MeleeSize = 1.25
 

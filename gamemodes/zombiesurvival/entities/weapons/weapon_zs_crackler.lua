@@ -1,7 +1,7 @@
 AddCSLuaFile()
 
 if CLIENT then
-	SWEP.PrintName = "'Crackler' Assault Rifle"
+	SWEP.PrintName = "'Famas' Assault Rifle"
 	SWEP.Slot = 2
 	SWEP.SlotPos = 0
 
@@ -23,17 +23,20 @@ SWEP.UseHands = true
 
 SWEP.ReloadSound = Sound("Weapon_FAMAS.Clipout")
 SWEP.Primary.Sound = Sound("Weapon_FAMAS.Single")
-SWEP.Primary.Damage = 15
+SWEP.Primary.Damage = 17
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 0.175
+
+--SWEP.SDPS ()= 2,137
+--(SWEP.Damage x Clipsize / Delay)
 
 SWEP.Primary.ClipSize = 22
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "ar2"
 GAMEMODE:SetupDefaultClip(SWEP.Primary)
 
-SWEP.ConeMax = 0.045
-SWEP.ConeMin = 0.019
+SWEP.ConeMax = 0.12
+SWEP.ConeMin = 0.057
 
 SWEP.WalkSpeed = SPEED_SLOW
 

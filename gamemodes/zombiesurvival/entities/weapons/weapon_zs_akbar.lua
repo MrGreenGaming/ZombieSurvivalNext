@@ -28,17 +28,20 @@ SWEP.AutoSwitchFrom		= false
 
 SWEP.ReloadSound = Sound("Weapon_AK47.Clipout")
 SWEP.Primary.Sound = Sound("Weapon_AK47.Single")
-SWEP.Primary.Damage = 20
+SWEP.Primary.Damage = 27
 SWEP.Primary.NumShots = 1
-SWEP.Primary.Delay = 0.12
+SWEP.Primary.Delay = 0.17
+
+--SWEP.SDPS ()= 3,970
+--(SWEP.Damage x Clipsize / Delay)
 
 SWEP.Primary.ClipSize = 25
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "ar2"
 GAMEMODE:SetupDefaultClip(SWEP.Primary)
 
-SWEP.ConeMax = 0.055
-SWEP.ConeMin = 0.0275
+SWEP.ConeMax = 0.12
+SWEP.ConeMin = 0.0575
 
 SWEP.WalkSpeed = SPEED_SLOW
 

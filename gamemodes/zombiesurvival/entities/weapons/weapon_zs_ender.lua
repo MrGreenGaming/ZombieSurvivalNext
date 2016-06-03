@@ -45,8 +45,11 @@ SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 GAMEMODE:SetupDefaultClip(SWEP.Primary)
 
-SWEP.ConeMax = 0.055
-SWEP.ConeMin = 0.0275
+--SWEP.SDPS ()= 5,454
+--(SWEP.Damage x Clipsize / Delay)
+
+SWEP.ConeMax = 0.16
+SWEP.ConeMin = 0.13
 
 SWEP.WalkSpeed = SPEED_SLOWER
 

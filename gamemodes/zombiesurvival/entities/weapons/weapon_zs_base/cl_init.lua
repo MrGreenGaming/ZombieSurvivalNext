@@ -309,9 +309,9 @@ function SWEP:GetViewModelPosition(pos, ang)
 		RotateAroundAxis(ang, Up(ang), CurAngMod.y + self.AngleDelta.y * 0.3)
 		RotateAroundAxis(ang, Forward(ang), CurAngMod.z + self.AngleDelta.y * 0.3)
 
-		pos = pos + (CurPosMod.x + self.AngleDelta.y * 0.1) * Right(ang)
+		pos = pos + (CurPosMod.x + self.AngleDelta.y * 0.1 - 1) * Right(ang)
 		pos = pos + (CurPosMod.y + self.BlendPos.y) * Forward(ang)
-		pos = pos + (CurPosMod.z + self.BlendPos.z - self.AngleDelta.p * 0.1) * Up(ang)
+		pos = pos + (2 + CurPosMod.z + self.BlendPos.z - self.AngleDelta.p * 0.1) * Up(ang)
 		local Mul = math.Clamp((CurTime() - (self.fIronTime or 0)) * 4, 0, 1)
 	if not bIron then Mul = 1 - Mul end
 
@@ -324,7 +324,7 @@ function SWEP:GetViewModelPosition(pos, ang)
 			ang:RotateAroundAxis(ang:Forward(), self.IronSightsAng.z * Mul)
 		end
 
-		pos = pos + Offset.x * Mul * ang:Right() + Offset.y * Mul * ang:Forward() + Offset.z * Mul * ang:Up()
+		pos = pos + (Offset.x + 1) * Mul * ang:Right() + Offset.y * Mul * ang:Forward() + (Offset.z - 2) * Mul * ang:Up()
 	end
 
 	if self.Owner:GetBarricadeGhosting() then
@@ -337,7 +337,7 @@ function SWEP:GetViewModelPosition(pos, ang)
 		pos = pos + 3.5 * ghostlerp * ang:Up()
 		ang:RotateAroundAxis(ang:Right(), -30 * ghostlerp)
 	end
-
+	
 	return pos, ang
 end
 
@@ -354,7 +354,7 @@ function SWEP:DrawHUD()
 
 	local w, h = ScrW(), ScrH()
 
-	draw.RoundedBox( 12, w * 0.89, h * 0.9, w * 0.09, h * 0.09, Color(1, 1, 1, 100) )	
+	--draw.RoundedBox( 2, w * 0.89, h * 0.83, w * 0.09, h * 0.09, Color(1, 1, 1, 100) )	
 	
 	local SCREEN_W = 1920;
 	local SCREEN_H = 1080;

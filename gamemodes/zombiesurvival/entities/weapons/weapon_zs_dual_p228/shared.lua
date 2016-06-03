@@ -19,7 +19,7 @@ SWEP.Spawnable= true
 SWEP.AdminSpawnable= true
 SWEP.AdminOnly = false
 
-SWEP.ViewModelFOV = 40
+SWEP.ViewModelFOV = 45
 SWEP.ViewModel = "models/weapons/dual_p228.mdl" 
 SWEP.WorldModel = "models/oldbill/w_dualp228.mdl"
 SWEP.ViewModelFlip = false
@@ -36,7 +36,7 @@ SWEP.HoldType = "Duel"
 
 SWEP.FiresUnderwater = false
 
-SWEP.DrawCrosshair = true
+SWEP.DrawCrosshair = false
 
 SWEP.DrawAmmo = true
 
@@ -98,18 +98,24 @@ end
 
 SWEP.Primary.Sound = Sound("weapons/p228/p228-1.wav") 
 SWEP.Primary.Recoil		= 1.5
-SWEP.Primary.Damage		= 16
+SWEP.Primary.Damage		= 18
 SWEP.Primary.NumShots		= 1
---SWEP.Primary.Cone			= 0.016
---SWEP.Primary.Delay 		= 0.25
+
 
 SWEP.ConeMax = 0.055
 SWEP.ConeMin = 0.05
 
 SWEP.Primary.ClipSize		= 36					
-SWEP.Primary.DefaultClip	= 108					
+SWEP.Primary.DefaultClip	= 128					
 SWEP.Primary.Automatic		= false				
 SWEP.Primary.Ammo			= "pistol"
+
+SWEP.Primary.TakeAmmo = 1
+SWEP.Primary.Spread = 0.1
+SWEP.Primary.NumberofShots = 1
+SWEP.Primary.Recoil = 0.6
+SWEP.Primary.Delay = 0.12
+SWEP.Primary.Force = 0
 
 SWEP.Secondary.ClipSize		= -1					
 SWEP.Secondary.DefaultClip	= -1					
@@ -122,6 +128,7 @@ util.PrecacheSound(self.Primary.Sound)
 util.PrecacheSound(self.ReloadSound) 
         self:SetWeaponHoldType( self.HoldType )
 end 
+
 
 function SWEP:PrimaryAttack()
  

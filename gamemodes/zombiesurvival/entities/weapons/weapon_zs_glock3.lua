@@ -22,17 +22,20 @@ SWEP.WorldModel = "models/weapons/w_pist_glock18.mdl"
 SWEP.UseHands = true
 
 SWEP.Primary.Sound = Sound("Weapon_Glock.Single")
-SWEP.Primary.Damage = 17
+SWEP.Primary.Damage = 22
 SWEP.Primary.NumShots = 3
-SWEP.Primary.Delay = 0.3
+SWEP.Primary.Delay = 0.31
+
+--SWEP.SDPS ()= 1,490
+--(SWEP.Damage x Clipsize / Delay)
 
 SWEP.Primary.ClipSize = 7
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "pistol"
 GAMEMODE:SetupDefaultClip(SWEP.Primary)
 
-SWEP.ConeMax = 0.14
-SWEP.ConeMin = 0.07
+SWEP.ConeMax = 0.13
+SWEP.ConeMin = 0.045
 
 SWEP.IronSightsPos = Vector(-5.75, 10, 2.7)
 
