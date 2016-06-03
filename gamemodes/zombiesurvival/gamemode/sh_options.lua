@@ -1,17 +1,14 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 GM.ArenaModeWeapons = { --Arena Mode weapons
-	"weapon_zs_python",
-	"weapon_zs_boomerstick",
-	"weapon_zs_slugrifle",
 	"weapon_zs_ender",
 	"weapon_zs_sg552",
 	"weapon_zs_bulletstorm",
+	"weapon_zs_crackler",
 	"weapon_zs_uzi",
 	"weapon_zs_dual_degals",
 	"weapon_zs_m249",
 	"weapon_zs_python", 
-	"weapon_zs_crackler",
 	"weapon_zs_uzi",
 	"weapon_zs_dual_degals"
 }
@@ -67,6 +64,11 @@ OldFags = {
 
 }
 
+Commando = {
+"models/player/combine_soldier.mdl",
+"models/player/combine_soldier_prisonguard.mdl"
+}
+
 
 -- Change this if you plan to alter the cost of items or you severely change how Worth works.
 -- Having separate cart files allows people to have separate loadouts for different servers.
@@ -75,9 +77,9 @@ GM.CartFile = "zscarts.txt"
 
 ITEMCAT_CLASS = 1 --Human classes
 ITEMCAT_GUNS = 2
-ITEMCAT_GUNS3 = 3
-ITEMCAT_GUNS2 = 4
-ITEMCAT_GUNS5 = 5
+ITEMCAT_GUNS5 = 3
+ITEMCAT_GUNS3 = 4
+ITEMCAT_GUNS2 = 5
 ITEMCAT_GUNS4 = 6
 ITEMCAT_AMMO = 7
 ITEMCAT_MELEE = 8
@@ -209,6 +211,7 @@ end
 	pl:Give("weapon_zs_medicalkit")
 	pl:Give("weapon_zs_plank")
 	pl:ChatPrint("You're a Medic! Heal Your Teammates!")	
+	pl.HumanHealMultiplier = (pl.HumanHealMultiplier or 1) + 0.3
 	
 	pl:SetSpeed(205)	
 	pl:SetHealth(95)
@@ -220,7 +223,7 @@ end, "models/healthvial.mdl")
 
 --COMMANDO
 
-GM:CLASS("commando", "COMMANDO", " Loadout items: \n\n Dual Classic Pistols \n Swiss Knife \n Grenades \n\n\n\n Class Stats: \n\n 10% speed reduction \n 4 grenades \n 30% chance to spawn with rifle \n 5% increased crouching accuracy", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("commando", "COMMANDO", " Loadout items: \n\n Dual P228 Pistols \n Swiss Knife \n Grenades \n\n\n\n Class Stats: \n\n 10% speed reduction \n 2 extra grenades \n 30% chance to spawn with rifle \n 5% increased crouching accuracy \n Poison resistance", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/combine_soldier.mdl",
@@ -235,7 +238,7 @@ if table.HasValue(allowedSteamIDs, pl:SteamID()) then
 else
 	pl:Give("weapon_zs_dual_p228")
 end
-
+	pl.BuffResistant = true
 	pl:Give("weapon_zs_swissarmyknife")
 	pl:Give("weapon_zs_grenade")
 	pl:ChatPrint("You're a Commando, kill and destroy!")
@@ -264,8 +267,9 @@ else
 	pl:Give("weapon_zs_pulsepistol")
 end
 
-	EngWeapon = {"weapon_zs_barricadekit","weapon_zs_gunturret","weapon_zs_mine"}
+	EngWeapon = {"weapon_zs_barricadekit","weapon_zs_gunturret"}
 
+	pl:Give("weapon_zs_mine")
 	pl:Give("weapon_zs_fryingpan")
 	pl:Give(table.Random(EngWeapon))
 	pl:ChatPrint("You're an Engineer, Blow shit up!")	
@@ -276,7 +280,7 @@ end, "models/healthvial.mdl")
 
 --BERSERKER
 
-GM:CLASS("berserker", "BERSERKER", " Loadout items: \n\n P228 \n Mobile Supplies \n Pot  \n\n\n\n Class Stats: \n\n 10% HP reduction \n 10% speed increase \n 25% chance of spawning as Gordan", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("berserker", "BERSERKER", " Loadout items: \n\n P228 \n Mobile Supplies \n Pot  \n\n\n\n Class Stats: \n\n 10% HP reduction \n 10% speed increase \n 25% chance of spawning as Gordan \n 20% Extra Melee Damage", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) 
 pl:SetModel( table.Random( {
@@ -307,6 +311,7 @@ end
 	pl:Give("weapon_zs_vodka")  
 	pl:Give("weapon_zs_resupplybox")  
 	pl:ChatPrint("You're a Berserker, smack the shit out of everything!")
+	pl:DoMuscularBones()
 	
 	pl:SetSpeed(210)
 	pl:SetHealth(90)
@@ -319,7 +324,7 @@ end, "models/healthvial.mdl")
 
 --SUPPORT
 
-GM:CLASS("support", "SUPPORT", " Loadout items: \n\n Hammer \n Supply Crate \n USP  \n\n\n\n Class Stats: \n\n 10% speed reduction \n 10% HP reduction \n 30% chance extra Ammo", ITEMCAT_CLASS, 100, nil, 
+GM:CLASS("support", "SUPPORT", " Loadout items: \n\n Hammer \n Supply Crate \n USP  \n\n\n\n Class Stats: \n\n 10% speed reduction \n 10% HP reduction \n 30% chance extra Ammo \n Can Lift Heavy Items", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/gasmask.mdl",
@@ -338,7 +343,8 @@ end
 if math.random(1,3) == 1  then --Ammo
 	pl:Give("weapon_zs_ammo")
 end	
-	
+
+	pl.BuffMuscular = true 
 	pl:Give("weapon_zs_hammer")
 	pl:Give("weapon_zs_arsenalcrate")
 	pl:Give("weapon_zs_battleaxe")
@@ -360,18 +366,19 @@ end, "models/healthvial.mdl")
 --// PISTOLS \\--
 GM:AddPointShopItem("usp", "USP", nil, ITEMCAT_GUNS2, 20, "weapon_zs_battleaxe")
 GM:AddPointShopItem("p228", "P228", nil, ITEMCAT_GUNS2, 25, "weapon_zs_peashooter")
+GM:AddPointShopItem("pulsepistol", "Pulse Pistol", nil, ITEMCAT_GUNS2, 27, "weapon_zs_pulsepistol")
 GM:AddPointShopItem("fiveseven", "Five Seven", nil, ITEMCAT_GUNS2, 30, "weapon_zs_fiveseven")
 GM:AddPointShopItem("Classic Pistol", "Classic Pistol", nil, ITEMCAT_GUNS2, 30, "weapon_zs_owens")
 GM:AddPointShopItem("medic_gun", "Medical Pistol", nil, ITEMCAT_GUNS2, 35, "weapon_zs_medicgun")
 GM:AddPointShopItem("glock", "Glock", nil, ITEMCAT_GUNS2, 40, "weapon_zs_glock3")
-GM:AddPointShopItem("dualp228", "Dual P228", nil, ITEMCAT_GUNS5, 30, "weapon_zs_dual_p228")
+GM:AddPointShopItem("dualp228", "Dual P228 Pistols", nil, ITEMCAT_GUNS5, 40, "weapon_zs_dual_p228")
 GM:AddPointShopItem("magnum", "Magnum", nil, ITEMCAT_GUNS2, 65, "weapon_zs_magnum")
-GM:AddPointShopItem("dualclassics", "Dual Classic Pistols", nil, ITEMCAT_GUNS5, 65, "weapon_zs_dualclassics")
+GM:AddPointShopItem("dualclassics", "Dual Classic Pistols", nil, ITEMCAT_GUNS5, 60, "weapon_zs_dualclassics")
 GM:AddPointShopItem("deagle", "Desert Eagle", nil, ITEMCAT_GUNS2, 70, "weapon_zs_deagle")
-GM:AddPointShopItem("Dual Berreta's 92fs", "Duel Berreta's 92fs", nil, ITEMCAT_GUNS5, 70, "weapon_zs_berreta")
+GM:AddPointShopItem("Dual Berreta's 92fs", "Duel Berreta's 92fs", nil, ITEMCAT_GUNS5, 75, "weapon_zs_berreta")
 GM:AddPointShopItem("alyxgun", "Alyx Gun", nil, ITEMCAT_GUNS2, 78, "weapon_zs_z9000")
 GM:AddPointShopItem("dualdegals", "Dual Degals", nil, ITEMCAT_GUNS5, 130, "weapon_zs_dual_degals")
-GM:AddPointShopItem("python", "Python", nil, ITEMCAT_GUNS2, 150, "weapon_zs_python")
+GM:AddPointShopItem("python", "Python", nil, ITEMCAT_GUNS2, 170, "weapon_zs_python")
 
 
 --// AUTOMATIC WEAPONS \\--
@@ -418,7 +425,7 @@ GM:AddPointShopItem("pipe", "Lead Pipe", nil, ITEMCAT_MELEE, 45, "weapon_zs_pipe
 GM:AddPointShopItem("axe", "Axe", nil, ITEMCAT_MELEE, 55, "weapon_zs_axe")
 GM:AddPointShopItem("crowbar", "Crowbar", nil, ITEMCAT_MELEE, 60, "weapon_zs_crowbar")
 GM:AddPointShopItem("shovel", "Shovel", nil, ITEMCAT_MELEE, 70, "weapon_zs_shovel") 
-GM:AddPointShopItem("sledgehammer", "Mr.Sledge", nil, ITEMCAT_MELEE, 80, "weapon_zs_sledgehammer") 
+GM:AddPointShopItem("sledgehammer", "Sledge Hammer", nil, ITEMCAT_MELEE, 80, "weapon_zs_sledgehammer") 
 GM:AddPointShopItem("katana", "Katana", nil, ITEMCAT_MELEE, 120, "weapon_zs_katana")
 
 --// AMMO \\--
@@ -445,9 +452,10 @@ GM:AddPointShopItem("Stoned Potato", "Stoned Potato +[SP]+", nil, ITEMCAT_OTHER,
 
 --// TOOLS \\--
 GM:AddPointShopItem("torch", "Blow Torch", nil, ITEMCAT_TOOLS, 35, "weapon_zs_torch")
+--GM:AddPointShopItem("turret", "Turret", nil, ITEMCAT_TOOLS, 30, "weapon_zs_gunturret")
 GM:AddPointShopItem("junkpack", "Junk Pack", nil, ITEMCAT_TOOLS, 45, "weapon_zs_boardpack")
-GM:AddPointShopItem("miniturret", "Mini Turret", nil, ITEMCAT_TOOLS, 50, nil, function(pl) pl:SpawnMiniTurret() end) --Un decided to if this should be kept in the shop..
-
+GM:AddPointShopItem("miniturret", "Mini Turret", nil, ITEMCAT_TOOLS, 110, nil, function(pl) pl:SpawnMiniTurret() end) --Un decided to if this should be kept in the shop..
+--GM:AddPointShopItem("supplycrate", "Supply Crate", nil, ITEMCAT_TOOLS, 50, "weapon_zs_arsenalcrate")
 
 -- These are the honorable mentions that come at the end of the round.
 
