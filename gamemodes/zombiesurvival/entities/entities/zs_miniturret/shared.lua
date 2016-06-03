@@ -87,10 +87,12 @@ function ENT:Think()
 		if self:IsValidTarget(target) then
 			if ct > (self.NextAttackAction or 0) then
 				if self:CanAttack() then
-					self.NextShoot = self.NextShoot or ct + 0.18	
+					--self.NextShoot = self.NextShoot or ct + 0.18	
+					self.NextShoot = self.NextShoot or ct + 0.08	
 					if ct > self.NextShoot then
 						self:Shoot()
-						self.NextShoot = ct + 0.18	
+						--self.NextShoot = ct + 0.18	
+						self.NextShoot = ct + 0.08	
 					end
 				else
 					self:ClearTarget()
@@ -457,4 +459,5 @@ if CLIENT then
 		local t = net.ReadEntity()	
 		MySelf.MiniTurret = t or nil
 	end)
+	
 end

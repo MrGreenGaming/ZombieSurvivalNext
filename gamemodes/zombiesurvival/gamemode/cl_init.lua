@@ -757,7 +757,7 @@ function GM:HumanHUD2(screenscale)
 	draw.RoundedBox( 2, w * 0.01, h * 0.015, w * 0.12, h * 0.09, Color(1, 1, 1, 100) ) 	
 	draw.RoundedBox( 2, w * 0.01, h * 0.89, w * 0.17, h * 0.09, Color(1, 1, 1, 100) )	
 	draw.RoundedBox( 2, w * 0.01, h * 0.83, w * 0.06, h * 0.05, Color(1, 1, 1, 100) )
-	
+
 	local pl = LocalPlayer()
 	local SCREEN_W = 1920; 
 	local SCREEN_H = 1080;
@@ -827,8 +827,17 @@ function GM:HumanHUD2(screenscale)
 		end
 	end
 	
-	--Draw health status text
-	--draw.SimpleText(healthStatusText, "ZSHUDFont1.1", barX+(barW/2), barY+(barH/2), Color(250,250,250,170), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		if IsValid(MySelf.MiniTurret) or IsValid(MySelf.Turret) then --Mini Turret Code
+		local tur = MySelf.MiniTurret or MySelf.Turret
+		
+		if not tur then
+			return
+		end
+
+		draw.RoundedBox( 2, w * 0.12, h * 0.83, w * 0.06, h * 0.05, Color(1, 1, 1, 100) )	
+		
+		draw.SimpleTextOutlined(tur:GetAmmo().."/"..tur:GetMaxAmmo(), "ZSHUDFontSmall", 330 * X_MULTIPLIER, 925 * Y_MULTIPLIER, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+	end
 
 end
 

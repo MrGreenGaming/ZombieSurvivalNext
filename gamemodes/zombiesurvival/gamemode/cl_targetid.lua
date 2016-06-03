@@ -5,13 +5,16 @@ local colTemp = Color(255, 255, 255)
 function GM:DrawTargetID(ent, fade)
 	fade = fade or 1
 	local ts = ent:GetPos():ToScreen()
-	local x, y = ts.x, math.Clamp(ts.y, 0, ScrH() * 0.95)
-
+	local x, y = ts.x, math.Clamp(ts.y, 0, ScrH() * 0.5)
+	
+	
 	colTemp.a = fade * 255
 	util.ColorCopy(COLOR_FRIENDLY, colTemp)
 
+	local pl = LocalPlayer()
+	
 	local name = ent:Name()
-	draw.SimpleText(name, "ZSHUDFontSmaller", x, y, colTemp, TEXT_ALIGN_CENTER)
+	draw.SimpleText(name, "ZSHUDFont1.1", x, y, colTemp, TEXT_ALIGN_CENTER)
 	y = y + draw.GetFontHeight("ZSHUDFontSmaller") + 4
 
 	local healthfraction = math.max(ent:Health() / (ent:Team() == TEAM_UNDEAD and ent:GetMaxZombieHealth() or ent:GetMaxHealth()), 0)
@@ -21,29 +24,30 @@ function GM:DrawTargetID(ent, fade)
 		local healthdisplay = math.ceil(healthfraction * 100).."%"
 		draw.SimpleText(healthdisplay, "ZSHUDFont", x, y, colTemp, TEXT_ALIGN_CENTER)
 		y = y + draw.GetFontHeight("ZSHUDFont") + 4
-	end
-
 	util.ColorCopy(color_white, colTemp)
-
+	end
 	if ent:Team() == TEAM_UNDEAD then
 		local classtab = ent:GetZombieClassTable()
 		local classname = classtab.TranslationName and translate.Get(classtab.TranslationName) or classtab.Name
 		if classname then
 			draw.SimpleText(classname, "ZSHUDFontTiny", x, y, colTemp, TEXT_ALIGN_CENTER)
 		end
+		
 	else
+
 		local holding = ent:GetHolding()
 		if holding:IsValid() then
 			local mdl = holding:GetModel()
 			local name = string.match(mdl, ".*/(.+)%.mdl") or "object"
-			draw.SimpleText("Carrying ["..name.."]", "ZSHUDFontTiny", x, y, colTemp, TEXT_ALIGN_CENTER)
+			draw.SimpleText("Carrying ["..name.."]", "ZSHUDFontTiny", x, y, COLOR_GREY, TEXT_ALIGN_CENTER)
 		else
 			local wep = ent:GetActiveWeapon()
 			if wep:IsValid() then
-				draw.SimpleText(wep:GetPrintName(), "ZSHUDFontTiny", x, y, colTemp, TEXT_ALIGN_CENTER)
+				draw.SimpleText(wep:GetPrintName(), "ZSHUDFontTiny", x, y, COLOR_GREY, TEXT_ALIGN_CENTER)
 			end
 		end
 	end
+	
 end
 
 function GM:HUDDrawTargetID(teamid)

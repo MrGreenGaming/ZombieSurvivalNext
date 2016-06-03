@@ -1064,7 +1064,7 @@ function GM:Think()
 
 				if self:GetWave() >= 1 and time >= pl.BonusDamageCheck + 60 then
 					pl.BonusDamageCheck = time
-					pl:AddPoints(2)
+					pl:AddPoints(6)
 					pl:PrintTranslatedMessage(HUD_PRINTCONSOLE, "minute_points_added", 2)
 				end
 
@@ -3565,7 +3565,7 @@ function GM:PlayerSpawn(pl)
 	end
 
 	pl:UnSpectate()
-
+	pl:SetRenderMode(RENDERMODE_NORMAL) pl:SetColor(Color(225,225,225,225))
 	pl.StartCrowing = nil
 	pl.StartSpectating = nil
 	pl.NextSpawnTime = nil
@@ -3710,7 +3710,7 @@ function GM:PlayerSpawn(pl)
 				end
 			else
 					--Duby: For now we will use this..
-					pl:SpawnMiniTurret()
+					--pl:SpawnMiniTurret()
 					pl:Give("weapon_zs_magnum") 
 					pl:AddPoints(120) --Lets give them a boost so they can get a good gun, ammo etc... 
 			end

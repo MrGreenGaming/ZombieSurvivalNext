@@ -14,7 +14,7 @@ sounds	["watch out"] = { Sound("vo/npc/female01/watchout.wav"), Sound("vo/npc/fe
 sounds	["nice"] = { Sound("vo/npc/female01/nice01.wav"), Sound("vo/npc/female01/nice02.wav") }
 sounds	["get down"] = { Sound("vo/npc/female01/getdown02.wav") }
 sounds	["oh shi"] = { Sound("vo/npc/female01/uhoh.wav"), Sound("vo/npc/female01/ohno.wav") }
-sounds	["zombie"] = { Sound("vo/npc/female01/zombies01.wav"), Sound("vo/npc/female01/zombies02.wav") }
+sounds	["zombie"] = { Sound("vo/npc/male01/zombies01.wav"), Sound("vo/npc/male01/zombies02.wav") }
 sounds	["get out"] = { Sound("vo/npc/female01/gethellout.wav") }
 
 sounds[ "hi" ] = { "vo/npc/male01/hi01.wav", "vo/npc/male01/hi02.wav" }
