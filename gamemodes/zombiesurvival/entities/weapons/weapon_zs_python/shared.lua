@@ -71,12 +71,6 @@ SWEP.ConeMin = 0.04
 SWEP.IronSightsPos = Vector(-4.65, 4, 0.25)
 SWEP.IronSightsAng = Vector(0, 0, 1)
 
-
-local function DoRicochet(attacker, hitpos, hitnormal, normal, damage)
-	attacker.RicochetBullet = true
-	attacker:FireBullets({Num = 1, Src = hitpos, Dir = 2 * hitnormal * hitnormal:Dot(normal * -1) + normal, Spread = Vector(0, 0, 0), Tracer = 1, TracerName = "rico_trace", Force = damage * 0.15, Damage = damage, Callback = GenericBulletCallback})
-	attacker.RicochetBullet = nil
-end
 function SWEP.BulletCallback(attacker, tr, dmginfo)
 	if SERVER and tr.HitWorld and not tr.HitSky then
 		local hitpos, hitnormal, normal, dmg = tr.HitPos, tr.HitNormal, tr.Normal, dmginfo:GetDamage() * 1.5
