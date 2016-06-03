@@ -9,7 +9,7 @@ CLASS.Wave = 3 / 3
 
 CLASS.Health = 650
 CLASS.Speed = 170
-CLASS.SWEP = "weapon_zs_poisonzombie"
+CLASS.SWEP = "weapon_zs_poisonzombie_2"
 
 CLASS.Mass = DEFAULT_MASS * 1.5
 
