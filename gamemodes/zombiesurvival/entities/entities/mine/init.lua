@@ -45,7 +45,7 @@ function ENT:Think()
 		local Effect = EffectData()
 			Effect:SetOrigin( self:GetPos() )
 			Effect:SetStart( self:GetPos() )
-			Effect:SetMagnitude( 300 )
+			Effect:SetMagnitude( 170 )
 		util.Effect("Explosion", Effect)
 		
 		-- Remove it

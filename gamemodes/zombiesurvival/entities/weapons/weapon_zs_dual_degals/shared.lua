@@ -102,7 +102,7 @@ end
  
  
 SWEP.Primary.Sound = Sound("weapons/deagle/deagle-1.wav")
-SWEP.Primary.Damage = 70
+SWEP.Primary.Damage = 50
 SWEP.Primary.TakeAmmo = 1
 SWEP.Primary.ClipSize = 14
 SWEP.Primary.Ammo = "pistol"

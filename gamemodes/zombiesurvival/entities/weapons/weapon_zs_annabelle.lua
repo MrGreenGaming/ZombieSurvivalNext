@@ -24,7 +24,7 @@ SWEP.WorldModel = "models/weapons/w_annabelle.mdl"
 SWEP.CSMuzzleFlashes = false
 
 SWEP.Primary.Sound = Sound("Weapon_Shotgun.Single")
-SWEP.Primary.Damage = 90
+SWEP.Primary.Damage = 60
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 0.8
 SWEP.ReloadDelay = 0.4
