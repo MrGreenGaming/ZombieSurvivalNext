@@ -2,7 +2,8 @@
 Mr. Green's adaptation of JetBoom's popular Garry's Mod Zombie Survival gamemode.
 
 # Goal
-TBA
+
+Mr. Green's goal is to bring a new era of ZS to its community utilizing ZS 3.0 after the closer of the old ZS 1.0 mod. We will be bringing back much loved gameplay aspects, as well as new gameplay aspects never seen before. By making our project open source, we aim to encourage many different developers to create and push their own content. Thus enhancing the gamemode for years of enjoyment from its playerbase. 
 
 # Contributing
 Anyone is welcome to contribute. Make sure your changes correspond with our goal. When in doubt, make an issue with your wished changes, before applying them in the code-base.
