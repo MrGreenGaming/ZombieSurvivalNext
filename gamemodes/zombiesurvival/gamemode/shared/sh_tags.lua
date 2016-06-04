@@ -66,19 +66,7 @@ local function OnPlayerChat( self, strText, bTeamOnly, bPlayerIsDead )
 			table.insert( tab, "(TEAM) " )
 		end
 		
-		if ply:Team() == TEAM_ZOMBIE then
-			table.insert( tab, Color( 198, 43, 43 ) )
-			table.insert( tab, ""..self:GetName() .. ": " )
-						table.insert( tab, Color( 255, 255, 255 ) )
-			table.insert( tab, ""..strText )
-		end
-		
-		if ply:Team() == TEAM_SURVIVORS then
-			table.insert( tab, Color( 43, 129, 198 ) )
-			table.insert( tab, ""..self:GetName() .. ": ")
-			table.insert( tab, Color( 255, 255, 255 ) )
-			table.insert( tab, ""..strText )
-		end
+
 
 		if ( self.GetNetworkedString and self.GetNetworkedInt ) then
 
@@ -102,7 +90,19 @@ local function OnPlayerChat( self, strText, bTeamOnly, bPlayerIsDead )
 		--table.insert( tab, Color( 255, 255, 255 ) )
 		--table.insert( tab, ""..self:GetName() .. ": "..strText )
 		
-
+		if ply:Team() == TEAM_ZOMBIE then
+			table.insert( tab, Color( 198, 43, 43 ) )
+			table.insert( tab, ""..self:GetName() .. ": " )
+						table.insert( tab, Color( 255, 255, 255 ) )
+			table.insert( tab, ""..strText )
+		end
+		
+		if ply:Team() == TEAM_SURVIVORS then
+			table.insert( tab, Color( 43, 129, 198 ) )
+			table.insert( tab, ""..self:GetName() .. ": ")
+			table.insert( tab, Color( 255, 255, 255 ) )
+			table.insert( tab, ""..strText )
+		end
 		
 		chat.AddText( unpack(tab) )
 	 
