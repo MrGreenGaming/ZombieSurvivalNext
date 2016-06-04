@@ -37,7 +37,7 @@ GAMEMODE:SetupDefaultClip(SWEP.Primary)
 SWEP.ConeMax = 0.13
 SWEP.ConeMin = 0.045
 
-SWEP.IronSightsPos = Vector(-5.75, 10, 2.7)
+SWEP.IronSightsPos = Vector(-8.5, 10, 5.3)
 
 if CHRISTMAS then
 	SWEP.VElements = {

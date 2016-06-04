@@ -50,7 +50,7 @@ if ( CLIENT ) then
 end
  
  
-SWEP.Base = "weapon_zs_base"
+SWEP.Base = "weapon_zs_base_dual"
  
 SWEP.HoldType = "duel"
  
@@ -111,7 +111,7 @@ SWEP.Primary.Spread = 0.1
 SWEP.Primary.NumberofShots = 1
 SWEP.Primary.Automatic = true
 SWEP.Primary.Recoil = 0.6
-SWEP.Primary.Delay = 0.3
+SWEP.Primary.Delay = 0.5
 SWEP.Primary.Force = 0
  
 SWEP.Secondary.ClipSize = 0

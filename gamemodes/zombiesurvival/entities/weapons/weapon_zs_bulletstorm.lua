@@ -23,7 +23,7 @@ SWEP.WorldModel = "models/weapons/w_smg_p90.mdl"
 SWEP.UseHands = true
 
 SWEP.Primary.Sound = Sound("Weapon_p90.Single")
-SWEP.Primary.Damage = 13
+SWEP.Primary.Damage = 10
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 0.09
 
@@ -46,7 +46,7 @@ SWEP.ReloadGesture = ACT_HL2MP_GESTURE_RELOAD_SMG1
 
 SWEP.WalkSpeed = SPEED_SLOW
 
-SWEP.IronSightsPos = Vector(-2, 6, 3)
+SWEP.IronSightsPos = Vector(-5, 13, 5)
 SWEP.IronSightsAng = Vector(0, 2, 0)
 
 SWEP.Primary.DefaultNumShots = SWEP.Primary.NumShots

@@ -13,7 +13,7 @@ if CLIENT then
 	SWEP.HUD3DScale = 0.015
 end
 
-SWEP.Base = "weapon_zs_base"
+SWEP.Base = "weapon_zs_base_dual"
 
 SWEP.HoldType = "duel"
 

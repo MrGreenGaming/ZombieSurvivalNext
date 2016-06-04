@@ -5,7 +5,7 @@ if CLIENT then
 	SWEP.Slot = 2
 	SWEP.SlotPos = 0
 
-	SWEP.ViewModelFlip = true
+	SWEP.ViewModelFlip = false
 	SWEP.ViewModelFOV = 60
 
 	SWEP.HUD3DBone = "v_weapon.aug_Parent"
@@ -40,8 +40,8 @@ SWEP.ConeMin = 0.02
 
 SWEP.WalkSpeed = SPEED_SLOW
 
-SWEP.IronSightsAng = Vector(-1, -1, 0)
-SWEP.IronSightsPos = Vector(-3, 4, 3)
+SWEP.IronSightsPos = Vector(-3, 12, 5)
+
 
 if CHRISTMAS then
 	SWEP.VElements = {

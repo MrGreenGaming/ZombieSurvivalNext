@@ -44,7 +44,7 @@ SWEP.ConeMin = 0.045
 
 SWEP.WalkSpeed = SPEED_SLOW
 
-SWEP.IronSightsPos = Vector(-3, 0, 2)
+SWEP.IronSightsPos = Vector(-3, 16, 3)
 
 function SWEP:GetAuraRange()
 	return 512

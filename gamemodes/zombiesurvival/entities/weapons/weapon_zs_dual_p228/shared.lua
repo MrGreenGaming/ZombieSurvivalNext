@@ -42,7 +42,7 @@ SWEP.DrawAmmo = true
 
 SWEP.ReloadSound = "weapon/p228/p228_clipin.wav"
 
-SWEP.Base = "weapon_zs_base"
+SWEP.Base = "weapon_zs_base_dual"
 if ( CLIENT ) then
 
     SWEP.WepSelectIcon = surface.GetTextureID("vgui/entities/p228")

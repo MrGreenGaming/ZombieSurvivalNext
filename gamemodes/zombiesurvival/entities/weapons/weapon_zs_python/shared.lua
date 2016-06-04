@@ -68,14 +68,6 @@ SWEP.MaxBulletDistance          = 2000
 SWEP.ConeMax = 0.095
 SWEP.ConeMin = 0.04
 
-SWEP.IronSightsPos = Vector(-4.65, 4, 0.25)
+SWEP.IronSightsPos = Vector(-4.65, 12, 3.25)
 SWEP.IronSightsAng = Vector(0, 0, 1)
 
-function SWEP.BulletCallback(attacker, tr, dmginfo)
-	if SERVER and tr.HitWorld and not tr.HitSky then
-		local hitpos, hitnormal, normal, dmg = tr.HitPos, tr.HitNormal, tr.Normal, dmginfo:GetDamage() * 1.5
-		timer.Simple(0, function() DoRicochet(attacker, hitpos, hitnormal, normal, dmg) end)
-	end
-
-	GenericBulletCallback(attacker, tr, dmginfo)
-end

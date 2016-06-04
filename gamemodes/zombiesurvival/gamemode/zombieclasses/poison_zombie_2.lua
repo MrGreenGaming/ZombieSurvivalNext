@@ -1,11 +1,11 @@
-CLASS.Name = " Chared Poison Zombie"
-CLASS.TranslationName = "class_poison_zombie"
+CLASS.Name = "Chared Poison Zombie"
+CLASS.TranslationName = "class_poison_zombie_2"
 CLASS.Description = "description_poison_zombie"
 CLASS.Help = "controls_poison_zombie"
 
 CLASS.Model = Model("models/Zombie/Poison.mdl")
 
-CLASS.Wave = 3 / 3
+CLASS.Wave = 5 / 6
 
 CLASS.Health = 650
 CLASS.Speed = 170

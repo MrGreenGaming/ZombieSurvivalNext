@@ -14,7 +14,7 @@ if CLIENT then
 	SWEP.HUD3DAng = Angle(0, 0, 0)
 	SWEP.HUD3DScale = 0.015
 
-	SWEP.IronSightsPos = Vector(-6.35, 5, 1.7)
+	SWEP.IronSightsPos = Vector(-6.35, 13, 4.7)
 end
 
 SWEP.Base = "weapon_zs_base"

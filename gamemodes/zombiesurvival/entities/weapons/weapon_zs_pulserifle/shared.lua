@@ -68,7 +68,7 @@ SWEP.rechargerate = 0.40
 SWEP.startcharge = 1
 SWEP.MaxClip = 50
 
-SWEP.IronSightsPos = Vector(-3, 4, 1)
+SWEP.IronSightsPos = Vector(-3, 16, 3)
 
 function SWEP:Think()
 	if SERVER then

@@ -40,7 +40,7 @@ SWEP.ConeMin = 0.057
 
 SWEP.WalkSpeed = SPEED_SLOW
 
-SWEP.IronSightsPos = Vector(-3, 3, 2)
+SWEP.IronSightsPos = Vector(-3, 16, 3)
 
 if CHRISTMAS then
 	SWEP.VElements = {

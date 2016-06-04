@@ -99,7 +99,7 @@ function SWEP:BuildingThink()
 		return
 	end
 
-	tr = util.TraceLine({start = endpos, endpos = endpos + Vector(0, 0, -48), mask = MASK_PLAYERSOLID})
+	tr = util.TraceLine({start = endpos, endpos = endpos + Vector(0, 0, -20), mask = MASK_PLAYERSOLID})
 	local hitnormal = tr.HitNormal
 	local z = hitnormal.z
 	if not tr.HitWorld or tr.HitSky or z < 0.75 then
@@ -109,10 +109,10 @@ function SWEP:BuildingThink()
 
 	local hitpos = tr.HitPos
 
-	for x = -20, 20, 20 do
-		for y = -20, 20, 20 do
+	for x = -20, 10, 10 do
+		for y = -20, 10, 10 do
 			local start = endpos + x * right + y * forward
-			tr = util.TraceLine({start = start, endpos = start + Vector(0, 0, -48), mask = MASK_PLAYERSOLID})
+			tr = util.TraceLine({start = start, endpos = start + Vector(0, 0, -20), mask = MASK_PLAYERSOLID})
 			if not tr.HitWorld or tr.HitSky or math.abs(tr.HitNormal.z - z) >= 0.2 then
 				self:SendMessage("not_enough_room_for_a_nest")
 				return

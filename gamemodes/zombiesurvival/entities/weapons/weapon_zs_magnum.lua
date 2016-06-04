@@ -40,7 +40,7 @@ GAMEMODE:SetupDefaultClip(SWEP.Primary)
 SWEP.ConeMax = 0.075
 SWEP.ConeMin = 0.04
 
-SWEP.IronSightsPos = Vector(-4.65, 4, 0.25)
+SWEP.IronSightsPos = Vector(-4.65, 12, 3.25)
 SWEP.IronSightsAng = Vector(0, 0, 1)
 
 local function DoRicochet(attacker, hitpos, hitnormal, normal, damage)

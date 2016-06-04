@@ -16,14 +16,14 @@ CLASS.SWEP = "weapon_zs_hateez"
 
 CLASS.Model = Model("models/player/zombie_classic.mdl")
 
-CLASS.Speed = 170
-CLASS.Points = 30
+CLASS.Speed = 190
+CLASS.Points = 200
 
 CLASS.PainSounds = {"zombies/hate/sawrunner_pain1.wav","zombies/hate/sawrunner_pain2.wav"}
 CLASS.DeathSounds = {"npc/zombie_poison/pz_die1.wav","npc/zombie_poison/pz_die2.wav"}
 
 
-CLASS.ModelScale = 1.5
+CLASS.ModelScale = 1.4
 CLASS.Mass = 200
 
 CLASS.ViewOffset = Vector(0, 0, 84)

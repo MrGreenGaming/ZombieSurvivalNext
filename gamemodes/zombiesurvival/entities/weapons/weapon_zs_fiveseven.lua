@@ -16,7 +16,7 @@ if CLIENT then
 
 	--SWEP.IronSightsPos = Vector(-6.35, 5, 1.7)
 	
-	SWEP.IronSightsPos = Vector(-5.9,17,2.5)
+	SWEP.IronSightsPos = Vector(-9.5, 12, 4.3)
 	SWEP.IronSightsAng = Vector( 0, 0, 0 )
 	
 	--killicon.AddFont("weapon_zs_fiveseven", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))

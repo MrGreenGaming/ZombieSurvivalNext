@@ -48,7 +48,7 @@ SWEP.ConeMin = 0.033
 --SWEP.IronSightsPos = Vector(-5.95, 3, 2.75)
 --SWEP.IronSightsAng = Vector(-0.15, -1, 2)
 
-SWEP.IronSightsPos = Vector(-3, 4, 1)
+SWEP.IronSightsPos = Vector(-3, 14, 4)
 
 SWEP.TracerName = "AR2Tracer"
 

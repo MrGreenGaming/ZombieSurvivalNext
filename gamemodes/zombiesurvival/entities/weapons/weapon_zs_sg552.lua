@@ -58,5 +58,5 @@ SWEP.Secondary.Delay = 0.5
 --SWEP.ConeIronMoving = SWEP.Moving *0.10
 
 
-SWEP.IronSightsPos = Vector( -6, -8.504, 2.599 )
+SWEP.IronSightsPos = Vector(-3, 16, 3)
 SWEP.IronSightsAng = Vector( 0, 2, 0 )

@@ -24,7 +24,7 @@ end
 
 SWEP.Base = "weapon_zs_base"
 
-SWEP.HoldType = "smg"
+SWEP.HoldType = "rifle"
 
 SWEP.ViewModel = "models/weapons/cstrike/c_rif_galil.mdl"
 SWEP.WorldModel = "models/weapons/w_rif_galil.mdl"
@@ -44,15 +44,20 @@ SWEP.Primary.DefaultClip	= 90
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 GAMEMODE:SetupDefaultClip(SWEP.Primary)
+SWEP.Primary.Spread = 0.01
 
 --SWEP.SDPS ()= 5,454
 --(SWEP.Damage x Clipsize / Delay)
 
-SWEP.ConeMax = 0.16
-SWEP.ConeMin = 0.13
+--SWEP.ConeMax = 0.16
+--SWEP.ConeMin = 0.13
+
+
+SWEP.ConeMin = 0.054
+SWEP.ConeMax = SWEP.ConeMin *1.2
 
 SWEP.WalkSpeed = SPEED_SLOWER
 
 
-SWEP.IronSightsPos = Vector(-6.6, 20, 3.1)
+SWEP.IronSightsPos = Vector(-6.6, 20, 4.1)
 

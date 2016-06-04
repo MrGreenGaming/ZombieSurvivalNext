@@ -251,7 +251,8 @@ function SWEP:PreDrawViewModel(vm)
 			AngMod.y = AngMod.y + cos1 * 0.4
 			AngMod.z = AngMod.z + tan
 				
-			PosMod.y = PosMod.y + tan * 0.2
+			--PosMod.y = PosMod.y + tan * 0.2
+			PosMod.y = PosMod.y + tan * 1.3
 		elseif vel > 10 and vel < ws * 1.2 then
 			mod = 6 + ws / 130
 			mul = math.Clamp(vel / ws, 0, 1)
@@ -309,9 +310,9 @@ function SWEP:GetViewModelPosition(pos, ang)
 		RotateAroundAxis(ang, Up(ang), CurAngMod.y + self.AngleDelta.y * 0.3)
 		RotateAroundAxis(ang, Forward(ang), CurAngMod.z + self.AngleDelta.y * 0.3)
 
-		pos = pos + (CurPosMod.x + self.AngleDelta.y * 0.1 - 1) * Right(ang)
+		pos = pos + (CurPosMod.x + self.AngleDelta.y * 0.1 + 2) * Right(ang)
 		pos = pos + (CurPosMod.y + self.BlendPos.y) * Forward(ang)
-		pos = pos + (2 + CurPosMod.z + self.BlendPos.z - self.AngleDelta.p * 0.1) * Up(ang)
+		pos = pos + (CurPosMod.z + self.BlendPos.z - self.AngleDelta.p * 0.1 - 2) * Up(ang) 
 		local Mul = math.Clamp((CurTime() - (self.fIronTime or 0)) * 4, 0, 1)
 	if not bIron then Mul = 1 - Mul end
 
@@ -324,7 +325,7 @@ function SWEP:GetViewModelPosition(pos, ang)
 			ang:RotateAroundAxis(ang:Forward(), self.IronSightsAng.z * Mul)
 		end
 
-		pos = pos + (Offset.x + 1) * Mul * ang:Right() + Offset.y * Mul * ang:Forward() + (Offset.z - 2) * Mul * ang:Up()
+		pos = pos + (Offset.x / 1.2) * Mul * ang:Right() + Offset.y * Mul * ang:Forward() + (Offset.z - 2) * Mul * ang:Up()
 	end
 
 	if self.Owner:GetBarricadeGhosting() then
@@ -334,7 +335,8 @@ function SWEP:GetViewModelPosition(pos, ang)
 	end
 
 	if ghostlerp > 0 then
-		pos = pos + 3.5 * ghostlerp * ang:Up()
+	--	pos = pos + 3.5 * ghostlerp * ang:Up()
+		pos = pos - 3.5 * ghostlerp * ang:Up()
 		ang:RotateAroundAxis(ang:Right(), -30 * ghostlerp)
 	end
 	

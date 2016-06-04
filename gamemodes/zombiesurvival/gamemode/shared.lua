@@ -70,8 +70,8 @@ include("modules/ravebreak/sh_ravebreak.lua")
 
 --Some particles
 game.AddParticles("particles/butt_fart1.pcf")
---game.AddParticles("particles/cig_smoke.pcf")
---game.AddParticles("particles/cig_smoke_dx80.pcf")
+game.AddParticles("particles/cig_smoke.pcf")
+game.AddParticles("particles/cig_smoke_dx80.pcf")
 PrecacheParticleSystem("BUTT_FART2")
 PrecacheParticleSystem("BUTT_FART3")
 ----------------------
@@ -299,8 +299,8 @@ function GM:GetDynamicSpawnsOld(pl)
 	return tab
 end
 
-GM.DynamicSpawnDist = 400
-GM.DynamicSpawnDistBuild = 650
+GM.DynamicSpawnDist = 350
+GM.DynamicSpawnDistBuild = 350
 function GM:DynamicSpawnIsValid(nest, humans, allplayers)
 	if self:ShouldUseAlternateDynamicSpawn() then
 		return self:DynamicSpawnIsValidOld(nest, humans, allplayers)

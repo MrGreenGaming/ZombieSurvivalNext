@@ -1,5 +1,5 @@
 
-SWEP.Base 				= "weapon_zs_base"
+SWEP.Base 				= "weapon_zs_base_dual"
 
 SWEP.ViewModelFOV		= 60
 SWEP.ViewModelFlip		= true

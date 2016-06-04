@@ -8,7 +8,7 @@ SWEP.MeleeDelay = 0.74
 SWEP.MeleeReach = 48
 SWEP.MeleeSize = 1.5
 SWEP.MeleeDamage = 26
-SWEP.MeleeForceScale = 1
+SWEP.MeleeForceScale = 3
 SWEP.MeleeDamageType = DMG_SLASH
 
 SWEP.AlertDelay = 2.5
@@ -173,7 +173,7 @@ function SWEP:MeleeHitEntity(ent, trace, damage, forcescale)
 		if trace.IsPreHit then
 			phys:ApplyForceOffset(damage * 750 * (forcescale or self.MeleeForceScale) * self.Owner:GetAimVector(), (ent:NearestPoint(self.Owner:EyePos()) + ent:GetPos() * 5) / 6)
 		else
-			phys:ApplyForceOffset(damage * 1250 * (forcescale or self.MeleeForceScale) * trace.Normal, (ent:NearestPoint(trace.StartPos) + ent:GetPos() * 2) / 3)
+			phys:ApplyForceOffset(damage * 750 * (forcescale or self.MeleeForceScale) * trace.Normal, (ent:NearestPoint(trace.StartPos) + ent:GetPos() * 2) / 3)
 		end
 
 		ent:SetPhysicsAttacker(self.Owner)

@@ -46,6 +46,7 @@ SWEP.Primary.Recoil = 28
 SWEP.Primary.Damage = 30
 SWEP.Primary.NumShots = 7
 SWEP.Primary.Delay = 1.6
+SWEP.Primary.Spread = 0.5
 
 SWEP.Primary.ClipSize = 4
 SWEP.Primary.DefaultClip = 8

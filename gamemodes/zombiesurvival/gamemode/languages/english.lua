@@ -184,6 +184,7 @@ LANGUAGE.message_beacon_25							= "Plan B here"
 -- Class names
 LANGUAGE.class_zombie								= "Zombie"
 LANGUAGE.class_poison_zombie						= "Poison Zombie"
+LANGUAGE.class_poison_zombie_2						= "Chared Zombie"
 LANGUAGE.class_fast_zombie							= "Fast Zombie"
 LANGUAGE.class_bloated_zombie						= "Bloated Zombie"
 LANGUAGE.class_classic_zombie						= "Classic Zombie"
