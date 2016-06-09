@@ -35,6 +35,12 @@ bananas + microwave = gelbanana
 metal barrel + something = body armor
 --]]
 
+function VCalcXPReq(lvl)
+
+	return math.ceil((lvl * 72 + ((lvl+3) * 1.5)^2))
+
+end
+
 --resource.AddWorkshop("615992520") --Beta V4
 --resource.AddWorkshop("618418410") --Beta V5
 --resource.AddWorkshop("639539065") -- Beta V6
@@ -48,7 +54,8 @@ metal barrel + something = body armor
 --resource.AddWorkshop("686977175") -- Beta V13
 --resource.AddWorkshop("690108276") -- Beta V14
 --resource.AddWorkshop("690146111") -- Beta V15
-resource.AddWorkshop("695456199") -- Beta V19
+--resource.AddWorkshop("695456199") -- Beta V19
+resource.AddWorkshop("700591812") -- Beta V20
 resource.AddWorkshop("650070929") -- Dual Pistols
 
 AddCSLuaFile("cl_init.lua")
@@ -117,6 +124,7 @@ AddCSLuaFile("vgui/zshealtharea.lua")
 include("shared.lua")
 include("sv_options.lua")
 include("server/sv_director_heal_human.lua")
+include("server/sv_director_heal_undead.lua")
 include("sv_crafts.lua")
 include("obj_entity_extend_sv.lua")
 include("obj_player_extend_sv.lua")
@@ -137,6 +145,9 @@ AddCSLuaFile("modules/vote_outcomes/cl_director_vote.lua")
 AddCSLuaFile("modules/admin_mod/sv_pmapmanager.lua")
 AddCSLuaFile("modules/admin_mod/cl_admin.lua")
 AddCSLuaFile("modules/map_vote/cl_votemap.lua")
+AddCSLuaFile("modules/leveling/vloms/cl/cl_init.lua")
+AddCSLuaFile("modules/leveling/vloms/cl/include.lua")
+AddCSLuaFile("modules/leveling/vloms/config.lua")
 
 --Christmas
 if CHRISTMAS then
@@ -158,6 +169,23 @@ include("modules/admin_mod/admin_commands.lua")
 include("modules/admin_mod/sv_admin.lua")
 include("modules/admin_mod/sv_duby.lua")
 
+--Achievements
+--include("modules/achievements/sv_achievements.lua")
+
+--Leveling
+
+
+--include('modules/leveling/vloms/core/sv_init.lua')
+--include('modules/leveling/vloms/cl/cl_init.lua')
+--include('modules/leveling/vloms/cl/include.lua')
+
+if SERVER then
+--	include('modules/leveling/vloms/core/sv_init.lua')
+end
+
+if CLIENT then	
+--	include('modules/leveling/vloms/cl/cl_init.lua')
+end
 
 --Map Manager (W.I.P)
 include("modules/admin_mod/sv_pmapmanager.lua")
@@ -806,8 +834,8 @@ function GM:CreateZombieGas()
 			end
 
 			if not near then
-			--	local ent = ents.Create("zombiegasses")
-				local ent = ents.Create("zs_poisongasses")
+				local ent = ents.Create("zombiegasses")
+			--	local ent = ents.Create("zs_poisongasses")
 				if ent:IsValid() then
 					ent:SetPos(spawnpos)
 					ent:Spawn()

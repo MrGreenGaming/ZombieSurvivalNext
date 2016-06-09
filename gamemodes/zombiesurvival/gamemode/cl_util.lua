@@ -62,7 +62,3 @@ function EasyButton(parent, text, xpadding, ypadding)
 
 	return dpanel
 end
-
-hook.Add("PreDrawHalos", "DrawHalo", function()
-	halo.Add(ents.FindByClass("prop_arsenalcrate"), Color( 0, 255, 0 ), 0, 0, 50, true, true)
-end)

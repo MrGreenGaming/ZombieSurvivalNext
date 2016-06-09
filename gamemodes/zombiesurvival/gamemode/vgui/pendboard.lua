@@ -29,36 +29,27 @@ function MakepEndBoard(winner)
 	frame:SetWide(wid)
 	frame:SetKeyboardInputEnabled()
 	frame:SetDeleteOnClose(false)
-	--frame:SetCursor("pointer")
 	frame:ShowCloseButton( false )
 	frame:SetTitle(" ")
-
-	--frame:SetBackgroundBlur( true ) 
-	--frame.Paint = function( self, w, h ) 
-			--draw.RoundedBox( 0, 0, 0, w, h, Color( 1, 0, 0, 1 ) )
-		--end
 		
 	pEndBoard = frame
 
 	local y = 8
 
 	local heading
+	local subheading
 	if localwin then
 		surface.PlaySound("beams/beamstart5.wav")
 		heading = EasyLabel(frame, "Your Squad Has Survived", "ZSHUDFont", COLOR_DARKRED)
+		subheading = EasyLabel(frame, "The humans have survived for now", "ZSHUDFontSmall", COLOR_WHITE)
 	else
 		surface.PlaySound("ambient/levels/citadel/strange_talk"..math.random(3, 11)..".wav")
 		heading = EasyLabel(frame, "Your Squad Has Been Wiped Out", "ZSHUDFont", COLOR_RED)
+		subheading = EasyLabel(frame, "The undead army grows stronger", "ZSHUDFontSmall", COLOR_WHITE)
 	end
 	heading:SetPos(wid * 0.5 - heading:GetWide() * 0.5, y)
 	y = y + heading:GetTall() + 4
 
-	local subheading
-	if localwin then
-		subheading = EasyLabel(frame, "The humans have survived for now", "ZSHUDFontSmall", COLOR_WHITE)
-	else
-		subheading = EasyLabel(frame, "The undead army grows stronger", "ZSHUDFontSmall", COLOR_WHITE)
-	end
 	subheading:SetPos(wid * 0.5 - subheading:GetWide() * 0.5, y)
 	y = y + subheading:GetTall() + 8
 

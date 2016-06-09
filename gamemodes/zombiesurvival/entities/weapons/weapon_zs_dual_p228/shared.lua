@@ -40,7 +40,7 @@ SWEP.DrawCrosshair = false
 
 SWEP.DrawAmmo = true
 
-SWEP.ReloadSound = "weapon/p228/p228_clipin.wav"
+SWEP.ReloadSound = "weapons/deagle/deagle_reload_1.wav"
 
 SWEP.Base = "weapon_zs_base_dual"
 if ( CLIENT ) then

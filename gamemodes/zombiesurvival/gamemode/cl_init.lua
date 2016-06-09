@@ -9,6 +9,14 @@ function CreateClientConVar(...)
 	return oldCreateClientConVar(...) or dummy
 end
 
+function VCalcXPReq(lvl)
+
+	return math.ceil((lvl * 72 + ((lvl+3) * 1.5)^2))
+
+end
+
+ 
+
 include("shared.lua")
 include("cl_draw.lua")
 include("cl_util.lua")
@@ -75,6 +83,17 @@ include("modules/weightspeed/sh_weightspeed.lua")
 --Bone Lib
 include("modules/boneanimlib_v2/cl_boneanimlib.lua")
 
+--Leveling
+--include('modules/leveling/vloms/cl/cl_init.lua')
+--include('modules/leveling/vloms/cl/include.lua')
+
+if SERVER then
+--	include('modules/leveling/vloms/core/sv_init.lua')
+end
+
+if CLIENT then
+--	include('modules/leveling/vloms/cl/cl_init.lua')
+end
 
 --Admin Mod
 include("modules/admin_mod/cl_admin.lua")
@@ -758,6 +777,10 @@ function GM:HumanHUD2(screenscale)
 	draw.RoundedBox( 2, w * 0.01, h * 0.89, w * 0.17, h * 0.09, Color(1, 1, 1, 100) )	
 	draw.RoundedBox( 2, w * 0.01, h * 0.83, w * 0.06, h * 0.05, Color(1, 1, 1, 100) )
 
+	draw.RoundedBox( 2, w * 0.12, h * 0.83, w * 0.06, h * 0.05, Color(1, 1, 1, 100) ) --Debug, remove after
+	
+	draw.RoundedBox( 2, w * 0.075, h * 0.83, w * 0.04, h * 0.05, Color(1, 1, 1, 100) ) --Debug, remove after
+ 
 	local pl = LocalPlayer()
 	local SCREEN_W = 1920; 
 	local SCREEN_H = 1080;
@@ -827,18 +850,54 @@ function GM:HumanHUD2(screenscale)
 		end
 	end
 	
-		if IsValid(MySelf.MiniTurret) or IsValid(MySelf.Turret) then --Mini Turret Code
+	if IsValid(MySelf.MiniTurret) or IsValid(MySelf.Turret) then --Mini Turret Code
 		local tur = MySelf.MiniTurret or MySelf.Turret
 		
 		if not tur then
 			return
 		end
-
-		draw.RoundedBox( 2, w * 0.12, h * 0.83, w * 0.06, h * 0.05, Color(1, 1, 1, 100) )	
 		
 		draw.SimpleTextOutlined(tur:GetAmmo().."/"..tur:GetMaxAmmo(), "ZSHUDFontSmall", 330 * X_MULTIPLIER, 925 * Y_MULTIPLIER, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+	else
+		draw.SimpleTextOutlined("N/A", "ZSHUDFontSmall", 305 * X_MULTIPLIER, 925 * Y_MULTIPLIER, COLOR_GREY, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
+	
+	
+	 if ( pl:GetModel() == "models/player/group03/male_02.mdl") then 
+		surface.SetDrawColor( 190, 190, 190, 255 ) 
+		surface.SetMaterial( Material( "hud/classes/UI_PerkIcon_SWAT.png" ) )	
+		surface.DrawTexturedRect(163 * X_MULTIPLIER, 905 * Y_MULTIPLIER, 40, 40 ) 
+		
+	 elseif ( pl:GetModel() == "models/player/combine_soldier_prisonguard.mdl") then
+	 	surface.SetDrawColor( 190, 190, 190, 255 ) 
+		surface.SetMaterial( Material( "hud/classes/UI_PerkIcon_Gunslinger.png" ) )	
+		surface.DrawTexturedRect(163 * X_MULTIPLIER, 905 * Y_MULTIPLIER, 40, 40 ) 
 
+	 elseif ( pl:GetModel() == "models/player/kleiner.mdl") then
+	 
+		draw.SimpleTextOutlined("E", "ZSHUDFontSmall", 190 * X_MULTIPLIER, 925 * Y_MULTIPLIER, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		surface.SetDrawColor( 190, 190, 190, 255 ) 
+		surface.SetMaterial( Material( "hud/classes/UI_PerkIcon_Demolition.png" ) )	
+		surface.DrawTexturedRect(163 * X_MULTIPLIER, 905 * Y_MULTIPLIER, 40, 40 ) 
+		
+	 elseif ( pl:GetModel() == "models/player/riot.mdl") then
+		surface.SetDrawColor( 190, 190, 190, 255 ) 
+		surface.SetMaterial( Material( "hud/classes/UI_PerkIcon_Berserker.png" ) )
+		surface.DrawTexturedRect(163 * X_MULTIPLIER, 905 * Y_MULTIPLIER, 40, 40 ) 
+		
+	 elseif ( pl:GetModel() == "models/player/guerilla.mdl") then
+		surface.SetDrawColor( 190, 190, 190, 255 ) 
+		surface.SetMaterial( Material( "hud/classes/UI_PerkIcon_Support.png" ) )
+		surface.DrawTexturedRect(163 * X_MULTIPLIER, 905 * Y_MULTIPLIER, 40, 40 ) 	 
+
+	 elseif ( pl:GetModel() == "models/player/gordon_classic.mdl") then
+		surface.SetDrawColor( 190, 190, 190, 255 ) 
+		surface.SetMaterial( Material( "hud/classes/Boxing_gloves_icon.png" ) )
+		surface.DrawTexturedRect(163 * X_MULTIPLIER, 905 * Y_MULTIPLIER, 35, 40 ) 	 
+	else 
+		return
+	 end
+	
 end
 
 function GM:ZombieHUD2(screenscale)

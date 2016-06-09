@@ -191,10 +191,8 @@ GM:CLASS("medic", "MEDIC", " Loadout items: \n\n Medkical Kit \n Plank \n Five S
 
 function(pl) pl:SetModel( table.Random( {
 	"models/player/group03/male_02.mdl",
-	"models/player/group03/Male_04.mdl",
-	"models/player/group03/male_06.mdl",
-	"models/player/group03/male_07.mdl"
 } ) ) 
+
 
 
 if table.HasValue(allowedSteamIDs, pl:SteamID()) then
@@ -222,7 +220,6 @@ end, "models/healthvial.mdl")
 GM:CLASS("commando", "COMMANDO", " Loadout items: \n\n Dual P228 Pistols \n Swiss Knife \n Grenades \n\n\n\n Class Stats: \n\n 10% speed reduction \n 2 extra grenades \n 30% chance to spawn with rifle \n 5% increased crouching accuracy \n Poison resistance", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
-	"models/player/combine_soldier.mdl",
 	"models/player/combine_soldier_prisonguard.mdl",
 } ) ) 
 
@@ -252,7 +249,6 @@ end, "models/healthvial.mdl")
 GM:CLASS("engineer", "ENGINEER", " Loadout items: \n\n Pulse Pistol \n Frying Pan \n Mines \n\n\n\n Class Stats: \n\n 30% chance to spawn with Turret \n 30% chance to spawn with AegisKit \n 20% speed reduction", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
-	"models/player/mossman.mdl",
 	"models/player/kleiner.mdl",
 } ) )
 --Aegis Kit, Turret,
@@ -280,8 +276,7 @@ GM:CLASS("berserker", "BERSERKER", " Loadout items: \n\n P228 \n Mobile Supplies
 
 function(pl) 
 pl:SetModel( table.Random( {
-	"",
-	"",
+	"models/player/riot.mdl",
 }))
 
 if math.random(1,4) == 1  then --Gordan freeman!
@@ -323,8 +318,7 @@ end, "models/healthvial.mdl")
 GM:CLASS("support", "SUPPORT", " Loadout items: \n\n Hammer \n Supply Crate \n USP  \n\n\n\n Class Stats: \n\n 10% speed reduction \n 10% HP reduction \n 30% chance extra Ammo \n Can Lift Heavy Items", ITEMCAT_CLASS, 100, nil, 
 
 function(pl) pl:SetModel( table.Random( {
-	"models/player/gasmask.mdl",
-	"models/player/riot.mdl",
+	"models/player/guerilla.mdl",
 } ) ) 
 
 

@@ -7,6 +7,12 @@ ENT.Dinged = true
 
 function ENT:Initialize()
 	self:SetRenderBounds(Vector(-72, -72, -72), Vector(72, 72, 128))
+	
+	local entities = ents.FindByClass("prop_resupplybox")
+	
+	hook.Add("PreDrawHalos", "DrawHalo", function()
+		halo.Add(entities, Color( 0, 255, 0 ), 0, 0, 0.5, true, true)
+	end)
 end
 
 function ENT:SetObjectHealth(health)
@@ -72,28 +78,28 @@ function ENT:RenderInfo(pos, ang, owner)
 		local owner = self:GetObjectOwner()
 		local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
 		
-				--Duby: Work on this soon!
+		--Duby: Work on this soon!
 		
 		if GAMEMODE:GetWave() <= 0 then
-				draw.SimpleTextOutlined( "Round Hasn't Started!", "ZSHUDFontSmalldebug", 0, 30, COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+				draw.SimpleTextOutlined( "Round Hasn't Started!", "ZSHUDFontTinySpecial", 0, 30, COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			--end	
 		elseif validOwner then
 			if NextUse <= CurTime() then
-				draw.SimpleTextOutlined( "Press E For Ammo", "ZSHUDFontSmalldebug", 0, 30, NextUse <= CurTime() and COLOR_GREEN or COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+				draw.SimpleTextOutlined( "Press E For Ammo", "ZSHUDFontTinySpecial", 0, 30, NextUse <= CurTime() and COLOR_GREEN or COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			--end
 		end
 		
 		end
 	
 		if validOwner then
-			draw.SimpleTextOutlined( owner:Name() .."'s Mobile Supplies", "ZSHUDFontSmalldebug", 0, 0, NextUse <= CurTime() and COLOR_GREEN or COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined( owner:Name() .."'s Mobile Supplies", "ZSHUDFontTinySpecial", 0, 0, NextUse <= CurTime() and COLOR_GREEN or COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 		else
-			draw.SimpleTextOutlined( "Unclaimed Mobile Supplies", "ZSHUDFontSmalldebug", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined( "Unclaimed Mobile Supplies", "ZSHUDFontTinySpecial", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 		end
 		
 		if validOwner then
 			if NextUse >= CurTime() then
-				draw.SimpleTextOutlined(util.ToMinutesSeconds(math.max(0, NextUse - CurTime() )) , "ZSHUDFontSmalldebug", 0, 30, COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+				draw.SimpleTextOutlined(util.ToMinutesSeconds(math.max(0, NextUse - CurTime() )) , "ZSHUDFontTinySpecial", 0, 30, COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			end
 		end		
 

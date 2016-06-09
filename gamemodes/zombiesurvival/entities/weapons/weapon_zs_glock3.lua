@@ -22,9 +22,9 @@ SWEP.WorldModel = "models/weapons/w_pist_glock18.mdl"
 SWEP.UseHands = true
 
 SWEP.Primary.Sound = Sound("Weapon_Glock.Single")
-SWEP.Primary.Damage = 22
+SWEP.Primary.Damage = 18
 SWEP.Primary.NumShots = 3
-SWEP.Primary.Delay = 0.31
+SWEP.Primary.Delay = 0.35
 
 --SWEP.SDPS ()= 1,490
 --(SWEP.Damage x Clipsize / Delay)

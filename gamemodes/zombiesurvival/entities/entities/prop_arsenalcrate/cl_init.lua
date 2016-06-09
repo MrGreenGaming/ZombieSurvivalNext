@@ -3,10 +3,18 @@ include("shared.lua")
 function ENT:Initialize()
 	self:SetRenderBounds(Vector(-72, -72, -72), Vector(72, 72, 128))
 	
+	local entities = ents.FindByClass("prop_arsenalcrate")
+	
+		hook.Add("PreDrawHalos", "DrawHalo", function()
+			halo.Add(entities, Color( 0, 255, 0 ), 0, 0, 0.5, true, true)
+		end)
+
 end
 
 function ENT:OnRemove()
-
+	hook.Remove("PreDrawHalos", "DrawHalo", function()
+		halo.Add(ents.FindByClass("prop_arsenalcrate"), Color( 0, 255, 0 ), 0, 0, 1, true, true)
+	end)
 end
 
 function ENT:SetObjectHealth(health)
@@ -49,11 +57,11 @@ function ENT:Draw()
 			draw.SimpleTextOutlined( "Round Hasn't Started!", "ZSHUDFontTinySpecial", 0, 30, COLOR_DARKRED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 		else
 			self.LineColor = Color(210, 0, 0, 100)
-			draw.SimpleTextOutlined( "Supplies*Available", "ZSHUDFontTinySpecial", 0, 30, COLOR_GREEN, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))		
+			draw.SimpleTextOutlined( "Supplies Available", "ZSHUDFontTinySpecial", 0, 30, COLOR_GREEN, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))		
 		end	
 	
 		if validOwner then
-			draw.SimpleTextOutlined( owner:Name() .."'s*Supplies", "ZSHUDFontTinySpecial", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined( owner:Name() .."'s Supplies", "ZSHUDFontTinySpecial", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 		else
 			draw.SimpleTextOutlined( "Supplies", "ZSHUDFontTinySpecial", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 		end

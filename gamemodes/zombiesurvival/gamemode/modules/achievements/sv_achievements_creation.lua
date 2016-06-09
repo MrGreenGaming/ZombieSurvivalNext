@@ -56,6 +56,32 @@ Achievements.Add("1000_deaths", "Holy crap. You're shit.", "Die 1000 times.", fu
 
 end)
 
+Achievements.Add("11_kills", "Private 2 ^", "Get 50 kills.", function(ply)
+
+	local kills = ply:GetPData("kills") or 0
+	local check = Achievements.CheckAchievement(ply, "11_kills")
+
+	if tonumber(check) == 0 and tonumber(kills) >= 11 then
+		Achievements.SetAchievement(ply, "11_kills", 1)
+		Achievements.MessageLocal(ply, "Achievement unlocked: test")
+		Achievements.MessageGlobal(ply, ply:Name() .. " unlocked: test")
+	end
+
+end)
+
+Achievements.Add("25_kills", "Private 2 ^", "Get 50 kills.", function(ply)
+
+	local kills = ply:GetPData("kills") or 0
+	local check = Achievements.CheckAchievement(ply, "25_kills")
+
+	if tonumber(check) == 0 and tonumber(kills) >= 25 then
+		Achievements.SetAchievement(ply, "25_kills", 1)
+		Achievements.MessageLocal(ply, "Achievement unlocked: Rank Private 2")
+		Achievements.MessageGlobal(ply, ply:Name() .. " unlocked: Rank Private 2")
+	end
+
+end)
+
 Achievements.Add("50_kills", "Sargent", "Get 50 kills.", function(ply)
 
 	local kills = ply:GetPData("kills") or 0
@@ -118,6 +144,14 @@ hook.Add("DoPlayerDeath", "Achievement_PlayerDeath", function(victim, attacker, 
 			-- Achievement: Holy crap. You're shit.
 			if achievement.name == "1000_deaths" then
 				achievement.callback(victim)
+			end
+			-- Achievement: I bet they were all no-scopes.
+			if achievement.name == "11_kills" then
+				achievement.callback(attacker)
+			end
+			-- Achievement: I bet they were all no-scopes.
+			if achievement.name == "25_kills" then
+				achievement.callback(attacker)
 			end
 			-- Achievement: I bet they were all no-scopes.
 			if achievement.name == "50_kills" then
