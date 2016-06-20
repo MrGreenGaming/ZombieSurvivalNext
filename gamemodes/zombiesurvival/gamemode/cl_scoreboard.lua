@@ -249,7 +249,6 @@ function PANEL:Init()
 	self.m_PingMeter:SetSize(20, 20)
 	self.m_PingMeter.PingBars = 5
 	
-
 	self.m_Mute = vgui.Create("DImageButton", self)
 	self.m_Mute.DoClick = MuteDoClick
 end
@@ -280,6 +279,41 @@ function PANEL:Paint()
 	colTemp.b = col.b * mul
 	draw.RoundedBox(1, 0, 0, self:GetWide(), self:GetTall(), colTemp)
 
+if pl:Team() == TEAM_HUMAN then
+	local wid, hei = self:GetWide(), self:GetTall()
+	if ( pl:GetModel() == "models/player/group03/male_02.mdl") then 
+		surface.SetDrawColor( 190, 190, 190, 255 ) 
+		surface.SetMaterial( Material( "hud/classes/UI_PerkIcon_SWAT.png" ) )	
+		surface.DrawTexturedRect(wid * 0.75, 9, 40, 40 ) 
+		
+	 elseif ( pl:GetModel() == "models/player/combine_soldier_prisonguard.mdl") then
+	 	surface.SetDrawColor( 190, 190, 190, 255 ) 
+		surface.SetMaterial( Material( "hud/classes/UI_PerkIcon_Gunslinger.png" ) )	
+		surface.DrawTexturedRect(wid * 0.75, 9, 40, 40 )
+
+	 elseif ( pl:GetModel() == "models/player/kleiner.mdl") then
+	 	surface.SetDrawColor( 190, 190, 190, 255 ) 
+		surface.SetMaterial( Material( "hud/classes/UI_PerkIcon_Demolition.png" ) )	
+		surface.DrawTexturedRect(wid * 0.75, 9, 40, 40 )
+		
+	 elseif ( pl:GetModel() == "models/player/riot.mdl") then
+		surface.SetDrawColor( 190, 190, 190, 255 ) 
+		surface.SetMaterial( Material( "hud/classes/UI_PerkIcon_Berserker.png" ) )
+		surface.DrawTexturedRect(wid * 0.75, 9, 40, 40 )
+		
+	 elseif ( pl:GetModel() == "models/player/guerilla.mdl") then
+		surface.SetDrawColor( 190, 190, 190, 255 ) 
+		surface.SetMaterial( Material( "hud/classes/UI_PerkIcon_Support.png" ) )
+		surface.DrawTexturedRect(wid * 0.75, 9, 40, 40 ) 	 
+
+	 elseif ( pl:GetModel() == "models/player/gordon_classic.mdl") then
+		surface.SetDrawColor( 190, 190, 190, 255 ) 
+		surface.SetMaterial( Material( "hud/classes/Boxing_gloves_icon.png" ) )
+		surface.DrawTexturedRect(wid * 0.75, 9, 40, 40 )	 
+	else 
+		return
+	 end
+end
 	return true
 end
 
@@ -341,20 +375,6 @@ function PANEL:Refresh()
 	end
 	self.m_PlayerLabel:SetText(name)
 	self.m_ScoreLabel:SetText(pl:Frags())
-	
-	--[[if pl:Team() == TEAM_UNDEAD then
-		self.m_ScoreLabel:SetText("Brains: "..pl:Frags())
-	end
-	
-	if pl:Team() == TEAM_HUMAN then
-		self.m_ScoreLabel:SetText("SP:  "..pl:Frags())
-	end]]--
-	--[[if pl:Team() == TEAM_UNDEAD and pl:GetZombieClassTable().Icon then
-		self.m_ClassImage:SetVisible(true)
-		self.m_ClassImage:SetImage(pl:GetZombieClassTable().Icon)
-	else
-		self.m_ClassImage:SetVisible(false)
-	end]]--
 
 	if pl == LocalPlayer() then
 		self.m_Mute:SetVisible(false)

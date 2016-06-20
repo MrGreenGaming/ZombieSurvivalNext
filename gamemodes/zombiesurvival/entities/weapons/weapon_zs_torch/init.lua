@@ -13,12 +13,20 @@ function SWEP:Think()  --Test this function as it should stop the world attack a
     end
 end
 
+util.PrecacheSound( "ambient/energy/spark1.wav" ) 
+util.PrecacheSound( "ambient/energy/spark2.wav" ) 
+util.PrecacheSound( "ambient/energy/spark3.wav" ) 
+util.PrecacheSound( "ambient/energy/spark4.wav" ) 
+util.PrecacheSound( "ambient/energy/spark5.wav" ) 
+util.PrecacheSound( "ambient/energy/spark6.wav" ) 
+
 function SWEP:Reload()
+	self.Owner:LagCompensation(true)
 	self:SendWeaponAnim(ACT_VM_IDLE)
 	if CurTime() < self:GetNextPrimaryFire() then return end
 
     self.IdleAnimation = nil --Test these here if the 'think' function doesnt work.
-    self:SendWeaponAnim(ACT_VM_IDLE)
+
 
 	local owner = self.Owner
 	if owner:GetBarricadeGhosting() then return end
@@ -47,11 +55,10 @@ function SWEP:Reload()
 
 	self:SetNextPrimaryFire(CurTime() + 1)
 
-	ent.m_PryingOut = true -- Prevents infinite loops
+	ent.m_PryingOut = false -- Prevents infinite loops
 
 
 	self.Owner:SetAnimation(ACT_INVALID)
-	self:SendWeaponAnim(ACT_VM_IDLE)
 
 	owner:EmitSound("ambient/energy/spark"..math.random(1,6)..".wav",math.random(86,110),math.random(86,110))
 
@@ -63,24 +70,20 @@ function SWEP:Reload()
 			owner:ReflectDamage(20)
 		end
 
-		if nailowner:NearestPoint(tr.HitPos):Distance(tr.HitPos) <= 768 and (nailowner:HasWeapon("weapon_zs_hammer") or nailowner:HasWeapon("weapon_zs_electrohammer")) then
-			nailowner:GiveAmmo(1, self.Primary.Ammo)
-		else
-			owner:GiveAmmo(1, self.Primary.Ammo)
-		end
-	else
 		owner:GiveAmmo(1, self.Primary.Ammo)
 	end
+		self.Owner:LagCompensation(false)
 end
 
--- make everything easy
-local function ApproachAngle(ang,to,time)
+-- make everything easy --Duby: work on this later!
+--[[local function ApproachAngle(ang,to,time)
 	ang.p = math.Approach(ang.p, to.p, time)
 	ang.y = math.Approach(ang.y, to.y, time)
 	ang.r = math.Approach(ang.r, to.r, time)
-end
+end]]--
 
 function SWEP:OnMeleeHit(hitent, hitflesh, tr)
+	self.Owner:LagCompensation(true)
 	self:SendWeaponAnim(ACT_VM_IDLE)
 	if hitent:IsValid() then
 		if hitent.HitByHammer and hitent:HitByHammer(self, self.Owner, tr) then
@@ -88,11 +91,9 @@ function SWEP:OnMeleeHit(hitent, hitflesh, tr)
 		end
 
 		if hitent:IsNailed() then
-			if CLIENT then
+			--[[if CLIENT then
 				ApproachAngle(self.ViewModelBoneMods["ValveBiped.Bip01_R_Clavicle"].angle,self.AppTo,FrameTime()*33)
-			end	
-			
-			self:SendWeaponAnim(ACT_VM_IDLE)
+			end	]]--
 			
 			local healstrength = GAMEMODE.NailHealthPerRepair * (self.Owner.HumanRepairMultiplier or 1) * self.HealStrength
 			local oldhealth = hitent:GetBarricadeHealth()
@@ -117,10 +118,12 @@ function SWEP:OnMeleeHit(hitent, hitflesh, tr)
 					eff2:SetScale(math.Rand(0.9,1.2))
 					eff2:SetMagnitude(math.random(10,40))
 					util.Effect("StunstickImpact", eff2, true, true)
+		
 					
 			return true
 		end
 	end
+		self.Owner:LagCompensation(false)
 end
 
 function SWEP:SecondaryAttack()

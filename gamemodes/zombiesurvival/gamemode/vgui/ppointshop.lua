@@ -4,7 +4,7 @@ local function pointslabelThink(self)
 		self.m_LastPoints = points
 
 		--self:SetText("SP:  "..points)
-		self:SetText("Current amount of skillPoints:  "..points)
+		self:SetText("SkillPoints:  "..points)
 		self:SizeToContents()
 	end
 end
@@ -139,18 +139,18 @@ function GM:OpenPointsShop()
 		draw.RoundedBox( 0, 0, 0, w, h, Color( 1, 0, 0, 300 ) ) 
 	end
 
-	local title = EasyLabel(topspace, "SkillPoint Shop", "ZSHUDFontSmall", COLOR_WHITE)
+	local title = EasyLabel(topspace, "", "ZSHUDFontSmall", COLOR_WHITE)
 	title:CenterHorizontal()
-	title.Paint = function( self, w, h ) 
-		draw.RoundedBox( 0, 0, 0, w, h, Color( 1, 0, 0, 150 ) )
+	title.Paint = function( self, w, h  ) 
+		draw.RoundedBox( 0, 0, 0, w, h * 1.2, Color( 1, 0, 0, 150 ) )
 	end
 	
-	local subtitle2 = EasyLabel(topspace, translate.Format("x_discount_for_buying_between_waves", self.ArsenalCrateDiscountPercentage), "ZSHUDFontTiny", COLOR_WHITE)
+	local subtitle2 = EasyLabel(topspace, "SkillPoint Shop", "ZSHUDFontSmall", COLOR_WHITE)
 	subtitle2:CenterHorizontal()
-	subtitle2:MoveBelow(title, 8)
+	subtitle2:MoveBelow(title, 4)
 	subtitle2.Paint = function( self, w, h )
-		draw.RoundedBox( 0, 0, 0, w, h, Color( 1, 0, 0, 150 ) ) 
-	end
+		draw.RoundedBox( 0, 0, 0, w, h * 1.2, Color( 1, 0, 0, 150 ) ) 
+	end	
 	
 	local _, y = subtitle2:GetPos()
 	topspace:SetTall(y + subtitle2:GetTall() + 4)
@@ -162,10 +162,11 @@ function GM:OpenPointsShop()
 	bottomspace.Paint = function( self, w, h )
 		draw.RoundedBox( 0, 0, 0, w, h * 1.2, Color( 1, 0, 0, 300 ) ) 
 	end
+	
 
 
-	local pointslabel = EasyLabel(bottomspace, "Current amount of SkillPoints: 0", "ZSHUDFontSmall", COLOR_WHITE)
-	pointslabel:AlignTop(4)
+	local pointslabel = EasyLabel(bottomspace, "SkillPoints: 0", "ZSHUDFontSmall", COLOR_WHITE)
+	pointslabel:AlignTop(19)
 	pointslabel:AlignLeft(8)
 	pointslabel.Think = pointslabelThink
 	
@@ -173,17 +174,12 @@ function GM:OpenPointsShop()
 	Button:SetText( "Close" )
 	Button:SetFont( "ZSHUDFontSmall" )
 	Button:SetTextColor( Color( 255, 255, 255 ) )
-	Button:AlignTop(4)
+	Button:AlignTop(19)
 	Button:AlignRight(60)
-	--Button:SetPos( 100, 100 )
 	Button:SetSize( 100, 40 )
 	Button.DoClick = function(Button)
 		GAMEMODE.m_PointsShop:Close()
 	end
---	Button.Paint = function( self, w, h )
-	--	draw.RoundedBox( 0, 0, 0, w, h, COLOR_DARKRED ) -- Draw a blue button
---	end
-
 	
 	local lab = EasyLabel(bottomspace, " ", "ZSHUDFontTiny")
 	lab:AlignTop(4)
@@ -191,7 +187,8 @@ function GM:OpenPointsShop()
 	frame.m_DiscountLabel = lab
 
 	local _, y = lab:GetPos()
-	bottomspace:SetTall(y + lab:GetTall() + 25)
+	--bottomspace:SetTall(y + lab:GetTall() + 25)
+	bottomspace:SetTall(y + lab:GetTall() + 50)
 	bottomspace:AlignBottom(10)
 	bottomspace:CenterHorizontal()
 
@@ -268,15 +265,74 @@ function GM:OpenPointsShop()
 						local ammotype = weptab.Primary.Ammo
 						if ammonames[ammotype] then
 						
-							local ammobutton = vgui.Create("DButton", itempan)
+							--[[local ammobutton = vgui.Create("DButton", itempan)
 							ammobutton:SetText("AMMO!")
 							ammobutton:SizeToContents()
 							ammobutton:CopyPos(button)
 							ammobutton:MoveLeftOf(button, 42)
 							ammobutton:SetTooltip("Purchase ammunition")
 							ammobutton.AmmoType = ammonames[ammotype]
-							ammobutton.DoClick = BuyAmmoDoClick
+							ammobutton.DoClick = BuyAmmoDoClick]]--
 							
+							local Button = vgui.Create( "DButton", bottomspace )
+							Button:SetText( "Pistol" )
+							Button:SetFont( "ZSHUDFontSmallest" )
+							Button:SetTextColor( Color( 255, 255, 255 ) )
+							Button:AlignTop(4)
+							Button:AlignRight(180)
+							Button:SetSize( 100, 30 )
+							Button.AmmoType = ammonames["pistol"]
+							Button.DoClick = BuyAmmoDoClick
+
+							local Button2 = vgui.Create( "DButton", bottomspace )
+							Button2:SetText( "Rifle" )
+							Button2:SetFont( "ZSHUDFontSmallest" )
+							Button2:SetTextColor( Color( 255, 255, 255 ) )
+							Button2:AlignTop(4)
+							Button2:AlignRight(280)
+							Button2:SetSize( 100, 30 )
+							Button2.AmmoType = ammonames["ar2"]
+							Button2.DoClick = BuyAmmoDoClick
+
+							local Button4 = vgui.Create( "DButton", bottomspace )
+							Button4:SetText( "SMG" )
+							Button4:SetFont( "ZSHUDFontSmallest" )
+							Button4:SetTextColor( Color( 255, 255, 255 ) )
+							Button4:AlignTop(4)
+							Button4:AlignRight(380)
+							Button4:SetSize( 100, 30 )
+							Button4.AmmoType = ammonames["smg1"]
+							Button4.DoClick = BuyAmmoDoClick	
+							
+							local Button5 = vgui.Create( "DButton", bottomspace )
+							Button5:SetText( "357" )
+							Button5:SetFont( "ZSHUDFontSmallest" )
+							Button5:SetTextColor( Color( 255, 255, 255 ) )
+							Button5:AlignTop(38)
+							Button5:AlignRight(180)
+							Button5:SetSize( 100, 30 )
+							Button5.AmmoType = ammonames["357"]
+							Button5.DoClick = BuyAmmoDoClick	
+							
+							local Button6 = vgui.Create( "DButton", bottomspace )
+							Button6:SetText( "XBowBolt" )
+							Button6:SetFont( "ZSHUDFontSmallest" )
+							Button6:SetTextColor( Color( 255, 255, 255 ) )
+							Button6:AlignTop(38)
+							Button6:AlignRight(280)
+							Button6:SetSize( 100, 30 )
+							Button6.AmmoType = ammonames["xbowbolt"]
+							Button6.DoClick = BuyAmmoDoClick	
+							
+							local Button7 = vgui.Create( "DButton", bottomspace )
+							Button7:SetText( "BuckShot" )
+							Button7:SetFont( "ZSHUDFontSmallest" )
+							Button7:SetTextColor( Color( 255, 255, 255 ) )
+							Button7:AlignTop(38)
+							Button7:AlignRight(380)
+							Button7:SetSize( 100, 30 )
+							Button7.AmmoType = ammonames["buskshot"]
+							Button7.DoClick = BuyAmmoDoClick	
 						end
 					end			
 
@@ -294,7 +350,8 @@ function GM:OpenPointsShop()
 				end
 			end
 		end
-	end
+	end		
+	
 
 	frame:MakePopup()
 	frame:CenterMouse()
